@@ -1,0 +1,401 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Checkbox",
+  "summary": "Interactive checkbox component for multi-selection scenarios with support for conditional reveal content",
+
+  "customElement": {
+    "tagName": "goa-checkbox",
+    "className": "goa-checkbox"
+  },
+
+  "playgroundExamples": {
+    "react": [
+      {
+        "title": "Basic Checkbox Usage",
+        "description": "Fundamental checkbox patterns including single option and basic lists",
+        "interactiveProps": [
+          { "name": "checked", "type": "boolean", "default": false },
+          { "name": "disabled", "type": "boolean", "default": false },
+          { "name": "error", "type": "boolean", "default": false }
+        ],
+        "code": "function BasicCheckboxExample() {\n  const [singleConsent, setSingleConsent] = useState(false);\n  const [basicOptions, setBasicOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false\n  });\n\n  const handleSingleChange = (name, checked) => {\n    setSingleConsent(checked);\n  };\n\n  const handleBasicChange = (name, checked) => {\n    setBasicOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  return (\n    <GoabBlock gap=\"xl\" mb=\"none\" direction=\"column\">\n      {/* Single checkbox option */}\n      <GoabCheckbox\n        name=\"consent\"\n        text=\"Single checkbox option - I consent to...\"\n        checked={singleConsent}\n        onChange={handleSingleChange}\n      />\n\n      {/* Basic checkbox list */}\n      <GoabFormItem label=\"Basic checkbox list\">\n        <GoabCheckbox\n          name=\"option1\"\n          text=\"Option 1\"\n          checked={basicOptions.option1}\n          onChange={handleBasicChange}\n          description={\n            <span>\n              Help text with a <a href=\"#\">link</a>.\n            </span>\n          }\n        />\n        <GoabCheckbox\n          name=\"option2\"\n          text=\"Option 2\"\n          checked={basicOptions.option2}\n          onChange={handleBasicChange}\n        />\n        <GoabCheckbox\n          name=\"option3\"\n          text=\"Option 3\"\n          checked={basicOptions.option3}\n          onChange={handleBasicChange}\n          description={\n            <span>\n              Help text with a <a href=\"#\">link</a>.\n            </span>\n          }\n        />\n      </GoabFormItem>\n    </GoabBlock>\n  );\n}",
+        "notes": "Demonstrates the most basic checkbox usage patterns. Note how single checkboxes work independently while grouped checkboxes benefit from FormItem wrapper."
+      },
+      {
+        "title": "Helper Text and Descriptions",
+        "description": "Show how to provide context and guidance for checkbox options",
+        "interactiveProps": [
+          { "name": "includeHelper", "type": "boolean", "default": true },
+          { "name": "includeDescriptions", "type": "boolean", "default": true }
+        ],
+        "code": "function CheckboxWithHelpExample() {\n  const [helpOptions, setHelpOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false\n  });\n\n  const [descriptionOptions, setDescriptionOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false\n  });\n\n  const handleHelpChange = (name, checked) => {\n    setHelpOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  const handleDescriptionChange = (name, checked) => {\n    setDescriptionOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  return (\n    <GoabBlock gap=\"xl\" direction=\"column\">\n      {/* With helper text */}\n      <GoabFormItem\n        label=\"Basic checkbox list with helper text\"\n        helpText=\"Helper text to help answer the question\"\n      >\n        <GoabCheckbox\n          name=\"help1\"\n          text=\"Option 1\"\n          checked={helpOptions.option1}\n          onChange={handleHelpChange}\n        />\n        <GoabCheckbox\n          name=\"help2\"\n          text=\"Option 2\"\n          checked={helpOptions.option2}\n          onChange={handleHelpChange}\n        />\n        <GoabCheckbox\n          name=\"help3\"\n          text=\"Option 3\"\n          checked={helpOptions.option3}\n          onChange={handleHelpChange}\n        />\n      </GoabFormItem>\n\n      {/* With descriptions */}\n      <GoabFormItem label=\"Checkbox list with descriptions\">\n        <GoabCheckbox\n          name=\"desc1\"\n          text=\"Option 1\"\n          checked={descriptionOptions.option1}\n          onChange={handleDescriptionChange}\n          description=\"here is a description\"\n        />\n        <GoabCheckbox\n          name=\"desc2\"\n          text=\"Option 2\"\n          checked={descriptionOptions.option2}\n          onChange={handleDescriptionChange}\n          description=\"here is a description\"\n        />\n        <GoabCheckbox\n          name=\"desc3\"\n          text=\"Option 3\"\n          checked={descriptionOptions.option3}\n          onChange={handleDescriptionChange}\n          description=\"here is a description\"\n          disabled={true}\n        />\n      </GoabFormItem>\n    </GoabBlock>\n  );\n}",
+        "notes": "Use helpText at the FormItem level for questions that apply to the entire group. Use description on individual checkboxes for option-specific context."
+      },
+      {
+        "title": "Disabled and Mixed States",
+        "description": "Demonstrate various checkbox states including disabled options",
+        "interactiveProps": [
+          { "name": "toggleDisabled", "type": "boolean", "default": false },
+          { "name": "longTextWrapping", "type": "boolean", "default": true }
+        ],
+        "code": "function CheckboxStatesExample() {\n  const [stateOptions, setStateOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false,\n    option4: true // Pre-checked disabled\n  });\n\n  const [wrapOptions, setWrapOptions] = useState({\n    longOption: false,\n    option2: false\n  });\n\n  const handleStateChange = (name, checked) => {\n    setStateOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  const handleWrapChange = (name, checked) => {\n    setWrapOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  return (\n    <GoabBlock gap=\"xl\" direction=\"column\">\n      {/* Mixed disabled states */}\n      <GoabFormItem label=\"Checkbox list with some disabled\">\n        <GoabCheckbox\n          name=\"state1\"\n          text=\"Option 1\"\n          checked={stateOptions.option1}\n          onChange={handleStateChange}\n        />\n        <GoabCheckbox\n          name=\"state2\"\n          text=\"Option 2\"\n          checked={stateOptions.option2}\n          onChange={handleStateChange}\n        />\n        <GoabCheckbox\n          name=\"state3\"\n          text=\"Option 3\"\n          checked={stateOptions.option3}\n          onChange={handleStateChange}\n          disabled={true}\n        />\n        <GoabCheckbox\n          name=\"state4\"\n          text=\"Option 4\"\n          checked={stateOptions.option4}\n          onChange={handleStateChange}\n          disabled={true}\n        />\n      </GoabFormItem>\n\n      {/* Long text wrapping */}\n      <GoabFormItem label=\"Text wrapping behavior\">\n        <GoabCheckbox\n          name=\"longText\"\n          text=\"An option that wraps a long time until it goes to the next line that wraps a long time until it goes to the next line\"\n          checked={wrapOptions.longOption}\n          onChange={handleWrapChange}\n        />\n        <GoabCheckbox\n          name=\"normalText\"\n          text=\"Option 2\"\n          checked={wrapOptions.option2}\n          onChange={handleWrapChange}\n        />\n      </GoabFormItem>\n    </GoabBlock>\n  );\n}",
+        "notes": "Disabled checkboxes can be either checked or unchecked. The component handles text wrapping automatically while maintaining proper alignment."
+      },
+      {
+        "title": "Error States and Validation",
+        "description": "Show error styling and validation patterns for checkbox groups",
+        "interactiveProps": [
+          { "name": "showErrors", "type": "boolean", "default": true },
+          { "name": "includeHelper", "type": "boolean", "default": false }
+        ],
+        "code": "function CheckboxErrorExample() {\n  const [errorOptions, setErrorOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false,\n    option4: true\n  });\n\n  const [validationOptions, setValidationOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false\n  });\n\n  const [showValidationError, setShowValidationError] = useState(false);\n\n  const handleErrorChange = (name, checked) => {\n    setErrorOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  const handleValidationChange = (name, checked) => {\n    setValidationOptions(prev => ({ ...prev, [name]: checked }));\n    // Clear error when any option is selected\n    if (checked) {\n      setShowValidationError(false);\n    }\n  };\n\n  const validateSelection = () => {\n    const hasSelection = Object.values(validationOptions).some(Boolean);\n    if (!hasSelection) {\n      setShowValidationError(true);\n    }\n  };\n\n  return (\n    <GoabBlock gap=\"xl\" direction=\"column\">\n      {/* Error state display */}\n      <GoabFormItem\n        label=\"Checkbox list with error\"\n        error=\"Error message.\"\n      >\n        <GoabCheckbox\n          name=\"error1\"\n          text=\"Option 1\"\n          checked={errorOptions.option1}\n          onChange={handleErrorChange}\n          error={true}\n        />\n        <GoabCheckbox\n          name=\"error2\"\n          text=\"Option 2\"\n          checked={errorOptions.option2}\n          onChange={handleErrorChange}\n          error={true}\n        />\n        <GoabCheckbox\n          name=\"error3\"\n          text=\"Option 3\"\n          checked={errorOptions.option3}\n          onChange={handleErrorChange}\n          error={true}\n          disabled={true}\n        />\n        <GoabCheckbox\n          name=\"error4\"\n          text=\"Option 4\"\n          checked={errorOptions.option4}\n          onChange={handleErrorChange}\n          error={true}\n          disabled={true}\n        />\n      </GoabFormItem>\n\n      {/* Validation example */}\n      <GoabFormItem\n        label=\"Required selection\"\n        error={showValidationError ? \"Please select at least one option.\" : \"\"}\n        helpText=\"You must select at least one option to continue\"\n      >\n        <GoabCheckbox\n          name=\"validation1\"\n          text=\"Option 1\"\n          checked={validationOptions.option1}\n          onChange={handleValidationChange}\n          error={showValidationError}\n        />\n        <GoabCheckbox\n          name=\"validation2\"\n          text=\"Option 2\"\n          checked={validationOptions.option2}\n          onChange={handleValidationChange}\n          error={showValidationError}\n        />\n        <GoabCheckbox\n          name=\"validation3\"\n          text=\"Option 3\"\n          checked={validationOptions.option3}\n          onChange={handleValidationChange}\n          error={showValidationError}\n          mb=\"none\"\n        />\n      </GoabFormItem>\n\n      <GoabButton onClick={validateSelection} type=\"primary\">\n        Validate Selection\n      </GoabButton>\n    </GoabBlock>\n  );\n}",
+        "notes": "Error states can be shown at both the group level (FormItem error) and individual checkbox level. Use mb='none' on the last checkbox to control spacing before error messages."
+      },
+      {
+        "title": "Advanced Form Integration",
+        "description": "Real-world form patterns with state management and conditional logic",
+        "interactiveProps": [
+          {
+            "name": "enableConditionalFields",
+            "type": "boolean",
+            "default": true
+          },
+          {
+            "name": "requireTermsAcceptance",
+            "type": "boolean",
+            "default": true
+          }
+        ],
+        "code": "function AdvancedFormExample() {\n  const [contactPrefs, setContactPrefs] = useState({\n    email: false,\n    phone: false,\n    mail: false\n  });\n\n  const [contactDetails, setContactDetails] = useState({\n    emailAddress: '',\n    phoneNumber: ''\n  });\n\n  const [agreements, setAgreements] = useState({\n    terms: false,\n    privacy: false,\n    marketing: false\n  });\n\n  const [formErrors, setFormErrors] = useState({});\n\n  const handlePrefsChange = (name, checked) => {\n    setContactPrefs(prev => ({ ...prev, [name]: checked }));\n    // Clear related contact details when unchecked\n    if (!checked) {\n      if (name === 'email') {\n        setContactDetails(prev => ({ ...prev, emailAddress: '' }));\n      } else if (name === 'phone') {\n        setContactDetails(prev => ({ ...prev, phoneNumber: '' }));\n      }\n    }\n  };\n\n  const handleDetailsChange = (name, value) => {\n    setContactDetails(prev => ({ ...prev, [name]: value }));\n  };\n\n  const handleAgreementChange = (name, checked) => {\n    setAgreements(prev => ({ ...prev, [name]: checked }));\n    // Clear validation errors when required items are checked\n    if (checked && formErrors[name]) {\n      setFormErrors(prev => ({ ...prev, [name]: false }));\n    }\n  };\n\n  const validateAndSubmit = () => {\n    const errors = {};\n    if (!agreements.terms) errors.terms = true;\n    if (!agreements.privacy) errors.privacy = true;\n    \n    setFormErrors(errors);\n    \n    if (Object.keys(errors).length === 0) {\n      alert('Form submitted successfully!');\n    }\n  };\n\n  return (\n    <GoabBlock gap=\"xl\" direction=\"column\">\n      {/* Contact preferences with conditional reveal */}\n      <GoabFormItem\n        label=\"Contact preferences\"\n        helpText=\"Select how you'd like us to reach you\"\n      >\n        <GoabCheckbox\n          name=\"email\"\n          text=\"Email notifications\"\n          checked={contactPrefs.email}\n          onChange={handlePrefsChange}\n        >\n          {contactPrefs.email && (\n            <GoabFormItem label=\"Email address\" mt=\"s\">\n              <GoabInput\n                name=\"emailAddress\"\n                type=\"email\"\n                value={contactDetails.emailAddress}\n                onChange={handleDetailsChange}\n                placeholder=\"your.email@example.com\"\n              />\n            </GoabFormItem>\n          )}\n        </GoabCheckbox>\n        \n        <GoabCheckbox\n          name=\"phone\"\n          text=\"Phone calls\"\n          description=\"We'll only call during business hours\"\n          checked={contactPrefs.phone}\n          onChange={handlePrefsChange}\n        >\n          {contactPrefs.phone && (\n            <GoabFormItem label=\"Phone number\" mt=\"s\">\n              <GoabInput\n                name=\"phoneNumber\"\n                type=\"tel\"\n                value={contactDetails.phoneNumber}\n                onChange={handleDetailsChange}\n                placeholder=\"(555) 123-4567\"\n              />\n            </GoabFormItem>\n          )}\n        </GoabCheckbox>\n        \n        <GoabCheckbox\n          name=\"mail\"\n          text=\"Physical mail\"\n          description=\"Letters sent to your registered address\"\n          checked={contactPrefs.mail}\n          onChange={handlePrefsChange}\n        />\n      </GoabFormItem>\n\n      {/* Legal agreements */}\n      <GoabFormItem\n        label=\"Legal agreements\"\n        error={Object.values(formErrors).some(Boolean) ? \"Please accept all required agreements\" : \"\"}\n      >\n        <GoabCheckbox\n          name=\"terms\"\n          text=\"I agree to the Terms of Service\"\n          checked={agreements.terms}\n          onChange={handleAgreementChange}\n          error={formErrors.terms}\n        />\n        \n        <GoabCheckbox\n          name=\"privacy\"\n          text=\"I acknowledge the Privacy Policy\"\n          checked={agreements.privacy}\n          onChange={handleAgreementChange}\n          error={formErrors.privacy}\n        />\n        \n        <GoabCheckbox\n          name=\"marketing\"\n          text=\"I would like to receive marketing communications\"\n          description=\"Optional - you can change this preference later\"\n          checked={agreements.marketing}\n          onChange={handleAgreementChange}\n          mb=\"none\"\n        />\n      </GoabFormItem>\n\n      <GoabButtonGroup alignment=\"end\">\n        <GoabButton\n          type=\"primary\"\n          onClick={validateAndSubmit}\n          disabled={!agreements.terms || !agreements.privacy}\n        >\n          Submit Application\n        </GoabButton>\n      </GoabButtonGroup>\n    </GoabBlock>\n  );\n}",
+        "notes": "This example shows conditional field revelation, form validation, required vs optional checkboxes, and integration with other form components. Notice how the submit button is disabled until required agreements are accepted."
+      }
+    ]
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["FormItem component (recommended)", "Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabCheckbox, GoabFormItem } from '@abgov/react-components'",
+      "quickExample": "<GoabFormItem label=\"Contact preferences\">\n  <GoabCheckbox name=\"email\" text=\"Email notifications\" />\n  <GoabCheckbox name=\"sms\" text=\"SMS updates\" />\n</GoabFormItem>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-form-item label=\"Contact preferences\">\n  <goab-checkbox name=\"email\" text=\"Email notifications\"></goab-checkbox>\n  <goab-checkbox name=\"sms\" text=\"SMS updates\"></goab-checkbox>\n</goab-form-item>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-form-item label=\"Contact preferences\">\n  <goa-checkbox name=\"email\" text=\"Email notifications\"></goa-checkbox>\n  <goa-checkbox name=\"sms\" text=\"SMS updates\"></goa-checkbox>\n</goa-form-item>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "description": "Unique identifier for the checkbox",
+        "usage": "Used for form submission and event handling - must be unique within the form"
+      },
+      {
+        "name": "checked",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Whether the checkbox is selected",
+        "usage": "Control the checked state - typically bound to form state or component state"
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "required": false,
+        "description": "Label text displayed next to the checkbox",
+        "usage": "Main label for the checkbox option - should be clear and descriptive"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "Additional descriptive text shown below the label",
+        "usage": "Provide extra context or explanation for the checkbox option"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "description": "Value sent in form submission when checked",
+        "usage": "Set the value that represents this checkbox in form data"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Prevents interaction with the checkbox",
+        "usage": "Use when the option is not available due to other form selections or permissions"
+      },
+      {
+        "name": "error",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Shows error styling on the checkbox",
+        "usage": "Indicate validation errors - typically used with form validation"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Data attribute for testing and automation",
+        "usage": "Set unique identifier for testing individual checkboxes"
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "description": "ARIA label for accessibility when text is not sufficient",
+        "usage": "Provide accessible label when the visible text doesn't fully describe the checkbox"
+      }
+    ],
+    "events": [
+      {
+        "name": "onChange",
+        "framework": "React",
+        "description": "Fired when checkbox state changes",
+        "signature": "(name: string, checked: boolean) => void"
+      },
+      {
+        "name": "changeEvent",
+        "framework": "Angular",
+        "description": "Fired when checkbox state changes",
+        "signature": "$event: { name: string, checked: boolean }"
+      },
+      {
+        "name": "_change",
+        "framework": "Web Component",
+        "description": "Custom event fired when checkbox state changes",
+        "signature": "detail: { name: string, checked: boolean }"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Contact Preferences Form",
+          "description": "Multi-selection with conditional reveal fields",
+          "code": "function ContactPreferences() {\n  const [preferences, setPreferences] = useState({\n    email: false,\n    phone: false,\n    mail: false,\n    emailAddress: '',\n    phoneNumber: ''\n  });\n\n  const handleCheckboxChange = (name, checked) => {\n    setPreferences(prev => ({\n      ...prev,\n      [name]: checked,\n      // Clear related fields when unchecked\n      ...(name === 'email' && !checked && { emailAddress: '' }),\n      ...(name === 'phone' && !checked && { phoneNumber: '' })\n    }));\n  };\n\n  const handleInputChange = (name, value) => {\n    setPreferences(prev => ({ ...prev, [name]: value }));\n  };\n\n  return (\n    <GoabFormItem label=\"How would you like to be contacted?\" helpText=\"Select all that apply\">\n      <GoabCheckbox\n        name=\"email\"\n        text=\"Email\"\n        checked={preferences.email}\n        onChange={handleCheckboxChange}\n      >\n        {preferences.email && (\n          <GoabFormItem label=\"Email address\" mt=\"s\">\n            <GoabInput\n              name=\"emailAddress\"\n              type=\"email\"\n              value={preferences.emailAddress}\n              onChange={handleInputChange}\n              placeholder=\"your.email@example.com\"\n            />\n          </GoabFormItem>\n        )}\n      </GoabCheckbox>\n      \n      <GoabCheckbox\n        name=\"phone\"\n        text=\"Phone\"\n        description=\"We'll only call during business hours\"\n        checked={preferences.phone}\n        onChange={handleCheckboxChange}\n      >\n        {preferences.phone && (\n          <GoabFormItem label=\"Phone number\" mt=\"s\">\n            <GoabInput\n              name=\"phoneNumber\"\n              type=\"tel\"\n              value={preferences.phoneNumber}\n              onChange={handleInputChange}\n              placeholder=\"(555) 123-4567\"\n            />\n          </GoabFormItem>\n        )}\n      </GoabCheckbox>\n      \n      <GoabCheckbox\n        name=\"mail\"\n        text=\"Mail\"\n        description=\"Physical mail to your registered address\"\n        checked={preferences.mail}\n        onChange={handleCheckboxChange}\n      />\n    </GoabFormItem>\n  );\n}"
+        },
+        {
+          "title": "Terms and Agreements",
+          "description": "Required checkboxes with validation",
+          "code": "function TermsAcceptance() {\n  const [agreements, setAgreements] = useState({\n    terms: false,\n    privacy: false,\n    marketing: false\n  });\n  \n  const [errors, setErrors] = useState({});\n\n  const handleChange = (name, checked) => {\n    setAgreements(prev => ({ ...prev, [name]: checked }));\n    // Clear error when checkbox is checked\n    if (checked && errors[name]) {\n      setErrors(prev => ({ ...prev, [name]: false }));\n    }\n  };\n\n  const validateForm = () => {\n    const newErrors = {};\n    if (!agreements.terms) newErrors.terms = true;\n    if (!agreements.privacy) newErrors.privacy = true;\n    setErrors(newErrors);\n    return Object.keys(newErrors).length === 0;\n  };\n\n  return (\n    <div>\n      <GoabFormItem label=\"Legal Agreements\" helpText=\"All required agreements must be accepted\">\n        <GoabCheckbox\n          name=\"terms\"\n          text=\"I agree to the Terms of Service\"\n          checked={agreements.terms}\n          error={errors.terms}\n          onChange={handleChange}\n        />\n        \n        <GoabCheckbox\n          name=\"privacy\"\n          text=\"I acknowledge the Privacy Policy\"\n          checked={agreements.privacy}\n          error={errors.privacy}\n          onChange={handleChange}\n        />\n        \n        <GoabCheckbox\n          name=\"marketing\"\n          text=\"I would like to receive marketing communications\"\n          description=\"Optional - you can change this preference later\"\n          checked={agreements.marketing}\n          onChange={handleChange}\n        />\n      </GoabFormItem>\n      \n      <GoabButtonGroup alignment=\"end\" mt=\"l\">\n        <GoabButton \n          type=\"primary\" \n          onClick={validateForm}\n          disabled={!agreements.terms || !agreements.privacy}\n        >\n          Continue\n        </GoabButton>\n      </GoabButtonGroup>\n    </div>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Reactive Forms Integration",
+          "description": "Angular reactive forms with checkbox groups",
+          "code": "export class PreferencesForm {\n  form = this.fb.group({\n    notifications: this.fb.group({\n      email: [false],\n      push: [false],\n      sms: [false]\n    }),\n    emailAddress: ['', [Validators.email]],\n    phoneNumber: [''],\n    frequency: ['weekly']\n  });\n\n  constructor(private fb: FormBuilder) {\n    // Watch for email notification changes\n    this.form.get('notifications.email')?.valueChanges.subscribe(enabled => {\n      const emailControl = this.form.get('emailAddress');\n      if (enabled) {\n        emailControl?.setValidators([Validators.required, Validators.email]);\n      } else {\n        emailControl?.clearValidators();\n        emailControl?.setValue('');\n      }\n      emailControl?.updateValueAndValidity();\n    });\n  }\n\n  onSubmit() {\n    if (this.form.valid) {\n      console.log('Form submitted:', this.form.value);\n    }\n  }\n}\n\n<!-- Template -->\n<form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\">\n  <goab-form-item label=\"Notification Preferences\">\n    <div formGroupName=\"notifications\">\n      <goab-checkbox\n        formControlName=\"email\"\n        text=\"Email notifications\"\n        [reveal]=\"emailReveal\">\n        <ng-template #emailReveal>\n          <goab-form-item label=\"Email address\" [error]=\"form.get('emailAddress')?.invalid\">\n            <goab-input \n              formControlName=\"emailAddress\"\n              type=\"email\"\n              placeholder=\"your.email@example.com\">\n            </goab-input>\n          </goab-form-item>\n        </ng-template>\n      </goab-checkbox>\n      \n      <goab-checkbox\n        formControlName=\"push\"\n        text=\"Push notifications\"\n        description=\"Notifications sent to your browser or mobile app\">\n      </goab-checkbox>\n      \n      <goab-checkbox\n        formControlName=\"sms\"\n        text=\"SMS notifications\"\n        [reveal]=\"smsReveal\">\n        <ng-template #smsReveal>\n          <goab-form-item label=\"Phone number\">\n            <goab-input \n              formControlName=\"phoneNumber\"\n              type=\"tel\"\n              placeholder=\"(555) 123-4567\">\n            </goab-input>\n          </goab-form-item>\n        </ng-template>\n      </goab-checkbox>\n    </div>\n  </goab-form-item>\n  \n  <goab-button-group alignment=\"end\">\n    <goab-button type=\"primary\" [disabled]=\"!form.valid\">\n      Save Preferences\n    </goab-button>\n  </goab-button-group>\n</form>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Multi-Selection List",
+        "description": "Allow users to select multiple options from a list",
+        "usage": "Use when users can select zero, one, or multiple options",
+        "code": "<GoabFormItem label=\"Preferred contact methods\">\n  <GoabCheckbox name=\"email\" text=\"Email\" />\n  <GoabCheckbox name=\"phone\" text=\"Phone\" />\n  <GoabCheckbox name=\"mail\" text=\"Mail\" />\n</GoabFormItem>"
+      },
+      {
+        "name": "Conditional Reveal",
+        "description": "Show additional fields based on checkbox selection",
+        "usage": "Use to reduce form complexity by showing relevant fields only",
+        "code": "<GoabCheckbox name=\"newsletter\" text=\"Subscribe to newsletter\">\n  {subscribed && (\n    <GoabInput name=\"email\" placeholder=\"Email address\" />\n  )}\n</GoabCheckbox>"
+      },
+      {
+        "name": "Terms and Agreements",
+        "description": "Required acceptance checkboxes for legal agreements",
+        "usage": "Use for terms of service, privacy policies, and consent",
+        "code": "<GoabCheckbox \n  name=\"terms\" \n  text=\"I agree to the Terms of Service\"\n  error={!agreed && submitted}\n  required\n/>"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Users can select multiple options from a list",
+      "Optional settings or preferences",
+      "Terms and conditions acceptance",
+      "Filtering options where multiple criteria can apply",
+      "Progressive disclosure (show/hide additional content based on selection)"
+    ],
+    "whenNotToUse": [
+      "Only one option can be selected (use Radio instead)",
+      "Simple on/off toggle (use Toggle switch)",
+      "Navigation purposes (use Link or Button)",
+      "More than 7-8 options (consider grouping or alternative UI)"
+    ],
+    "bestPractices": [
+      "Always place checkbox to the left of the label",
+      "Use 8px spacing between checkbox and label text",
+      "Use 20px spacing between checkboxes in a vertical list",
+      "List options vertically for easier scanning",
+      "Start labels with capital letters, no periods at the end",
+      "Ensure 46px minimum touch targets for accessibility",
+      "Keep conditional reveal content simple (one question only)",
+      "Show validation errors at the group level when possible"
+    ],
+    "accessibility": [
+      "Each checkbox must have a clear, descriptive label",
+      "Use proper label association (for/id attributes)",
+      "Provide sufficient color contrast (4.5:1 minimum)",
+      "Ensure keyboard navigation works (Tab, Space)",
+      "Test with screen readers",
+      "Use ARIA attributes for complex interactions",
+      "Announce state changes to assistive technology"
+    ]
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "issue": "Checkbox not updating when clicked",
+        "cause": "Missing onChange handler or incorrect state management",
+        "solution": "Ensure onChange/changeEvent handler updates the checked state properly. For React, make sure the checked prop is bound to state."
+      },
+      {
+        "issue": "Form submission not including checkbox values",
+        "cause": "Missing name attribute or value not being captured",
+        "solution": "Verify each checkbox has a unique name attribute and your form handling code captures checkbox states."
+      },
+      {
+        "issue": "Reveal content not showing/hiding correctly",
+        "cause": "Conditional rendering logic not tied to checkbox state",
+        "solution": "Check that the reveal content visibility is properly tied to the checkbox checked state in your component logic."
+      },
+      {
+        "issue": "Validation errors not clearing when checkbox is checked",
+        "cause": "Error state not being updated in change handler",
+        "solution": "Clear validation errors in your onChange handler when the user fixes the issue by checking required checkboxes."
+      },
+      {
+        "issue": "Accessibility issues with screen readers",
+        "cause": "Missing ARIA attributes or improper label association",
+        "solution": "Ensure proper label association and consider using aria-describedby for additional context. Test with screen readers."
+      },
+      {
+        "issue": "Checkboxes not aligned properly in lists",
+        "cause": "CSS styling conflicts or incorrect spacing",
+        "solution": "Use the design system's spacing tokens and avoid custom CSS that conflicts with component styling."
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabFormItem",
+      "relationship": "Container component",
+      "usage": "Essential wrapper for labels, help text, and error messages",
+      "example": "All checkbox groups should be wrapped in FormItem"
+    },
+    {
+      "name": "GoabRadio",
+      "relationship": "Alternative for single selection",
+      "usage": "Use Radio when users can only select one option from a list",
+      "example": "Payment method selection, shipping options"
+    },
+    {
+      "name": "GoabInput",
+      "relationship": "Used in reveal content",
+      "usage": "Common pattern to show input fields based on checkbox selection",
+      "example": "Email field revealed when 'Contact by email' is checked"
+    },
+    {
+      "name": "GoabToggle",
+      "relationship": "Alternative for simple on/off states",
+      "usage": "Use Toggle for immediate setting changes that don't require form submission",
+      "example": "Enable notifications, dark mode settings"
+    },
+    {
+      "name": "GoabButton",
+      "relationship": "Form submission",
+      "usage": "Submit buttons often depend on checkbox validation states",
+      "example": "Terms acceptance required before form submission"
+    }
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Using checkbox for single-selection scenarios",
+      "why": "Checkboxes allow multiple selections; single selection should use radio buttons",
+      "instead": "Use GoabRadio for mutually exclusive options",
+      "example": "// ❌ Wrong - payment method selection\n<GoabFormItem label=\"Payment method\">\n  <GoabCheckbox name=\"visa\" text=\"Visa\" />\n  <GoabCheckbox name=\"mastercard\" text=\"Mastercard\" />\n</GoabFormItem>\n\n// ✅ Correct\n<GoabFormItem label=\"Payment method\">\n  <GoabRadioGroup name=\"payment\">\n    <GoabRadioItem value=\"visa\" text=\"Visa\" />\n    <GoabRadioItem value=\"mastercard\" text=\"Mastercard\" />\n  </GoabRadioGroup>\n</GoabFormItem>"
+    },
+    {
+      "mistake": "Not providing proper name attributes for form binding",
+      "why": "Missing or duplicate names break form submission and state management",
+      "instead": "Ensure each checkbox has a unique name within its context",
+      "example": "// ❌ Wrong\n<GoabCheckbox text=\"Email notifications\" />\n<GoabCheckbox text=\"SMS notifications\" />\n\n// ✅ Correct\n<GoabCheckbox name=\"emailNotifications\" text=\"Email notifications\" />\n<GoabCheckbox name=\"smsNotifications\" text=\"SMS notifications\" />"
+    },
+    {
+      "mistake": "Complex nested reveal content",
+      "why": "Too much conditional content creates confusing UX and accessibility issues",
+      "instead": "Keep reveal content simple - ideally one additional question",
+      "example": "// ❌ Wrong - nested reveals\n<GoabCheckbox name=\"subscribe\" text=\"Subscribe\">\n  {subscribed && (\n    <GoabCheckbox name=\"frequency\" text=\"Daily digest\">\n      {daily && (\n        <GoabInput name=\"time\" placeholder=\"Preferred time\" />\n      )}\n    </GoabCheckbox>\n  )}\n</GoabCheckbox>\n\n// ✅ Correct\n<GoabCheckbox name=\"subscribe\" text=\"Subscribe to newsletter\">\n  {subscribed && (\n    <GoabInput name=\"email\" placeholder=\"Email address\" />\n  )}\n</GoabCheckbox>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": "React uses camelCase (checked, testId, ariaLabel) while web components use lowercase (checked, testid, aria-label)",
+    "slotHandling": "React uses children for reveal content, Angular uses ng-template with #reveal reference, web components use default slot",
+    "constraints": "name prop is required for form integration; checked state must be controlled in React",
+    "responsiveBehavior": "Checkboxes maintain 46px touch targets on mobile devices automatically"
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate to checkbox",
+      "Space - Toggle checked state",
+      "Enter - Toggle checked state (alternative)",
+      "Shift+Tab - Navigate backwards"
+    ],
+    "screenReader": [
+      "Checkbox role and label are announced",
+      "Checked/unchecked state is announced",
+      "Error states are communicated",
+      "Description text is read when present",
+      "Changes in reveal content are announced"
+    ],
+    "focusManagement": [
+      "Visible focus indicators (focus ring)",
+      "Logical tab order through checkbox lists",
+      "Focus remains on checkbox after state change",
+      "Focus moves appropriately to reveal content when shown"
+    ]
+  },
+
+  "performanceConsiderations": [
+    "Checkboxes are lightweight components with minimal overhead",
+    "Event handling is optimized for frequent state changes",
+    "Reveal content is conditionally rendered for optimal performance",
+    "Large lists of checkboxes should use virtualization if needed",
+    "Form validation should be debounced for better user experience"
+  ],
+
+  "tags": ["form", "input", "interactive", "multi-select", "accessible"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/checkbox.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

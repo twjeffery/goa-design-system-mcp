@@ -1,0 +1,280 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Drawer",
+  "customElement": {
+    "tagName": "goa-drawer",
+    "className": "GoabDrawer"
+  },
+  "summary": "Slide-in panel for displaying contextual content and actions without losing main page context",
+  "purpose": "Display additional content, forms, or actions in a panel that slides in from the screen edge",
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system", "Focus management system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabDrawer } from '@abgov/react-components'",
+      "quickExample": "<GoabDrawer open={isOpen} position=\"right\" onClose={() => setIsOpen(false)}>Content</GoabDrawer>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goa-drawer [open]=\"isOpen\" position=\"right\" (onClose)=\"closeDrawer()\">Content</goa-drawer>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-drawer open=\"{isOpen}\" position=\"right\" on:_close=\"{closeDrawer}\">Content</goa-drawer>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "description": "Controls whether the drawer is visible",
+        "note": "Must be managed by parent component state"
+      },
+      {
+        "name": "position",
+        "type": "string",
+        "required": true,
+        "allowedValues": ["right", "left", "bottom"],
+        "description": "Position from which the drawer slides in",
+        "examples": {
+          "right": "Most common for forms and details (desktop pattern)",
+          "left": "Alternative side positioning",
+          "bottom": "Mobile-friendly bottom sheet pattern"
+        }
+      },
+      {
+        "name": "heading",
+        "type": "string",
+        "required": false,
+        "description": "Header text for the drawer",
+        "note": "Use clear, action-oriented headings like 'Edit Profile' or 'Filter Results'"
+      },
+      {
+        "name": "maxSize",
+        "type": "string",
+        "required": false,
+        "description": "Maximum width (left/right) or height (bottom) of the drawer",
+        "examples": {
+          "320px": "Default width for left/right drawers",
+          "80vh": "Default height for bottom drawers",
+          "50%": "Percentage-based sizing"
+        }
+      },
+      {
+        "name": "onClose",
+        "type": "function",
+        "required": true,
+        "description": "Callback function when drawer should close",
+        "note": "Triggered by close button, backdrop click, or Escape key"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Data attribute for testing automation"
+      }
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "description": "Main content area - forms, information, actions",
+        "example": "Form fields, content lists, detailed information"
+      },
+      {
+        "name": "actions",
+        "description": "Footer buttons and actions",
+        "example": "Save/Cancel buttons, action buttons"
+      }
+    ]
+  },
+
+  "usageExamples": {
+    "react": [
+      {
+        "title": "Form Workflow Drawer",
+        "description": "Create and edit forms in a side drawer without leaving the main page",
+        "code": "import React, { useState } from 'react';\nimport { GoabDrawer, GoabFormItem, GoabInput, GoabButton, GoabBlock } from '@abgov/react-components';\n\ninterface UserProfile {\n  firstName: string;\n  lastName: string;\n  email: string;\n  department: string;\n}\n\nfunction UserManagement() {\n  const [drawerOpen, setDrawerOpen] = useState(false);\n  const [editingUser, setEditingUser] = useState<UserProfile | null>(null);\n  const [formData, setFormData] = useState<UserProfile>({\n    firstName: '',\n    lastName: '',\n    email: '',\n    department: ''\n  });\n\n  const openDrawer = (user?: UserProfile) => {\n    if (user) {\n      setEditingUser(user);\n      setFormData(user);\n    } else {\n      setEditingUser(null);\n      setFormData({ firstName: '', lastName: '', email: '', department: '' });\n    }\n    setDrawerOpen(true);\n  };\n\n  const closeDrawer = () => {\n    setDrawerOpen(false);\n    setEditingUser(null);\n  };\n\n  const handleSave = () => {\n    if (editingUser) {\n      console.log('Updating user:', formData);\n    } else {\n      console.log('Creating user:', formData);\n    }\n    closeDrawer();\n  };\n\n  const updateFormField = (field: keyof UserProfile) => (value: string) => {\n    setFormData(prev => ({ ...prev, [field]: value }));\n  };\n\n  return (\n    <div>\n      {/* Main page content */}\n      <GoabBlock direction=\"row\" gap=\"m\" alignment=\"center\" mb=\"l\">\n        <h1>User Management</h1>\n        <GoabButton type=\"primary\" onClick={() => openDrawer()}>\n          Add User\n        </GoabButton>\n      </GoabBlock>\n\n      {/* User list would go here */}\n      <div className=\"user-list\">\n        <p>User list with edit buttons that call openDrawer(user)</p>\n      </div>\n\n      {/* Form Drawer */}\n      <GoabDrawer\n        open={drawerOpen}\n        position=\"right\"\n        heading={editingUser ? 'Edit User' : 'Add New User'}\n        onClose={closeDrawer}\n        testId=\"user-form-drawer\"\n      >\n        <GoabBlock direction=\"column\" gap=\"l\">\n          <GoabFormItem label=\"First Name\">\n            <GoabInput\n              name=\"firstName\"\n              value={formData.firstName}\n              onChange={(e) => updateFormField('firstName')(e.value)}\n            />\n          </GoabFormItem>\n\n          <GoabFormItem label=\"Last Name\">\n            <GoabInput\n              name=\"lastName\"\n              value={formData.lastName}\n              onChange={(e) => updateFormField('lastName')(e.value)}\n            />\n          </GoabFormItem>\n\n          <GoabFormItem label=\"Email\">\n            <GoabInput\n              type=\"email\"\n              name=\"email\"\n              value={formData.email}\n              onChange={(e) => updateFormField('email')(e.value)}\n            />\n          </GoabFormItem>\n\n          <GoabFormItem label=\"Department\">\n            <GoabInput\n              name=\"department\"\n              value={formData.department}\n              onChange={(e) => updateFormField('department')(e.value)}\n            />\n          </GoabFormItem>\n        </GoabBlock>\n\n        {/* Drawer Actions */}\n        <div slot=\"actions\">\n          <GoabBlock direction=\"row\" gap=\"m\">\n            <GoabButton type=\"primary\" onClick={handleSave}>\n              {editingUser ? 'Update User' : 'Create User'}\n            </GoabButton>\n            <GoabButton type=\"secondary\" onClick={closeDrawer}>\n              Cancel\n            </GoabButton>\n          </GoabBlock>\n        </div>\n      </GoabDrawer>\n    </div>\n  );\n}"
+      },
+      {
+        "title": "Filter Panel Drawer",
+        "description": "Advanced filtering interface that doesn't disrupt the main content view",
+        "code": "import React, { useState } from 'react';\nimport { GoabDrawer, GoabFormItem, GoabDropdown, GoabDropdownItem, GoabCheckbox, GoabButton, GoabBlock } from '@abgov/react-components';\n\ninterface FilterOptions {\n  status: string;\n  department: string;\n  dateRange: string;\n  includeArchived: boolean;\n}\n\nfunction DataTableWithFilters() {\n  const [filtersOpen, setFiltersOpen] = useState(false);\n  const [filters, setFilters] = useState<FilterOptions>({\n    status: '',\n    department: '',\n    dateRange: '',\n    includeArchived: false\n  });\n  const [appliedFilters, setAppliedFilters] = useState<FilterOptions>(filters);\n\n  const applyFilters = () => {\n    setAppliedFilters(filters);\n    console.log('Applying filters:', filters);\n    setFiltersOpen(false);\n  };\n\n  const resetFilters = () => {\n    const emptyFilters = {\n      status: '',\n      department: '',\n      dateRange: '',\n      includeArchived: false\n    };\n    setFilters(emptyFilters);\n    setAppliedFilters(emptyFilters);\n  };\n\n  const closeFilters = () => {\n    // Reset to applied filters if user cancels\n    setFilters(appliedFilters);\n    setFiltersOpen(false);\n  };\n\n  const activeFilterCount = Object.values(appliedFilters).filter(\n    (value) => value && value !== ''\n  ).length;\n\n  return (\n    <div>\n      {/* Main content header with filter button */}\n      <GoabBlock direction=\"row\" gap=\"m\" alignment=\"center\" mb=\"l\">\n        <h1>Application List</h1>\n        <GoabButton \n          type=\"secondary\" \n          onClick={() => setFiltersOpen(true)}\n        >\n          Filters {activeFilterCount > 0 && `(${activeFilterCount})`}\n        </GoabButton>\n      </GoabBlock>\n\n      {/* Data table would go here */}\n      <div className=\"data-table\">\n        <p>Data table with applied filters: {JSON.stringify(appliedFilters)}</p>\n      </div>\n\n      {/* Filter Drawer */}\n      <GoabDrawer\n        open={filtersOpen}\n        position=\"right\"\n        heading=\"Filter Applications\"\n        onClose={closeFilters}\n        maxSize=\"400px\"\n        testId=\"filters-drawer\"\n      >\n        <GoabBlock direction=\"column\" gap=\"l\">\n          <GoabFormItem label=\"Status\">\n            <GoabDropdown\n              name=\"status\"\n              value={filters.status}\n              onChange={(e) => setFilters(prev => ({...prev, status: e.value}))}\n              placeholder=\"All statuses\"\n            >\n              <GoabDropdownItem value=\"pending\">Pending</GoabDropdownItem>\n              <GoabDropdownItem value=\"approved\">Approved</GoabDropdownItem>\n              <GoabDropdownItem value=\"rejected\">Rejected</GoabDropdownItem>\n            </GoabDropdown>\n          </GoabFormItem>\n\n          <GoabFormItem label=\"Department\">\n            <GoabDropdown\n              name=\"department\"\n              value={filters.department}\n              onChange={(e) => setFilters(prev => ({...prev, department: e.value}))}\n              placeholder=\"All departments\"\n            >\n              <GoabDropdownItem value=\"finance\">Finance</GoabDropdownItem>\n              <GoabDropdownItem value=\"hr\">Human Resources</GoabDropdownItem>\n              <GoabDropdownItem value=\"it\">Information Technology</GoabDropdownItem>\n            </GoabDropdown>\n          </GoabFormItem>\n\n          <GoabFormItem label=\"Date Range\">\n            <GoabDropdown\n              name=\"dateRange\"\n              value={filters.dateRange}\n              onChange={(e) => setFilters(prev => ({...prev, dateRange: e.value}))}\n              placeholder=\"Any time\"\n            >\n              <GoabDropdownItem value=\"today\">Today</GoabDropdownItem>\n              <GoabDropdownItem value=\"week\">Last 7 days</GoabDropdownItem>\n              <GoabDropdownItem value=\"month\">Last 30 days</GoabDropdownItem>\n            </GoabDropdown>\n          </GoabFormItem>\n\n          <GoabFormItem label=\"Additional Options\">\n            <GoabCheckbox\n              name=\"includeArchived\"\n              checked={filters.includeArchived}\n              onChange={(e) => setFilters(prev => ({...prev, includeArchived: e.checked}))}\n            >\n              Include archived items\n            </GoabCheckbox>\n          </GoabFormItem>\n        </GoabBlock>\n\n        {/* Filter Actions */}\n        <div slot=\"actions\">\n          <GoabBlock direction=\"row\" gap=\"m\">\n            <GoabButton type=\"primary\" onClick={applyFilters}>\n              Apply Filters\n            </GoabButton>\n            <GoabButton type=\"secondary\" onClick={resetFilters}>\n              Reset\n            </GoabButton>\n          </GoabBlock>\n        </div>\n      </GoabDrawer>\n    </div>\n  );\n}"
+      }
+    ],
+    "angular": [
+      {
+        "title": "Settings Management Drawer",
+        "description": "User settings panel with form integration",
+        "typescript": "import { Component } from '@angular/core';\n\ninterface UserSettings {\n  notifications: boolean;\n  theme: 'light' | 'dark';\n  language: string;\n  autoSave: boolean;\n}\n\n@Component({\n  selector: 'app-settings-manager',\n  templateUrl: './settings-manager.component.html'\n})\nexport class SettingsManagerComponent {\n  settingsOpen = false;\n  \n  settings: UserSettings = {\n    notifications: true,\n    theme: 'light',\n    language: 'en',\n    autoSave: false\n  };\n\n  originalSettings: UserSettings = {...this.settings};\n\n  openSettings() {\n    this.originalSettings = {...this.settings};\n    this.settingsOpen = true;\n  }\n\n  closeSettings() {\n    // Restore original settings if cancelled\n    this.settings = {...this.originalSettings};\n    this.settingsOpen = false;\n  }\n\n  saveSettings() {\n    console.log('Saving settings:', this.settings);\n    // API call would go here\n    this.settingsOpen = false;\n  }\n\n  onNotificationChange(event: {checked: boolean}) {\n    this.settings.notifications = event.checked;\n  }\n\n  onThemeChange(event: {value: string}) {\n    this.settings.theme = event.value as 'light' | 'dark';\n  }\n\n  onLanguageChange(event: {value: string}) {\n    this.settings.language = event.value;\n  }\n\n  onAutoSaveChange(event: {checked: boolean}) {\n    this.settings.autoSave = event.checked;\n  }\n}",
+        "template": "<div class=\"main-content\">\n  <goa-block direction=\"row\" gap=\"m\" alignment=\"center\" mb=\"l\">\n    <h1>Application Dashboard</h1>\n    <goa-button type=\"secondary\" (onClick)=\"openSettings()\">\n      Settings\n    </goa-button>\n  </goa-block>\n\n  <!-- Main dashboard content -->\n  <div class=\"dashboard-content\">\n    <p>Current theme: {{ settings.theme }}</p>\n    <p>Notifications: {{ settings.notifications ? 'On' : 'Off' }}</p>\n  </div>\n</div>\n\n<!-- Settings Drawer -->\n<goa-drawer\n  [open]=\"settingsOpen\"\n  position=\"right\"\n  heading=\"User Settings\"\n  (onClose)=\"closeSettings()\"\n  maxSize=\"380px\"\n  testId=\"settings-drawer\">\n  \n  <goa-block direction=\"column\" gap=\"l\">\n    <goa-form-item label=\"Notifications\">\n      <goa-checkbox\n        name=\"notifications\"\n        [checked]=\"settings.notifications\"\n        (onChange)=\"onNotificationChange($event)\">\n        Enable email notifications\n      </goa-checkbox>\n    </goa-form-item>\n\n    <goa-form-item label=\"Theme\">\n      <goa-radio-group\n        name=\"theme\"\n        [value]=\"settings.theme\"\n        (onChange)=\"onThemeChange($event)\">\n        <goa-radio-item value=\"light\">Light Mode</goa-radio-item>\n        <goa-radio-item value=\"dark\">Dark Mode</goa-radio-item>\n      </goa-radio-group>\n    </goa-form-item>\n\n    <goa-form-item label=\"Language\">\n      <goa-dropdown\n        name=\"language\"\n        [value]=\"settings.language\"\n        (onChange)=\"onLanguageChange($event)\">\n        <goa-dropdown-item value=\"en\">English</goa-dropdown-item>\n        <goa-dropdown-item value=\"fr\">Français</goa-dropdown-item>\n      </goa-dropdown>\n    </goa-form-item>\n\n    <goa-form-item label=\"Auto-save\">\n      <goa-checkbox\n        name=\"autoSave\"\n        [checked]=\"settings.autoSave\"\n        (onChange)=\"onAutoSaveChange($event)\">\n        Automatically save changes\n      </goa-checkbox>\n    </goa-form-item>\n  </goa-block>\n\n  <!-- Settings Actions -->\n  <div slot=\"actions\">\n    <goa-block direction=\"row\" gap=\"m\">\n      <goa-button type=\"primary\" (onClick)=\"saveSettings()\">\n        Save Settings\n      </goa-button>\n      <goa-button type=\"secondary\" (onClick)=\"closeSettings()\">\n        Cancel\n      </goa-button>\n    </goa-block>\n  </div>\n</goa-drawer>"
+      }
+    ],
+    "webComponent": [
+      {
+        "title": "Simple Information Drawer",
+        "description": "Basic drawer with content and actions",
+        "code": "<script>\n  let drawerOpen = false;\n  \n  function openDrawer() {\n    drawerOpen = true;\n  }\n  \n  function closeDrawer() {\n    drawerOpen = false;\n  }\n  \n  function handleAction() {\n    console.log('Action performed');\n    closeDrawer();\n  }\n</script>\n\n<button on:click={openDrawer}>Open Details</button>\n\n<goa-drawer\n  open={drawerOpen}\n  position=\"right\"\n  heading=\"Additional Information\"\n  on:_close={closeDrawer}>\n  \n  <div class=\"drawer-content\">\n    <p>This is additional information that doesn't require navigation away from the main page.</p>\n    <ul>\n      <li>Detail item 1</li>\n      <li>Detail item 2</li>\n      <li>Detail item 3</li>\n    </ul>\n  </div>\n  \n  <div slot=\"actions\">\n    <goa-button type=\"primary\" on:click={handleAction}>\n      Confirm\n    </goa-button>\n    <goa-button type=\"secondary\" on:click={closeDrawer}>\n      Close\n    </goa-button>\n  </div>\n</goa-drawer>"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Forms and data entry that supplement the main content",
+      "Filtering and search options that affect main content",
+      "Settings and configuration panels",
+      "Detailed information or help content",
+      "Multi-step workflows that shouldn't lose main page context"
+    ],
+    "whenNotToUse": [
+      "Navigation to entirely different pages (use standard navigation)",
+      "Critical alerts or confirmations (use Modal instead)",
+      "Content that requires full screen attention",
+      "Simple quick actions (use Popover or inline interactions)"
+    ],
+    "bestPractices": [
+      "Use clear, action-oriented headings that describe the drawer's purpose",
+      "Place primary action button first (left) in footer actions",
+      "Limit drawer content to maintain focus and usability",
+      "Use right position for most desktop applications (familiar pattern)",
+      "Always provide a way to close without taking action (Cancel button)",
+      "Handle unsaved changes appropriately - warn users or auto-save"
+    ],
+          "positioning": {
+      "right": "Most common for forms and details (follows desktop patterns)",
+      "left": "Alternative side positioning, less common in western interfaces",
+      "bottom": "Ideal for mobile interfaces and touch interactions"
+    },
+    "accessibility": [
+      "Focus automatically moves to close button when drawer opens",
+      "Focus returns to triggering element when drawer closes",
+      "Full keyboard navigation support (Tab, Shift+Tab, Escape)",
+      "Screen reader announces drawer opening and content",
+      "Background content is not accessible while drawer is open"
+    ]
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "problem": "Background content scrolls when drawer is open",
+        "solution": "This is a known issue (#2710). Implement custom scroll prevention in your application if needed.",
+        "workaround": "Use CSS overflow: hidden on body element when drawer is open"
+      },
+      {
+        "problem": "Drawer doesn't close when clicking background",
+        "solution": "Ensure onClose callback is properly implemented. The close event should update the open prop to false.",
+        "example": "React: onClose={() => setIsOpen(false)}, Angular: (onClose)=\"isOpen = false\""
+      },
+      {
+        "problem": "Drawer content gets cut off",
+        "solution": "Check maxSize prop and ensure it doesn't exceed viewport. Use appropriate sizing for your content.",
+        "example": "For forms, try maxSize=\"400px\". For content lists, consider maxSize=\"50vw\""
+      },
+      {
+        "problem": "Focus management not working properly",
+        "solution": "Ensure drawer is properly opened/closed through the open prop. Focus management is automatic when prop changes correctly.",
+        "example": "Always use controlled component pattern with state management"
+      },
+      {
+        "problem": "Drawer appears without animation",
+        "solution": "Animation timing is controlled by design tokens. Ensure component is properly imported and CSS is loaded.",
+        "note": "Close animation is currently missing (#2678) but open animation should work"
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "Modal",
+      "usage": "Use Modal for critical confirmations, Drawer for workflows",
+      "example": "Modal: 'Delete this item?', Drawer: 'Edit item details'"
+    },
+    {
+      "name": "Button",
+      "usage": "Drawer actions and triggers",
+      "example": "Use Button to open drawer and in drawer actions slot"
+    },
+    {
+      "name": "FormItem",
+      "usage": "Form elements within drawer content",
+      "example": "Build forms inside drawer using FormItem components"
+    },
+    {
+      "name": "Block",
+      "usage": "Layout organization within drawer",
+      "example": "Use Block for spacing form elements and action buttons"
+    }
+  ],
+
+  "integrationPatterns": [
+    {
+      "name": "Form Workflow Pattern",
+      "description": "Create and edit forms without losing main page context",
+      "components": ["Drawer", "FormItem", "Input", "Button"],
+      "example": "User management, data entry, settings configuration"
+    },
+    {
+      "name": "Filter Panel Pattern",
+      "description": "Advanced filtering that affects main content display",
+      "components": ["Drawer", "Dropdown", "Checkbox", "Button"],
+      "example": "Table filtering, search refinement, report configuration"
+    },
+    {
+      "name": "Detail View Pattern",
+      "description": "Show additional information without navigation",
+      "components": ["Drawer", "content components"],
+      "example": "Item details, help content, extended information"
+    },
+    {
+      "name": "Action Sheet Pattern",
+      "description": "Context-specific actions and options",
+      "components": ["Drawer", "Button", "various action components"],
+      "example": "Bulk operations, contextual menus, tool palettes"
+    }
+  ],
+
+  "sizing": {
+    "recommendations": {
+      "forms": "400px - 500px width for comfortable form layouts",
+      "filters": "300px - 400px width for filter controls", 
+      "details": "400px - 600px width depending on content complexity",
+      "mobile": "80vh height for bottom drawers on mobile devices"
+    },
+    "constraints": {
+      "minimum": "280px width to accommodate content properly",
+      "maximum": "Avoid exceeding 70% of viewport width/height",
+      "responsive": "Consider different sizes for different screen sizes"
+    }
+  },
+
+  "drawerTypes": {
+    "modal": {
+      "description": "Current implementation - blocks interaction with background",
+      "behavior": "Focus trapped within drawer, background overlay prevents interaction",
+      "useCase": "Forms, settings, workflows requiring focused attention"
+    },
+    "push": {
+      "description": "Planned feature (#2469) - pushes main content aside",
+      "behavior": "Main content visible alongside drawer content",
+      "useCase": "Filters, navigation, tools that work with main content"
+    }
+  },
+
+  "tags": ["panel", "overlay", "modal", "form", "filter", "navigation", "sidebar"],
+  "category": "component", 
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/drawer.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

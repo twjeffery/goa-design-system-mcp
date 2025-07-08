@@ -1,0 +1,410 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "lastUpdated": "2025-07-02",
+
+  "customElement": {
+    "tagName": "goa-app-footer",
+    "className": "GoaAppFooter",
+    "note": "Footer system includes goa-app-footer-nav-section and goa-app-footer-meta-section child components"
+  },
+
+  "playgroundExamples": {
+    "complete": {
+      "title": "Complete Footer with Multiple Navigation Sections",
+      "description": "Demonstrates footer with two navigation sections using different column configurations and meta links",
+      "code": "<GoabAppFooter url=\"http://localhost:4200\" maxContentWidth=\"100%\">\n  <GoabAppFooterNavSection maxColumnCount={2} heading=\"Heading\">\n    <a href=\"g.html\">Link 123we</a>\n    <a href=\"h.html\">Link 2</a>\n    <a href=\"i.html\">Link 3</a>\n    <a href=\"j.html\">Other thing</a>\n  </GoabAppFooterNavSection>\n  <GoabAppFooterNavSection maxColumnCount={1} heading=\"Heading\">\n    <a href=\"g.html\">Link 123we</a>\n    <a href=\"h.html\">Link 2</a>\n    <a href=\"i.html\">Link 3</a>\n    <a href=\"j.html\">Other thing</a>\n  </GoabAppFooterNavSection>\n  <GoabAppFooterMetaSection>\n    <a href=\"privacy.html\">Meta link</a>\n    <a href=\"disclaimer.html\">Meta link</a>\n    <a href=\"accessibility.html\">Meta link</a>\n    <a href=\"using-alberta.html\">Meta link</a>\n  </GoabAppFooterMetaSection>\n</GoabAppFooter>",
+      "usage": "Shows how to combine multiple navigation sections with different column layouts alongside meta links",
+      "demonstrates": ["Multiple navigation sections", "Column configuration differences", "Custom URL override", "Full width layout"]
+    },
+    "minimal": {
+      "title": "Minimal Footer (Empty)",
+      "description": "Simplest footer implementation with just government branding",
+      "code": "<GoabAppFooter maxContentWidth=\"100%\"> </GoabAppFooter>",
+      "usage": "Use when you only need government branding without navigation or meta links",
+      "demonstrates": ["Minimal implementation", "Government branding only", "Full width layout"]
+    },
+    "customUrl": {
+      "title": "Footer with Custom URL Override",
+      "description": "Footer with custom government logo URL (typically for development)",
+      "code": "<GoabAppFooter maxContentWidth=\"100%\" url=\"http://localhost:4200\">\n  {\" \"}\n</GoabAppFooter>",
+      "usage": "Useful during development when you need to override the default alberta.ca link",
+      "demonstrates": ["Custom URL configuration", "Development setup", "Empty content with branding"]
+    },
+    "metaOnly": {
+      "title": "Footer with Meta Links Only",
+      "description": "Footer containing only utility/meta links without navigation sections",
+      "code": "<GoabAppFooter url=\"\" maxContentWidth=\"100%\">\n  <GoabAppFooterMetaSection>\n    <a href=\"privacy.html\">Meta link</a>\n    <a href=\"disclaimer.html\">Meta link</a>\n    <a href=\"accessibility.html\">Meta link</a>\n    <a href=\"using-alberta.html\">Meta link</a>\n  </GoabAppFooterMetaSection>\n</GoabAppFooter>",
+      "usage": "Ideal for simple pages that only need essential utility links like privacy and accessibility",
+      "demonstrates": ["Meta links only", "Empty URL configuration", "Essential utility links"]
+    },
+    "navOnly": {
+      "title": "Footer with Navigation Only",
+      "description": "Footer with navigation section but no meta links",
+      "code": "<GoabAppFooter maxContentWidth=\"100%\">\n  <GoabAppFooterNavSection maxColumnCount={1}>\n    <a href=\"g.html\">Link 1</a>\n    <a href=\"h.html\">Protected B</a>\n    <a href=\"i.html\">Link 3</a>\n    <a href=\"j.html\">Other thing</a>\n  </GoabAppFooterNavSection>\n</GoabAppFooter>",
+      "usage": "Use when you need navigation links but meta links are handled elsewhere or not required",
+      "demonstrates": ["Navigation without heading", "Single column layout", "No meta section", "Security classification example"]
+    },
+    "columnComparison": {
+      "title": "Column Layout Comparison",
+      "description": "Side-by-side comparison of different column configurations",
+      "code": "// Two-column layout for many links\n<GoabAppFooterNavSection maxColumnCount={2} heading=\"Services\">\n  <a href=\"/health\">Health Services</a>\n  <a href=\"/education\">Education</a>\n  <a href=\"/employment\">Employment</a>\n  <a href=\"/business\">Business</a>\n</GoabAppFooterNavSection>\n\n// Single-column layout for fewer links\n<GoabAppFooterNavSection maxColumnCount={1} heading=\"Quick Links\">\n  <a href=\"/about\">About</a>\n  <a href=\"/contact\">Contact</a>\n</GoabAppFooterNavSection>",
+      "usage": "Choose column count based on number of links: 2+ columns for 4+ links, 1 column for fewer",
+      "demonstrates": ["Column count optimization", "Link organization", "Responsive considerations"]
+    }
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system", "@abgov/web-components", "Government branding assets"]
+  },
+
+  "componentInfo": {
+    "name": "Footer",
+    "purpose": "Provides standardized footer with navigation links, meta information, and Government of Alberta branding",
+    "category": "layout",
+    "requiredFor": "All government applications and services"
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabAppFooter, GoabAppFooterNavSection, GoabAppFooterMetaSection } from '@abgov/react-components'",
+      "quickExample": "// Complete footer with navigation and meta links\n<GoabAppFooter maxContentWidth=\"1200px\">\n  <GoabAppFooterNavSection heading=\"Services\">\n    <a href=\"/health\">Health Services</a>\n    <a href=\"/education\">Education</a>\n    <a href=\"/employment\">Employment</a>\n  </GoabAppFooterNavSection>\n  <GoabAppFooterMetaSection>\n    <a href=\"/privacy\">Privacy</a>\n    <a href=\"/accessibility\">Accessibility</a>\n    <a href=\"/contact\">Contact Us</a>\n  </GoabAppFooterMetaSection>\n</GoabAppFooter>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "// Complete footer implementation\n<goa-app-footer maxContentWidth=\"1200px\">\n  <goa-app-footer-nav-section heading=\"Quick Links\">\n    <a href=\"/services\">Our Services</a>\n    <a href=\"/about\">About Us</a>\n    <a href=\"/news\">News & Updates</a>\n  </goa-app-footer-nav-section>\n  <goa-app-footer-meta-section>\n    <a href=\"/privacy\">Privacy Policy</a>\n    <a href=\"/terms\">Terms of Use</a>\n    <a href=\"/feedback\">Give Feedback</a>\n  </goa-app-footer-meta-section>\n</goa-app-footer>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<!-- Basic footer with meta links only -->\n<goa-app-footer>\n  <goa-app-footer-meta-section>\n    <a href=\"/privacy\">Privacy</a>\n    <a href=\"/accessibility\">Accessibility</a>\n    <a href=\"/contact\">Contact Us</a>\n  </goa-app-footer-meta-section>\n</goa-app-footer>\n\n<!-- Footer with navigation sections -->\n<goa-app-footer maxcontentwidth=\"1200px\">\n  <goa-app-footer-nav-section heading=\"Services\" maxcolumncount=\"2\">\n    <a href=\"/health\">Health Services</a>\n    <a href=\"/education\">Education</a>\n    <a href=\"/employment\">Employment</a>\n    <a href=\"/business\">Business</a>\n  </goa-app-footer-nav-section>\n  <goa-app-footer-meta-section>\n    <a href=\"/give-feedback\">Give feedback</a>\n    <a href=\"/accessibility\">Accessibility</a>\n    <a href=\"/privacy\">Privacy</a>\n    <a href=\"/contact\">Contact us</a>\n  </goa-app-footer-meta-section>\n</goa-app-footer>"
+    }
+  },
+
+  "api": {
+    "footer": {
+      "props": [
+        {
+          "name": "maxContentWidth",
+          "type": "string",
+          "default": "\"100%\"",
+          "required": false,
+          "description": "Maximum width of footer content area",
+          "usage": "Use consistent width with your page layout (e.g., '1200px', '90%')"
+        },
+        {
+          "name": "url",
+          "type": "string", 
+          "default": "\"https://alberta.ca\"",
+          "required": false,
+          "description": "URL for Government of Alberta logo link",
+          "usage": "Usually keep default unless linking to specific government portal"
+        },
+        {
+          "name": "testId",
+          "type": "string",
+          "required": false,
+          "description": "Test identifier for automation",
+          "usage": "Use for QA testing of navigation sections"
+        }
+      ],
+      "children": "Anchor elements with href attributes for navigation links"
+    },
+    "navSection": {
+      "props": [
+        {
+          "name": "heading",
+          "type": "string",
+          "required": false,
+          "description": "Section heading text",
+          "usage": "Use clear, descriptive headings like 'Services', 'Quick Links'"
+        },
+        {
+          "name": "maxColumnCount",
+          "type": "number",
+          "default": "1",
+          "required": false,
+          "description": "Number of columns on larger screens",
+          "usage": "Use 2-3 columns for many links, 1 column for few links"
+        },
+        {
+          "name": "testId",
+          "type": "string",
+          "required": false,
+          "description": "Test identifier for automation",
+          "usage": "Use for QA testing and automation scripts"
+        }
+      ],
+      "children": [
+        {
+          "name": "GoaAppFooterNavSection",
+          "description": "Navigation links section",
+          "usage": "Use for primary footer navigation links"
+        },
+        {
+          "name": "GoaAppFooterMetaSection", 
+          "description": "Meta/utility links section",
+          "usage": "Use for privacy, accessibility, contact links"
+        }
+      ]
+    },
+    "metaSection": {
+      "props": [
+        {
+          "name": "testId",
+          "type": "string",
+          "required": false,
+          "description": "Test identifier for automation",
+          "usage": "Use for QA testing of meta links section"
+        }
+      ],
+      "children": "Anchor elements with href attributes for utility links"
+    }
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Simple Footer with Meta Links Only",
+          "code": "function SimpleFooter() {\n  return (\n    <GoabAppFooter>\n      <GoabAppFooterMetaSection>\n        <a href=\"/privacy\">Privacy</a>\n        <a href=\"/accessibility\">Accessibility</a>\n        <a href=\"/contact\">Contact Us</a>\n        <a href=\"/feedback\">Give Feedback</a>\n      </GoabAppFooterMetaSection>\n    </GoabAppFooter>\n  );\n}"
+        },
+        {
+          "title": "Complete Footer with Navigation Sections",
+          "code": "function CompleteFooter() {\n  return (\n    <GoabAppFooter maxContentWidth=\"1200px\">\n      <GoabAppFooterNavSection heading=\"Government Services\" maxColumnCount={2}>\n        <a href=\"/health-services\">Health Services</a>\n        <a href=\"/education\">Education</a>\n        <a href=\"/employment-training\">Employment & Training</a>\n        <a href=\"/business-economy\">Business & Economy</a>\n        <a href=\"/environment\">Environment</a>\n        <a href=\"/transportation\">Transportation</a>\n      </GoabAppFooterNavSection>\n      \n      <GoabAppFooterNavSection heading=\"Popular Topics\">\n        <a href=\"/covid-19\">COVID-19 Information</a>\n        <a href=\"/weather-road-conditions\">Weather & Road Conditions</a>\n        <a href=\"/job-search\">Job Search</a>\n        <a href=\"/benefits\">Benefits & Financial Support</a>\n      </GoabAppFooterNavSection>\n      \n      <GoabAppFooterMetaSection>\n        <a href=\"/give-feedback\">Give Feedback</a>\n        <a href=\"/accessibility\">Accessibility</a>\n        <a href=\"/privacy\">Privacy</a>\n        <a href=\"/terms-conditions\">Terms & Conditions</a>\n        <a href=\"/contact-government\">Contact Government</a>\n      </GoabAppFooterMetaSection>\n    </GoabAppFooter>\n  );\n}"
+        },
+        {
+          "title": "Footer with Dynamic Content",
+          "code": "function DynamicFooter({ footerLinks, metaLinks }) {\n  return (\n    <GoabAppFooter maxContentWidth=\"1200px\">\n      {footerLinks.map((section, index) => (\n        <GoabAppFooterNavSection \n          key={index}\n          heading={section.heading}\n          maxColumnCount={section.links.length > 4 ? 2 : 1}\n        >\n          {section.links.map((link, linkIndex) => (\n            <a key={linkIndex} href={link.url}>\n              {link.text}\n            </a>\n          ))}\n        </GoabAppFooterNavSection>\n      ))}\n      \n      <GoabAppFooterMetaSection>\n        {metaLinks.map((link, index) => (\n          <a key={index} href={link.url}>\n            {link.text}\n          </a>\n        ))}\n      </GoabAppFooterMetaSection>\n    </GoabAppFooter>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Service Footer Component",
+          "code": "export class ServiceFooterComponent {\n  serviceLinks = [\n    { text: 'Health Services', url: '/health' },\n    { text: 'Education', url: '/education' },\n    { text: 'Employment', url: '/employment' },\n    { text: 'Business Support', url: '/business' }\n  ];\n\n  utilityLinks = [\n    { text: 'Privacy Policy', url: '/privacy' },\n    { text: 'Accessibility', url: '/accessibility' },\n    { text: 'Terms of Use', url: '/terms' },\n    { text: 'Contact Us', url: '/contact' }\n  ];\n}\n\n<!-- Template -->\n<goa-app-footer maxContentWidth=\"1200px\">\n  <goa-app-footer-nav-section heading=\"Our Services\" [maxColumnCount]=\"2\">\n    <a *ngFor=\"let link of serviceLinks\" [href]=\"link.url\">\n      {{ link.text }}\n    </a>\n  </goa-app-footer-nav-section>\n  \n  <goa-app-footer-meta-section>\n    <a *ngFor=\"let link of utilityLinks\" [href]=\"link.url\">\n      {{ link.text }}\n    </a>\n  </goa-app-footer-meta-section>\n</goa-app-footer>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Multi-Language Footer",
+        "description": "Footer with language-specific navigation links",
+        "code": "function MultiLanguageFooter({ language }) {\n  const footerContent = {\n    en: {\n      services: 'Government Services',\n      links: [\n        { text: 'Health Services', url: '/health' },\n        { text: 'Education', url: '/education' }\n      ],\n      meta: [\n        { text: 'Privacy', url: '/privacy' },\n        { text: 'Contact Us', url: '/contact' }\n      ]\n    },\n    fr: {\n      services: 'Services gouvernementaux',\n      links: [\n        { text: 'Services de santé', url: '/fr/sante' },\n        { text: 'Éducation', url: '/fr/education' }\n      ],\n      meta: [\n        { text: 'Confidentialité', url: '/fr/confidentialite' },\n        { text: 'Nous contacter', url: '/fr/contact' }\n      ]\n    }\n  };\n\n  const content = footerContent[language] || footerContent.en;\n\n  return (\n    <GoabAppFooter>\n      <GoabAppFooterNavSection heading={content.services}>\n        {content.links.map((link, index) => (\n          <a key={index} href={link.url}>{link.text}</a>\n        ))}\n      </GoabAppFooterNavSection>\n      <GoabAppFooterMetaSection>\n        {content.meta.map((link, index) => (\n          <a key={index} href={link.url}>{link.text}</a>\n        ))}\n      </GoabAppFooterMetaSection>\n    </GoabAppFooter>\n  );\n}"
+      },
+      {
+        "name": "Page Layout Integration",
+        "description": "Footer as part of complete page layout structure",
+        "code": "function PageLayout({ children }) {\n  return (\n    <div className=\"page-layout\">\n      <GoabAppHeader heading=\"My Service\" />\n      \n      <main className=\"main-content\">\n        {children}\n      </main>\n      \n      <GoabAppFooter maxContentWidth=\"1200px\">\n        <GoabAppFooterNavSection heading=\"Quick Links\">\n          <a href=\"/services\">Services</a>\n          <a href=\"/about\">About</a>\n          <a href=\"/help\">Help</a>\n        </GoabAppFooterNavSection>\n        <GoabAppFooterMetaSection>\n          <a href=\"/privacy\">Privacy</a>\n          <a href=\"/accessibility\">Accessibility</a>\n          <a href=\"/contact\">Contact</a>\n        </GoabAppFooterMetaSection>\n      </GoabAppFooter>\n    </div>\n  );\n}"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Every government application and service page",
+      "Multi-page websites requiring consistent navigation",
+      "Applications needing government branding compliance",
+      "Services requiring footer navigation and utility links"
+    ],
+    "whenNotToUse": [
+      "Single-page applications where footer navigation isn't needed",
+      "Print layouts or export views",
+      "Embedded widgets or components within other sites"
+    ],
+    "bestPractices": [
+      "Include essential utility links: Privacy, Accessibility, Contact Us",
+      "Group navigation links logically by topic or service area",
+      "Use descriptive link text that clearly indicates destination",
+      "Limit navigation sections to 2-3 for better usability",
+      "Use maxColumnCount appropriately: 1 column for few links, 2-3 for many",
+      "Keep meta links to essential items only (4-6 links maximum)",
+      "Ensure footer content is relevant to your service"
+    ],
+    "contentGuidelines": [
+      "Use clear, action-oriented link text",
+      "Group related links under descriptive headings",
+      "Include required government links (Privacy, Accessibility)",
+      "Order links by importance and frequency of use",
+      "Use consistent link naming across your application"
+    ],
+    "responsiveConsiderations": [
+      "Footer automatically adapts to mobile layouts",
+      "Multi-column navigation stacks on mobile devices",
+      "Government branding remains prominent on all screen sizes",
+      "Link spacing optimized for touch interaction on mobile"
+    ]
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate through footer links in logical order",
+      "Enter - Activate focused links",
+      "Shift+Tab - Navigate backwards through footer"
+    ],
+    "screenReader": [
+      "Footer announced as contentinfo landmark",
+      "Navigation sections announced with headings",
+      "Links provide clear destination context",
+      "Government of Alberta link clearly identified"
+    ],
+    "focusManagement": [
+      "Clear focus indicators on all links",
+      "Logical tab order from left to right, top to bottom",
+      "Focus visible and high contrast"
+    ]
+  },
+
+  "troubleshooting": {
+    "common": [
+      {
+        "issue": "Footer not displaying government branding",
+        "cause": "Missing or incorrect component structure",
+        "solution": "Ensure you're using GoaAppFooter component correctly. Government branding is automatically included."
+      },
+      {
+        "issue": "Navigation links not appearing in columns",
+        "cause": "Insufficient links or maxColumnCount not set",
+        "solution": "Set maxColumnCount prop on GoaAppFooterNavSection. Need multiple links for columns to be effective."
+      },
+      {
+        "issue": "Footer content not responsive on mobile",
+        "cause": "CSS conflicts or missing responsive tokens",
+        "solution": "Check for CSS overrides affecting footer layout. Footer should automatically adapt to mobile."
+      },
+      {
+        "issue": "Links not working or styled incorrectly",
+        "cause": "Non-anchor elements used as children",
+        "solution": "Ensure all children of nav/meta sections are anchor elements (<a>) with href attributes."
+      }
+    ],
+    "integration": [
+      {
+        "issue": "Footer not aligning with page content",
+        "cause": "Inconsistent maxContentWidth values",
+        "solution": "Use the same maxContentWidth value in footer as your main page layout components."
+      },
+      {
+        "issue": "Government logo link not working",
+        "cause": "Incorrect url prop or link blocked",
+        "solution": "Check url prop value. Default 'https://alberta.ca' should work unless specifically customized."
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabAppHeader", 
+      "usage": "Use together for complete page layout with consistent government branding",
+      "example": "<GoabAppHeader heading=\"My Service\" />\n{/* Page content */}\n<GoabAppFooter maxContentWidth=\"1200px\">\n  {/* Footer sections */}\n</GoabAppFooter>"
+    },
+    {
+      "name": "GoabContainer",
+      "usage": "Use similar maxContentWidth values for consistent page layout",
+      "example": "Keep maxContentWidth consistent across Container, Header, and Footer components"
+    },
+    {
+      "name": "GoabNavigation",
+      "usage": "Footer navigation complements main site navigation",
+      "example": "Use footer for secondary navigation and utility links"
+    }
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Using footer for primary navigation",
+      "why": "Footer is for secondary/utility navigation - primary nav should be in header",
+      "instead": "Use footer for privacy, accessibility, contact links and secondary navigation",
+      "example": "// ❌ Wrong - primary navigation in footer\n<GoabAppFooterNavSection heading=\"Main Menu\">\n  <a href=\"/home\">Home</a>\n  <a href=\"/dashboard\">Dashboard</a>\n</GoabAppFooterNavSection>\n\n// ✅ Correct - secondary navigation in footer\n<GoabAppFooterNavSection heading=\"Quick Links\">\n  <a href=\"/help\">Help</a>\n  <a href=\"/support\">Support</a>\n</GoabAppFooterNavSection>"
+    },
+    {
+      "mistake": "Inconsistent maxContentWidth across page layout",
+      "why": "Creates misaligned layouts and poor visual consistency",
+      "instead": "Use same maxContentWidth value across header, content, and footer",
+      "example": "// ❌ Wrong - inconsistent widths\n<GoabAppHeader maxContentWidth=\"1200px\" />\n<GoabContainer maxWidth=\"1000px\" />\n<GoabAppFooter maxContentWidth=\"100%\" />\n\n// ✅ Correct - consistent widths\n<GoabAppHeader maxContentWidth=\"1200px\" />\n<GoabContainer maxWidth=\"1200px\" />\n<GoabAppFooter maxContentWidth=\"1200px\" />"
+    },
+    {
+      "mistake": "Non-anchor elements as navigation children",
+      "why": "Footer sections expect anchor elements with href attributes for proper semantics",
+      "instead": "Use anchor elements with proper href attributes",
+      "example": "// ❌ Wrong - using div elements\n<GoabAppFooterNavSection>\n  <div onClick={handleClick}>Link 1</div>\n  <span>Link 2</span>\n</GoabAppFooterNavSection>\n\n// ✅ Correct - using anchor elements\n<GoabAppFooterNavSection>\n  <a href=\"/link1\">Link 1</a>\n  <a href=\"/link2\">Link 2</a>\n</GoabAppFooterNavSection>"
+    },
+    {
+      "mistake": "Too many navigation sections",
+      "why": "Clutters footer and reduces usability",
+      "instead": "Limit to 2-3 navigation sections maximum",
+      "example": "// ❌ Wrong - too many sections\n<GoabAppFooter>\n  <GoabAppFooterNavSection heading=\"Services\" />\n  <GoabAppFooterNavSection heading=\"Programs\" />\n  <GoabAppFooterNavSection heading=\"Resources\" />\n  <GoabAppFooterNavSection heading=\"Tools\" />\n  <GoabAppFooterNavSection heading=\"Information\" />\n</GoabAppFooter>\n\n// ✅ Correct - focused sections\n<GoabAppFooter>\n  <GoabAppFooterNavSection heading=\"Services\" />\n  <GoabAppFooterNavSection heading=\"Resources\" />\n  <GoabAppFooterMetaSection />\n</GoabAppFooter>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": {
+      "react": "Use camelCase: maxContentWidth, maxColumnCount, testId",
+      "webComponent": "Use lowercase: maxcontentwidth, maxcolumncount, testid",
+      "angular": "Use camelCase in templates: [maxContentWidth], [maxColumnCount]"
+    },
+    "slotHandling": {
+      "react": "Child components are direct children of footer component",
+      "webComponent": "Nav and meta sections are automatically organized",
+      "angular": "Use ng-content projection for nav and meta sections"
+    },
+    "constraints": {
+      "structure": "Footer must contain either NavSection or MetaSection components, not raw content",
+      "links": "All navigation children must be anchor elements with href attributes",
+      "branding": "Government of Alberta branding is automatically included and not customizable"
+    },
+    "responsiveBehavior": {
+      "columns": "Navigation sections automatically stack on mobile devices",
+      "spacing": "Footer adjusts padding and spacing for mobile viewports",
+      "branding": "Government logo remains prominent across all screen sizes"
+    }
+  },
+
+  "visualPatternRecognition": {
+    "description": "How to identify which footer variant to implement from Figma designs",
+    "decisionTree": {
+      "step1": "Count the types of links in the footer area",
+      "step2": "Identify link categories",
+      "step3": "Choose appropriate footer structure"
+    },
+    "patterns": {
+      "metaSectionOnly": {
+        "visualCues": [
+          "Single row of links at bottom",
+          "Only utility/legal links visible (Item 1, Item 2, Privacy, Terms, etc.)",
+          "No grouped navigation sections",
+          "Links appear to be secondary/utility in nature"
+        ],
+        "implementation": "<GoabAppFooter>\\n  <GoabAppFooterMetaSection>\\n    <a href='/item1'>Item 1</a>\\n    <a href='/item2'>Item 2</a>\\n  </GoabAppFooterMetaSection>\\n</GoabAppFooter>",
+        "whenToUse": "Simple service pages, landing pages, forms"
+      },
+      "navPlusMetaSections": {
+        "visualCues": [
+          "Multiple rows or grouped sections of links",
+          "Clear separation between navigation links and utility links", 
+          "Headings above link groups",
+          "Primary navigation links separate from legal/utility links"
+        ],
+        "implementation": "<GoabAppFooter>\\n  <GoabAppFooterNavSection heading='Services'>\\n    <a href='/health'>Health</a>\\n  </GoabAppFooterNavSection>\\n  <GoabAppFooterMetaSection>\\n    <a href='/privacy'>Privacy</a>\\n  </GoabAppFooterMetaSection>\\n</GoabAppFooter>",
+        "whenToUse": "Complex applications, multi-service portals, main government sites"
+      }
+    },
+    "aiImplementationGuidance": {
+      "defaultAssumption": "If uncertain, use MetaSection only - it's the simpler, more common pattern",
+      "verificationQuestions": [
+        "Are there clearly grouped navigation sections with headings?",
+        "Are there more than 6-8 links total?", 
+        "Do the links fall into distinct categories (navigation vs utility)?"
+      ],
+      "commonMistake": "Adding NavSection when design only shows utility links - this creates unwanted visual sections"
+    }
+  },
+
+  "tags": ["layout", "navigation", "government", "branding", "responsive"],
+  "category": "layout",
+  "status": "stable",
+  "lastUpdated": "2025-07-02",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/footer.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

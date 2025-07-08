@@ -1,0 +1,374 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Tabs",
+  "customElement": {
+    "tagName": "goa-tabs",
+    "className": "GoabTabs",
+    "subComponents": {
+      "tab": {
+        "tagName": "goa-tab",
+        "className": "GoabTab"
+      }
+    }
+  },
+  "summary": "Navigation component that organizes related content into separate sections, allowing users to switch between different views while maintaining context",
+  
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabTabs, GoabTab } from '@abgov/react-components'",
+      "quickExample": "<GoabTabs initialTab={1}>\n  <GoabTab heading=\"Overview\" open={true}>\n    Content for overview tab\n  </GoabTab>\n  <GoabTab heading=\"Details\" open={false}>\n    Content for details tab\n  </GoabTab>\n</GoabTabs>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goa-tabs [initialTab]=\"1\">\n  <goa-tab heading=\"Overview\" [open]=\"true\">\n    Content for overview tab\n  </goa-tab>\n  <goa-tab heading=\"Details\" [open]=\"false\">\n    Content for details tab\n  </goa-tab>\n</goa-tabs>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-tabs initial-tab=\"1\">\n  <goa-tab heading=\"Overview\" open=\"true\">\n    Content for overview tab\n  </goa-tab>\n  <goa-tab heading=\"Details\" open=\"false\">\n    Content for details tab\n  </goa-tab>\n</goa-tabs>"
+    }
+  },
+
+  "api": {
+    "tabs": {
+      "props": [
+        {
+          "name": "initialTab",
+          "type": "number",
+          "default": "1",
+          "required": false,
+          "description": "Which tab should be active when the component loads",
+          "usage": "Use 1-based indexing (first tab = 1, second tab = 2, etc.)"
+        },
+        {
+          "name": "testId",
+          "type": "string",
+          "required": false,
+          "description": "Sets the data-testid attribute for testing"
+        }
+      ],
+      "events": [
+        {
+          "name": "onTabChange (React) / tabChange (Angular)",
+          "description": "Fired when a different tab is selected",
+          "payload": "tabIndex: number (1-based)"
+        }
+      ]
+    },
+    "tab": {
+      "props": [
+        {
+          "name": "heading",
+          "type": "string",
+          "required": true,
+          "description": "Text displayed on the tab button",
+          "usage": "Keep headings concise and descriptive"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Whether this tab is currently active",
+          "usage": "Managed automatically by parent tabs component"
+        },
+        {
+          "name": "testId",
+          "type": "string",
+          "required": false,
+          "description": "Sets the data-testid attribute for testing"
+        }
+      ]
+    }
+  },
+
+  "playgroundExamples": {
+    "basic": [
+      {
+        "title": "Basic Tabs with Content",
+        "description": "Simple tabs demonstration with different content lengths and text wrapping",
+        "code": "<GoabTabs>\n  <GoabTab heading=\"Tab 1\">\n    Tab 1 content: Lorem ipsum dolor sit amet, consectetur adipiscing\n    elit, sed do eiusmod tempor incididunt ut labore et dolore magna\n    aliqua.\n  </GoabTab>\n  <GoabTab heading=\"Tab 2 that has a longer name that wraps all thw ay to asdksnadnasda sad sadkasnd asd asd\">\n    Tab 2 content: Lorem ipsum dolor sit amet, consectetur adipiscing\n    elit, sed do eiusmod tempor incididunt ut labore et dolore magna\n    aliqua.\n  </GoabTab>\n  <GoabTab heading=\"Tab 3\">\n    Tab 3 content: Lorem ipsum dolor sit amet, consectetur adipiscing\n    elit, sed do eiusmod tempor incididunt ut labore et dolore magna\n    aliqua.\n  </GoabTab>\n</GoabTabs>",
+        "notes": [
+          "Demonstrates handling of long tab labels that wrap to multiple lines",
+          "Shows consistent content structure across tabs",
+          "First tab is active by default (no initialTab prop specified)"
+        ]
+      },
+      {
+        "title": "Tabs with Interactive Elements",
+        "description": "Tabs containing other interactive components like tooltips and icons",
+        "code": "<GoabTabs>\n  <GoabTab heading=\"Tab with a tooltip\">\n    <GoabTooltip content=\"Tooltip\">\n      <GoabIcon type=\"information-circle\"></GoabIcon>\n    </GoabTooltip>\n  </GoabTab>\n  <GoabTab heading=\"Tab\">\n    No content\n  </GoabTab>\n</GoabTabs>",
+        "notes": [
+          "Shows how to integrate other GoA components within tab content",
+          "Demonstrates tabs with minimal or no content",
+          "Tooltip and icon provide additional interactivity within tab panels"
+        ]
+      }
+    ],
+    "layoutExamples": [
+      {
+        "title": "Multiple Tab Groups with Spacing",
+        "description": "Multiple tab groups arranged vertically with proper spacing using GoabBlock",
+        "code": "<GoabBlock gap=\"xl\" mb=\"xl\" direction=\"column\">\n  <GoabTabs>\n    <GoabTab heading=\"Tab 1\">\n      Tab 1 content: Lorem ipsum dolor sit amet, consectetur adipiscing\n      elit, sed do eiusmod tempor incididunt ut labore et dolore magna\n      aliqua.\n    </GoabTab>\n    <GoabTab heading=\"Tab 2 that has a longer name that wraps all thw ay to asdksnadnasda sad sadkasnd asd asd\">\n      Tab 2 content: Lorem ipsum dolor sit amet, consectetur adipiscing\n      elit, sed do eiusmod tempor incididunt ut labore et dolore magna\n      aliqua.\n    </GoabTab>\n    <GoabTab heading=\"Tab 3\">\n      Tab 3 content: Lorem ipsum dolor sit amet, consectetur adipiscing\n      elit, sed do eiusmod tempor incididunt ut labore et dolore magna\n      aliqua.\n    </GoabTab>\n  </GoabTabs>\n\n  <GoabTabs>\n    <GoabTab heading=\"Tab with a tooltip\">\n      <GoabTooltip content=\"Tooltip\">\n        <GoabIcon type=\"information-circle\"></GoabIcon>\n      </GoabTooltip>\n    </GoabTab>\n    <GoabTab heading=\"Tab\">\n      No content\n    </GoabTab>\n  </GoabTabs>\n</GoabBlock>",
+        "notes": [
+          "Uses GoabBlock for consistent spacing between tab groups",
+          "Shows proper layout techniques for multiple tab instances",
+          "Demonstrates consistent gap and margin bottom spacing"
+        ]
+      }
+    ],
+    "usageNotes": [
+      "Tabs automatically handle the first tab being active when no initialTab is specified",
+      "Long tab headings will wrap appropriately but should be avoided for better UX",
+      "Tab content can include any GoA components or HTML elements",
+      "Empty or minimal content tabs are supported but should be used judiciously",
+      "Tooltips and icons work seamlessly within tab content for enhanced functionality"
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Simple Content Organization",
+          "description": "Basic tabs for organizing different types of content",
+          "code": "function ServiceTabs() {\n  const [activeTab, setActiveTab] = useState(1);\n  \n  return (\n    <GoabTabs \n      initialTab={activeTab} \n      onTabChange={setActiveTab}>\n      <GoabTab heading=\"Service Overview\" open={activeTab === 1}>\n        <div className=\"tab-content\">\n          <GoabText size=\"heading-m\">Service Overview</GoabText>\n          <GoabText>\n            Our comprehensive service provides everything you need \n            to get started with your application process.\n          </GoabText>\n          <GoabButton type=\"primary\">Learn More</GoabButton>\n        </div>\n      </GoabTab>\n      \n      <GoabTab heading=\"Requirements\" open={activeTab === 2}>\n        <div className=\"tab-content\">\n          <GoabText size=\"heading-m\">Requirements</GoabText>\n          <ul>\n            <li>Valid government-issued ID</li>\n            <li>Proof of residency</li>\n            <li>Completed application form</li>\n            <li>Supporting documentation</li>\n          </ul>\n        </div>\n      </GoabTab>\n      \n      <GoabTab heading=\"Process\" open={activeTab === 3}>\n        <div className=\"tab-content\">\n          <GoabText size=\"heading-m\">Application Process</GoabText>\n          <ol>\n            <li>Submit online application</li>\n            <li>Schedule appointment</li>\n            <li>Attend appointment with documents</li>\n            <li>Receive confirmation</li>\n          </ol>\n        </div>\n      </GoabTab>\n    </GoabTabs>\n  );\n}"
+        },
+        {
+          "title": "Dashboard Data Views",
+          "description": "Tabs for switching between different data presentations",
+          "code": "function AnalyticsDashboard() {\n  const [activeTab, setActiveTab] = useState(1);\n  const [analyticsData, setAnalyticsData] = useState(null);\n  \n  // Load different data based on active tab\n  useEffect(() => {\n    loadDataForTab(activeTab).then(setAnalyticsData);\n  }, [activeTab]);\n  \n  return (\n    <div>\n      <GoabText size=\"heading-l\">Analytics Dashboard</GoabText>\n      \n      <GoabTabs \n        initialTab={activeTab} \n        onTabChange={setActiveTab}\n        testId=\"analytics-tabs\">\n        \n        <GoabTab heading=\"Summary\" open={activeTab === 1}>\n          <div className=\"dashboard-content\">\n            <GoabText size=\"heading-m\">Summary View</GoabText>\n            {analyticsData && (\n              <div className=\"metrics-grid\">\n                <GoabCard>\n                  <GoabText size=\"heading-s\">Total Users</GoabText>\n                  <GoabText size=\"heading-xl\">{analyticsData.totalUsers}</GoabText>\n                </GoabCard>\n                <GoabCard>\n                  <GoabText size=\"heading-s\">Active Sessions</GoabText>\n                  <GoabText size=\"heading-xl\">{analyticsData.activeSessions}</GoabText>\n                </GoabCard>\n              </div>\n            )}\n          </div>\n        </GoabTab>\n        \n        <GoabTab heading=\"Detailed Report\" open={activeTab === 2}>\n          <div className=\"dashboard-content\">\n            <GoabText size=\"heading-m\">Detailed Analytics</GoabText>\n            {analyticsData && (\n              <GoabTable width=\"100%\">\n                <thead>\n                  <tr>\n                    <GoabTableSortHeader>Metric</GoabTableSortHeader>\n                    <GoabTableSortHeader>Value</GoabTableSortHeader>\n                    <GoabTableSortHeader>Change</GoabTableSortHeader>\n                  </tr>\n                </thead>\n                <tbody>\n                  {analyticsData.details.map(item => (\n                    <tr key={item.metric}>\n                      <td>{item.metric}</td>\n                      <td>{item.value}</td>\n                      <td>\n                        <GoabBadge \n                          type={item.change > 0 ? 'success' : 'emergency'}>\n                          {item.change > 0 ? '+' : ''}{item.change}%\n                        </GoabBadge>\n                      </td>\n                    </tr>\n                  ))}\n                </tbody>\n              </GoabTable>\n            )}\n          </div>\n        </GoabTab>\n        \n        <GoabTab heading=\"Export\" open={activeTab === 3}>\n          <div className=\"dashboard-content\">\n            <GoabText size=\"heading-m\">Export Data</GoabText>\n            <GoabText>\n              Download your analytics data in various formats.\n            </GoabText>\n            <GoabButtonGroup>\n              <GoabButton type=\"secondary\" onClick={() => exportData('csv')}>Export CSV</GoabButton>\n              <GoabButton type=\"secondary\" onClick={() => exportData('pdf')}>Export PDF</GoabButton>\n              <GoabButton type=\"primary\" onClick={() => exportData('xlsx')}>Export Excel</GoabButton>\n            </GoabButtonGroup>\n          </div>\n        </GoabTab>\n      </GoabTabs>\n    </div>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Settings Interface",
+          "description": "Tabs for organizing different settings categories",
+          "code": "@Component({\n  template: `\n    <div>\n      <goa-text size=\"heading-l\">Account Settings</goa-text>\n      \n      <goa-tabs \n        [initialTab]=\"activeTab\" \n        (tabChange)=\"onTabChange($event)\"\n        testid=\"settings-tabs\">\n        \n        <goa-tab heading=\"Profile\" [open]=\"activeTab === 1\">\n          <div class=\"settings-section\">\n            <goa-text size=\"heading-m\">Profile Information</goa-text>\n            <goa-form-item label=\"Full Name\">\n              <goa-input \n                [value]=\"userProfile.name\" \n                (input)=\"updateProfile('name', $event)\">\n              </goa-input>\n            </goa-form-item>\n            <goa-form-item label=\"Email\">\n              <goa-input \n                type=\"email\"\n                [value]=\"userProfile.email\" \n                (input)=\"updateProfile('email', $event)\">\n              </goa-input>\n            </goa-form-item>\n            <goa-button type=\"primary\" (clickEvent)=\"saveProfile()\">Save Changes</goa-button>\n          </div>\n        </goa-tab>\n        \n        <goa-tab heading=\"Notifications\" [open]=\"activeTab === 2\">\n          <div class=\"settings-section\">\n            <goa-text size=\"heading-m\">Notification Preferences</goa-text>\n            <goa-checkbox \n              name=\"emailNotifications\"\n              [checked]=\"settings.emailNotifications\"\n              (change)=\"updateSetting('emailNotifications', $event)\">\n              Email notifications\n            </goa-checkbox>\n            <goa-checkbox \n              name=\"smsNotifications\"\n              [checked]=\"settings.smsNotifications\"\n              (change)=\"updateSetting('smsNotifications', $event)\">\n              SMS notifications\n            </goa-checkbox>\n          </div>\n        </goa-tab>\n        \n        <goa-tab heading=\"Security\" [open]=\"activeTab === 3\">\n          <div class=\"settings-section\">\n            <goa-text size=\"heading-m\">Security Settings</goa-text>\n            <goa-button type=\"secondary\" (clickEvent)=\"changePassword()\">\n              Change Password\n            </goa-button>\n            <goa-button type=\"secondary\" (clickEvent)=\"enable2FA()\">\n              Enable Two-Factor Authentication\n            </goa-button>\n          </div>\n        </goa-tab>\n      </goa-tabs>\n    </div>\n  `\n})\nexport class SettingsTabsComponent {\n  activeTab = 1;\n  userProfile = { name: '', email: '' };\n  settings = { emailNotifications: true, smsNotifications: false };\n  \n  onTabChange(tabIndex: number) {\n    this.activeTab = tabIndex;\n  }\n  \n  updateProfile(field: string, value: string) {\n    this.userProfile = { ...this.userProfile, [field]: value };\n  }\n  \n  updateSetting(setting: string, value: boolean) {\n    this.settings = { ...this.settings, [setting]: value };\n  }\n  \n  saveProfile() {\n    // Save profile logic\n  }\n}"
+        }
+      ]
+    },
+
+    "advancedExamples": {
+      "react": [
+        {
+          "title": "Dynamic Tabs with Lazy Loading",
+          "description": "Tabs that load content only when activated",
+          "code": "function LazyLoadedTabs() {\n  const [activeTab, setActiveTab] = useState(1);\n  const [loadedTabs, setLoadedTabs] = useState(new Set([1])); // Initially load first tab\n  \n  const handleTabChange = (newTab) => {\n    setActiveTab(newTab);\n    setLoadedTabs(prev => new Set([...prev, newTab]));\n  };\n  \n  return (\n    <GoabTabs initialTab={activeTab} onTabChange={handleTabChange}>\n      <GoabTab heading=\"Recent Activity\" open={activeTab === 1}>\n        {loadedTabs.has(1) && <RecentActivityContent />}\n      </GoabTab>\n      \n      <GoabTab heading=\"Reports\" open={activeTab === 2}>\n        {loadedTabs.has(2) ? (\n          <ReportsContent />\n        ) : (\n          <GoabText>Loading reports...</GoabText>\n        )}\n      </GoabTab>\n      \n      <GoabTab heading=\"Archive\" open={activeTab === 3}>\n        {loadedTabs.has(3) ? (\n          <ArchiveContent />\n        ) : (\n          <GoabText>Loading archive...</GoabText>\n        )}\n      </GoabTab>\n    </GoabTabs>\n  );\n}"
+        }
+      ]
+    }
+  },
+
+  "designGuidance": {
+    "when": {
+      "use": [
+        "Organizing related content that users need to compare or switch between frequently",
+        "Breaking up complex interfaces into manageable sections",
+        "When users need quick access to different views of the same data",
+        "For settings, configuration, or multi-step processes where context should be maintained"
+      ],
+      "dontUse": [
+        "For sequential processes (use step indicators or wizards instead)",
+        "When content in all tabs should be visible simultaneously (consider accordion or vertical layout)",
+        "For mobile-first experiences with many tabs (consider accordion or drawer navigation)",
+        "When tab content is very brief (consider a single page with sections)"
+      ]
+    },
+    "contentOrganization": {
+      "tabLabels": [
+        "Keep tab labels concise and descriptive (1-3 words ideal)",
+        "Use parallel language structure across all tabs",
+        "Avoid generic labels like 'Tab 1' or 'Other'",
+        "Order tabs by importance or logical sequence"
+      ],
+      "contentStructure": [
+        "Ensure each tab contains substantial, related content",
+        "Use consistent content patterns across tabs",
+        "Include clear headings and structure within tab content",
+        "Consider the cognitive load of switching between tabs"
+      ],
+      "responsiveConsiderations": [
+        "Test with 3-5 tabs maximum on mobile devices",
+        "Consider horizontal scrolling for tab navigation on small screens",
+        "Ensure tab labels remain readable when space is constrained",
+        "Consider alternative layouts (accordion, drawer) for mobile-first designs"
+      ]
+    },
+    "accessibility": [
+      "Provide meaningful tab labels that work out of context",
+      "Ensure tab content is properly associated with tab controls",
+      "Test keyboard navigation between tabs and within tab content",
+      "Consider users who may need to navigate all content sequentially"
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabAccordion",
+      "relationship": "Alternative content organization",
+      "usage": "Better for mobile experiences or when all content should be accessible",
+      "example": "Use accordion for FAQ sections or mobile settings"
+    },
+    {
+      "name": "GoabCard",
+      "relationship": "Content container",
+      "usage": "Organize content within tab panels",
+      "example": "Group related information in cards within tabs"
+    },
+    {
+      "name": "GoabTable",
+      "relationship": "Data display within tabs",
+      "usage": "Different data views or reports in separate tabs",
+      "example": "Summary view in one tab, detailed table in another"
+    },
+    {
+      "name": "GoabText",
+      "relationship": "Content component",
+      "usage": "Structure content within tabs with proper typography hierarchy",
+      "example": "Use heading and body text for tab content organization"
+    },
+    {
+      "name": "GoabButton / GoabButtonGroup",
+      "relationship": "Action components",
+      "usage": "Actions related to tab content",
+      "example": "Save, export, or navigate actions within tab content"
+    },
+    {
+      "name": "GoabTooltip",
+      "relationship": "Enhancement component",
+      "usage": "Provide additional context or help within tab content",
+      "example": "Add tooltips to icons or complex elements within tabs"
+    },
+    {
+      "name": "GoabIcon",
+      "relationship": "Visual enhancement",
+      "usage": "Add visual cues or interactive elements within tab content",
+      "example": "Information icons with tooltips for additional context"
+    },
+    {
+      "name": "GoabBlock",
+      "relationship": "Layout component",
+      "usage": "Organize multiple tab groups or provide consistent spacing",
+      "example": "Use for proper spacing between multiple tab instances"
+    }
+  ],
+
+  "commonPatterns": [
+    {
+      "name": "Dashboard Views",
+      "description": "Different views of the same data (summary, detailed, charts)",
+      "components": ["Tabs", "Table", "Card", "Badge"]
+    },
+    {
+      "name": "Settings Interface",
+      "description": "Organize different categories of settings and preferences",
+      "components": ["Tabs", "FormItem", "Input", "Checkbox", "Button"]
+    },
+    {
+      "name": "Product Information",
+      "description": "Overview, features, specifications, and pricing information",
+      "components": ["Tabs", "Text", "Table", "Button", "Card"]
+    },
+    {
+      "name": "Multi-step Content",
+      "description": "Related information organized by topic or complexity",
+      "components": ["Tabs", "Text", "Button", "Accordion"]
+    },
+    {
+      "name": "Interactive Content Sections",
+      "description": "Content areas with tooltips, icons, and other interactive elements",
+      "components": ["Tabs", "Tooltip", "Icon", "Text", "Block"]
+    }
+  ],
+
+  "troubleshooting": [
+    {
+      "issue": "Tab content not displaying when switched",
+      "cause": "Open prop not properly managed or tab change event not handled",
+      "solution": "Ensure the open prop on each GoabTab reflects the active tab state: `open={activeTab === 1}` and handle the onTabChange event properly"
+    },
+    {
+      "issue": "Initial tab not loading correctly",
+      "cause": "Using 0-based indexing instead of 1-based",
+      "solution": "Use 1-based indexing for initialTab prop. First tab = 1, second tab = 2, etc."
+    },
+    {
+      "issue": "Tabs not responsive on mobile",
+      "cause": "Too many tabs or long tab labels for small screens",
+      "solution": "Limit to 3-4 tabs on mobile, use shorter labels, or consider accordion layout for mobile breakpoints"
+    },
+    {
+      "issue": "Screen reader not announcing tab changes",
+      "cause": "Missing proper ARIA attributes or focus management",
+      "solution": "Ensure proper tab/tabpanel relationships and that focus moves to newly activated tab"
+    },
+    {
+      "issue": "Tab content overlapping or layout issues",
+      "cause": "CSS conflicts or improper container sizing",
+      "solution": "Ensure tab container has proper width constraints and check for CSS conflicts with parent elements"
+    },
+    {
+      "issue": "Performance issues with heavy tab content",
+      "cause": "All tab content rendering simultaneously",
+      "solution": "Implement lazy loading by conditionally rendering tab content only when that tab is active"
+    },
+    {
+      "issue": "Tab change events not firing in Angular",
+      "cause": "Incorrect event binding syntax",
+      "solution": "Use (tabChange) not (onTabChange) for Angular: `(tabChange)=\"handleTabChange($event)\"`"
+    },
+    {
+      "issue": "Long tab labels causing layout issues",
+      "cause": "Tab headings too long for available space",
+      "solution": "Keep tab labels concise (1-3 words), consider abbreviations, or implement responsive tab design"
+    },
+    {
+      "issue": "Interactive elements within tabs not working",
+      "cause": "Event propagation or focus management conflicts",
+      "solution": "Ensure proper event handling and that interactive elements like tooltips and icons have correct z-index and positioning"
+    }
+  ],
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate to tab list from page content",
+      "Left/Right Arrow - Navigate between tab buttons",
+      "Enter/Space - Activate focused tab",
+      "Tab (again) - Navigate into active tab content",
+      "Home/End - Jump to first/last tab"
+    ],
+    "screenReader": [
+      "Tab list announced with total number of tabs",
+      "Individual tabs announced with position and selection state",
+      "Tab panels associated with corresponding tab controls",
+      "Content changes announced when switching tabs"
+    ],
+    "focusManagement": [
+      "Focus moves to newly activated tab when changed via keyboard",
+      "Focus returns to tab list when navigating out of tab content",
+      "Tab content receives focus when activated"
+    ]
+  },
+
+  "performanceConsiderations": [
+    "All tab content is rendered in the DOM regardless of visibility",
+    "Consider lazy loading for tabs with heavy content or data fetching",
+    "Limit the number of tabs to avoid horizontal scrolling and cognitive overload",
+    "Optimize tab content for fast rendering, especially the initially active tab"
+  ],
+
+  "tags": ["navigation", "content-organization", "interactive", "responsive", "accessibility"],
+  "category": "component",
+  "status": "production",
+  "lastUpdated": "2025-06-27",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/tabs.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

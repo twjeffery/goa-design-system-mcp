@@ -1,0 +1,458 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "lastUpdated": "2025-07-02",
+
+  "customElement": {
+    "tagName": "goa-app-header",
+    "className": "GoaAppHeader"
+  },
+
+  "playgroundExamples": {
+    "basic": [
+      {
+        "title": "Basic Service Header",
+        "description": "Simple header with service name and navigation links",
+        "code": "<GoabAppHeader url=\"\" heading=\"Service name\">\n  <a href=\"#\">Category 1</a>\n  <a href=\"#\">Another</a>\n  <a href=\"#\">Another</a>\n  <a href=\"#\">Another</a>\n  <a href=\"#\">Another</a>\n  <a href=\"#\" className=\"interactive\">\n    Sign in\n  </a>\n</GoabAppHeader>",
+        "notes": "Standard pattern with direct navigation links and sign-in action"
+      },
+      {
+        "title": "Simple Service with Minimal Navigation",
+        "description": "Clean header for focused services",
+        "code": "<GoabAppHeader url=\"#\" heading=\"An action oriented Service name\">\n  <a href=\"#\" className=\"interactive\">\n    Sign in\n  </a>\n</GoabAppHeader>",
+        "notes": "Minimal approach for single-purpose services"
+      },
+      {
+        "title": "Multi-Item Navigation",
+        "description": "Header with several navigation items and support links",
+        "code": "<GoabAppHeader url=\"\" heading=\"Other service name\">\n  <a href=\"#\">Support</a>\n  <a href=\"#\">Another</a>\n  <a href=\"#\">Another</a>\n  <a href=\"#\" className=\"interactive\">\n    Sign in\n  </a>\n</GoabAppHeader>",
+        "notes": "Standard pattern with support and additional navigation"
+      }
+    ],
+    "withDropdowns": [
+      {
+        "title": "Dropdown Menu Navigation",
+        "description": "Header with expandable menu for grouped navigation items",
+        "code": "<GoabAppHeader url=\"\" heading=\"Service name\">\n  <a href=\"#\">Category 1</a>\n  <GoabAppHeaderMenu heading=\"More\">\n    <a href=\"#\">Cases</a>\n    <a href=\"#\">Payments</a>\n    <a href=\"#\">Outstanding</a>\n    <a href=\"#\">Another</a>\n    <a href=\"#\">Secondary item</a>\n  </GoabAppHeaderMenu>\n  <a href=\"#\">Another</a>\n  <a href=\"#\">Another</a>\n  <a href=\"#\">Another</a>\n  <a href=\"#\">Another</a>\n  <a href=\"#\" className=\"interactive\">\n    Sign in\n  </a>\n</GoabAppHeader>",
+        "notes": "Use GoabAppHeaderMenu for grouping related navigation items under dropdown menus"
+      },
+      {
+        "title": "Specialized Service with Icon Menus",
+        "description": "Service-specific navigation with iconified dropdown menus",
+        "code": "<GoabAppHeader url=\"#\" heading=\"Pay your traffic ticket\">\n  <GoabAppHeaderMenu heading=\"Tickets\" leadingIcon=\"ticket\">\n    <a href=\"#\">Cases</a>\n    <a href=\"#\">Payments</a>\n    <a href=\"#\">Outstanding</a>\n    <a href=\"#\">Another</a>\n    <a href=\"#\">Another</a>\n  </GoabAppHeaderMenu>\n  <a href=\"#\" className=\"interactive\">\n    Sign in\n  </a>\n</GoabAppHeader>",
+        "notes": "Combine service-specific icons with descriptive menu headings"
+      },
+      {
+        "title": "Complex Navigation with Multiple Menus",
+        "description": "Advanced header with multiple dropdown menus and notification system",
+        "code": "<GoabAppHeader url=\"#\" heading=\"Find housing\">\n  <a href=\"#\">sdsa</a>\n  <GoabAppHeaderMenu heading=\"\" leadingIcon=\"notifications\">\n    <a href=\"#\">Menu item</a>\n    <a href=\"#\">Payments</a>\n    <a href=\"#\">Outstanding</a>\n    <a href=\"#\">Another</a>\n    <a href=\"#\">Another</a>\n  </GoabAppHeaderMenu>\n  <a href=\"#\">Support</a>\n  <GoabAppHeaderMenu heading=\"Menu items\" leadingIcon=\"notifications\">\n    <a href=\"#\">Menu item</a>\n    <a href=\"#\">Payments</a>\n    <a href=\"#\">Outstanding</a>\n    <a href=\"#\">Another</a>\n    <a href=\"#\">Another</a>\n  </GoabAppHeaderMenu>\n  <a href=\"#\">Another</a>\n  <a href=\"#\" className=\"interactive\">\n    Sign in\n  </a>\n</GoabAppHeader>",
+        "notes": "Multiple dropdown menus with notification icons for complex service portals"
+      }
+    ],
+    "authenticatedUser": [
+      {
+        "title": "User Profile Menu",
+        "description": "Header showing authenticated user with profile dropdown",
+        "code": "<GoabAppHeader\n  url=\"\"\n  heading=\"A header name that spans so far that it goes farther and farther until it hits it's max width or one of the menu items\"\n>\n  <a href=\"#\">Menu item</a>\n  <a href=\"#\">Menu item</a>\n  <a href=\"#\">Menu item</a>\n  <GoabAppHeaderMenu heading=\"Edna Mode\" leadingIcon=\"person-circle\">\n    <a href=\"#\">My profile</a>\n    <a href=\"#\">Settings</a>\n    <a href=\"#\" className=\"interactive\">\n      Sign out\n    </a>\n  </GoabAppHeaderMenu>\n</GoabAppHeader>",
+        "notes": "Use person-circle icon with user's name for authenticated user menus. Include profile, settings, and sign out options."
+      }
+    ],
+    "layoutVariations": [
+      {
+        "title": "Full Width Header",
+        "description": "Header that spans the full browser width",
+        "code": "<GoabAppHeader url=\"\" maxContentWidth=\"100%\"></GoabAppHeader>",
+        "notes": "Use maxContentWidth=\"100%\" for full-width layouts or when header needs to span entire viewport"
+      },
+      {
+        "title": "Playground Context Header",
+        "description": "Standard playground header for component demonstration",
+        "code": "<GoabMicrositeHeader type=\"alpha\" version=\"PLAYGROUND—TJ\" />\n<GoabAppHeader url=\"/\" heading=\"Component playground\"></GoabAppHeader>",
+        "notes": "Example showing microsite header with playground-specific app header for component testing environments"
+      }
+    ],
+    "usagePatterns": {
+      "navigation": [
+        "Direct links for primary navigation items",
+        "GoabAppHeaderMenu for grouped/dropdown navigation",
+        "Use className=\"interactive\" for action items like sign-in",
+        "Support links typically placed before user actions"
+      ],
+      "iconUsage": [
+        "leadingIcon=\"person-circle\" for user profile menus",
+        "leadingIcon=\"notifications\" for notification/alert menus",
+        "leadingIcon=\"ticket\" for service-specific functionality",
+        "Icons help users quickly identify menu purposes"
+      ],
+      "headingStrategy": [
+        "Use clear, specific service names",
+        "Avoid generic terms like 'Portal' or 'System'",
+        "Action-oriented names work well (e.g., 'Pay your traffic ticket')",
+        "Long headings will wrap appropriately"
+      ]
+    }
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": [
+      "Design token system",
+      "@abgov/web-components",
+      "Government branding assets"
+    ]
+  },
+
+  "componentInfo": {
+    "name": "Header",
+    "purpose": "Standardized application header with Government of Alberta branding, service identification, and responsive navigation",
+    "category": "layout",
+    "requiredFor": "All government applications and services"
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabAppHeader } from '@abgov/react-components'",
+      "quickExample": "// Complete header with navigation and user actions\n<GoabAppHeader \n  heading=\"My Government Service\"\n  maxContentWidth=\"1200px\"\n>\n  {/* Navigation menu */}\n  <nav slot=\"menu\">\n    <a href=\"/services\">Services</a>\n    <a href=\"/about\">About</a>\n    <a href=\"/contact\">Contact</a>\n  </nav>\n  <div slot=\"actions\">\n    <GoabButton type=\"primary\">Sign In</GoabButton>\n  </div>\n</GoabAppHeader>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "// Service header with authentication\n<goa-app-header \n  heading=\"Alberta Health Services\"\n  maxContentWidth=\"1200px\">\n  <nav>\n    <a routerLink=\"/dashboard\">Dashboard</a>\n    <a routerLink=\"/services\">Services</a>\n  </nav>\n  <div class=\"user-actions\">\n    <goa-button type=\"primary\" size=\"compact\">\n      Sign In\n    </goa-button>\n  </div>\n</goa-app-header>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<!-- Basic service header -->\n<goa-app-header \n  heading=\"Vehicle Registration\"\n  maxcontentwidth=\"1200px\">\n  <nav slot=\"menu\">\n    <a href=\"/register\">Register Vehicle</a>\n    <a href=\"/status\">Check Status</a>\n  </nav>\n  <div slot=\"actions\">\n    <button class=\"sign-in-btn\">Sign In</button>\n  </div>\n</goa-app-header>"
+    }
+  },
+  "commonMistakes": [
+    {
+      "mistake": "Inconsistent maxContentWidth with page layout",
+      "why": "Creates misaligned header that doesn't match page content width",
+      "instead": "Use same maxContentWidth value across header, content areas, and footer",
+      "example": "// ❌ Wrong - inconsistent layout widths\n<GoabAppHeader maxContentWidth=\"100%\" />\n<GoabContainer maxWidth=\"1200px\">Content</GoabContainer>\n\n// ✅ Correct - consistent layout widths\n<GoabAppHeader maxContentWidth=\"1200px\" />\n<GoabContainer maxWidth=\"1200px\">Content</GoabContainer>"
+    },
+    {
+      "mistake": "Too many navigation items for mobile",
+      "why": "Complex navigation becomes unusable on mobile devices",
+      "instead": "Limit primary navigation to 5-7 main items, use dropdowns for sub-items",
+      "example": "// ❌ Wrong - too many navigation items\n<nav slot=\"menu\">\n  <a href=\"/home\">Home</a>\n  <a href=\"/services\">Services</a>\n  <a href=\"/programs\">Programs</a>\n  <a href=\"/resources\">Resources</a>\n  <a href=\"/tools\">Tools</a>\n  <a href=\"/info\">Information</a>\n  <a href=\"/help\">Help</a>\n  <a href=\"/contact\">Contact</a>\n</nav>\n\n// ✅ Correct - focused navigation with grouping\n<nav slot=\"menu\">\n  <a href=\"/services\">Services</a>\n  <a href=\"/resources\">Resources</a>\n  <a href=\"/help\">Help</a>\n  <a href=\"/contact\">Contact</a>\n</nav>"
+    },
+    {
+      "mistake": "Missing or unclear service identification",
+      "why": "Users need to understand what service they're using",
+      "instead": "Always provide clear heading that identifies the service",
+      "example": "// ❌ Wrong - generic or missing heading\n<GoabAppHeader /> {/* No heading */}\n<GoabAppHeader heading=\"Portal\" /> {/* Too generic */}\n\n// ✅ Correct - clear service identification\n<GoabAppHeader heading=\"Vehicle Registration\" />\n<GoabAppHeader heading=\"Alberta Health Services\" />"
+    },
+    {
+      "mistake": "Not using GoabAppHeaderMenu for dropdown navigation",
+      "why": "Custom dropdown implementations may not follow design system patterns",
+      "instead": "Use GoabAppHeaderMenu component for consistent dropdown behavior",
+      "example": "// ❌ Wrong - custom dropdown\n<div className=\"custom-dropdown\">\n  <button>Menu</button>\n  <div className=\"dropdown-items\">\n    <a href=\"/item1\">Item 1</a>\n  </div>\n</div>\n\n// ✅ Correct - using design system component\n<GoabAppHeaderMenu heading=\"Menu\">\n  <a href=\"/item1\">Item 1</a>\n  <a href=\"/item2\">Item 2</a>\n</GoabAppHeaderMenu>"
+    },
+    {
+      "mistake": "Using header without proper slot organization",
+      "why": "Header expects navigation content in specific slots for proper responsive behavior",
+      "instead": "Organize navigation content into menu and actions slots",
+      "example": "// ❌ Wrong - unstructured content\n<GoabAppHeader heading=\"My Service\">\n  <a href=\"/home\">Home</a>\n  <button>Sign In</button>\n</GoabAppHeader>\n\n// ✅ Correct - properly slotted content\n<GoabAppHeader heading=\"My Service\">\n  <nav slot=\"menu\">\n    <a href=\"/home\">Home</a>\n    <a href=\"/services\">Services</a>\n  </nav<div slot=\"actions\">\n    <GoabButton type=\"primary\" size=\"compact\">Sign In</GoabButton>\n  </div>\n</GoabAppHeader>"
+    },
+    {
+      "mistake": "Not including clear service identification",
+      "why": "Users need to understand what service they're using and where they are",
+      "instead": "Always provide a clear, descriptive heading that identifies the service",
+      "example": "// ❌ Wrong - missing or unclear heading\n<GoabAppHeader /> {/* No heading */}\n<GoabAppHeader heading=\"Portal\" /> {/* Too generic */}\n\n// ✅ Correct - clear service identification\n<GoabAppHeader heading=\"Vehicle Registration Service\" />\n<GoabAppHeader heading=\"Alberta Health Records\" />"
+    },
+    {
+      "mistake": "Overloading navigation with too many items",
+      "why": "Complex navigation becomes unusable on mobile devices and overwhelms users",
+      "instead": "Limit primary navigation to 5-7 main items, use GoabAppHeaderMenu for grouping",
+      "example": "// ❌ Wrong - too many primary navigation items\n<nav slot=\"menu\">\n  <a href=\"/home\">Home</a>\n  <a href=\"/services\">Services</a>\n  <a href=\"/programs\">Programs</a>\n  <a href=\"/resources\">Resources</a>\n  <a href=\"/tools\">Tools</a>\n  <a href=\"/info\">Information</a>\n  <a href=\"/help\">Help</a>\n  <a href=\"/contact\">Contact</a>\n</nav>\n\n// ✅ Correct - focused navigation with dropdown grouping\n<nav slot=\"menu\">\n  <a href=\"/services\">Services</a>\n  <GoabAppHeaderMenu heading=\"Resources\">\n    <a href=\"/tools\">Tools</a>\n    <a href=\"/info\">Information</a>\n    <a href=\"/help\">Help</a>\n  </GoabAppHeaderMenu>\n  <a href=\"/contact\">Contact</a>\n</nav>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": {
+      "react": "Use camelCase: maxContentWidth, fullMenuBreakpoint, testId",
+      "webComponent": "Use lowercase: maxcontentwidth, fullmenubreakpoint, testid",
+      "angular": "Use camelCase in templates: [maxContentWidth], [fullMenuBreakpoint]"
+    },
+    "slotHandling": {
+      "react": "Navigation and actions passed as children with slot attributes",
+      "webComponent": "Use slot=\"menu\" and slot=\"actions\" attributes on child elements",
+      "angular": "Content projection with ng-content select for different slots"
+    },
+    "constraints": {
+      "branding": "Government of Alberta branding is automatically included and not customizable",
+      "navigation": "Menu slot should contain navigation links, actions slot for user controls",
+      "responsive": "Header automatically adapts to mobile based on fullMenuBreakpoint"
+    },
+    "responsiveBehavior": {
+      "automatic": "Header switches to mobile navigation below fullMenuBreakpoint",
+      "hamburger": "Mobile menu uses hamburger pattern automatically",
+      "branding": "Government logo adapts size for mobile viewports"
+    }
+  },
+
+  "tags": [
+    "layout",
+    "navigation",
+    "government",
+    "branding",
+    "responsive",
+    "dropdown",
+    "authentication"
+  ],
+  "category": "layout",
+  "status": "stable",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/header.json",
+    "note": "See maintainer version for implementation details and development information"
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "heading",
+        "type": "string",
+        "default": "\"\"",
+        "required": false,
+        "description": "Service name displayed in header",
+        "usage": "Use clear, descriptive service names (e.g., 'Vehicle Registration', 'Health Records')"
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "default": "\"\"",
+        "required": false,
+        "description": "URL for Government of Alberta logo link",
+        "usage": "Usually keep default or link to service homepage"
+      },
+      {
+        "name": "maxContentWidth",
+        "type": "string",
+        "default": "\"100%\"",
+        "required": false,
+        "description": "Maximum width of header content",
+        "usage": "Use consistent width with your page layout (e.g., '1200px', '90%')"
+      },
+      {
+        "name": "fullMenuBreakpoint",
+        "type": "number",
+        "default": "768",
+        "required": false,
+        "description": "Breakpoint in pixels for desktop navigation",
+        "usage": "Adjust based on your navigation complexity (768px standard, 992px for more items)"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Test identifier for automation",
+        "usage": "Use for QA testing and automation scripts"
+      }
+    ],
+    "slots": [
+      {
+        "name": "menu",
+        "description": "Navigation menu content",
+        "usage": "Primary navigation links for your service"
+      },
+      {
+        "name": "actions",
+        "description": "User actions and authentication controls",
+        "usage": "Sign in/out buttons, user menus, secondary actions"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Simple Service Header",
+          "code": "function ServiceHeader() {\n  return (\n    <GoabAppHeader heading=\"Business Registration\">\n      <nav>\n        <a href=\"/start\">Start Registration</a>\n        <a href=\"/search\">Search Registry</a>\n        <a href=\"/forms\">Forms & Documents</a>\n        <a href=\"/help\">Help</a>\n      </nav>\n      \n      <div slot=\"actions\">\n        <GoabButton type=\"tertiary\" size=\"compact\">\n          Sign In\n        </GoabButton>\n      </div>\n    </GoabAppHeader>\n  );\n}"
+        },
+        {
+          "title": "Authenticated User Header",
+          "code": "function AuthenticatedHeader({ user, onSignOut }) {\n  const [userMenuOpen, setUserMenuOpen] = useState(false);\n\n  return (\n    <GoabAppHeader \n      heading=\"My Alberta Services\"\n      maxContentWidth=\"1200px\"\n    >\n      <nav>\n        <a href=\"/dashboard\">Dashboard</a>\n        <a href=\"/services\">My Services</a>\n        <a href=\"/documents\">Documents</a>\n        <a href=\"/profile\">Profile</a>\n      </nav>\n      \n      <div slot=\"actions\" className=\"user-actions\">\n        {user ? (\n          <div className=\"user-menu\">\n            <button \n              className=\"user-toggle\"\n              onClick={() => setUserMenuOpen(!userMenuOpen)}\n              aria-expanded={userMenuOpen}\n            >\n              <span>Welcome, {user.firstName}</span>\n              <GoabIcon type={userMenuOpen ? 'chevron-up' : 'chevron-down'} />\n            </button>\n            \n            {userMenuOpen && (\n              <div className=\"user-dropdown\">\n                <a href=\"/profile\">My Profile</a>\n                <a href=\"/settings\">Settings</a>\n                <a href=\"/security\">Security</a>\n                <hr />\n                <button onClick={onSignOut}>Sign Out</button>\n              </div>\n            )}\n          </div>\n        ) : (\n          <div className=\"auth-actions\">\n            <GoabButton \n              type=\"tertiary\" \n              size=\"compact\"\n              onClick={() => window.location.href = '/login'}\n            >\n              Sign In\n            </GoabButton>\n            <GoabButton \n              type=\"primary\" \n              size=\"compact\"\n              onClick={() => window.location.href = '/register'}\n            >\n              Create Account\n            </GoabButton>\n          </div>\n        )}\n      </div>\n    </GoabAppHeader>\n  );\n}"
+        },
+        {
+          "title": "Multi-Section Navigation",
+          "code": "function ComplexNavigationHeader() {\n  const [activeSection, setActiveSection] = useState('services');\n\n  return (\n    <GoabAppHeader \n      heading=\"Alberta Health Portal\"\n      maxContentWidth=\"1200px\"\n      fullMenuBreakpoint={992}\n    >\n      <nav className=\"main-navigation\">\n        <div className=\"nav-section\">\n          <span className=\"nav-label\">Health Services</span>\n          <a \n            href=\"/appointments\" \n            className={activeSection === 'appointments' ? 'active' : ''}\n          >\n            Appointments\n          </a>\n          <a \n            href=\"/records\" \n            className={activeSection === 'records' ? 'active' : ''}\n          >\n            Health Records\n          </a>\n          <a \n            href=\"/prescriptions\"\n            className={activeSection === 'prescriptions' ? 'active' : ''}\n          >\n            Prescriptions\n          </a>\n        </div>\n        \n        <div className=\"nav-section\">\n          <span className=\"nav-label\">Resources</span>\n          <a href=\"/clinics\">Find Clinics</a>\n          <a href=\"/health-info\">Health Information</a>\n          <a href=\"/emergency\">Emergency Services</a>\n        </div>\n      </nav>\n      \n      <div slot=\"actions\">\n        <GoabButton \n          type=\"tertiary\" \n          size=\"compact\"\n          leadingIcon=\"help-circle\"\n        >\n          Help\n        </GoabButton>\n        <GoabButton type=\"primary\" size=\"compact\">\n          My Account\n        </GoabButton>\n      </div>\n    </GoabAppHeader>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Service Portal Header",
+          "code": "export class ServiceHeaderComponent {\n  currentUser$ = this.authService.currentUser$;\n  \n  constructor(\n    private authService: AuthService,\n    private router: Router\n  ) {}\n\n  async signOut() {\n    await this.authService.signOut();\n    this.router.navigate(['/']);\n  }\n\n  isActiveRoute(route: string): boolean {\n    return this.router.url.startsWith(route);\n  }\n}\n\n<!-- Template -->\n<goa-app-header \n  heading=\"Education Portal\"\n  maxContentWidth=\"1200px\">\n  \n  <nav>\n    <a \n      routerLink=\"/students\"\n      [class.active]=\"isActiveRoute('/students')\">\n      Student Services\n    </a>\n    <a \n      routerLink=\"/schools\"\n      [class.active]=\"isActiveRoute('/schools')\">\n      School Information\n    </a>\n    <a \n      routerLink=\"/programs\"\n      [class.active]=\"isActiveRoute('/programs')\">\n      Programs\n    </a>\n    <a \n      routerLink=\"/resources\"\n      [class.active]=\"isActiveRoute('/resources')\">\n      Resources\n    </a>\n  </nav>\n  \n  <div class=\"header-actions\">\n    <ng-container *ngIf=\"currentUser$ | async as user; else signInTemplate\">\n      <div class=\"user-info\">\n        <span>{{ user.name }}</span>\n        <goa-button \n          type=\"tertiary\" \n          size=\"compact\"\n          (click)=\"signOut()\">\n          Sign Out\n        </goa-button>\n      </div>\n    </ng-container>\n    \n    <ng-template #signInTemplate>\n      <goa-button \n        type=\"primary\" \n        size=\"compact\"\n        routerLink=\"/auth/login\">\n        Sign In\n      </goa-button>\n    </ng-template>\n  </div>\n</goa-app-header>\n\n<!-- Styles -->\n<style>\n.header-actions {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n\n.user-info {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n\nnav a.active {\n  font-weight: bold;\n  text-decoration: underline;\n}\n\n@media (max-width: 767px) {\n  .user-info span {\n    display: none;\n  }\n}\n</style>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Page Layout Integration",
+        "description": "Header as part of complete page layout with consistent styling",
+        "code": "function ApplicationLayout({ children }) {\n  const { user, signOut } = useAuth();\n  \n  return (\n    <div className=\"app-layout\">\n      <GoabAppHeader \n        heading=\"My Government Service\"\n        maxContentWidth=\"1200px\"\n      >\n        <nav>\n          <a href=\"/dashboard\">Dashboard</a>\n          <a href=\"/services\">Services</a>\n          <a href=\"/documents\">Documents</a>\n          <a href=\"/help\">Help</a>\n        </nav>\n        \n        <div slot=\"actions\">\n          {user ? (\n            <UserMenu user={user} onSignOut={signOut} />\n          ) : (\n            <AuthButtons />\n          )}\n        </div>\n      </GoabAppHeader>\n      \n      <main className=\"main-content\">\n        <GoabContainer maxWidth=\"1200px\">\n          {children}\n        </GoabContainer>\n      </main>\n      \n      <GoabAppFooter maxContentWidth=\"1200px\">\n        {/* Footer content */}\n      </GoabAppFooter>\n    </div>\n  );\n}"
+      },
+      {
+        "name": "Responsive Navigation with Dropdowns",
+        "description": "Complex navigation that adapts to different screen sizes",
+        "code": "function ResponsiveNavHeader() {\n  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);\n  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);\n\n  return (\n    <GoabAppHeader \n      heading=\"Alberta.ca\"\n      fullMenuBreakpoint={992}\n    >\n      <nav className=\"responsive-nav\">\n        <div className=\"nav-item dropdown\">\n          <button \n            className=\"nav-trigger\"\n            onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}\n            aria-expanded={servicesDropdownOpen}\n          >\n            Services\n            <GoabIcon type=\"chevron-down\" />\n          </button>\n          {servicesDropdownOpen && (\n            <div className=\"dropdown-menu\">\n              <a href=\"/health\">Health</a>\n              <a href=\"/education\">Education</a>\n              <a href=\"/employment\">Employment</a>\n              <a href=\"/business\">Business</a>\n            </div>\n          )}\n        </div>\n        \n        <a href=\"/news\" className=\"nav-item\">News</a>\n        <a href=\"/contact\" className=\"nav-item\">Contact</a>\n        <a href=\"/about\" className=\"nav-item\">About</a>\n      </nav>\n      \n      <div slot=\"actions\">\n        <GoabButton type=\"tertiary\" size=\"compact\">\n          Français\n        </GoabButton>\n        <GoabButton type=\"primary\" size=\"compact\">\n          Sign In\n        </GoabButton>\n      </div>\n    </GoabAppHeader>\n  );\n}"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Every government application and service page",
+      "Multi-page websites requiring consistent navigation",
+      "Applications needing government branding compliance",
+      "Services requiring user authentication"
+    ],
+    "whenNotToUse": [
+      "Single-page widgets or embedded components",
+      "Print layouts or export views",
+      "Non-government applications (use appropriate branding)"
+    ],
+    "bestPractices": [
+      "Always include clear service identification in heading prop",
+      "Keep navigation items concise and well-organized",
+      "Use consistent maxContentWidth with your page layout",
+      "Provide clear sign-in/sign-out functionality",
+      "Test responsive behavior at various screen sizes",
+      "Ensure navigation is accessible on mobile devices",
+      "Use appropriate fullMenuBreakpoint for your navigation complexity"
+    ],
+    "navigationGuidelines": [
+      "Limit primary navigation to 5-7 main items",
+      "Use clear, action-oriented navigation labels",
+      "Group related functionality under dropdowns if needed",
+      "Indicate current page/section in navigation",
+      "Provide breadcrumbs for deep navigation if needed"
+    ],
+    "authenticationPatterns": [
+      "Show user name when authenticated",
+      "Provide clear sign-out functionality",
+      "Use consistent sign-in/create account patterns",
+      "Consider user menu for additional account functions",
+      "Handle authentication state changes smoothly"
+    ]
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate through header links and controls",
+      "Enter/Space - Activate navigation items and buttons",
+      "Escape - Close dropdown menus and mobile navigation",
+      "Arrow keys - Navigate within dropdown menus"
+    ],
+    "screenReader": [
+      "Header announced as banner landmark",
+      "Service name clearly identified",
+      "Navigation structure announced with appropriate roles",
+      "Sign-in/sign-out status clearly communicated",
+      "Mobile navigation state changes announced"
+    ],
+    "focusManagement": [
+      "Clear focus indicators on all interactive elements",
+      "Logical tab order through navigation and actions",
+      "Focus management for dropdown menus",
+      "Focus returns appropriately after menu interactions"
+    ]
+  },
+
+  "troubleshooting": {
+    "common": [
+      {
+        "issue": "Navigation not displaying properly on mobile",
+        "cause": "fullMenuBreakpoint setting or CSS conflicts",
+        "solution": "Check fullMenuBreakpoint value - default 768px works for most cases. Use 992px for complex navigation."
+      },
+      {
+        "issue": "Government branding not showing",
+        "cause": "Missing component setup or CSS issues",
+        "solution": "Ensure GoaAppHeader is used correctly. Government branding is automatically included."
+      },
+      {
+        "issue": "Navigation content not appearing",
+        "cause": "Incorrect slot usage or content projection",
+        "solution": "For React/Angular, ensure navigation content is direct children. For web components, use slot=\"menu\" and slot=\"actions\"."
+      },
+      {
+        "issue": "Header not aligning with page content",
+        "cause": "Inconsistent maxContentWidth values",
+        "solution": "Use the same maxContentWidth value in header as your main page layout components."
+      },
+      {
+        "issue": "Mobile menu not working",
+        "cause": "JavaScript conflicts or missing event handlers",
+        "solution": "Check for JavaScript errors. Ensure no CSS is overriding mobile menu functionality."
+      }
+    ],
+    "integration": [
+      {
+        "issue": "Header conflicts with routing library",
+        "cause": "Navigation links not integrating with client-side routing",
+        "solution": "Use your routing library's Link components within header navigation instead of anchor tags."
+      },
+      {
+        "issue": "Authentication state not updating header",
+        "cause": "Component not re-rendering on auth state changes",
+        "solution": "Ensure authentication state is properly connected to header component props/state."
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabAppFooter",
+      "usage": "Use together for complete page layout with consistent government branding",
+      "example": "<GoabAppHeader heading=\"My Service\" />\n{/* Page content */}\n<GoabAppFooter maxContentWidth=\"1200px\" />"
+    },
+    {
+      "name": "GoabContainer",
+      "usage": "Use similar maxContentWidth values for consistent page layout",
+      "example": "Keep maxContentWidth consistent across Header, Container, and Footer components"
+    },
+    {
+      "name": "GoabButton",
+      "usage": "Use for user actions like sign-in, sign-out, and secondary actions",
+      "example": "<div slot=\"actions\">\n  <GoabButton type=\"primary\" size=\"compact\">Sign In</GoabButton>\n</div>"
+    },
+    {
+      "name": "GoabAppHeaderMenu",
+      "usage": "Use within header for dropdown navigation menus",
+      "example": "<GoabAppHeaderMenu heading=\"More\" leadingIcon=\"person-circle\">\n  <a href=\"/profile\">My Profile</a>\n  <a href=\"/settings\">Settings</a>\n</GoabAppHeaderMenu>"
+    },
+    {
+      "name": "GoabMicrositeHeader",
+      "usage": "Use for microsite or specialized contexts before main header",
+      "example": "<GoabMicrositeHeader type=\"alpha\" version=\"PLAYGROUND\" />\n<GoabAppHeader heading=\"My Service\" />"
+    }
+  ],
+
+  "performance": {
+    "considerations": [
+      "Header renders efficiently with minimal DOM updates",
+      "Mobile navigation toggles without layout shifts",
+      "Government branding assets are optimized for fast loading",
+      "Navigation dropdowns use efficient show/hide patterns"
+    ],
+    "optimization": [
+      "Use consistent maxContentWidth to avoid layout recalculations",
+      "Minimize navigation re-renders by using stable component structure",
+      "Consider lazy loading for complex dropdown content"
+    ]
+  },
+
+  "source": {
+    "figmaUrl": "https://www.figma.com/design/goa-design-system",
+    "designTokens": {
+      "branding": "Government of Alberta official branding colors and assets",
+      "spacing": "Header uses standard GoA spacing tokens for consistent layout",
+      "typography": "Government typography scale for service names and navigation",
+      "responsive": "Breakpoint tokens for mobile navigation transitions"
+    },
+    "lastUpdated": "2025-07-07",
+    "updatedBy": "design-system-team",
+    "componentVersion": "2.1.0"
+  }
+}

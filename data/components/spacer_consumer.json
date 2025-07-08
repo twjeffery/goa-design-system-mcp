@@ -1,0 +1,109 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "componentName": "spacer",
+  "audience": "ai-systems-helping-consumer-developers",
+  "summary": "Layout utility for creating consistent negative space between elements using design system spacing tokens",
+  "category": "layout",
+  "tags": ["spacing", "layout", "utility", "negative-space"],
+  "status": "stable",
+
+  "customElement": {
+    "tagName": "goa-spacer",
+    "className": "GoabSpacer"
+  },
+
+  "playgroundExamples": {
+    "note": "Playground configurations will be added in future versions"
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["@abgov/web-components", "@abgov/design-tokens"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabSpacer } from '@abgov/react-components'",
+      "quickExample": "<GoabSpacer hSpacing=\"m\" vSpacing=\"l\" />"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-spacer hSpacing=\"m\" vSpacing=\"l\"></goab-spacer>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-spacer hspacing=\"m\" vspacing=\"l\"></goa-spacer>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "hSpacing",
+        "type": "string",
+        "required": false,
+        "default": "none",
+        "options": [
+          "fill",
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
+        "description": "Horizontal spacing amount using design system tokens",
+        "specialValues": {
+          "fill": "Expands to 100% width for full-width spacing",
+          "none": "No horizontal spacing (default)"
+        }
+      },
+      {
+        "name": "vSpacing",
+        "type": "string",
+        "required": false,
+        "default": "none",
+        "options": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
+        "description": "Vertical spacing amount using design system tokens",
+        "note": "Does not support 'fill' value like horizontal spacing"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Sets the data-testid attribute for testing"
+      }
+    ]
+  },
+  "usage": {
+    "react": [
+      {
+        "title": "Content Section Spacing",
+        "description": "Creating consistent vertical spacing between content sections",
+        "code": "import { GoabSpacer, GoabBlock } from '@abgov/react-components';\n\nfunction ContentPage() {\n  return (\n    <div className=\"content-page\">\n      <section className=\"hero-section\">\n        <h1>Welcome to Our Service</h1>\n        <p>This is the hero section with important information.</p>\n      </section>\n      \n      <GoabSpacer vSpacing=\"2xl\" />\n      \n      <section className=\"features-section\">\n        <h2>Key Features</h2>\n        <GoabBlock direction=\"row\" gap=\"l\">\n          <div className=\"feature-card\">\n            <h3>Feature 1</h3>\n            <p>Description of feature 1</p>\n          </div>\n          <div className=\"feature-card\">\n            <h3>Feature 2</h3>\n            <p>Description of feature 2</p>\n          </div>\n          <div className=\"feature-card\">\n            <h3>Feature 3</h3>\n            <p>Description of feature 3</p>\n          </div>\n        </GoabBlock>\n      </section>\n      \n      <GoabSpacer vSpacing=\"xl\" />\n      \n      <section className=\"cta-section\">\n        <h2>Ready to Get Started?</h2>\n        <p>Contact us today to learn more about our services.</p>\n        <GoabButton type=\"primary\">Contact Us</GoabButton>\n      </section>\n    </div>\n  );\n}"
+      },
+      {
+        "title": "Form Layout with Precise Spacing",
+        "description": "Using spacer for fine-tuned form layout control",
+        "code": "import { GoabSpacer, GoabBlock, GoabFormItem, GoabInput, GoabButton } from '@abgov/react-components';\n\nfunction ApplicationForm() {\n  return (\n    <form className=\"application-form\">\n      <GoabBlock direction=\"column\" gap=\"none\">\n        <h2>Personal Information</h2>\n        \n        <GoabSpacer vSpacing=\"m\" />\n        \n        <GoabBlock direction=\"row\" gap=\"none\">\n          <GoabFormItem label=\"First Name\">\n            <GoabInput name=\"firstName\" />\n          </GoabFormItem>\n          \n          <GoabSpacer hSpacing=\"m\" />\n          \n          <GoabFormItem label=\"Last Name\">\n            <GoabInput name=\"lastName\" />\n          </GoabFormItem>\n        </GoabBlock>\n        \n        <GoabSpacer vSpacing=\"l\" />\n        \n        <GoabFormItem label=\"Email Address\">\n          <GoabInput name=\"email\" type=\"email\" />\n        </GoabFormItem>\n        \n        <GoabSpacer vSpacing=\"l\" />\n        \n        <GoabFormItem label=\"Phone Number\">\n          <GoabInput name=\"phone\" type=\"tel\" />\n        </GoabFormItem>\n        \n        <GoabSpacer vSpacing=\"2xl\" />\n        \n        <h2>Address Information</h2>\n        \n        <GoabSpacer vSpacing=\"m\" />\n        \n        <GoabFormItem label=\"Street Address\">\n          <GoabInput name=\"address\" />\n        </GoabFormItem>\n        \n        <GoabSpacer vSpacing=\"l\" />\n        \n        <GoabBlock direction=\"row\" gap=\"none\">\n          <GoabFormItem label=\"City\">\n            <GoabInput name=\"city\" />\n          </GoabFormItem>\n          \n          <GoabSpacer hSpacing=\"m\" />\n          \n          <GoabFormItem label=\"Province\">\n            <GoabInput name=\"province\" />\n          </GoabFormItem>\n          \n          <GoabSpacer hSpacing=\"m\" />\n          \n          <GoabFormItem label=\"Postal Code\">\n            <GoabInput name=\"postalCode\" />\n          </GoabFormItem>\n        </GoabBlock>\n"
+      }
+    ]
+  }
+}

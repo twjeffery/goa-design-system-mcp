@@ -1,0 +1,408 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "componentName": "notification-banner",
+  "audience": "ai-systems-helping-consumer-developers",
+  "summary": "Display important page-level information or notifications at the top of your application",
+  "category": "component",
+  "tags": ["notification", "banner", "alert", "page-level", "dismissible"],
+  "status": "stable",
+
+  "customElement": {
+    "tagName": "goa-notification",
+    "className": "GoabNotification"
+  },
+
+  "playgroundExamples": {
+    "description": "Interactive examples demonstrating all notification types and responsive behavior",
+    "examples": [
+      {
+        "title": "Information Notification (Default)",
+        "description": "Standard blue notification with info icon for general announcements and updates",
+        "code": "<GoabNotification type=\"information\">\n  Notification banner message\n</GoabNotification>",
+        "notes": [
+          "Default type when no type is specified",
+          "Uses blue color scheme with information icon",
+          "Appropriate for general updates and non-urgent information"
+        ]
+      },
+      {
+        "title": "Long Message Responsive Behavior",
+        "description": "Demonstrates how notifications handle long text content across different screen sizes",
+        "code": "<GoabNotification type=\"information\">\n  Notification banner message that is really long and eventually it\n  wraps around the screen because it's so long that it needs to wrap\n  around the screen\n</GoabNotification>",
+        "notes": [
+          "Text automatically wraps to multiple lines on smaller screens",
+          "Maintains readability and accessibility at all viewport sizes",
+          "Close button remains accessible and properly positioned"
+        ]
+      },
+      {
+        "title": "Important Notification",
+        "description": "Yellow/amber notification for policy changes, deadlines, and important updates",
+        "code": "<GoabNotification type=\"important\">\n  Notification banner message\n</GoabNotification>",
+        "notes": [
+          "Uses yellow/amber color scheme with warning icon",
+          "Higher visual priority than information notifications",
+          "Best for policy changes, deadlines, and important updates"
+        ]
+      },
+      {
+        "title": "Emergency Notification",
+        "description": "Red notification for critical system issues and urgent communications",
+        "code": "<GoabNotification type=\"emergency\">\n  Notification banner message\n</GoabNotification>",
+        "notes": [
+          "Uses red color scheme with alert triangle icon",
+          "Highest visual priority and urgency level",
+          "Reserved for service outages, security issues, and critical problems"
+        ]
+      },
+      {
+        "title": "Event Notification",
+        "description": "Special blue notification with calendar icon for events and celebrations",
+        "code": "<GoabNotification type=\"event\">\n  Notification banner message\n</GoabNotification>",
+        "notes": [
+          "Uses blue color scheme with calendar/event icon",
+          "Distinct from information type with specialized icon",
+          "Perfect for announcements about upcoming events and celebrations"
+        ]
+      }
+    ],
+    "containerExample": {
+      "title": "Multiple Notification Types Demo",
+      "description": "Complete playground example showing all notification types with proper spacing",
+      "code": "import { GoabBlock, GoabNotification } from '@abgov/react-components';\n\nfunction NotificationPlayground() {\n  return (\n    <GoabBlock gap=\"xl\" mb=\"4xl\" direction=\"column\">\n      <GoabNotification type=\"information\">\n        Notification banner message\n      </GoabNotification>\n\n      <GoabNotification type=\"information\">\n        Notification banner message that is really long and eventually it\n        wraps around the screen because it's so long that it needs to wrap\n        around the screen\n      </GoabNotification>\n\n      <GoabNotification type=\"important\">\n        Notification banner message\n      </GoabNotification>\n\n      <GoabNotification type=\"emergency\">\n        Notification banner message\n      </GoabNotification>\n\n      <GoabNotification type=\"event\">\n        Notification banner message\n      </GoabNotification>\n    </GoabBlock>\n  );\n}",
+      "notes": [
+        "Uses GoabBlock for consistent spacing between notifications",
+        "Shows visual hierarchy across all notification types",
+        "Demonstrates responsive behavior with long and short content"
+      ]
+    },
+    "visualStyling": {
+      "information": {
+        "colorScheme": "Blue background with darker blue text",
+        "icon": "Information circle icon",
+        "usage": "Default for general updates and announcements"
+      },
+      "important": {
+        "colorScheme": "Yellow/amber background with dark text",
+        "icon": "Warning triangle icon", 
+        "usage": "Policy changes, deadlines, important updates"
+      },
+      "emergency": {
+        "colorScheme": "Red background with white text",
+        "icon": "Alert triangle icon",
+        "usage": "Service outages, security issues, critical problems"
+      },
+      "event": {
+        "colorScheme": "Blue background with calendar icon",
+        "icon": "Calendar/event icon",
+        "usage": "Upcoming events, celebrations, special announcements"
+      }
+    },
+    "accessibilityNotes": [
+      "All notification types meet WCAG AA color contrast requirements",
+      "Icons provide visual distinction beyond color coding",
+      "Screen readers announce content with appropriate aria-live settings",
+      "Keyboard navigation works consistently across all types"
+    ]
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["@abgov/web-components", "@abgov/design-tokens"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabNotification } from '@abgov/react-components'",
+      "quickExample": "<GoabNotification type=\"information\">\n  System maintenance scheduled for tonight.\n</GoabNotification>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-notification type=\"important\">\n  Please update your contact information.\n</goab-notification>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-notification type=\"emergency\">\n  Service outage affecting all users.\n</goa-notification>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "default": "information",
+        "options": ["emergency", "important", "information", "event", "custom"],
+        "description": "Determines the visual styling and urgency level of the notification",
+        "examples": {
+          "emergency": "Service outages, security issues",
+          "important": "Policy changes, deadlines",
+          "information": "Updates, announcements",
+          "event": "Upcoming events, celebrations"
+        }
+      },
+      {
+        "name": "ariaLive",
+        "type": "string", 
+        "required": false,
+        "default": "polite",
+        "options": ["off", "polite", "assertive"],
+        "description": "Controls how screen readers announce the notification",
+        "accessibility": "Use 'assertive' for urgent messages, 'polite' for general information"
+      },
+      {
+        "name": "onDismiss",
+        "type": "function",
+        "required": false,
+        "description": "Callback function called when user dismisses the notification",
+        "frameworks": ["React", "Angular"],
+        "signature": "() => void"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Sets the data-testid attribute for automated testing"
+      }
+    ],
+    "content": {
+      "type": "HTML slot content",
+      "description": "The notification message, which can include text and links",
+      "constraints": [
+        "Keep message brief and actionable",
+        "Maximum one link per notification",
+        "Use descriptive link text (avoid 'click here')"
+      ]
+    }
+  },
+
+  "usage": {
+    "react": [
+      {
+        "title": "Service Maintenance Notification",
+        "description": "Important system maintenance announcement with contact link",
+        "code": "import { GoabNotification } from '@abgov/react-components';\n\nfunction MaintenanceNotification() {\n  const handleDismiss = () => {\n    // Track notification dismissal\n    analytics.track('notification_dismissed', { type: 'maintenance' });\n  };\n\n  return (\n    <GoabNotification \n      type=\"important\" \n      onDismiss={handleDismiss}\n    >\n      Our system will be under maintenance from Thursday, September 15, 2025 \n      at 10 pm to Friday, September 16, 2025 at 10 am. If you have questions \n      or concerns, contact us at{' '}\n      <a href=\"mailto:support@alberta.ca\">support@alberta.ca</a>.\n    </GoabNotification>\n  );\n}"
+      },
+      {
+        "title": "Emergency Service Alert",
+        "description": "Critical emergency notification with assertive announcement",
+        "code": "import { GoabNotification } from '@abgov/react-components';\n\nfunction EmergencyAlert() {\n  return (\n    <GoabNotification \n      type=\"emergency\" \n      ariaLive=\"assertive\"\n    >\n      Service outage affecting all users. We are working to resolve this issue. \n      Check our{' '}\n      <a href=\"/status\" target=\"_blank\" rel=\"noopener noreferrer\">\n        status page\n      </a>{' '}\n      for updates.\n    </GoabNotification>\n  );\n}"
+      },
+      {
+        "title": "Application Deadline Extension",
+        "description": "Information notification for deadline changes",
+        "code": "import { GoabNotification } from '@abgov/react-components';\n\nfunction DeadlineNotification() {\n  return (\n    <GoabNotification type=\"information\">\n      Application deadline extended by 3 months due to high demand. \n      New deadline: March 31, 2025.\n    </GoabNotification>\n  );\n}"
+      }
+    ],
+    "angular": [
+      {
+        "title": "Policy Update Notification",
+        "description": "Important policy change announcement",
+        "code": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-policy-notification',\n  template: `\n    <goab-notification \n      type=\"important\"\n      (onDismiss)=\"handleNotificationDismiss()\"\n    >\n      New privacy policy effective January 1, 2025. Please review the \n      <a [routerLink]=\"['/privacy-policy']\" target=\"_blank\">\n        updated privacy policy\n      </a>\n      before your next session.\n    </goab-notification>\n  `\n})\nexport class PolicyNotificationComponent {\n  handleNotificationDismiss() {\n    // Store dismissal in session storage\n    sessionStorage.setItem('policy-notification-dismissed', 'true');\n  }\n}"
+      },
+      {
+        "title": "Event Announcement",
+        "description": "Special event notification with custom styling",
+        "code": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-event-notification',\n  template: `\n    <goab-notification type=\"event\">\n      Join us for Alberta Digital Service Week, October 15-19, 2025! \n      Discover how digital innovation is transforming government services.\n    </goab-notification>\n  `\n})\nexport class EventNotificationComponent {}"
+      }
+    ],
+    "webComponent": [
+      {
+        "title": "Basic Information Notification",
+        "description": "Simple informational message",
+        "code": "<goa-notification type=\"information\">\n  System updates completed successfully. All services are now available.\n</goa-notification>"
+      },
+      {
+        "title": "Notification with Dismiss Handler",
+        "description": "Handling the dismiss event in vanilla JavaScript",
+        "code": "<goa-notification \n  type=\"important\" \n  id=\"policy-update\"\n>\n  Please review and accept our updated terms of service.\n</goa-notification>\n\n<script>\n  const notification = document.getElementById('policy-update');\n  notification.addEventListener('_dismiss', function(event) {\n    console.log('Notification dismissed');\n    // Store dismissal state\n    localStorage.setItem('terms-notification-dismissed', Date.now());\n  });\n</script>"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "System-wide announcements affecting all users",
+      "Emergency communications requiring immediate attention", 
+      "Important policy or service changes",
+      "Scheduled maintenance notifications",
+      "Application deadline changes"
+    ],
+    "whenNotToUse": [
+      "Individual user feedback (use Toast instead)",
+      "Inline contextual help (use Callout instead)",
+      "Urgent user decisions (use Modal instead)",
+      "Form validation errors (use field-level validation)",
+      "Success confirmations for individual actions"
+    ],
+    "placement": {
+      "correct": "Full width at the top of the page, below the app header",
+      "incorrect": "Inline within page content, in sidebars, or floating over content"
+    },
+    "contentGuidelines": [
+      "Keep messages brief and scannable (1-2 sentences)",
+      "Use clear, action-oriented language",
+      "Include one link maximum per notification",
+      "Use descriptive link text that explains the destination",
+      "Write in plain language appropriate for all users"
+    ]
+  },
+
+  "accessibility": {
+    "ariaSupport": [
+      "Uses aria-live regions for screen reader announcements",
+      "Close button is keyboard accessible with proper focus indicators",
+      "Links within notifications follow standard accessibility patterns"
+    ],
+    "keyboardNavigation": [
+      "Tab - Navigate to links within notification",
+      "Tab - Navigate to close button (if dismissible)",
+      "Enter/Space - Activate links or close button",
+      "Shift+Tab - Navigate backwards through interactive elements"
+    ],
+    "screenReaderBehavior": [
+      "Notification content is announced when it appears",
+      "aria-live setting controls announcement urgency",
+      "Dismissible notifications announce when closed"
+    ],
+    "colorAndContrast": "All notification types meet WCAG AA color contrast requirements"
+  },
+
+  "integrationPatterns": [
+    {
+      "name": "Page Load Notifications",
+      "description": "Show notifications that persist across page navigation",
+      "example": "Session timeout warnings, maintenance announcements"
+    },
+    {
+      "name": "Conditional Notifications",
+      "description": "Display notifications based on user state or system conditions",
+      "example": "Show policy updates only to users who haven't acknowledged them"
+    },
+    {
+      "name": "Dismissible Session Storage",
+      "description": "Remember notification dismissal for the user session",
+      "example": "Don't re-show maintenance notifications if user has dismissed them"
+    }
+  ],
+
+  "relatedComponents": [
+    {
+      "name": "GoabCallout",
+      "relationship": "Alternative for inline contextual information",
+      "usage": "Use Callout for section-specific information instead of page-level notifications",
+      "example": "Form instructions, feature explanations"
+    },
+    {
+      "name": "GoabModal",
+      "relationship": "Alternative for urgent user decisions",
+      "usage": "Use Modal when user must take action before continuing",
+      "example": "Session expiry warnings, destructive action confirmations"
+    },
+    {
+      "name": "Toast/Snackbar",
+      "relationship": "Alternative for temporary user feedback",
+      "usage": "Use Toast for success/error messages after user actions",
+      "example": "Form submission confirmations, save success messages"
+    }
+  ],
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "issue": "Notification not dismissing in React",
+        "cause": "onDismiss prop not properly handled",
+        "solution": "Ensure onDismiss function updates component state to hide notification",
+        "example": "const [showNotification, setShowNotification] = useState(true);\n\n{showNotification && (\n  <GoabNotification onDismiss={() => setShowNotification(false)}>\n    Your message here\n  </GoabNotification>\n)}"
+      },
+      {
+        "issue": "Notification appears in wrong location on page",
+        "cause": "Incorrect placement in page layout structure",
+        "solution": "Place notification at the top level of page content, not within nested containers",
+        "example": "// Correct placement\n<div className=\"page-layout\">\n  <AppHeader />\n  <GoabNotification type=\"important\">Message</GoabNotification>\n  <main>{content}</main>\n</div>"
+      },
+      {
+        "issue": "Multiple notifications stacking incorrectly",
+        "cause": "No notification management system in place",
+        "solution": "Implement notification queue system to show one at a time",
+        "example": "Use a notification context or state management to control which notification is active"
+      },
+      {
+        "issue": "Screen reader not announcing notification",
+        "cause": "aria-live setting not appropriate for urgency level",
+        "solution": "Use 'assertive' for urgent messages, 'polite' for general information",
+        "example": "<GoabNotification ariaLive=\"assertive\" type=\"emergency\">"
+      },
+      {
+        "issue": "Notification text too long on mobile",
+        "cause": "Message content not optimized for small screens",
+        "solution": "Keep messages concise and break long URLs with proper link text",
+        "example": "Instead of: 'Click https://very-long-url.com/path/to/page'\nUse: 'Read our <a href=\"...\">updated policy</a>'"
+      }
+    ],
+    "testingTips": [
+      "Test dismissal behavior across all frameworks",
+      "Verify screen reader announcements with different aria-live settings",
+      "Check mobile responsive behavior with various message lengths",
+      "Test keyboard navigation to all interactive elements",
+      "Validate color contrast for all notification types"
+    ]
+  },
+
+  "performanceConsiderations": [
+    "Notification banner has minimal performance impact",
+    "Dismissal state can be stored in sessionStorage for persistence",
+    "Avoid rendering multiple notifications simultaneously",
+    "Use conditional rendering to prevent unnecessary DOM updates"
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Using notification for individual user feedback instead of page-level information",
+      "why": "Notifications are for system-wide messages, not user action feedback",
+      "instead": "Use Toast/Snackbar for action feedback, Modal for urgent decisions",
+      "example": "// ❌ Wrong - user action feedback\n<GoabNotification type=\"information\">\n  Form saved successfully!\n</GoabNotification>\n\n// ✅ Correct - page-level information\n<GoabNotification type=\"important\">\n  System maintenance scheduled for tonight.\n</GoabNotification>"
+    },
+    {
+      "mistake": "Including multiple links in a single notification",
+      "why": "Multiple links confuse users and reduce the clarity of the message",
+      "instead": "Use one primary link per notification, or break into separate notifications",
+      "example": "// ❌ Wrong - multiple links\n<GoabNotification type=\"information\">\n  Update your <a href=\"/profile\">profile</a> and check your <a href=\"/settings\">settings</a>.\n</GoabNotification>\n\n// ✅ Correct - single focused action\n<GoabNotification type=\"information\">\n  Please update your contact information in your <a href=\"/profile\">profile</a>.\n</GoabNotification>"
+    },
+    {
+      "mistake": "Placing notification in the middle of page content",
+      "why": "Breaks content flow and reduces the impact of the message",
+      "instead": "Always place at top of page, below header, above main content",
+      "example": "// ❌ Wrong - inline placement\n<main>\n  <section>Content</section>\n  <GoabNotification>Message</GoabNotification>\n  <section>More content</section>\n</main>\n\n// ✅ Correct - top-level placement\n<div>\n  <Header />\n  <GoabNotification>Message</GoabNotification>\n  <main>Content</main>\n</div>"
+    },
+    {
+      "mistake": "Not handling onDismiss event in React, causing state management issues",
+      "why": "Notification remains visible even after user dismisses it",
+      "instead": "Always manage notification visibility state and handle onDismiss",
+      "example": "// ❌ Wrong - no dismiss handling\n<GoabNotification type=\"information\">\n  Message here\n</GoabNotification>\n\n// ✅ Correct - proper state management\nconst [showNotification, setShowNotification] = useState(true);\n\n{showNotification && (\n  <GoabNotification \n    type=\"information\"\n    onDismiss={() => setShowNotification(false)}\n  >\n    Message here\n  </GoabNotification>\n)}"
+    },
+    {
+      "mistake": "Using wrong notification type for message urgency",
+      "why": "Reduces user trust and notification effectiveness",
+      "instead": "Match type to actual urgency: emergency for outages, important for deadlines, information for updates",
+      "example": "// ❌ Wrong - emergency for non-critical info\n<GoabNotification type=\"emergency\">\n  New feature available!\n</GoabNotification>\n\n// ✅ Correct - appropriate urgency\n<GoabNotification type=\"information\">\n  New feature available!\n</GoabNotification>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": "React uses camelCase (onDismiss, ariaLive, testId), web components use lowercase (ondismiss, arialive, testid), Angular uses camelCase in templates but maps to lowercase attributes",
+    "slotHandling": "React and Angular use children prop/content projection, web components use slot content. HTML content including links works in all frameworks",
+    "constraints": "Content must be page-level information, maximum one link per notification, brief messaging (1-2 sentences), requires manual state management for dismissal",
+    "responsiveBehavior": "Automatically spans full width at all screen sizes, text wraps appropriately, close button remains accessible on mobile"
+  },
+
+  "tags": ["notification", "banner", "alert", "page-level", "dismissible"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-07-02",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/notification-banner.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

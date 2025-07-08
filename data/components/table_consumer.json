@@ -1,0 +1,383 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Table",
+  "customElement": {
+    "tagName": "goa-table",
+    "className": "GoabTable",
+    "subComponents": {
+      "sortHeader": {
+        "tagName": "goa-table-sort-header", 
+        "className": "GoabTableSortHeader"
+      }
+    }
+  },
+  "summary": "Interactive data table component with sorting support for displaying structured information in rows and columns",
+  
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system", "Ionicons (for sort arrows)"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabTable, GoabTableSortHeader } from '@abgov/react-components'",
+      "quickExample": "<GoabTable>\n  <thead>\n    <tr>\n      <th>\n        <GoabTableSortHeader direction=\"none\">Name</GoabTableSortHeader>\n      </th>\n      <th>Department</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>John Doe</td>\n      <td>Engineering</td>\n    </tr>\n  </tbody>\n</GoabTable>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goa-table>\n  <thead>\n    <tr>\n      <th>\n        <goa-table-sort-header direction=\"none\">Name</goa-table-sort-header>\n      </th>\n      <th>Department</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>John Doe</td>\n      <td>Engineering</td>\n    </tr>\n  </tbody>\n</goa-table>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-table>\n  <thead>\n    <tr>\n      <th>\n        <goa-table-sort-header direction=\"none\">Name</goa-table-sort-header>\n      </th>\n      <th>Department</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>John Doe</td>\n      <td>Engineering</td>\n    </tr>\n  </tbody>\n</goa-table>"
+    }
+  },
+
+  "api": {
+    "table": {
+      "props": [
+        {
+          "name": "width",
+          "type": "string",
+          "default": "auto",
+          "required": false,
+          "description": "Width of the table",
+          "usage": "Use percentage values for responsive layouts, fixed values for consistent sizing"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default",
+          "required": false,
+          "allowedValues": ["default", "relaxed"],
+          "description": "Visual density variant of the table",
+          "usage": "Use 'relaxed' for tables with longer content or improved readability"
+        },
+        {
+          "name": "testId",
+          "type": "string",
+          "required": false,
+          "description": "Sets the data-testid attribute for testing"
+        }
+      ]
+    },
+    "tableSortHeader": {
+      "props": [
+        {
+          "name": "direction",
+          "type": "asc | desc | none",
+          "default": "none",
+          "required": false,
+          "description": "Current sort direction for the column",
+          "usage": "Control sorting state from parent component"
+        },
+        {
+          "name": "testId",
+          "type": "string",
+          "required": false,
+          "description": "Sets the data-testid attribute for testing"
+        }
+      ],
+      "events": [
+        {
+          "name": "onSortChange (React) / sortChange (Angular)",
+          "description": "Fired when sort direction changes",
+          "payload": "direction: 'asc' | 'desc' | 'none'"
+        }
+      ]
+    }
+  },
+
+  "playgroundExamples": {
+    "basic": {
+      "title": "Standard Data Table",
+      "description": "Default table density showing status badges, text content, numbers, and action buttons with proper column alignment",
+      "code": "<GoabBlock gap=\"xl\" mb=\"xl\" direction=\"column\">\n  <GoabTable width=\"100%\">\n    <thead>\n      <tr>\n        <th>Status</th>\n        <th>Text</th>\n        <th className=\"Goab-table-number-header\">Number</th>\n        <th>Action</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>\n          <GoabBadge\n            type=\"information\"\n            content=\"Badge\"\n            mt=\"2xs\"\n          />\n        </td>\n        <td>Lorem ipsum</td>\n        <td className=\"Goab-table-number-column\">1234567890</td>\n        <td>\n          <GoabButton type=\"tertiary\" size=\"compact\">\n            Action\n          </GoabButton>\n        </td>\n      </tr>\n      <tr>\n        <td>\n          <GoabBadge\n            type=\"information\"\n            content=\"Badge text\"\n            mt=\"2xs\"\n          />\n        </td>\n        <td>\n          Text that runs really really really really really really really\n          really really really really really really really really really\n          really really really really really really really really really\n          really really really really really really really really really\n          really really long\n        </td>\n        <td className=\"Goab-table-number-column\">1234567890</td>\n        <td>\n          <GoabButton type=\"tertiary\" size=\"compact\">\n            Action\n          </GoabButton>\n        </td>\n      </tr>\n      <tr>\n        <td>\n          <GoabBadge\n            type=\"information\"\n            content=\"Badge text\"\n            mt=\"2xs\"\n          />\n        </td>\n        <td>Lorem ipsum</td>\n        <td className=\"Goab-table-number-column\">1234567890</td>\n        <td>\n          <GoabButton type=\"tertiary\" size=\"compact\">\n            Action\n          </GoabButton>\n        </td>\n      </tr>\n      <tr>\n        <td>\n          <GoabBadge\n            type=\"information\"\n            content=\"Badge text\"\n            mt=\"2xs\"\n          />\n        </td>\n        <td>Lorem ipsum</td>\n        <td className=\"Goab-table-number-column\">1234567890</td>\n        <td>\n          <GoabButton type=\"tertiary\" size=\"compact\">\n            Action\n          </GoabButton>\n        </td>\n      </tr>\n    </tbody>\n  </GoabTable>\n</GoabBlock>",
+      "usageNotes": [
+        "Use className 'Goab-table-number-header' for numeric column headers",
+        "Use className 'Goab-table-number-column' for numeric data cells to ensure right alignment",
+        "Badges work well for status indicators in table cells",
+        "Compact buttons are ideal for table actions to maintain row height"
+      ]
+    },
+    "relaxed": {
+      "title": "Relaxed Density Table",
+      "description": "Table with relaxed spacing for improved readability when content varies significantly in length",
+      "code": "<GoabTable width=\"100%\" variant=\"relaxed\">\n  <thead>\n    <tr>\n      <th>Status</th>\n      <th>Text</th>\n      <th className=\"Goab-table-number-header\">Number</th>\n      <th>Action</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>\n        <GoabBadge\n          type=\"information\"\n          content=\"Badge text\"\n          mt=\"2xs\"\n        />\n      </td>\n      <td>\n        Text that runs really really really really really really really\n        really really really really really really really really really\n        really really really really really really really really really\n        really really really really really really really really really\n        really really long\n      </td>\n      <td className=\"Goab-table-number-column\">1234567890</td>\n      <td>\n        <GoabButton type=\"tertiary\" size=\"compact\">\n          Action\n        </GoabButton>\n      </td>\n    </tr>\n    <tr>\n      <td>\n        <GoabBadge\n          type=\"information\"\n          content=\"Badge text\"\n          mt=\"2xs\"\n        />\n      </td>\n      <td>Lorem ipsum</td>\n      <td className=\"Goab-table-number-column\">1234567890</td>\n      <td>\n        <GoabButton type=\"tertiary\" size=\"compact\">\n          Action\n        </GoabButton>\n      </td>\n    </tr>\n    <tr>\n      <td>\n        <GoabBadge\n          type=\"information\"\n          content=\"Badge text\"\n          mt=\"2xs\"\n        />\n      </td>\n      <td>Lorem ipsum</td>\n      <td className=\"Goab-table-number-column\">1234567890</td>\n      <td>\n        <GoabButton type=\"tertiary\" size=\"compact\">\n          Action\n        </GoabButton>\n      </td>\n    </tr>\n    <tr>\n      <td>\n        <GoabBadge\n          type=\"information\"\n          content=\"Badge text\"\n          mt=\"2xs\"\n        />\n      </td>\n      <td>Lorem ipsum</td>\n      <td className=\"Goab-table-number-column\">1234567890</td>\n      <td>\n        <GoabButton type=\"tertiary\" size=\"compact\">\n          Action\n        </GoabButton>\n      </td>\n    </tr>\n  </tbody>\n</GoabTable>",
+      "usageNotes": [
+        "Use 'relaxed' variant when content length varies significantly between rows",
+        "Provides better visual breathing room for complex table content",
+        "Particularly useful for tables with multi-line text or detailed descriptions",
+        "Maintains the same column alignment patterns as standard tables"
+      ]
+    },
+    "comparisonNotes": {
+      "defaultVsRelaxed": [
+        "Default variant: Tighter spacing, good for uniform content length",
+        "Relaxed variant: Increased padding, better for variable content length",
+        "Both variants support the same component integrations (badges, buttons, etc.)",
+        "Column alignment behavior is consistent across both variants"
+      ]
+    }
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Simple Data Table",
+          "description": "Basic table for displaying user information",
+          "code": "function UserTable({ users }) {\n  return (\n    <GoabTable width=\"100%\">\n      <thead>\n        <tr>\n          <th>Name</th>\n          <th>Email</th>\n          <th>Role</th>\n          <th>Status</th>\n        </tr>\n      </thead>\n      <tbody>\n        {users.map(user => (\n          <tr key={user.id}>\n            <td>{user.name}</td>\n            <td>{user.email}</td>\n            <td>{user.role}</td>\n            <td>\n              <GoabBadge \n                type={user.status === 'active' ? 'success' : 'information'}>\n                {user.status}\n              </GoabBadge>\n            </td>\n          </tr>\n        ))}\n      </tbody>\n    </GoabTable>\n  );\n}"
+        },
+        {
+          "title": "Sortable Table",
+          "description": "Table with sortable columns and state management",
+          "code": "function SortableEmployeeTable() {\n  const [employees, setEmployees] = useState(employeeData);\n  const [sortConfig, setSortConfig] = useState({ key: '', direction: 'none' });\n  \n  const handleSort = (column, direction) => {\n    const sortedData = [...employees].sort((a, b) => {\n      if (direction === 'asc') {\n        return a[column] > b[column] ? 1 : -1;\n      } else if (direction === 'desc') {\n        return a[column] < b[column] ? 1 : -1;\n      }\n      return 0;\n    });\n    \n    setEmployees(sortedData);\n    setSortConfig({ key: column, direction });\n  };\n  \n  const getSortDirection = (column) => {\n    return sortConfig.key === column ? sortConfig.direction : 'none';\n  };\n  \n  return (\n    <GoabTable width=\"100%\" testId=\"employee-table\">\n      <thead>\n        <tr>\n          <GoabTableSortHeader \n            direction={getSortDirection('name')}\n            onSortChange={(direction) => handleSort('name', direction)}\n            testId=\"sort-name\">\n            Employee Name\n          </GoabTableSortHeader>\n          <GoabTableSortHeader \n            direction={getSortDirection('department')}\n            onSortChange={(direction) => handleSort('department', direction)}\n            testId=\"sort-department\">\n            Department\n          </GoabTableSortHeader>\n          <GoabTableSortHeader \n            direction={getSortDirection('startDate')}\n            onSortChange={(direction) => handleSort('startDate', direction)}\n            testId=\"sort-date\">\n            Start Date\n          </GoabTableSortHeader>\n          <th>Actions</th>\n        </tr>\n      </thead>\n      <tbody>\n        {employees.map(employee => (\n          <tr key={employee.id}>\n            <td>{employee.name}</td>\n            <td>{employee.department}</td>\n            <td>{formatDate(employee.startDate)}</td>\n            <td>\n              <GoabButtonGroup>\n                <GoabIconButton \n                  icon=\"create\" \n                  variant=\"tertiary\"\n                  ariaLabel={`Edit ${employee.name}`}\n                  onClick={() => editEmployee(employee.id)}\n                />\n                <GoabIconButton \n                  icon=\"trash\" \n                  variant=\"destructive\"\n                  ariaLabel={`Delete ${employee.name}`}\n                  onClick={() => deleteEmployee(employee.id)}\n                />\n              </GoabButtonGroup>\n            </td>\n          </tr>\n        ))}\n      </tbody>\n    </GoabTable>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Simple Data Table",
+          "description": "Basic table for displaying user information",
+          "code": "@Component({\n  template: `\n    <goa-table width=\"100%\">\n      <thead>\n        <tr>\n          <th>Name</th>\n          <th>Email</th>\n          <th>Role</th>\n          <th>Status</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let user of users\">\n          <td>{{ user.name }}</td>\n          <td>{{ user.email }}</td>\n          <td>{{ user.role }}</td>\n          <td>\n            <goa-badge \n              [type]=\"user.status === 'active' ? 'success' : 'information'\">\n              {{ user.status }}\n            </goa-badge>\n          </td>\n        </tr>\n      </tbody>\n    </goa-table>\n  `\n})\nexport class UserTableComponent {\n  @Input() users: User[] = [];\n}"
+        },
+        {
+          "title": "Sortable Table with Actions",
+          "description": "Complete sortable table with action buttons",
+          "code": "@Component({\n  template: `\n    <goa-table width=\"100%\" testid=\"employee-table\">\n      <thead>\n        <tr>\n          <goa-table-sort-header \n            [direction]=\"getSortDirection('name')\"\n            (sortChange)=\"handleSort('name', $event)\"\n            testid=\"sort-name\">\n            Employee Name\n          </goa-table-sort-header>\n          <goa-table-sort-header \n            [direction]=\"getSortDirection('department')\"\n            (sortChange)=\"handleSort('department', $event)\"\n            testid=\"sort-department\">\n            Department\n          </goa-table-sort-header>\n          <goa-table-sort-header \n            [direction]=\"getSortDirection('startDate')\"\n            (sortChange)=\"handleSort('startDate', $event)\"\n            testid=\"sort-date\">\n            Start Date\n          </goa-table-sort-header>\n          <th>Actions</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let employee of sortedEmployees\">\n          <td>{{ employee.name }}</td>\n          <td>{{ employee.department }}</td>\n          <td>{{ employee.startDate | date }}</td>\n          <td>\n            <goa-button-group>\n              <goa-icon-button \n                icon=\"create\" \n                variant=\"tertiary\"\n                [aria-label]=\"'Edit ' + employee.name\"\n                (clickEvent)=\"editEmployee(employee.id)\">\n              </goa-icon-button>\n              <goa-icon-button \n                icon=\"trash\" \n                variant=\"destructive\"\n                [aria-label]=\"'Delete ' + employee.name\"\n                (clickEvent)=\"deleteEmployee(employee.id)\">\n              </goa-icon-button>\n            </goa-button-group>\n          </td>\n        </tr>\n      </tbody>\n    </goa-table>\n  `\n})\nexport class SortableEmployeeTableComponent {\n  @Input() employees: Employee[] = [];\n  sortConfig = { key: '', direction: 'none' };\n  \n  get sortedEmployees() {\n    if (this.sortConfig.direction === 'none') {\n      return this.employees;\n    }\n    \n    return [...this.employees].sort((a, b) => {\n      const aValue = a[this.sortConfig.key];\n      const bValue = b[this.sortConfig.key];\n      \n      if (this.sortConfig.direction === 'asc') {\n        return aValue > bValue ? 1 : -1;\n      } else {\n        return aValue < bValue ? 1 : -1;\n      }\n    });\n  }\n  \n  getSortDirection(column: string) {\n    return this.sortConfig.key === column ? this.sortConfig.direction : 'none';\n  }\n  \n  handleSort(column: string, direction: string) {\n    this.sortConfig = { key: column, direction };\n  }\n  \n  editEmployee(id: number) {\n    // Edit logic\n  }\n  \n  deleteEmployee(id: number) {\n    // Delete logic\n  }\n}"
+        }
+      ]
+    },
+
+    "advancedExamples": {
+      "react": [
+        {
+          "title": "Table with Pagination",
+          "description": "Large dataset table with pagination controls",
+          "code": "function PaginatedTable() {\n  const [currentPage, setCurrentPage] = useState(1);\n  const [sortConfig, setSortConfig] = useState({ key: '', direction: 'none' });\n  const itemsPerPage = 10;\n  \n  const sortedData = useMemo(() => {\n    if (sortConfig.direction === 'none') return data;\n    \n    return [...data].sort((a, b) => {\n      if (sortConfig.direction === 'asc') {\n        return a[sortConfig.key] > b[sortConfig.key] ? 1 : -1;\n      }\n      return a[sortConfig.key] < b[sortConfig.key] ? 1 : -1;\n    });\n  }, [data, sortConfig]);\n  \n  const paginatedData = sortedData.slice(\n    (currentPage - 1) * itemsPerPage,\n    currentPage * itemsPerPage\n  );\n  \n  return (\n    <div>\n      <GoabTable width=\"100%\">\n        <thead>\n          <tr>\n            <GoabTableSortHeader \n              direction={sortConfig.key === 'name' ? sortConfig.direction : 'none'}\n              onSortChange={(direction) => setSortConfig({ key: 'name', direction })}>\n              Name\n            </GoabTableSortHeader>\n            <GoabTableSortHeader \n              direction={sortConfig.key === 'status' ? sortConfig.direction : 'none'}\n              onSortChange={(direction) => setSortConfig({ key: 'status', direction })}>\n              Status\n            </GoabTableSortHeader>\n          </tr>\n        </thead>\n        <tbody>\n          {paginatedData.map(item => (\n            <tr key={item.id}>\n              <td>{item.name}</td>\n              <td>{item.status}</td>\n            </tr>\n          ))}\n        </tbody>\n      </GoabTable>\n      \n      <GoabPagination \n        itemCount={sortedData.length}\n        perPage={itemsPerPage}\n        currentPage={currentPage}\n        onPageChange={setCurrentPage}\n      />\n    </div>\n  );\n}"
+        }
+      ]
+    }
+  },
+
+  "designGuidance": {
+    "when": {
+      "use": [
+        "Displaying structured data in rows and columns",
+        "Comparing information across multiple items",
+        "When users need to sort or scan data quickly",
+        "Presenting data that benefits from column alignment"
+      ],
+      "dontUse": [
+        "For simple lists (use list components instead)",
+        "When data doesn't fit tabular structure",
+        "For mobile-first experiences with complex data (consider cards or lists)",
+        "When columns would be too narrow to be readable"
+      ]
+    },
+    "contentLayout": {
+      "columnWidths": [
+        "Use character-based units (ch) for predictable text content",
+        "Use percentage widths for flexible layouts",
+        "Reserve fixed pixel widths for actions or icons",
+        "Ensure minimum 120px width for text columns"
+      ],
+      "dataAlignment": [
+        "Left-align text and mixed content",
+        "Right-align numerical data for comparison",
+        "Center-align short status indicators or icons",
+        "Use consistent alignment within columns"
+      ],
+      "responsiveStrategy": [
+        "Consider horizontal scrolling for wide tables on mobile",
+        "Use cards or lists for mobile-first responsive design",
+        "Hide less critical columns on smaller screens",
+        "Ensure action columns remain accessible on all sizes"
+      ]
+    },
+    "sortingBestPractices": [
+      "Only make columns sortable when it provides value to users",
+      "Default to no sorting rather than arbitrary initial sort",
+      "Use clear visual indicators for sort direction",
+      "Maintain sort state when data updates",
+      "Consider the impact of sorting on user's current context"
+    ],
+    "accessibility": [
+      "Always use proper table markup with thead and tbody",
+      "Provide descriptive headers that can be read out of context",
+      "Use scope attributes for complex tables",
+      "Ensure sufficient color contrast for all table content",
+      "Test with screen readers and keyboard-only navigation"
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabPagination",
+      "relationship": "Data management companion",
+      "usage": "Essential for tables with large datasets",
+      "example": "Combine for paginated data display"
+    },
+    {
+      "name": "GoabFilterChip",
+      "relationship": "Data filtering companion",
+      "usage": "Provides filtering controls above tables",
+      "example": "Filter table content by category or status"
+    },
+    {
+      "name": "GoabIconButton",
+      "relationship": "Action provider",
+      "usage": "Row-level actions like edit, delete, view",
+      "example": "Action buttons in table rows"
+    },
+    {
+      "name": "GoabBadge",
+      "relationship": "Status indicator",
+      "usage": "Display status, priority, or category information",
+      "example": "Status badges in table cells"
+    },
+    {
+      "name": "GoabInput",
+      "relationship": "Search integration",
+      "usage": "Search functionality above tables",
+      "example": "Search input to filter table content"
+    }
+  ],
+
+  "commonPatterns": [
+    {
+      "name": "Data Dashboard Tables",
+      "description": "Tables displaying key metrics and data in admin interfaces",
+      "components": ["Table", "Badge", "IconButton", "Pagination"]
+    },
+    {
+      "name": "User Management Interface",
+      "description": "Tables for managing users, roles, and permissions",
+      "components": ["Table", "TableSortHeader", "IconButton", "Modal"]
+    },
+    {
+      "name": "Content Management Lists",
+      "description": "Tables displaying content items with metadata and actions",
+      "components": ["Table", "Badge", "ButtonGroup", "FilterChip"]
+    }
+  ],
+
+  "troubleshooting": [
+    {
+      "issue": "Sort direction not updating visually",
+      "cause": "Sort direction prop not properly bound to state",
+      "solution": "Ensure the direction prop on GoabTableSortHeader reflects your component's sort state. Use conditional logic: `direction={sortColumn === 'name' ? sortDirection : 'none'}`"
+    },
+    {
+      "issue": "Table headers stacking vertically or not aligning with columns",
+      "cause": "GoabTableSortHeader components not properly wrapped in <th> elements",
+      "solution": "Always wrap GoabTableSortHeader inside <th> elements for proper table structure",
+      "example": "// ❌ WRONG - causes headers to stack\n<tr>\n  <GoabTableSortHeader>Name</GoabTableSortHeader>\n  <GoabTableSortHeader>Email</GoabTableSortHeader>\n</tr>\n\n// ✅ CORRECT - proper table structure\n<tr>\n  <th>\n    <GoabTableSortHeader direction=\"none\" onSortChange={handleSort}>Name</GoabTableSortHeader>\n  </th>\n  <th>\n    <GoabTableSortHeader direction=\"none\" onSortChange={handleSort}>Email</GoabTableSortHeader>\n  </th>\n</tr>"
+    },
+    {
+      "issue": "Table content overflowing container",
+      "cause": "Missing width constraints or responsive design",
+      "solution": "Set explicit width on table and consider horizontal scroll for mobile: `<GoabTable width=\"100%\" style={{minWidth: '600px'}}>`"
+    },
+    {
+      "issue": "Sort arrows not appearing",
+      "cause": "Ionicons not loaded or incorrect import",
+      "solution": "Ensure ionicons is included in your project and web components are properly imported"
+    },
+    {
+      "issue": "Table not responsive on mobile",
+      "cause": "Fixed table layout with narrow columns",
+      "solution": "Consider using cards or vertical layout for mobile, or implement horizontal scrolling with minimum column widths"
+    },
+    {
+      "issue": "Screen readers not announcing table structure",
+      "cause": "Missing proper table markup or headers",
+      "solution": "Use semantic table elements (thead, tbody, th, td) and ensure column headers are descriptive"
+    },
+    {
+      "issue": "Sort events not firing in Angular",
+      "cause": "Incorrect event binding syntax",
+      "solution": "Use (sortChange) not (onSortChange) for Angular: `(sortChange)=\"handleSort($event)\"`"
+    },
+    {
+      "issue": "Performance issues with large datasets",
+      "cause": "Rendering too many rows at once",
+      "solution": "Implement pagination or virtual scrolling. Limit initial render to 50-100 rows maximum"
+    }
+  ],
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate through sortable headers and interactive elements",
+      "Enter/Space - Activate sort on focused header",
+      "Arrow keys - Navigate table cells (screen reader table mode)"
+    ],
+    "screenReader": [
+      "Table structure announced with row and column counts",
+      "Column headers provide context for cell content",
+      "Sort state announced when interacting with sortable headers",
+      "Row and column position announced when navigating"
+    ],
+    "focusManagement": [
+      "Logical tab order through sortable headers",
+      "Focus indicators visible on all interactive elements",
+      "Focus returns to triggering element after sort actions"
+    ]
+  },
+
+  "performanceConsiderations": [
+    "Limit initial table size to 50-100 rows for optimal performance",
+    "Use pagination for datasets larger than 100 items", 
+    "Implement client-side sorting only for smaller datasets (< 1000 items)",
+    "Consider virtual scrolling for very large datasets",
+    "Optimize re-renders by memoizing sort functions and data transformations"
+  ],
+
+  "propertyValidation": {
+    "enforcementRule": "ONLY use documented property values - invalid properties break component functionality",
+    "validationRequired": true
+  },
+  
+  "strictPropertyEnforcement": {
+    "variant": {
+      "validValues": ["default", "relaxed"],
+      "commonMistakes": ["normal", "compact", "dense"],
+      "invalidExamples": [
+        "❌ variant='normal' (should be variant='default')",
+        "❌ variant='compact' (not a valid table variant)"
+      ]
+    },
+    "width": {
+      "validValues": ["auto", "100%", "specific pixel values"],
+      "examples": ["100%", "auto", "800px"],
+      "invalidExamples": [
+        "❌ width='full' (should be width='100%')"
+      ]
+    }
+  },
+
+  "aiHints": {
+    "commonMistakes": [
+      "Not wrapping GoabTableSortHeader in <th> elements - causes column alignment issues",
+      "Forgetting to handle sort state properly",
+      "Using className instead of standard table semantics",
+      "Not providing testId for accessibility testing"
+    ],
+    "criticalStructure": {
+      "rule": "ALWAYS wrap GoabTableSortHeader in <th> elements",
+      "correct": "<th><GoabTableSortHeader>Column Name</GoabTableSortHeader></th>",
+      "incorrect": "<GoabTableSortHeader>Column Name</GoabTableSortHeader>",
+      "why": "Proper table semantics ensure correct column alignment and accessibility"
+    }
+  },
+
+  "tags": ["data-display", "interactive", "sortable", "table", "grid", "responsive"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-07-02",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/table.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

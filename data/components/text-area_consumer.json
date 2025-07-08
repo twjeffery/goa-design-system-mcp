@@ -1,0 +1,420 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "TextArea",
+  "customElement": {
+    "tagName": "goa-textarea",
+    "className": "GoabTextArea"
+  },
+  "summary": "Multi-line text input component for collecting extended user input with optional character/word counting and form validation support",
+  
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["FormItem component (recommended)", "Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabTextArea, GoabFormItem } from '@abgov/react-components'",
+      "quickExample": "<GoabFormItem label=\"Comments\">\n  <GoabTextArea \n    name=\"comments\" \n    placeholder=\"Enter your comments here...\" \n    rows={4} \n  />\n</GoabFormItem>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goa-form-item label=\"Comments\">\n  <goa-textarea \n    name=\"comments\" \n    placeholder=\"Enter your comments here...\" \n    [rows]=\"4\">\n  </goa-textarea>\n</goa-form-item>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-form-item label=\"Comments\">\n  <goa-textarea \n    name=\"comments\" \n    placeholder=\"Enter your comments here...\" \n    rows=\"4\">\n  </goa-textarea>\n</goa-form-item>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Name attribute for form submission",
+        "usage": "Essential for form handling and accessibility"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Current text content of the textarea",
+        "usage": "Use for controlled components"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "description": "Placeholder text shown when empty",
+        "usage": "Provide formatting hints, not essential information"
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "default": "3",
+        "required": false,
+        "description": "Number of visible text lines (height)",
+        "usage": "Size according to expected content - minimum 2 rows"
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "required": false,
+        "description": "Number of visible character columns (width)",
+        "usage": "Often overridden by CSS, use for base sizing"
+      },
+      {
+        "name": "width",
+        "type": "string",
+        "required": false,
+        "description": "CSS width value (e.g., '60ch', '100%', '400px')",
+        "usage": "Control textarea width - use 'ch' units for character-based sizing"
+      },
+      {
+        "name": "maxCount",
+        "type": "number",
+        "required": false,
+        "description": "Maximum number of characters/words allowed",
+        "usage": "Use with countBy to show counter feedback to users"
+      },
+      {
+        "name": "countBy",
+        "type": "character | word",
+        "default": "character",
+        "required": false,
+        "description": "Type of counting to display in counter",
+        "usage": "Use 'word' for content guidance, 'character' for technical limits"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "required": false,
+        "description": "Disables the textarea",
+        "usage": "Use for read-only states or conditional access"
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "default": "false",
+        "required": false,
+        "description": "Makes textarea read-only but focusable",
+        "usage": "Use when content should be readable but not editable"
+      },
+      {
+        "name": "error",
+        "type": "boolean",
+        "default": "false",
+        "required": false,
+        "description": "Indicates validation error state",
+        "usage": "Typically managed by FormItem component"
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "description": "Accessible label for screen readers",
+        "usage": "Provide when not using FormItem label"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Sets the data-testid attribute for testing"
+      }
+    ],
+    "events": [
+      {
+        "name": "onChange (React) / input (Angular)",
+        "description": "Fired when textarea content changes",
+        "payload": "name: string, value: string"
+      },
+      {
+        "name": "onBlur (React) / blur (Angular)",
+        "description": "Fired when textarea loses focus",
+        "payload": "name: string, value: string"
+      }
+    ]
+  },
+
+  "playgroundExamples": {
+    "basicUsage": {
+      "title": "Basic Text Area",
+      "description": "Simple textarea with default settings and character counting",
+      "code": "function BasicTextAreaExample() {\n  const [value, setValue] = useState('');\n  \n  const onChangeTextArea = (name, newValue) => {\n    setValue(newValue);\n  };\n  \n  return (\n    <GoabFormItem label=\"Basic text area\" labelSize=\"regular\">\n      <GoabTextarea\n        countBy=\"character\"\n        width=\"60ch\"\n        name=\"item\"\n        value={value}\n        onChange={onChangeTextArea}\n      />\n    </GoabFormItem>\n  );\n}",
+      "notes": ["Default configuration with character counting", "Fixed width using character units (60ch)", "Standard form integration with GoabFormItem"]
+    },
+    "fullWidth": {
+      "title": "Full Width Text Area",
+      "description": "Textarea that spans the full width of its container with placeholder text",
+      "code": "function FullWidthTextAreaExample() {\n  const [value, setValue] = useState('');\n  \n  const onChangeTextArea = (name, newValue) => {\n    setValue(newValue);\n  };\n  \n  return (\n    <GoabFormItem label=\"Text area 100% width\" labelSize=\"regular\">\n      <GoabTextarea\n        placeholder=\"placeholder content\"\n        countBy=\"character\"\n        width=\"100%\"\n        name=\"item\"\n        value={value}\n        onChange={onChangeTextArea}\n      />\n    </GoabFormItem>\n  );\n}",
+      "notes": ["Full width responsive design", "Placeholder text for user guidance", "Character counting enabled"]
+    },
+    "characterCounter": {
+      "title": "Character Counter with Limit",
+      "description": "Textarea with character counting and maximum limit display",
+      "code": "function CharacterCounterExample() {\n  const [value, setValue] = useState('');\n  \n  const onChangeTextArea = (name, newValue) => {\n    setValue(newValue);\n  };\n  \n  return (\n    <GoabFormItem \n      label=\"Text area with a character counter\" \n      labelSize=\"regular\"\n    >\n      <GoabTextarea\n        countBy=\"character\"\n        maxCount={30}\n        width=\"60ch\"\n        name=\"item\"\n        value={value}\n        onChange={onChangeTextArea}\n      />\n    </GoabFormItem>\n  );\n}",
+      "notes": ["30 character limit with visual counter", "Counter shows remaining characters", "Useful for constrained input fields like social media posts"]
+    },
+    "wordCounter": {
+      "title": "Word Counter with Limit",
+      "description": "Textarea with word counting functionality for content length guidance",
+      "code": "function WordCounterExample() {\n  const [value, setValue] = useState('');\n  \n  const onChangeTextArea = (name, newValue) => {\n    setValue(newValue);\n  };\n  \n  return (\n    <GoabFormItem label=\"Text area with a word counter\" labelSize=\"regular\">\n      <GoabTextarea\n        countBy=\"word\"\n        maxCount={30}\n        width=\"60ch\"\n        name=\"item\"\n        value={value}\n        onChange={onChangeTextArea}\n      />\n    </GoabFormItem>\n  );\n}",
+      "notes": ["Word-based counting instead of characters", "Better for content length estimation", "30 word limit with remaining count display"]
+    },
+    "errorState": {
+      "title": "Error State with Validation",
+      "description": "Textarea showing error state with validation message and helper text",
+      "code": "function ErrorStateExample() {\n  const [value, setValue] = useState('');\n  \n  const onChangeTextArea = (name, newValue) => {\n    setValue(newValue);\n  };\n  \n  return (\n    <GoabFormItem\n      label=\"Text area with an error\"\n      requirement=\"optional\"\n      helpText=\"Here is some helper text\"\n      error=\"Error message.\"\n    >\n      <GoabTextarea\n        error={true}\n        rows={3}\n        name=\"item\"\n        countBy=\"word\"\n        maxCount={100}\n        value={value}\n        onChange={onChangeTextArea}\n        width=\"80ch\"\n      />\n    </GoabFormItem>\n  );\n}",
+      "notes": ["Red border indicates error state", "Error message displayed below textarea", "Helper text provides additional context", "Word counter with 100 word limit"]
+    },
+    "disabledState": {
+      "title": "Disabled Text Area",
+      "description": "Non-interactive textarea in disabled state",
+      "code": "function DisabledStateExample() {\n  const [value, setValue] = useState('');\n  \n  const onChangeTextArea = (name, newValue) => {\n    setValue(newValue);\n  };\n  \n  return (\n    <GoabFormItem\n      label=\"Text area that's disabled\"\n      requirement=\"optional\"\n      helpText=\"Here is some helper text\"\n    >\n      <GoabTextarea\n        disabled={true}\n        rows={3}\n        name=\"item\"\n        countBy=\"character\"\n        maxCount={100}\n        value={value}\n        onChange={onChangeTextArea}\n      />\n    </GoabFormItem>\n  );\n}",
+      "notes": ["Grayed out appearance indicates disabled state", "User cannot interact with or edit content", "Counter still visible but inactive", "Use for conditional form access or read-only displays"]
+    },
+    "readOnlyState": {
+      "title": "Read-Only Text Area",
+      "description": "Textarea that can be focused but not edited",
+      "code": "function ReadOnlyStateExample() {\n  const [value, setValue] = useState('');\n  \n  const onChangeTextArea = (name, newValue) => {\n    setValue(newValue);\n  };\n  \n  return (\n    <GoabFormItem\n      label=\"Text area that's read only\"\n      requirement=\"optional\"\n      helpText=\"Here is some helper text\"\n    >\n      <GoabTextarea\n        rows={3}\n        readOnly={true}\n        name=\"item\"\n        countBy=\"character\"\n        maxCount={100}\n        value={value}\n        onChange={onChangeTextArea}\n      />\n    </GoabFormItem>\n  );\n}",
+      "notes": ["Focusable but not editable", "Different from disabled - allows text selection", "Useful for displaying pre-filled data that shouldn't be changed", "Character counter remains visible"]
+    },
+    "containerUsage": {
+      "title": "Text Area in Container",
+      "description": "Textarea within a GoabContainer component for layout consistency",
+      "code": "function ContainerUsageExample() {\n  const [value, setValue] = useState('');\n  \n  const onChangeTextArea = (name, newValue) => {\n    setValue(newValue);\n  };\n  \n  return (\n    <GoabContainer>\n      <GoabFormItem\n        label=\"Text area in a container\"\n        requirement=\"optional\"\n        helpText=\"Here is some helper text\"\n      >\n        <GoabTextarea\n          rows={6}\n          name=\"item\"\n          value={value}\n          onChange={onChangeTextArea}\n          width=\"80ch\"\n        />\n      </GoabFormItem>\n    </GoabContainer>\n  );\n}",
+      "notes": ["Wrapped in GoabContainer for consistent spacing", "Larger height with 6 rows for more content", "80 character width for extended text entry", "No counter - suitable for longer form content"]
+    }
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Simple Feedback Form",
+          "description": "Basic textarea for collecting user feedback",
+          "code": "function FeedbackForm() {\n  const [feedback, setFeedback] = useState('');\n  const [errors, setErrors] = useState({});\n  \n  const validateFeedback = (value) => {\n    if (!value.trim()) {\n      return 'Feedback is required';\n    }\n    if (value.length < 10) {\n      return 'Please provide more detailed feedback (minimum 10 characters)';\n    }\n    return null;\n  };\n  \n  const handleSubmit = (e) => {\n    e.preventDefault();\n    const error = validateFeedback(feedback);\n    if (error) {\n      setErrors({ feedback: error });\n      return;\n    }\n    \n    // Submit feedback\n    console.log('Submitting feedback:', feedback);\n    setFeedback('');\n    setErrors({});\n  };\n  \n  return (\n    <form onSubmit={handleSubmit}>\n      <GoabFormItem \n        label=\"Your Feedback\"\n        helpText=\"Please share your experience with our service\"\n        requirement=\"required\"\n        errorMessage={errors.feedback}>\n        <GoabTextArea\n          name=\"feedback\"\n          value={feedback}\n          onChange={(name, value) => {\n            setFeedback(value);\n            setErrors({});\n          }}\n          placeholder=\"Tell us about your experience...\"\n          rows={4}\n          error={!!errors.feedback}\n          testId=\"feedback-input\"\n        />\n      </GoabFormItem>\n      \n      <GoabButtonGroup alignment=\"end\">\n        <GoabButton \n          type=\"secondary\" \n          onClick={() => setFeedback('')}>\n          Clear\n        </GoabButton>\n        <GoabButton \n          type=\"primary\" \n          type=\"submit\">\n          Submit Feedback\n        </GoabButton>\n      </GoabButtonGroup>\n    </form>\n  );\n}"
+        },
+        {
+          "title": "Character-Limited Comments",
+          "description": "Comment textarea with character counting and limits",
+          "code": "function CommentSection({ postId }) {\n  const [comment, setComment] = useState('');\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  \n  const handleCommentSubmit = async () => {\n    if (comment.trim().length < 5) {\n      alert('Comment must be at least 5 characters');\n      return;\n    }\n    \n    setIsSubmitting(true);\n    try {\n      await submitComment(postId, comment);\n      setComment('');\n      // Show success message\n    } catch (error) {\n      console.error('Failed to submit comment:', error);\n    } finally {\n      setIsSubmitting(false);\n    }\n  };\n  \n  return (\n    <div className=\"comment-section\">\n      <GoabText size=\"heading-s\">Add a Comment</GoabText>\n      \n      <GoabFormItem \n        label=\"Your Comment\"\n        helpText=\"Share your thoughts (5-280 characters)\">\n        <GoabTextArea\n          name=\"comment\"\n          value={comment}\n          onChange={(name, value) => setComment(value)}\n          placeholder=\"What are your thoughts?\"\n          rows={3}\n          maxCount={280}\n          countBy=\"character\"\n          disabled={isSubmitting}\n          testId=\"comment-textarea\"\n        />\n      </GoabFormItem>\n      \n      <div style={{ marginTop: '1rem' }}>\n        <GoabButton \n          type=\"primary\"\n          onClick={handleCommentSubmit}\n          disabled={comment.trim().length < 5 || isSubmitting}>\n          {isSubmitting ? 'Posting...' : 'Post Comment'}\n        </GoabButton>\n      </div>\n    </div>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Support Ticket Form",
+          "description": "Comprehensive support form with validation",
+          "code": "@Component({\n  template: `\n    <form [formGroup]=\"supportForm\" (ngSubmit)=\"submitTicket()\">\n      <goa-text size=\"heading-m\">Submit Support Ticket</goa-text>\n      \n      <goa-form-item \n        label=\"Issue Description\"\n        helpText=\"Please describe your issue in detail\"\n        requirement=\"required\"\n        [errorMessage]=\"getErrorMessage('description')\">\n        <goa-textarea\n          formControlName=\"description\"\n          placeholder=\"Describe the problem you're experiencing...\"\n          [rows]=\"5\"\n          [maxCount]=\"1000\"\n          countBy=\"character\"\n          [error]=\"isFieldInvalid('description')\"\n          testid=\"issue-description\">\n        </goa-textarea>\n      </goa-form-item>\n      \n      <goa-form-item \n        label=\"Steps to Reproduce\"\n        helpText=\"Help us understand how to recreate the issue\">\n        <goa-textarea\n          formControlName=\"steps\"\n          placeholder=\"1. First I did...\\n2. Then I...\\n3. The error occurred when...\"\n          [rows]=\"4\"\n          countBy=\"word\"\n          testid=\"reproduction-steps\">\n        </goa-textarea>\n      </goa-form-item>\n      \n      <goa-button-group alignment=\"end\">\n        <goa-button \n          type=\"secondary\" \n          (clickEvent)=\"resetForm()\"\n          [disabled]=\"isSubmitting\">\n          Reset\n        </goa-button>\n        <goa-button \n          type=\"primary\" \n          type=\"submit\"\n          [disabled]=\"supportForm.invalid || isSubmitting\">\n          {{ isSubmitting ? 'Submitting...' : 'Submit Ticket' }}\n        </goa-button>\n      </goa-button-group>\n    </form>\n  `\n})\nexport class SupportTicketComponent {\n  supportForm: FormGroup;\n  isSubmitting = false;\n  \n  constructor(private fb: FormBuilder) {\n    this.supportForm = this.fb.group({\n      description: ['', [Validators.required, Validators.minLength(20)]],\n      steps: ['']\n    });\n  }\n  \n  getErrorMessage(fieldName: string): string {\n    const control = this.supportForm.get(fieldName);\n    if (control?.hasError('required')) {\n      return `${fieldName} is required`;\n    }\n    if (control?.hasError('minlength')) {\n      return `${fieldName} must be at least 20 characters`;\n    }\n    return '';\n  }\n  \n  isFieldInvalid(fieldName: string): boolean {\n    const control = this.supportForm.get(fieldName);\n    return !!(control?.invalid && control?.touched);\n  }\n  \n  submitTicket() {\n    if (this.supportForm.valid) {\n      this.isSubmitting = true;\n      // Submit ticket logic\n    }\n  }\n  \n  resetForm() {\n    this.supportForm.reset();\n  }\n}"
+        }
+      ]
+    },
+
+    "advancedExamples": {
+      "react": [
+        {
+          "title": "Auto-saving Draft System",
+          "description": "Textarea with automatic draft saving functionality",
+          "code": "function DraftTextArea({ draftKey, onSave }) {\n  const [content, setContent] = useState('');\n  const [isDirty, setIsDirty] = useState(false);\n  const [lastSaved, setLastSaved] = useState(null);\n  const saveTimeoutRef = useRef(null);\n  \n  // Load draft on mount\n  useEffect(() => {\n    const savedDraft = localStorage.getItem(`draft_${draftKey}`);\n    if (savedDraft) {\n      setContent(savedDraft);\n    }\n  }, [draftKey]);\n  \n  // Auto-save with debouncing\n  useEffect(() => {\n    if (isDirty && content.trim()) {\n      if (saveTimeoutRef.current) {\n        clearTimeout(saveTimeoutRef.current);\n      }\n      \n      saveTimeoutRef.current = setTimeout(() => {\n        localStorage.setItem(`draft_${draftKey}`, content);\n        setLastSaved(new Date());\n        setIsDirty(false);\n        if (onSave) onSave(content);\n      }, 2000); // Save after 2 seconds of inactivity\n    }\n    \n    return () => {\n      if (saveTimeoutRef.current) {\n        clearTimeout(saveTimeoutRef.current);\n      }\n    };\n  }, [content, isDirty, draftKey, onSave]);\n  \n  const handleChange = (name, value) => {\n    setContent(value);\n    setIsDirty(true);\n  };\n  \n  const clearDraft = () => {\n    setContent('');\n    setIsDirty(false);\n    localStorage.removeItem(`draft_${draftKey}`);\n    setLastSaved(null);\n  };\n  \n  return (\n    <div>\n      <GoabFormItem \n        label=\"Content\"\n        helpText={lastSaved ? `Last saved: ${lastSaved.toLocaleTimeString()}` : 'Auto-saves as you type'}>\n        <GoabTextArea\n          name=\"content\"\n          value={content}\n          onChange={handleChange}\n          placeholder=\"Start typing your content here...\"\n          rows={8}\n          maxCount={2000}\n          countBy=\"character\"\n          testId=\"draft-textarea\"\n        />\n      </GoabFormItem>\n      \n      {content && (\n        <div style={{ marginTop: '0.5rem', textAlign: 'right' }}>\n          <GoabButton \n            type=\"tertiary\" \n            size=\"compact\"\n            onClick={clearDraft}>\n            Clear Draft\n          </GoabButton>\n        </div>\n      )}\n    </div>\n  );\n}"
+        }
+      ]
+    }
+  },
+
+  "designGuidance": {
+    "when": {
+      "use": [
+        "Collecting multi-line text input (comments, feedback, descriptions)",
+        "When users need to enter more than a single line of information",
+        "For content that may require editing and review before submission",
+        "When you expect responses longer than 1-2 sentences"
+      ],
+      "dontUse": [
+        "For single-line text input (use Input component instead)",
+        "When you need rich text formatting (consider rich text editors)",
+        "For very short, predictable responses (use Select or Radio instead)",
+        "When space is extremely limited (consider expanding input patterns)"
+      ]
+    },
+    "sizing": {
+      "guidelines": [
+        "Size the textarea to match expected content length",
+        "Minimum 2 rows to differentiate from single-line inputs",
+        "3-4 rows for typical comments or short descriptions",
+        "5+ rows for detailed feedback or longer content",
+        "Width should accommodate 45-75 characters per line for optimal reading"
+      ],
+      "bestPractices": [
+        "Don't make textareas excessively tall for short content",
+        "Consider auto-resize functionality for dynamic content",
+        "Test with actual content length on different screen sizes",
+        "Ensure textarea doesn't dominate the form layout"
+      ]
+    },
+    "characterWordCounting": {
+      "when": [
+        "There's a technical limitation requiring character limits",
+        "Providing guidance on expected response length",
+        "Platform constraints (like social media character limits)",
+        "Quality control for consistent response lengths"
+      ],
+      "bestPractices": [
+        "Only show counters when there's a meaningful reason to limit input",
+        "Use word count for content guidance, character count for technical limits",
+        "Allow users to exceed limits but show error state",
+        "Don't prevent typing or pasting when limit is reached"
+      ],
+      "avoid": [
+        "Adding counters 'just in case' without clear purpose",
+        "Using character limits for fields where length varies naturally",
+        "Setting arbitrary limits that frustrate users",
+        "Hiding the counter until near the limit"
+      ]
+    },
+    "accessibility": [
+      "Always provide clear, descriptive labels",
+      "Use help text to explain expected content or format",
+      "Ensure error messages are specific and actionable",
+      "Test with screen readers and keyboard-only navigation",
+      "Make sure counter updates are announced to screen readers"
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabFormItem",
+      "relationship": "Essential wrapper",
+      "usage": "Provides labels, help text, error messages, and requirement indicators",
+      "example": "Always wrap TextArea in FormItem for proper form integration"
+    },
+    {
+      "name": "GoabInput",
+      "relationship": "Single-line alternative",
+      "usage": "Use for single-line text input instead of TextArea",
+      "example": "Names, emails, phone numbers"
+    },
+    {
+      "name": "GoabButton / GoabButtonGroup",
+      "relationship": "Form actions",
+      "usage": "Submit, clear, save, or cancel actions for textarea content",
+      "example": "Submit and clear buttons below feedback form"
+    },
+    {
+      "name": "GoabModal",
+      "relationship": "Container for forms",
+      "usage": "TextArea forms often appear in modal dialogs",
+      "example": "Feedback modal, comment editor modal"
+    },
+    {
+      "name": "GoabSelect / GoabRadio",
+      "relationship": "Alternative for constrained input",
+      "usage": "Use when responses can be categorized or limited",
+      "example": "Feedback category selection before open text"
+    }
+  ],
+
+  "commonPatterns": [
+    {
+      "name": "Feedback Collection",
+      "description": "Gathering user feedback, reviews, or testimonials",
+      "components": ["TextArea", "FormItem", "Button", "Modal"]
+    },
+    {
+      "name": "Support Systems",
+      "description": "Help desk tickets, bug reports, contact forms",
+      "components": ["TextArea", "FormItem", "Input", "Select", "Button"]
+    },
+    {
+      "name": "Content Creation",
+      "description": "Blog posts, comments, descriptions, notes",
+      "components": ["TextArea", "FormItem", "Button", "Card"]
+    },
+    {
+      "name": "Application Forms",
+      "description": "Government forms, job applications, registrations",
+      "components": ["TextArea", "FormItem", "Input", "Radio", "Checkbox"]
+    }
+  ],
+
+  "troubleshooting": [
+    {
+      "issue": "Textarea not expanding with content",
+      "cause": "Fixed height styling or rows constraint",
+      "solution": "Remove fixed height CSS or implement auto-resize functionality. Consider using CSS `resize: vertical` to allow user control."
+    },
+    {
+      "issue": "Character counter not updating",
+      "cause": "Event binding issues or state management problems",
+      "solution": "Ensure onChange event is properly bound and character counting logic is triggered on every change. Check React state updates or Angular form control binding."
+    },
+    {
+      "issue": "Form validation not working with textarea",
+      "cause": "Incorrect form control binding or validation setup",
+      "solution": "In React: ensure value prop is bound to state. In Angular: use formControlName or ngModel properly. Set error prop based on validation state."
+    },
+    {
+      "issue": "Placeholder text not showing",
+      "cause": "Value prop set to undefined or null instead of empty string",
+      "solution": "Initialize value prop with empty string: `value=\"\"` not `value={undefined}`"
+    },
+    {
+      "issue": "Textarea not accessible to screen readers",
+      "cause": "Missing label association or ARIA attributes",
+      "solution": "Wrap in GoabFormItem with proper label, or provide ariaLabel prop. Ensure help text and error messages are properly associated."
+    },
+    {
+      "issue": "Counter showing incorrect count",
+      "cause": "Word counting logic inconsistencies with whitespace or special characters",
+      "solution": "Review word counting expectations with users. Consider trimming whitespace and handling edge cases like multiple spaces or line breaks."
+    },
+    {
+      "issue": "Poor mobile experience with textarea",
+      "cause": "Fixed sizing not responsive or keyboard issues",
+      "solution": "Use responsive sizing, test with mobile keyboards, ensure textarea doesn't get hidden behind virtual keyboards."
+    }
+  ],
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate to textarea from other form elements",
+      "Shift+Tab - Navigate away from textarea",
+      "Arrow keys, Home, End - Navigate within textarea content",
+      "Ctrl+A - Select all content",
+      "Standard text editing shortcuts (Ctrl+C, Ctrl+V, etc.)"
+    ],
+    "screenReader": [
+      "Label announced when textarea receives focus",
+      "Help text read as description via aria-describedby",
+      "Character/word count changes announced",
+      "Error messages announced immediately when they appear",
+      "Required state indicated in accessibility tree"
+    ],
+    "focusManagement": [
+      "Clear focus indicators when textarea is active",
+      "Focus remains in textarea during typing",
+      "Focus moves logically when using Tab navigation",
+      "Error state doesn't break focus flow"
+    ]
+  },
+
+  "performanceConsiderations": [
+    "Character counting performs on every keystroke - consider debouncing for complex counting logic",
+    "Large amounts of text can impact component performance - test with realistic content lengths",
+    "Auto-save functionality should be debounced to avoid excessive API calls",
+    "Consider lazy loading for textareas in long forms that may not be immediately visible"
+  ],
+
+  "tags": ["form", "input", "text", "multiline", "counter"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-07-02",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/text_area.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

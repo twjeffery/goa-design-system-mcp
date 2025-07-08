@@ -1,0 +1,491 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "MicrositeHeader",
+  "customElement": {
+    "tagName": "goa-microsite-header",
+    "className": "GoabMicrositeHeader"
+  },
+  "summary": "Branded header component for government microsites with service status badges and feedback collection capabilities",
+
+  "visualPatterns": [
+    "Gray banner at top stating 'This is an official website of the Alberta Government'",
+    "Government notice banner",
+    "Official Alberta branding element"
+  ],
+  "aliases": [
+    "government notice",
+    "official banner",
+    "alberta banner",
+    "site header"
+  ],
+  "whenYouSee": "Gray government notice banner",
+  "dontImplementCustom": "Never create custom HTML for government notices - always use MicrositeHeader with required type prop",
+  "visualDescription": "Gray banner at top of page stating 'This is an official website of the Alberta Government' with optional colored status badges (orange for Alpha, blue for Beta)",
+  "commonUse": "REQUIRED for all government service pages - provides official government notice and branding. Often paired with Header component for complete page header structure.",
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Icon component", "Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabMicrositeHeader } from '@abgov/react-components'",
+      "quickExample": "<GoabMicrositeHeader type=\"beta\" />",
+      "dependencies": "Requires @abgov/react-components and @abgov/web-components packages"
+    },
+    "feedbackStrategy": {
+      "angular": {
+        "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+        "quickExample": "<goab-microsite-header type=\"beta\"></goab-microsite-header>",
+        "module": "Add AngularComponentsModule to your module imports",
+        "dependencies": "Requires @abgov/angular-components and @abgov/web-components packages"
+      },
+      "webComponent": {
+        "import": "import '@abgov/web-components'",
+        "quickExample": "<goa-microsite-header type=\"beta\"></goa-microsite-header>",
+        "dependencies": "Requires @abgov/web-components package"
+      }
+    },
+
+    "api": {
+      "props": [
+        {
+          "mistake": "Using MicrositeHeader without the required type prop",
+          "why": "Type prop is required and determines service status communication - component will not render properly without it",
+          "instead": "Always specify type as 'alpha', 'beta', or 'live' based on your service development stage",
+          "example": "// ❌ Wrong - Missing required type prop\n<GoabMicrositeHeader />\n\n// ✅ Correct - Always include type\n<GoabMicrositeHeader type=\"live\" />\n<GoabMicrositeHeader type=\"beta\" />\n<GoabMicrositeHeader type=\"alpha\" />"
+        },
+        {
+          "name": "type",
+          "type": "alpha | beta | live",
+          "required": true,
+          "description": "Service development status",
+          "usage": "alpha = orange badge (early testing), beta = blue badge (public testing), live = no badge (production)"
+        },
+        {
+          "name": "Microsite Layout Pattern",
+          "description": "Complete microsite layout with header",
+          "code": "// React - Full microsite page structure\nfunction MicrositePage({ serviceType, title, children }) {\n  return (\n    <div className=\"microsite-layout\">\n      <GoabMicrositeHeader \n        type={serviceType}\n        feedbackUrl=\"/feedback\"\n        version={\n          <span>Version {process.env.REACT_APP_VERSION}</span>\n        }\n      />\n      <main className=\"main-content\">\n        <div className=\"container\">\n          <header className=\"page-header\">\n            <h1>{title}</h1>\n          </header>\n          <div className=\"content\">\n            {children}\n          </div>\n        </div>\n      </main>\n      <footer className=\"microsite-footer\">\n        {/* Footer content */}\n      </footer>\n    </div>\n  );\n}"
+        },
+        {
+          "name": "feedbackUrl",
+          "type": "string (URL)",
+          "required": false,
+          "description": "URL for feedback collection",
+          "usage": "Displays 'feedback' link in header text. Use for external feedback forms or surveys"
+        },
+        {
+          "name": "feedbackUrlTarget",
+          "type": "string",
+          "default": "_self",
+          "required": false,
+          "description": "Target attribute for feedback link",
+          "usage": "Controls how feedback link opens (_self, _blank, _parent, _top)"
+        },
+        {
+          "name": "headerUrlTarget",
+          "type": "string",
+          "default": "_self",
+          "required": false,
+          "description": "Target attribute for header logo link",
+          "usage": "Controls how Alberta Government link opens (_self, _blank, _parent, _top)"
+        },
+        {
+          "name": "hasFeedbackHandler",
+          "type": "boolean",
+          "default": false,
+          "required": false,
+          "description": "Enables custom feedback click handling",
+          "usage": "Use when you want to handle feedback collection programmatically instead of linking to external URL"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": false,
+          "description": "Version text to display on right side of header",
+          "usage": "Team-controlled versioning - can denote version numbers, environment indicators, or release stages (e.g., '1.2.3', 'v2.0-beta', 'staging-build-42')"
+        },
+        {
+          "name": "testId",
+          "type": "string",
+          "default": "",
+          "required": false,
+          "description": "Data attribute for testing and automation",
+          "usage": "Set unique identifier for testing headers across different service types"
+        }
+      ],
+      "events": [
+        {
+          "name": "onFeedbackClick",
+          "framework": "React",
+          "description": "Fired when feedback link is clicked (requires hasFeedbackHandler=true)",
+          "signature": "() => void"
+        },
+        {
+          "name": "onFeedbackClick",
+          "framework": "Angular",
+          "description": "Fired when feedback link is clicked (requires hasFeedbackHandler=true)",
+          "signature": "$event: CustomEvent"
+        },
+        {
+          "name": "_feedbackClick",
+          "framework": "Web Component",
+          "description": "Custom event fired when feedback link is clicked",
+          "signature": "detail: undefined"
+        }
+      ],
+      "slots": [
+        {
+          "name": "version",
+          "description": "Rich content for version display on right side of header",
+          "usage": "Use for version numbers, build information, or release status (React/Angular only)",
+          "note": "Use version prop for simple text or version slot for rich content"
+        }
+      ]
+    },
+
+    "usage": {
+      "basicExamples": {
+        "react": [
+          {
+            "title": "Alpha Service Header",
+            "description": "Header for service in early development/testing",
+            "code": "function AlphaServicePage() {\n  return (\n    <>\n      <GoabMicrositeHeader type=\"alpha\" />\n      <main>\n        <h1>My Alpha Service</h1>\n        <p>This service is in early development and testing.</p>\n      </main>\n    </>\n  );\n}"
+          },
+          {
+            "title": "Beta Service with Feedback",
+            "description": "Beta service with external feedback collection",
+            "code": "function BetaServicePage() {\n  return (\n    <>\n      <GoabMicrositeHeader \n        type=\"beta\" \n        feedbackUrl=\"https://forms.alberta.ca/beta-feedback\"\n      />\n      <main>\n        <h1>My Beta Service</h1>\n        <p>This service is in public beta testing.</p>\n      </main>\n    </>\n  );\n}"
+          },
+          {
+            "title": "Service with Custom Feedback Handler",
+            "description": "Service with programmatic feedback collection",
+            "code": "function ServiceWithFeedback() {\n  const [showFeedbackModal, setShowFeedbackModal] = React.useState(false);\n  \n  const handleFeedback = () => {\n    setShowFeedbackModal(true);\n    // Track feedback interaction\n    analytics.track('feedback_clicked', { service: 'my-service' });\n  };\n  \n  return (\n    <>\n      <GoabMicrositeHeader \n        type=\"beta\" \n        hasFeedbackHandler={true}\n        onFeedbackClick={handleFeedback}\n      />\n      <main>\n        <h1>My Service</h1>\n        {/* Service content */}\n      </main>\n      {showFeedbackModal && (\n        <FeedbackModal onClose={() => setShowFeedbackModal(false)} />\n      )}\n    </>\n  );\n}"
+          },
+          {
+            "title": "Service with Version Information",
+            "description": "Header with version details in slot",
+            "code": "function ServiceWithVersion() {\n  return (\n    <>\n      <GoabMicrositeHeader \n        type=\"live\"\n        version={\n          <>\n            <span>Version <strong>2.1.4</strong></span>\n            <span>Released: March 2025</span>\n          </>\n        }\n      />\n      <main>\n        <h1>My Production Service</h1>\n        <p>This service is live and available to the public.</p>\n      </main>\n    </>\n  );\n}"
+          }
+        ],
+        "angular": [
+          {
+            "title": "Alpha Service Header",
+            "description": "Header for service in early development/testing",
+            "code": "<goab-microsite-header type=\"alpha\"></goab-microsite-header>\n<main>\n  <h1>My Alpha Service</h1>\n  <p>This service is in early development and testing.</p>\n</main>"
+          },
+          {
+            "title": "Beta Service with Feedback",
+            "description": "Beta service with external feedback collection",
+            "code": "<goab-microsite-header \n  type=\"beta\" \n  feedbackUrl=\"https://forms.alberta.ca/beta-feedback\">\n</goab-microsite-header>\n<main>\n  <h1>My Beta Service</h1>\n  <p>This service is in public beta testing.</p>\n</main>"
+          },
+          {
+            "title": "Service with Custom Feedback Handler",
+            "description": "Service with programmatic feedback collection",
+            "code": "@Component({\n  template: `\n    <goab-microsite-header \n      type=\"beta\" \n      [hasFeedbackHandler]=\"true\"\n      (onFeedbackClick)=\"handleFeedback()\">\n    </goab-microsite-header>\n    <main>\n      <h1>My Service</h1>\n      <!-- Service content -->\n    </main>\n    <app-feedback-modal \n      *ngIf=\"showFeedbackModal\" \n      (close)=\"showFeedbackModal = false\">\n    </app-feedback-modal>\n  `\n})\nexport class ServiceComponent {\n  showFeedbackModal = false;\n  \n  handleFeedback() {\n    this.showFeedbackModal = true;\n    // Track feedback interaction\n    this.analytics.track('feedback_clicked', { service: 'my-service' });\n  }\n}"
+          }
+        ],
+        "webComponent": [
+          {
+            "title": "Alpha Service Header",
+            "description": "Header for service in early development/testing",
+            "code": "<goa-microsite-header type=\"alpha\"></goa-microsite-header>\n<main>\n  <h1>My Alpha Service</h1>\n  <p>This service is in early development and testing.</p>\n</main>"
+          },
+          {
+            "title": "Service with Custom Feedback Handler",
+            "description": "Service with programmatic feedback collection",
+            "code": "<goa-microsite-header \n  type=\"beta\" \n  hasfeedbackhandler=\"true\"\n  id=\"service-header\">\n</goa-microsite-header>\n<main>\n  <h1>My Service</h1>\n  <!-- Service content -->\n</main>\n\n<script>\n  const header = document.getElementById('service-header');\n  header.addEventListener('_feedbackClick', (event) => {\n    console.log('Feedback clicked');\n    // Show feedback modal or form\n    showFeedbackDialog();\n    // Track analytics\n    analytics.track('feedback_clicked', { service: 'my-service' });\n  });\n  \n  function showFeedbackDialog() {\n    // Implementation for feedback collection\n  }\n</script>"
+          }
+        ]
+      },
+      "commonPatterns": [
+        {
+          "name": "Service Status Progression",
+          "description": "Pattern for services moving through development stages",
+          "code": "// React - Conditional header based on environment\nfunction ServiceHeader({ environment }) {\n  const getServiceType = (env) => {\n    switch (env) {\n      case 'development': return 'alpha';\n      case 'staging': return 'beta';\n      case 'production': return 'live';\n      default: return 'alpha';\n    }\n  };\n  \n  return (\n    <GoabMicrositeHeader \n      type={getServiceType(environment)}\n      feedbackUrl={environment !== 'production' ? '/feedback' : undefined}\n    />\n  );\n}"
+        },
+        {
+          "name": "Stacked Header Pattern",
+          "description": "MicrositeHeader paired with Header component for complete page header structure",
+          "code": "// React - Complete government page header\nfunction CompletePageHeader({ serviceType, serviceName, navigation }) {\n  return (\n    <>\n      {/* Government notice - always at top */}\n      <GoabMicrositeHeader \n        type={serviceType}\n        feedbackUrl=\"/feedback\"\n        version=\"1.2.3\"\n      />\n      \n      {/* Service header with navigation */}\n      <GoabHeader \n        heading={serviceName}\n        maxContentWidth=\"1200px\"\n      >\n        <nav slot=\"menu\">\n          {navigation.map(item => (\n            <a key={item.href} href={item.href}>{item.label}</a>\n          ))}\n        </nav>\n      </GoabHeader>\n    </>\n  );\n}"
+        }
+      ]
+    },
+
+    "playgroundExamples": {
+      "basic": {
+        "title": "Basic Service Types",
+        "description": "Shows all three service development stages with their corresponding badges",
+        "code": "<GoabBlock gap=\"3xs\" mb=\"xl\" direction=\"column\">\n  <GoabMicrositeHeader\n    type=\"alpha\"\n    headerUrlTarget=\"blank\"\n  />\n\n  <GoabMicrositeHeader\n    type=\"beta\"\n    headerUrlTarget=\"blank\"\n  />\n\n  <GoabMicrositeHeader\n    type=\"live\"\n    headerUrlTarget=\"blank\"\n  />\n</GoabBlock>",
+        "usage": "Use alpha for early testing, beta for public testing, live for production services"
+      },
+      "withFeedback": {
+        "title": "Headers with Feedback Links",
+        "description": "Demonstrates feedback collection capabilities across all service types",
+        "code": "<GoabBlock gap=\"3xs\" mb=\"xl\" direction=\"column\">\n  <GoabText size=\"heading-s\" mt=\"l\" mb=\"s\">\n    Feedback link\n  </GoabText>\n\n  <GoabMicrositeHeader\n    type=\"alpha\"\n    feedbackUrl=\"www.google.com\"\n    feedbackUrlTarget=\"blank\"\n    headerUrlTarget=\"blank\"\n  />\n\n  <GoabMicrositeHeader\n    type=\"beta\"\n    feedbackUrl=\"www.google.com\"\n    feedbackUrlTarget=\"blank\"\n    headerUrlTarget=\"blank\"\n  />\n\n  <GoabMicrositeHeader\n    type=\"live\"\n    feedbackUrl=\"www.google.com\"\n    feedbackUrlTarget=\"blank\"\n    headerUrlTarget=\"blank\"\n  />\n</GoabBlock>",
+        "usage": "Feedback links are especially important for alpha and beta services to collect user input for improvements"
+      },
+      "withVersion": {
+        "title": "Headers with Version Information",
+        "description": "Shows version display capability for transparency about service releases",
+        "code": "<GoabBlock gap=\"3xs\" mb=\"xl\" direction=\"column\">\n  <GoabText size=\"heading-s\" mt=\"l\" mb=\"s\">\n    Version number\n  </GoabText>\n\n  <GoabMicrositeHeader\n    type=\"alpha\"\n    headerUrlTarget=\"blank\"\n    version=\"1.2.3\"\n  />\n\n  <GoabMicrositeHeader\n    type=\"beta\"\n    headerUrlTarget=\"blank\"\n    version=\"1.2.3\"\n  />\n\n  <GoabMicrositeHeader\n    type=\"live\"\n    headerUrlTarget=\"blank\"\n    version=\"1.2.3\"\n  />\n</GoabBlock>",
+        "usage": "Version information helps users understand which release they're using and aids in support. Teams can use any versioning scheme that makes sense for their service."
+      },
+      "complete": {
+        "title": "Complete Headers with Feedback and Version",
+        "description": "Full-featured headers combining status badges, feedback collection, and version display",
+        "code": "<GoabBlock gap=\"3xs\" mb=\"xl\" direction=\"column\">\n  <GoabText size=\"heading-s\" mt=\"l\" mb=\"s\">\n    Feedback link and Version number\n  </GoabText>\n\n  <GoabMicrositeHeader\n    type=\"alpha\"\n    feedbackUrl=\"www\"\n    feedbackUrlTarget=\"blank\"\n    headerUrlTarget=\"blank\"\n    version=\"1.2.3\"\n  />\n\n  <GoabMicrositeHeader\n    type=\"beta\"\n    feedbackUrl=\"www\"\n    feedbackUrlTarget=\"blank\"\n    headerUrlTarget=\"blank\"\n    version=\"1.2.3\"\n  />\n\n  <GoabMicrositeHeader\n    type=\"live\"\n    feedbackUrl=\"www\"\n    feedbackUrlTarget=\"blank\"\n    headerUrlTarget=\"blank\"\n    version=\"1.2.3\"\n  />\n</GoabBlock>",
+        "usage": "Most comprehensive setup for services that need clear status communication, user feedback channels, and version transparency. Version can be any team-determined identifier."
+      },
+      "targetConfiguration": {
+        "title": "Link Target Configuration",
+        "description": "Shows how to control where links open using target attributes",
+        "code": "// Open Alberta Government link in new tab\n<GoabMicrositeHeader\n  type=\"beta\"\n  headerUrlTarget=\"blank\"\n/>\n\n// Open feedback link in new window\n<GoabMicrositeHeader\n  type=\"alpha\"\n  feedbackUrl=\"https://feedback.alberta.ca\"\n  feedbackUrlTarget=\"blank\"\n/>\n\n// Keep all links in same window (default)\n<GoabMicrositeHeader\n  type=\"live\"\n  feedbackUrl=\"/feedback\"\n/>",
+        "usage": "Use _blank for external links, _self (default) for internal navigation"
+      },
+      "reactiveExample": {
+        "title": "Dynamic Service Configuration",
+        "description": "Example showing how to dynamically configure headers based on environment or service state",
+        "code": "// React component with dynamic configuration\nfunction DynamicMicrositeHeader({ environment, hasVersion, enableFeedback }) {\n  const getServiceType = () => {\n    switch (environment) {\n      case 'development': return 'alpha';\n      case 'staging': return 'beta';\n      case 'production': return 'live';\n      default: return 'alpha';\n    }\n  };\n  \n  return (\n    <GoabMicrositeHeader\n      type={getServiceType()}\n      feedbackUrl={enableFeedback ? '/feedback' : undefined}\n      feedbackUrlTarget=\"blank\"\n      headerUrlTarget=\"blank\"\n      version={hasVersion ? '1.2.3' : undefined}\n    />\n  );\n}",
+        "usage": "Useful for services that need different header configurations based on deployment environment or feature flags"
+      }
+    },
+
+    "commonMistakes": [
+      {
+        "mistake": "Using both feedbackUrl and hasFeedbackHandler at the same time",
+        "why": "These props are mutually exclusive and will cause conflicts in feedback handling",
+        "instead": "Choose either URL-based feedback (feedbackUrl) OR event-based feedback (hasFeedbackHandler)",
+        "example": "// ❌ Wrong\n<GoabMicrositeHeader \n  type=\"beta\" \n  feedbackUrl=\"/feedback\" \n  hasFeedbackHandler={true} \n/>\n\n// ✅ Correct\n<GoabMicrositeHeader \n  type=\"beta\" \n  feedbackUrl=\"/feedback\" \n/>"
+      },
+      {
+        "mistake": "Using wrong service type for actual development stage",
+        "why": "Misleads users about service maturity and sets incorrect expectations",
+        "instead": "Match type to actual service stage: alpha = internal testing, beta = public testing, live = production",
+        "example": "// ❌ Wrong\n<GoabMicrositeHeader type=\"live\" /> {/* But service is still in beta */}\n\n// ✅ Correct\n<GoabMicrositeHeader type=\"beta\" /> {/* Matches actual service stage */}"
+      },
+      {
+        "mistake": "Using MicrositeHeader for main government websites",
+        "why": "MicrositeHeader is designed for service-specific sites, not main government portals",
+        "instead": "Use regular Header component for main sites, MicrositeHeader only for service microsites",
+        "example": "// ❌ Wrong\n// On alberta.ca main site\n<GoabMicrositeHeader type=\"live\" />\n\n// ✅ Correct\n// On service-specific microsite\n<GoabMicrositeHeader type=\"beta\" />"
+      },
+      {
+        "mistake": "Not providing version information for user context",
+        "why": "Users benefit from knowing service version, especially for beta services",
+        "instead": "Include version slot with meaningful version information",
+        "example": "// ❌ Wrong\n<GoabMicrositeHeader type=\"beta\" />\n\n// ✅ Correct\n<GoabMicrositeHeader \n  type=\"beta\" \n  version={<span>Version 2.1 Beta</span>} \n/>"
+      },
+      {
+        "mistake": "Using hasFeedbackHandler without implementing the event handler",
+        "why": "Feedback link appears but doesn't work, creating broken user experience",
+        "instead": "Always implement onFeedbackClick when using hasFeedbackHandler",
+        "example": "// ❌ Wrong\n<GoabMicrositeHeader type=\"alpha\" hasFeedbackHandler={true} />\n\n// ✅ Correct\n<GoabMicrositeHeader \n  type=\"alpha\" \n  hasFeedbackHandler={true}\n  onFeedbackClick={handleFeedback} \n/>"
+      },
+      {
+        "mistake": "Not setting appropriate link targets for external URLs",
+        "why": "Users may lose context when external links open in same window",
+        "instead": "Use _blank target for external feedback URLs and consider user experience",
+        "example": "// ❌ Potentially confusing\n<GoabMicrositeHeader \n  feedbackUrl=\"https://external-survey.com\" \n/>\n\n// ✅ Clear user experience\n<GoabMicrositeHeader \n  feedbackUrl=\"https://external-survey.com\"\n  feedbackUrlTarget=\"blank\" \n/>"
+      }
+    ],
+
+    "frameworkNotes": {
+      "requiredProps": "Type prop/attribute is REQUIRED for all frameworks - component will not function without it",
+      "propCasing": "React uses camelCase (feedbackUrl, hasFeedbackHandler, onFeedbackClick) while web components use lowercase (feedbackurl, hasfeedbackhandler). Angular follows web component casing.",
+      "slotHandling": "Version slot accepts rich content in React/Angular (JSX/templates) but requires slot='version' attribute in web components.",
+      "constraints": "Only one service type allowed at a time. Cannot combine feedbackUrl and hasFeedbackHandler props.",
+      "responsiveBehavior": "Header automatically adjusts padding and layout for mobile, tablet, and desktop breakpoints using design system tokens.",
+      "linkTargets": "headerUrlTarget and feedbackUrlTarget control where links open. Use _blank for external links, _self (default) for internal navigation."
+    },
+
+    "designGuidance": {
+      "when": [
+        "Building government service microsites",
+        "Services in development or testing phases",
+        "When service status communication is important",
+        "Collecting user feedback for service improvement",
+        "Maintaining consistent government branding"
+      ],
+      "serviceTypes": {
+        "alpha": {
+          "use": "Early development and internal testing - first stage of service development",
+          "appearance": "Orange 'ALPHA' badge",
+          "audience": "Limited internal users, early testers",
+          "feedback": "Essential for identifying major issues",
+          "stage": "Initial development phase where core functionality is being built and tested internally"
+        },
+        "beta": {
+          "use": "Public testing with broader user base - second stage after alpha improvements",
+          "appearance": "Blue 'BETA' badge",
+          "audience": "Public users testing new features",
+          "feedback": "Important for usability and refinement",
+          "stage": "Public testing phase where service is feature-complete but being refined based on user feedback"
+        },
+        "live": {
+          "use": "Production services available to all users - final stage of service maturity",
+          "appearance": "No status badge",
+          "audience": "All eligible users",
+          "feedback": "Ongoing improvement and support",
+          "stage": "Fully launched service available to the public with ongoing maintenance and feature updates"
+        }
+      },
+      "developmentProgression": {
+        "description": "Service development follows a structured progression through three stages",
+        "stages": [
+          {
+            "stage": "Alpha",
+            "description": "When a product is first launched for internal testing and development",
+            "duration": "Initial development period",
+            "nextStage": "Beta"
+          },
+          {
+            "stage": "Beta",
+            "description": "Service moves to public testing after alpha improvements are complete",
+            "duration": "Public testing and refinement period",
+            "nextStage": "Live"
+          },
+          {
+            "stage": "Live",
+            "description": "Service becomes fully available to the public as a production service",
+            "duration": "Ongoing operation with maintenance and updates",
+            "nextStage": "Continuous improvement"
+          }
+        ],
+        "versioningNote": "Version numbers can be used throughout all stages to denote releases, environments, or build information as determined by the development team"
+      },
+      "external": "Use feedbackUrl for simple feedback forms or surveys",
+      "integrated": "Use hasFeedbackHandler for custom feedback flows or analytics",
+      "timing": "Consider feedback fatigue - not every interaction needs feedback",
+      "analytics": "Track feedback engagement to measure user satisfaction"
+    },
+    "responsive": {
+      "mobile": "Header adapts padding and layout for mobile screens",
+      "tablet": "Medium screens get intermediate spacing",
+      "desktop": "Full spacing and layout on large screens"
+    }
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate to feedback link (if present)",
+      "Enter - Activate feedback link",
+      "Logical tab order through header elements"
+    ],
+    "screenReader": [
+      "Service status announced through badge text",
+      "Header role provides semantic structure",
+      "Feedback link context clearly announced",
+      "Version information accessible through content"
+    ],
+    "focusManagement": [
+      "Visible focus indicators on interactive elements",
+      "Focus moves logically through header content",
+      "Skip links may be needed for content access"
+    ]
+  },
+
+  "troubleshooting": {
+    "badgeNotShowing": {
+      "problem": "Service status badge doesn't appear",
+      "solutions": [
+        "Verify type prop is set to 'alpha' or 'beta' (live shows no badge)",
+        "Check that design tokens are loaded correctly",
+        "Ensure CSS is not hiding badge elements",
+        "Verify component is properly imported and rendered"
+      ]
+    },
+    "feedbackNotWorking": {
+      "problem": "Feedback link doesn't work or appear",
+      "solutions": [
+        "Choose either feedbackUrl OR hasFeedbackHandler, not both",
+        "Verify feedbackUrl is a valid URL format",
+        "For event handlers, ensure proper event listener setup",
+        "Check browser console for JavaScript errors"
+      ]
+    },
+    "responsiveIssues": {
+      "problem": "Header doesn't respond properly to screen size changes",
+      "solutions": [
+        "Verify design tokens are loaded in your application",
+        "Check for CSS conflicts overriding responsive styles",
+        "Test across different viewport sizes",
+        "Ensure parent containers don't constrain header width"
+      ]
+    },
+    "versionSlotProblems": {
+      "problem": "Version content doesn't display correctly",
+      "solutions": [
+        "Ensure version prop contains valid React/Angular content",
+        "Check that slot content is properly structured",
+        "Verify no CSS is hiding version content",
+        "For web components, use proper slot=\"version\" attribute"
+      ]
+    },
+    "stylingConflicts": {
+      "problem": "Header appearance doesn't match expected design",
+      "solutions": [
+        "Check that design system CSS is loaded before custom styles",
+        "Verify no CSS specificity conflicts",
+        "Ensure proper color contrast for accessibility",
+        "Test with design system's latest token versions"
+      ]
+    }
+  },
+
+  "relatedComponents": [
+    {
+      "name": "Header",
+      "relationship": "Commonly stacked together",
+      "usage": "MicrositeHeader provides government notice at top, Header provides service navigation below. This is the standard pattern for government service pages.",
+      "example": "MicrositeHeader (government notice) + Header (service branding and navigation)"
+    },
+    {
+      "name": "AppHeader",
+      "relationship": "Alternative for applications",
+      "usage": "Use AppHeader for authenticated application interfaces",
+      "example": "Internal admin tools vs public service microsites"
+    },
+    {
+      "name": "Badge",
+      "relationship": "Status indication",
+      "usage": "MicrositeHeader includes built-in status badges, use standalone Badge for other status needs",
+      "example": "Service status vs content status"
+    },
+    {
+      "name": "Modal",
+      "relationship": "Feedback collection",
+      "usage": "Often used together for custom feedback collection flows",
+      "example": "Feedback button opens modal with feedback form"
+    }
+  ],
+
+  "performanceConsiderations": [
+    "Header renders efficiently with minimal DOM elements",
+    "Conditional badge rendering reduces unnecessary elements",
+    "CSS custom properties provide efficient responsive styling",
+    "Event-based feedback avoids external dependencies",
+    "Version slot content should be lightweight for optimal performance"
+  ],
+
+  "tags": [
+    "header",
+    "branding",
+    "microsite",
+    "status",
+    "badge",
+    "feedback",
+    "government",
+    "responsive",
+    "service"
+  ],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-07-02",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/microsite_header.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

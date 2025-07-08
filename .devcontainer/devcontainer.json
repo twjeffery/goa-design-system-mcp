@@ -1,0 +1,45 @@
+{
+  "name": "GoA Design System MCP Server",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+
+  "postCreateCommand": "npm install && npm run build && echo '🚀 GoA MCP Server ready! Run: npm run start'",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-typescript-next",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-json"
+      ],
+      "settings": {
+        "typescript.preferences.quoteStyle": "single",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "typescript.updateImportsOnFileMove.enabled": "always"
+      }
+    },
+    "codespaces": {
+      "openFiles": ["README.md", "src/index.ts", "data/index.json"]
+    }
+  },
+
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "MCP Server (future HTTP version)",
+      "visibility": "private"
+    }
+  },
+
+  "containerEnv": {
+    "NODE_ENV": "development",
+    "MCP_SERVER_NAME": "goa-design-system"
+  }
+}

@@ -1,0 +1,416 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "componentName": "side-menu",
+  "audience": "ai-systems-helping-consumer-developers",
+  "summary": "Hierarchical navigation component for organizing content into collapsible groups with automatic active state detection",
+  "category": "component",
+  "tags": [
+    "navigation",
+    "menu",
+    "sidebar",
+    "hierarchical",
+    "secondary-navigation"
+  ],
+  "status": "stable",
+
+  "customElement": {
+    "tagName": "goa-side-menu",
+    "className": "GoabSideMenu"
+  },
+
+  "playgroundExamples": [
+    {
+      "title": "Basic Navigation Menu",
+      "description": "Simple side menu with direct anchor links for straightforward navigation",
+      "code": "<div style={{ maxWidth: \"256px\" }}>\n  <GoabSideMenu>\n    <a href=\"#\">Home</a>\n    <a href=\"#\">Profile</a>\n    <a href=\"#\">About</a>\n    <a href=\"#\">Contact</a>\n    <GoabSideMenuGroup\n      heading=\"Group heading that goes longer\"\n      icon=\"person\"\n    >\n      <a href=\"#\">Foo</a>\n      <a href=\"#\">\n        Bar with very long text that wraps to multiple lines to demonstrate text handling\n      </a>\n    </GoabSideMenuGroup>\n  </GoabSideMenu>\n</div>",
+      "notes": [
+        "Shows basic anchor link usage within side menu",
+        "Demonstrates mixed content: direct links + grouped items",
+        "Group with icon and long heading text",
+        "Text wrapping behavior for long menu items"
+      ]
+    },
+    {
+      "title": "Structured Navigation with Headings",
+      "description": "Organized menu using section headings to group related navigation items",
+      "code": "<div style={{ maxWidth: \"256px\" }}>\n  <GoabSideMenu>\n    <GoabSideMenuHeading>\n      This is a side menu heading\n    </GoabSideMenuHeading>\n    <a href=\"#\">This is a side menu item</a>\n    <a href=\"#\">This is another side menu item</a>\n    <GoabSpacer vSpacing=\"m\"></GoabSpacer>\n    <GoabSideMenuHeading>\n      This is another side menu heading\n    </GoabSideMenuHeading>\n    <a href=\"#\">Side menu item</a>\n    <a href=\"#\">Side menu item</a>\n    <GoabSpacer vSpacing=\"m\"></GoabSpacer>\n    <GoabSideMenuHeading\n      meta={<GoabBadge type=\"midtone\" content=\"Details\"></GoabBadge>}\n    >\n      Side menu heading\n    </GoabSideMenuHeading>\n    <GoabSideMenuGroup heading=\"This is a side menu group\">\n      <a href=\"#\">Foo</a>\n      <a href=\"#\">Bar</a>\n    </GoabSideMenuGroup>\n    <GoabSideMenuGroup heading=\"This is a side menu group\">\n      <a href=\"#\">Foo</a>\n      <a href=\"#\">Bar</a>\n      <GoabSideMenuGroup heading=\"This is a side menu group\">\n        <a href=\"#\">Foo</a>\n        <a href=\"#\">Bar</a>\n        <GoabSideMenuGroup heading=\"This is a side menu group\">\n          <a href=\"#\">Foo</a>\n          <a href=\"#\">Bar</a>\n        </GoabSideMenuGroup>\n      </GoabSideMenuGroup>\n    </GoabSideMenuGroup>\n  </GoabSideMenu>\n</div>",
+      "notes": [
+        "Uses GoabSideMenuHeading for section organization",
+        "Shows GoabSpacer usage for visual separation",
+        "Demonstrates meta prop with GoabBadge for additional information",
+        "Multi-level nested groups (up to 4 levels deep)",
+        "Mixed content structure with headings, items, and groups"
+      ]
+    },
+    {
+      "title": "Icon-Enhanced Navigation",
+      "description": "Navigation menu with icons for improved visual hierarchy and recognition",
+      "code": "<div style={{ maxWidth: \"256px\" }}>\n  <GoabSideMenu>\n    <GoabSideMenuHeading icon=\"home\">\n      Nav section 1\n    </GoabSideMenuHeading>\n    <a href=\"#\">Home</a>\n    <a href=\"#\">Profile</a>\n    <GoabSpacer vSpacing=\"m\"></GoabSpacer>\n    <GoabSideMenuHeading icon=\"pencil\">\n      Nav section 2\n    </GoabSideMenuHeading>\n    <a href=\"#\">About</a>\n    <a href=\"#\">Contact</a>\n    <GoabSpacer vSpacing=\"m\"></GoabSpacer>\n    <GoabSideMenuHeading>Nav with sub nav</GoabSideMenuHeading>\n    <GoabSideMenuGroup heading=\"Group heading\" icon=\"person\">\n      <a href=\"#\">Foo</a>\n      <a href=\"#\">\n        Bar with longer text that demonstrates wrapping behavior\n      </a>\n    </GoabSideMenuGroup>\n  </GoabSideMenu>\n</div>",
+      "notes": [
+        "Icons on both headings and groups for visual enhancement",
+        "Consistent icon usage: 'home', 'pencil', 'person'",
+        "Mixed layout with spaced sections",
+        "Shows icon + text combination patterns",
+        "Demonstrates text wrapping in grouped items with icons"
+      ]
+    },
+    {
+      "title": "Complete Playground Layout",
+      "description": "Full playground demonstration showing multiple side menu configurations side by side",
+      "code": "<GoabBlock gap=\"3xl\" mb=\"xl\" direction=\"column\">\n  {/* Basic Menu Example */}\n  <div style={{ maxWidth: \"256px\" }}>\n    <GoabSideMenu>\n      <a href=\"#\">Home</a>\n      <a href=\"#\">Profile</a>\n      <a href=\"#\">About</a>\n      <a href=\"#\">Contact</a>\n      <GoabSideMenuGroup\n        heading=\"Group heading that goes longer\"\n        icon=\"person\"\n      >\n        <a href=\"#\">Foo</a>\n        <a href=\"#\">\n          Bar with very long text content that wraps multiple lines\n        </a>\n      </GoabSideMenuGroup>\n    </GoabSideMenu>\n  </div>\n\n  {/* Side-by-side Comparison */}\n  <GoabBlock gap=\"xl\" direction=\"row\">\n    {/* Structured Menu */}\n    <div style={{ maxWidth: \"256px\" }}>\n      <GoabSideMenu>\n        <GoabSideMenuHeading>\n          This is a side menu heading\n        </GoabSideMenuHeading>\n        <a href=\"#\">This is a side menu item</a>\n        <a href=\"#\">This is another side menu item</a>\n        <GoabSpacer vSpacing=\"m\"></GoabSpacer>\n        <GoabSideMenuHeading>\n          This is another side menu heading\n        </GoabSideMenuHeading>\n        <a href=\"#\">Side menu item</a>\n        <a href=\"#\">Side menu item</a>\n        <GoabSpacer vSpacing=\"m\"></GoabSpacer>\n        <GoabSideMenuHeading\n          meta={<GoabBadge type=\"midtone\" content=\"Details\"></GoabBadge>}\n        >\n          Side menu heading\n        </GoabSideMenuHeading>\n        <GoabSideMenuGroup heading=\"This is a side menu group\">\n          <a href=\"#\">Foo</a>\n          <a href=\"#\">Bar</a>\n        </GoabSideMenuGroup>\n        <GoabSideMenuGroup heading=\"This is a side menu group\">\n          <a href=\"#\">Foo</a>\n          <a href=\"#\">Bar</a>\n          <GoabSideMenuGroup heading=\"This is a side menu group\">\n            <a href=\"#\">Foo</a>\n            <a href=\"#\">Bar</a>\n            <GoabSideMenuGroup heading=\"This is a side menu group\">\n              <a href=\"#\">Foo</a>\n              <a href=\"#\">Bar</a>\n            </GoabSideMenuGroup>\n          </GoabSideMenuGroup>\n        </GoabSideMenuGroup>\n      </GoabSideMenu>\n    </div>\n\n    {/* Icon-Enhanced Menu */}\n    <div style={{ maxWidth: \"256px\" }}>\n      <GoabSideMenu>\n        <GoabSideMenuHeading icon=\"home\">\n          Nav section 1\n        </GoabSideMenuHeading>\n        <a href=\"#\">Home</a>\n        <a href=\"#\">Profile</a>\n        <GoabSpacer vSpacing=\"m\"></GoabSpacer>\n        <GoabSideMenuHeading icon=\"pencil\">\n          Nav section 2\n        </GoabSideMenuHeading>\n        <a href=\"#\">About</a>\n        <a href=\"#\">Contact</a>\n        <GoabSpacer vSpacing=\"m\"></GoabSpacer>\n        <GoabSideMenuHeading>Nav with sub nav</GoabSideMenuHeading>\n        <GoabSideMenuGroup heading=\"Group heading\" icon=\"person\">\n          <a href=\"#\">Foo</a>\n          <a href=\"#\">\n            Bar with longer text that demonstrates wrapping\n          </a>\n        </GoabSideMenuGroup>\n      </GoabSideMenu>\n    </div>\n  </GoabBlock>\n</GoabBlock>",
+      "notes": [
+        "Complete playground layout using GoabBlock for spacing and organization",
+        "Shows multiple menu patterns side by side for comparison",
+        "Demonstrates responsive layout considerations with maxWidth constraints",
+        "Uses GoabBlock gap and direction props for proper spacing",
+        "Real playground code structure for interactive testing"
+      ]
+    }
+  ],
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["@abgov/web-components", "@abgov/design-tokens"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabSideMenu, GoabSideMenuGroup, GoabSideMenuHeading } from '@abgov/react-components'",
+      "quickExample": "<GoabSideMenu>\n  <GoabSideMenuGroup heading=\"Section 1\">\n    <GoabSideMenuHeading href=\"/page1\">Page 1</GoabSideMenuHeading>\n    <GoabSideMenuHeading href=\"/page2\">Page 2</GoabSideMenuHeading>\n  </GoabSideMenuGroup>\n</GoabSideMenu>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-side-menu>\n  <goab-side-menu-group heading=\"Section 1\">\n    <goab-side-menu-heading href=\"/page1\">Page 1</goab-side-menu-heading>\n    <goab-side-menu-heading href=\"/page2\">Page 2</goab-side-menu-heading>\n  </goab-side-menu-group>\n</goab-side-menu>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-side-menu>\n  <goa-side-menu-group heading=\"Documents\">\n    <goa-side-menu-heading href=\"/reports\">Reports</goa-side-menu-heading>\n    <goa-side-menu-heading href=\"/policies\">Policies</goa-side-menu-heading>\n  </goa-side-menu-group>\n</goa-side-menu>"
+    }
+  },
+
+  "api": {
+    "components": [
+      {
+        "name": "GoabSideMenu",
+        "description": "Main container component for the side menu",
+        "props": [
+          {
+            "name": "testId",
+            "type": "string",
+            "required": false,
+            "description": "Sets the data-testid attribute for testing"
+          }
+        ]
+      },
+      {
+        "name": "GoabSideMenuGroup",
+        "description": "Collapsible group container for organizing related menu items",
+        "props": [
+          {
+            "name": "heading",
+            "type": "string",
+            "required": true,
+            "description": "Text displayed as the group header",
+            "example": "\"User Management\", \"Reports\", \"Settings\""
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the group starts expanded or collapsed"
+          },
+          {
+            "name": "testId",
+            "type": "string",
+            "required": false,
+            "description": "Sets the data-testid attribute for the group"
+          }
+        ]
+      },
+      {
+        "name": "GoabSideMenuHeading",
+        "description": "Individual navigation item within the menu",
+        "props": [
+          {
+            "name": "href",
+            "type": "string",
+            "required": false,
+            "description": "URL for the navigation link - enables automatic active state detection",
+            "important": "Required for active state highlighting"
+          },
+          {
+            "name": "icon",
+            "type": "string",
+            "required": false,
+            "description": "Icon name to display alongside the text",
+            "example": "\"document\", \"user\", \"settings\""
+          },
+          {
+            "name": "testId",
+            "type": "string",
+            "required": false,
+            "default": "section-heading",
+            "description": "Sets the data-testid attribute for the heading"
+          }
+        ]
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Secondary navigation for complex applications with multiple sections",
+      "Content organization in dashboards, admin interfaces, or documentation",
+      "Multi-level navigation hierarchies that benefit from grouping",
+      "Applications where users need quick access to different functional areas"
+    ],
+    "whenNotToUse": [
+      "Primary navigation (use main navigation instead)",
+      "Simple linear workflows (use breadcrumbs instead)",
+      "Mobile-first applications (consider mobile navigation patterns)",
+      "Single-page applications with minimal navigation needs"
+    ],
+    "contentOrganization": [
+      "Group related functionality logically under clear headings",
+      "Keep group names concise and descriptive (2-3 words maximum)",
+      "Limit nesting to two levels maximum for usability",
+      "Order groups by user priority and frequency of use",
+      "Use consistent terminology that matches user mental models"
+    ],
+    "layoutConsiderations": [
+      "Position side menu consistently on the left side of the application",
+      "Ensure adequate width for longest menu item text (minimum 200px)",
+      "Consider responsive behavior for mobile and tablet viewports",
+      "Maintain visual hierarchy with proper spacing and typography"
+    ]
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate through menu items in logical order",
+      "Enter/Space - Activate links and expand/collapse groups",
+      "Arrow keys - Navigate within groups (planned enhancement)",
+      "Escape - Close expanded groups (planned enhancement)"
+    ],
+    "screenReaderSupport": [
+      "Menu items are announced with clear link text",
+      "Group expand/collapse state is communicated",
+      "Active page is identified through href matching",
+      "Icon information is available when present"
+    ],
+    "focusManagement": [
+      "Logical tab order through all interactive elements",
+      "Visible focus indicators on all focusable items",
+      "Focus remains visible during group expand/collapse",
+      "Focus returns appropriately after navigation"
+    ],
+    "semanticHTML": [
+      "Uses anchor links for proper navigation semantics",
+      "Proper heading hierarchy within groups",
+      "Active state indicated through CSS classes",
+      "Note: HTML landmarks implementation planned for future version"
+    ]
+  },
+
+  "integrationPatterns": [
+    {
+      "name": "Application Layout",
+      "description": "Standard placement within application shell",
+      "usage": "Position as left sidebar with main content area",
+      "considerations": "Coordinate with header and footer components for full layout"
+    },
+    {
+      "name": "Role-Based Navigation",
+      "description": "Show/hide sections based on user permissions",
+      "usage": "Conditionally render groups based on user roles",
+      "considerations": "Ensure navigation remains usable for all permission levels"
+    },
+    {
+      "name": "Context-Aware Expansion",
+      "description": "Auto-expand relevant sections based on current page",
+      "usage": "Set open prop based on current URL or application state",
+      "considerations": "Balance auto-expansion with user control preferences"
+    }
+  ],
+
+  "relatedComponents": [
+    {
+      "name": "GoabIcon",
+      "relationship": "Visual enhancement component",
+      "usage": "Add icons to menu items for improved visual hierarchy and recognition",
+      "example": "Use consistent icon families and sizes throughout navigation"
+    },
+    {
+      "name": "GoabSpacer",
+      "relationship": "Layout spacing component",
+      "usage": "Add vertical spacing between sections for visual organization",
+      "example": "Use <GoabSpacer vSpacing=\"m\" /> between logical sections"
+    },
+    {
+      "name": "GoabBadge",
+      "relationship": "Metadata display component",
+      "usage": "Add contextual information to menu headings via meta prop",
+      "example": "Show status indicators or counts alongside navigation items"
+    },
+    {
+      "name": "Breadcrumb Navigation",
+      "relationship": "Complementary navigation pattern",
+      "usage": "Use breadcrumbs alongside side menu for location context",
+      "example": "Show user's current location within the side menu hierarchy"
+    },
+    {
+      "name": "Main Navigation",
+      "relationship": "Primary navigation component",
+      "usage": "Side menu provides secondary navigation under main navigation",
+      "example": "Main nav for site sections, side menu for page-level organization"
+    }
+  ],
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "issue": "Active state not highlighting current page",
+        "cause": "Missing or incorrect href attribute on menu items",
+        "solution": "Ensure href prop matches exact URL pattern for active detection",
+        "example": "// Correct\n<GoabSideMenuHeading href=\"/admin/users\">\n  User Management\n</GoabSideMenuHeading>\n\n// URL matching is exact, so /admin/users/edit won't match /admin/users"
+      },
+      {
+        "issue": "Groups not expanding or collapsing",
+        "cause": "JavaScript not loaded or conflicting event handlers",
+        "solution": "Ensure web components are properly loaded and no event conflicts exist",
+        "example": "Check browser console for JavaScript errors and verify component imports"
+      },
+      {
+        "issue": "Menu items not keyboard accessible",
+        "cause": "Missing href attributes or improper focus management",
+        "solution": "Provide href attributes for all navigational items",
+        "example": "href=\"/page-url\" is required for proper keyboard navigation"
+      },
+      {
+        "issue": "Icons not displaying correctly",
+        "cause": "Icon name doesn't match available icon set or icon library not loaded",
+        "solution": "Verify icon names against design system icon library",
+        "example": "Use documented icon names like 'user', 'settings', 'document'"
+      },
+      {
+        "issue": "Menu too narrow for content on mobile",
+        "cause": "Fixed width doesn't accommodate mobile screen sizes",
+        "solution": "Consider responsive navigation patterns for mobile viewports",
+        "example": "Plan for mobile hamburger menu or collapsible sidebar behavior"
+      }
+    ],
+    "bestPractices": [
+      "Always provide href attributes for proper active state detection",
+      "Keep group names short and descriptive for better usability",
+      "Test keyboard navigation thoroughly across all menu levels",
+      "Verify active state highlighting works with your routing implementation",
+      "Consider mobile responsive behavior early in implementation"
+    ]
+  },
+
+  "responsiveConsiderations": [
+    "Side menu works best on desktop and tablet viewports",
+    "Consider mobile-specific navigation patterns for small screens",
+    "Plan for collapse/expand behavior in responsive layouts",
+    "Test touch interaction for expand/collapse functionality",
+    "Ensure adequate touch targets for mobile accessibility"
+  ],
+
+  "performanceConsiderations": [
+    "Component is lightweight with minimal performance impact",
+    "URL matching runs on render but is efficiently implemented",
+    "Consider lazy loading for very large menu structures",
+    "Group state is managed efficiently with minimal re-renders"
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Not providing href attributes for navigation items",
+      "why": "Prevents active state highlighting and breaks proper navigation semantics",
+      "instead": "Always provide href for navigation items, omit only for non-navigational headings",
+      "example": "// ❌ Wrong - no href for navigation\n<GoabSideMenuHeading>User Management</GoabSideMenuHeading>\n\n// ✅ Correct - href for navigation\n<GoabSideMenuHeading href=\"/admin/users\">User Management</GoabSideMenuHeading>"
+    },
+    {
+      "mistake": "Creating too many nested levels beyond groups and items",
+      "why": "Creates confusing navigation hierarchy and poor user experience",
+      "instead": "Limit to two levels: groups containing items. Use separate menus for deeper hierarchies",
+      "example": "// ❌ Wrong - too many levels\n<GoabSideMenuGroup heading=\"Admin\">\n  <GoabSideMenuGroup heading=\"Users\">\n    <GoabSideMenuGroup heading=\"Permissions\">\n      <GoabSideMenuHeading>View Users</GoabSideMenuHeading>\n    </GoabSideMenuGroup>\n  </GoabSideMenuGroup>\n</GoabSideMenuGroup>\n\n// ✅ Correct - two levels maximum\n<GoabSideMenuGroup heading=\"User Management\">\n  <GoabSideMenuHeading href=\"/admin/users\">All Users</GoabSideMenuHeading>\n  <GoabSideMenuHeading href=\"/admin/permissions\">Permissions</GoabSideMenuHeading>\n</GoabSideMenuGroup>"
+    },
+    {
+      "mistake": "Using side menu for primary navigation instead of secondary",
+      "why": "Side menus are for organizing content within a section, not site-wide navigation",
+      "instead": "Use main navigation for primary site sections, side menu for page-level organization",
+      "example": "// ❌ Wrong - primary navigation\n<GoabSideMenu>\n  <GoabSideMenuHeading href=\"/\">Home</GoabSideMenuHeading>\n  <GoabSideMenuHeading href=\"/about\">About</GoabSideMenuHeading>\n  <GoabSideMenuHeading href=\"/contact\">Contact</GoabSideMenuHeading>\n</GoabSideMenu>\n\n// ✅ Correct - secondary navigation\n<GoabSideMenu>\n  <GoabSideMenuGroup heading=\"Dashboard\">\n    <GoabSideMenuHeading href=\"/admin/overview\">Overview</GoabSideMenuHeading>\n    <GoabSideMenuHeading href=\"/admin/analytics\">Analytics</GoabSideMenuHeading>\n  </GoabSideMenuGroup>\n</GoabSideMenu>"
+    },
+    {
+      "mistake": "Not considering mobile responsive behavior during implementation",
+      "why": "Side menus don't work well on small screens without responsive planning",
+      "instead": "Plan for mobile navigation patterns like collapsible sidebar or header integration",
+      "example": "// ❌ Wrong - no mobile consideration\n<aside className=\"sidebar\">\n  <GoabSideMenu>...</GoabSideMenu>\n</aside>\n\n// ✅ Correct - responsive planning\n<aside className={`sidebar ${isMobile ? 'mobile-hidden' : ''}`}>\n  <GoabSideMenu>...</GoabSideMenu>\n</aside>\n// Consider hamburger menu or drawer pattern for mobile"
+    },
+    {
+      "mistake": "Inconsistent grouping logic that confuses users",
+      "why": "Poor information architecture makes navigation difficult to understand",
+      "instead": "Group related functionality logically with clear, descriptive group names",
+      "example": "// ❌ Wrong - unclear grouping\n<GoabSideMenuGroup heading=\"Stuff\">\n  <GoabSideMenuHeading href=\"/users\">Users</GoabSideMenuHeading>\n  <GoabSideMenuHeading href=\"/reports\">Reports</GoabSideMenuHeading>\n  <GoabSideMenuHeading href=\"/settings\">Settings</GoabSideMenuHeading>\n</GoabSideMenuGroup>\n\n// ✅ Correct - logical grouping\n<GoabSideMenuGroup heading=\"User Management\">\n  <GoabSideMenuHeading href=\"/users\">All Users</GoabSideMenuHeading>\n  <GoabSideMenuHeading href=\"/users/roles\">Roles & Permissions</GoabSideMenuHeading>\n</GoabSideMenuGroup>\n<GoabSideMenuGroup heading=\"Reports\">\n  <GoabSideMenuHeading href=\"/reports/activity\">Activity Reports</GoabSideMenuHeading>\n</GoabSideMenuGroup>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": "React uses camelCase (testId), web components use lowercase (testid), Angular uses camelCase in templates. Multi-word props like side-menu-group become sideMenuGroup in React",
+    "slotHandling": "React and Angular use children/content projection for nested structure. Web components use slot content. Structure is GoabSideMenu > GoabSideMenuGroup > GoabSideMenuHeading",
+    "constraints": "Groups require heading prop. Items should have href for navigation. Maximum two-level hierarchy recommended. Icons are optional and use string names",
+    "responsiveBehavior": "No automatic responsive behavior - component maintains fixed layout. Developers must implement mobile navigation patterns (drawer, collapse, etc.)"
+  },
+
+  "lastUpdated": "2025-07-02",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/side-menu.json",
+    "note": "See maintainer version for implementation details and development information"
+  },
+
+  "usage": {
+    "react": [
+      {
+        "title": "Admin Dashboard Navigation",
+        "description": "Complete side menu for an admin interface with multiple sections",
+        "code": "import { GoabSideMenu, GoabSideMenuGroup, GoabSideMenuHeading } from '@abgov/react-components';\nimport { useLocation } from 'react-router-dom';\n\nfunction AdminSideMenu() {\n  const location = useLocation();\n  \n  return (\n    <aside className=\"admin-sidebar\">\n      <GoabSideMenu testId=\"admin-navigation\">\n        <GoabSideMenuGroup heading=\"Dashboard\" open={true}>\n          <GoabSideMenuHeading \n            href=\"/admin/overview\" \n            icon=\"chart\"\n          >\n            Overview\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading \n            href=\"/admin/analytics\"\n            icon=\"trending-up\"\n          >\n            Analytics\n          </GoabSideMenuHeading>\n        </GoabSideMenuGroup>\n\n        <GoabSideMenuGroup heading=\"User Management\">\n          <GoabSideMenuHeading \n            href=\"/admin/users\"\n            icon=\"users\"\n          >\n            All Users\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading \n            href=\"/admin/users/permissions\"\n            icon=\"shield\"\n          >\n            Permissions\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading \n            href=\"/admin/users/groups\"\n            icon=\"users\"\n          >\n            User Groups\n          </GoabSideMenuHeading>\n        </GoabSideMenuGroup>\n\n        <GoabSideMenuGroup heading=\"Content\">\n          <GoabSideMenuHeading href=\"/admin/pages\">\n            Pages\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading href=\"/admin/media\">\n            Media Library\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading href=\"/admin/forms\">\n            Forms\n          </GoabSideMenuHeading>\n        </GoabSideMenuGroup>\n\n        <GoabSideMenuGroup heading=\"System\">\n          <GoabSideMenuHeading \n            href=\"/admin/settings\"\n            icon=\"settings\"\n          >\n            Settings\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading \n            href=\"/admin/logs\"\n            icon=\"file-text\"\n          >\n            System Logs\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading \n            href=\"/admin/backups\"\n            icon=\"database\"\n          >\n            Backups\n          </GoabSideMenuHeading>\n        </GoabSideMenuGroup>\n      </GoabSideMenu>\n    </aside>\n  );\n}"
+      },
+      {
+        "title": "Documentation Navigation",
+        "description": "Side menu for documentation site with contextual grouping",
+        "code": "import { GoabSideMenu, GoabSideMenuGroup, GoabSideMenuHeading } from '@abgov/react-components';\nimport { useState, useEffect } from 'react';\n\nfunction DocumentationNav({ currentSection }) {\n  const [openSections, setOpenSections] = useState(new Set(['getting-started']));\n  \n  // Auto-expand section based on current page\n  useEffect(() => {\n    if (currentSection) {\n      setOpenSections(prev => new Set([...prev, currentSection]));\n    }\n  }, [currentSection]);\n\n  return (\n    <nav className=\"docs-sidebar\">\n      <GoabSideMenu>\n        <GoabSideMenuGroup \n          heading=\"Getting Started\" \n          open={openSections.has('getting-started')}\n        >\n          <GoabSideMenuHeading href=\"/docs/installation\">\n            Installation\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading href=\"/docs/quick-start\">\n            Quick Start Guide\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading href=\"/docs/configuration\">\n            Configuration\n          </GoabSideMenuHeading>\n        </GoabSideMenuGroup>\n\n        <GoabSideMenuGroup \n          heading=\"Components\" \n          open={openSections.has('components')}\n        >\n          <GoabSideMenuHeading href=\"/docs/components/buttons\">\n            Buttons\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading href=\"/docs/components/forms\">\n            Form Elements\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading href=\"/docs/components/navigation\">\n            Navigation\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading href=\"/docs/components/layout\">\n            Layout\n          </GoabSideMenuHeading>\n        </GoabSideMenuGroup>\n\n        <GoabSideMenuGroup \n          heading=\"Patterns\" \n          open={openSections.has('patterns')}\n        >\n          <GoabSideMenuHeading href=\"/docs/patterns/forms\">\n            Form Patterns\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading href=\"/docs/patterns/data-display\">\n            Data Display\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading href=\"/docs/patterns/feedback\">\n            User Feedback\n          </GoabSideMenuHeading>\n        </GoabSideMenuGroup>\n\n        <GoabSideMenuGroup heading=\"Resources\">\n          <GoabSideMenuHeading href=\"/docs/design-tokens\">\n            Design Tokens\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading href=\"/docs/accessibility\">\n            Accessibility\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading href=\"/docs/migration\">\n            Migration Guide\n          </GoabSideMenuHeading>\n        </GoabSideMenuGroup>\n      </GoabSideMenu>\n    </nav>\n  );\n}"
+      },
+      {
+        "title": "Service Portal Navigation",
+        "description": "Government service portal with role-based navigation",
+        "code": "import { GoabSideMenu, GoabSideMenuGroup, GoabSideMenuHeading } from '@abgov/react-components';\nimport { useAuth } from '../hooks/useAuth';\n\nfunction ServicePortalNav() {\n  const { user, hasPermission } = useAuth();\n  \n  return (\n    <aside className=\"service-portal-nav\">\n      <GoabSideMenu>\n        {/* Personal Services - Available to all users */}\n        <GoabSideMenuGroup heading=\"My Services\" open={true}>\n          <GoabSideMenuHeading \n            href=\"/portal/profile\"\n            icon=\"user\"\n          >\n            My Profile\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading \n            href=\"/portal/applications\"\n            icon=\"file-text\"\n          >\n            My Applications\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading \n            href=\"/portal/documents\"\n            icon=\"folder\"\n          >\n            My Documents\n          </GoabSideMenuHeading>\n        </GoabSideMenuGroup>\n\n        {/* Business Services - For business users */}\n        {hasPermission('business-access') && (\n          <GoabSideMenuGroup heading=\"Business Services\">\n            <GoabSideMenuHeading \n              href=\"/portal/business/registration\"\n              icon=\"building\"\n            >\n              Business Registration\n            </GoabSideMenuHeading>\n            <GoabSideMenuHeading \n              href=\"/portal/business/licenses\"\n              icon=\"award\"\n            >\n              Licenses & Permits\n            </GoabSideMenuHeading>\n            <GoabSideMenuHeading \n              href=\"/portal/business/taxes\"\n              icon=\"calculator\"\n            >\n              Tax Services\n            </GoabSideMenuHeading>\n          </GoabSideMenuGroup>\n        )}\n\n        {/* Support & Resources */}\n        <GoabSideMenuGroup heading=\"Support\">\n          <GoabSideMenuHeading \n            href=\"/portal/help\"\n            icon=\"help-circle\"\n          >\n            Help Center\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading \n            href=\"/portal/contact\"\n            icon=\"phone\"\n          >\n            Contact Us\n          </GoabSideMenuHeading>\n          <GoabSideMenuHeading \n            href=\"/portal/feedback\"\n            icon=\"message-circle\"\n          >\n            Send Feedback\n          </GoabSideMenuHeading>\n        </GoabSideMenuGroup>\n\n        {/* Admin Only */}\n        {hasPermission('admin') && (\n          <GoabSideMenuGroup heading=\"Administration\">\n            <GoabSideMenuHeading \n              href=\"/portal/admin/users\"\n              icon=\"users\"\n            >\n              User Management\n            </GoabSideMenuHeading>\n            <GoabSideMenuHeading \n              href=\"/portal/admin/settings\"\n              icon=\"settings\"\n            >\n              System Settings\n            </GoabSideMenuHeading>\n          </GoabSideMenuGroup>\n        )}\n      </GoabSideMenu>\n    </aside>\n  );\n}"
+      }
+    ],
+    "angular": [
+      {
+        "title": "Admin Dashboard Navigation",
+        "description": "Angular implementation of admin interface navigation",
+        "code": "import { Component, OnInit } from '@angular/core';\nimport { Router, NavigationEnd } from '@angular/router';\nimport { filter } from 'rxjs/operators';\n\n@Component({\n  selector: 'app-admin-nav',\n  template: `\n    <aside class=\"admin-navigation\">\n      <goab-side-menu testId=\"admin-menu\">\n        <goab-side-menu-group heading=\"Dashboard\" [open]=\"true\">\n          <goab-side-menu-heading \n            href=\"/admin/overview\"\n            icon=\"chart\"\n          >\n            Overview\n          </goab-side-menu-heading>\n          <goab-side-menu-heading \n            href=\"/admin/reports\"\n            icon=\"file-text\"\n          >\n            Reports\n          </goab-side-menu-heading>\n        </goab-side-menu-group>\n\n        <goab-side-menu-group heading=\"User Management\">\n          <goab-side-menu-heading \n            href=\"/admin/users\"\n            icon=\"users\"\n          >\n            All Users\n          </goab-side-menu-heading>\n          <goab-side-menu-heading \n            href=\"/admin/roles\"\n            icon=\"shield\"\n          >\n            Roles & Permissions\n          </goab-side-menu-heading>\n        </goab-side-menu-group>\n\n        <goab-side-menu-group heading=\"Content Management\">\n          <goab-side-menu-heading href=\"/admin/pages\">\n            Pages\n          </goab-side-menu-heading>\n          <goab-side-menu-heading href=\"/admin/media\">\n            Media\n          </goab-side-menu-heading>\n          <goab-side-menu-heading href=\"/admin/forms\">\n            Forms\n          </goab-side-menu-heading>\n        </goab-side-menu-group>\n\n        <goab-side-menu-group heading=\"System\">\n          <goab-side-menu-heading \n            href=\"/admin/settings\"\n            icon=\"settings\"\n          >\n            Settings\n          </goab-side-menu-heading>\n          <goab-side-menu-heading \n            href=\"/admin/logs\"\n            icon=\"activity\"\n          >\n            Activity Logs\n          </goab-side-menu-heading>\n        </goab-side-menu-group>\n      </goab-side-menu>\n    </aside>\n  `\n})\nexport class AdminNavComponent implements OnInit {\n  currentRoute = '';\n\n  constructor(private router: Router) {}\n\n  ngOnInit() {\n    // Track current route for context\n    this.router.events\n      .pipe(filter(event => event instanceof NavigationEnd))\n      .subscribe((event: NavigationEnd) => {\n        this.currentRoute = event.url;\n      });\n  }\n}"
+      },
+      {
+        "title": "Employee Portal Navigation",
+        "description": "Employee self-service portal with department-specific sections",
+        "code": "import { Component, OnInit } from '@angular/core';\nimport { UserService } from '../services/user.service';\n\ninterface User {\n  department: string;\n  role: string;\n  permissions: string[];\n}\n\n@Component({\n  selector: 'app-employee-nav',\n  template: `\n    <nav class=\"employee-portal-nav\">\n      <goab-side-menu>\n        <!-- Personal Section - Always visible -->\n        <goab-side-menu-group heading=\"My Information\" [open]=\"true\">\n          <goab-side-menu-heading \n            href=\"/employee/profile\"\n            icon=\"user\"\n          >\n            My Profile\n          </goab-side-menu-heading>\n          <goab-side-menu-heading \n            href=\"/employee/payroll\"\n            icon=\"dollar-sign\"\n          >\n            Pay & Benefits\n          </goab-side-menu-heading>\n          <goab-side-menu-heading \n            href=\"/employee/time-off\"\n            icon=\"calendar\"\n          >\n            Time Off Requests\n          </goab-side-menu-heading>\n        </goab-side-menu-group>\n\n        <!-- HR Section - HR department only -->\n        <goab-side-menu-group \n          *ngIf=\"isHRUser\" \n          heading=\"Human Resources\"\n        >\n          <goab-side-menu-heading \n            href=\"/employee/hr/onboarding\"\n            icon=\"user-plus\"\n          >\n            Employee Onboarding\n          </goab-side-menu-heading>\n          <goab-side-menu-heading \n            href=\"/employee/hr/performance\"\n            icon=\"trending-up\"\n          >\n            Performance Reviews\n          </goab-side-menu-heading>\n          <goab-side-menu-heading \n            href=\"/employee/hr/policies\"\n            icon=\"book\"\n          >\n            HR Policies\n          </goab-side-menu-heading>\n        </goab-side-menu-group>\n\n        <!-- IT Section - IT department only -->\n        <goab-side-menu-group \n          *ngIf=\"isITUser\" \n          heading=\"IT Services\"\n        >\n          <goab-side-menu-heading \n            href=\"/employee/it/equipment\"\n            icon=\"monitor\"\n          >\n            Equipment Requests\n          </goab-side-menu-heading>\n          <goab-side-menu-heading \n            href=\"/employee/it/support\"\n            icon=\"headphones\"\n          >\n            Support Tickets\n          </goab-side-menu-heading>\n          <goab-side-menu-heading \n            href=\"/employee/it/security\"\n            icon=\"shield\"\n          >\n            Security Center\n          </goab-side-menu-heading>\n        </goab-side-menu-group>\n\n        <!-- Resources - Always visible -->\n        <goab-side-menu-group heading=\"Resources\">\n          <goab-side-menu-heading \n            href=\"/employee/directory\"\n            icon=\"phone-book\"\n          >\n            Employee Directory\n          </goab-side-menu-heading>\n          <goab-side-menu-heading \n            href=\"/employee/training\"\n            icon=\"graduation-cap\"\n          >\n            Training & Development\n          </goab-side-menu-heading>\n          <goab-side-menu-heading \n            href=\"/employee/help\"\n            icon=\"help-circle\"\n          >\n            Help & Support\n          </goab-side-menu-heading>\n        </goab-side-menu-group>\n      </goab-side-menu>\n    </nav>\n  `\n})\nexport class EmployeeNavComponent implements OnInit {\n  user: User | null = null;\n  isHRUser = false;\n  isITUser = false;\n\n  constructor(private userService: UserService) {}\n\n  ngOnInit() {\n    this.userService.getCurrentUser().subscribe(user => {\n      this.user = user;\n      this.isHRUser = user?.department === 'Human Resources';\n      this.isITUser = user?.department === 'Information Technology';\n    });\n  }\n}"
+      }
+    ],
+    "webComponent": [
+      {
+        "title": "Basic Documentation Navigation",
+        "description": "Simple side menu for documentation with vanilla JavaScript",
+        "code": "<aside class=\"docs-sidebar\">\n  <goa-side-menu>\n    <goa-side-menu-group heading=\"Getting Started\" open=\"true\">\n      <goa-side-menu-heading href=\"/docs/installation\">\n        Installation\n      </goa-side-menu-heading>\n      <goa-side-menu-heading href=\"/docs/quick-start\">\n        Quick Start\n      </goa-side-menu-heading>\n      <goa-side-menu-heading href=\"/docs/configuration\">\n        Configuration\n      </goa-side-menu-heading>\n    </goa-side-menu-group>\n\n    <goa-side-menu-group heading=\"Components\">\n      <goa-side-menu-heading href=\"/docs/components/buttons\">\n        Buttons\n      </goa-side-menu-heading>\n      <goa-side-menu-heading href=\"/docs/components/forms\">\n        Forms\n      </goa-side-menu-heading>\n      <goa-side-menu-heading href=\"/docs/components/navigation\">\n        Navigation\n      </goa-side-menu-heading>\n    </goa-side-menu-group>\n\n    <goa-side-menu-group heading=\"Examples\">\n      <goa-side-menu-heading href=\"/docs/examples/dashboard\">\n        Dashboard\n      </goa-side-menu-heading>\n      <goa-side-menu-heading href=\"/docs/examples/forms\">\n        Form Layouts\n      </goa-side-menu-heading>\n    </goa-side-menu-group>\n  </goa-side-menu>\n</aside>\n\n<script>\n  // The side menu automatically handles active states based on current URL\n  // No additional JavaScript needed for basic functionality\n  \n  // Optional: Log when user navigates\n  document.addEventListener('click', function(event) {\n    const heading = event.target.closest('goa-side-menu-heading');\n    if (heading && heading.getAttribute('href')) {\n      console.log('Navigating to:', heading.getAttribute('href'));\n    }\n  });\n</script>"
+      },
+      {
+        "title": "Service Portal with Icons",
+        "description": "Government service portal navigation with icons",
+        "code": "<nav class=\"service-portal-nav\">\n  <goa-side-menu testid=\"portal-navigation\">\n    <goa-side-menu-group heading=\"My Services\" open=\"true\">\n      <goa-side-menu-heading href=\"/portal/profile\" icon=\"user\">\n        My Profile\n      </goa-side-menu-heading>\n      <goa-side-menu-heading href=\"/portal/applications\" icon=\"file-text\">\n        My Applications\n      </goa-side-menu-heading>\n      <goa-side-menu-heading href=\"/portal/documents\" icon=\"folder\">\n        My Documents\n      </goa-side-menu-heading>\n    </goa-side-menu-group>\n\n    <goa-side-menu-group heading=\"Services\">\n      <goa-side-menu-heading href=\"/portal/licenses\" icon=\"award\">\n        Licenses & Permits\n      </goa-side-menu-heading>\n      <goa-side-menu-heading href=\"/portal/taxes\" icon=\"calculator\">\n        Tax Services\n      </goa-side-menu-heading>\n      <goa-side-menu-heading href=\"/portal/benefits\" icon=\"heart\">\n        Benefits & Support\n      </goa-side-menu-heading>\n    </goa-side-menu-group>\n\n    <goa-side-menu-group heading=\"Support\">\n      <goa-side-menu-heading href=\"/portal/help\" icon=\"help-circle\">\n        Help Center\n      </goa-side-menu-heading>\n      <goa-side-menu-heading href=\"/portal/contact\" icon=\"phone\">\n        Contact Us\n      </goa-side-menu-heading>\n      <goa-side-menu-heading href=\"/portal/feedback\" icon=\"message-circle\">\n        Send Feedback\n      </goa-side-menu-heading>\n    </goa-side-menu-group>\n  </goa-side-menu>\n</nav>\n\n<script>\n  // Track navigation analytics\n  document.addEventListener('click', function(event) {\n    const heading = event.target.closest('goa-side-menu-heading');\n    if (heading) {\n      const href = heading.getAttribute('href');\n      const text = heading.textContent.trim();\n      \n      // Send analytics event\n      if (typeof gtag !== 'undefined') {\n        gtag('event', 'nav_click', {\n          'nav_section': 'side_menu',\n          'nav_item': text,\n          'nav_url': href\n        });\n      }\n    }\n  });\n</script>"
+      }
+    ]
+  }
+}

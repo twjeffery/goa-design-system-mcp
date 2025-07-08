@@ -1,0 +1,527 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Text",
+  "customElement": {
+    "tagName": "goa-text",
+    "className": "GoabText"
+  },
+  "summary": "Flexible text component for displaying content with consistent typography, proper semantic structure, and design system styling",
+  
+  "universalTextPrinciple": {
+    "criticalRule": "GoabText is the universal component for ALL text content in GoA applications",
+    "replaces": {
+      "htmlElements": ["<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>", "<p>", "custom text spans"],
+      "customStyling": ["className text styling", "custom CSS for typography", "wrapper divs for text width"]
+    },
+    "benefits": [
+      "Built-in 65ch max-width for optimal readability", 
+      "Automatic design system typography and spacing",
+      "Consistent margin management with mb/mt props",
+      "Semantic HTML with visual override capability"
+    ],
+    "examples": {
+      "pageHeading": "<GoabText size=\"heading-xl\" tag=\"h1\" mb=\"l\">Page Title</GoabText>",
+      "sectionHeading": "<GoabText size=\"heading-l\" tag=\"h2\" mb=\"m\">Section Title</GoabText>", 
+      "bodyText": "<GoabText tag=\"p\" mb=\"m\">Body content paragraph</GoabText>",
+      "wrongUsage": "❌ <h1 className=\"text-2xl font-bold mb-8\">Title</h1>",
+      "correctUsage": "✅ <GoabText size=\"heading-xl\" tag=\"h1\" mb=\"l\">Title</GoabText>"
+    }
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabText } from '@abgov/react-components'",
+      "quickExample": "<GoabText tag=\"h1\" color=\"primary\">\n  Welcome to Our Service\n</GoabText>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goa-text tag=\"h1\" color=\"primary\">\n  Welcome to Our Service\n</goa-text>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-text tag=\"h1\" color=\"primary\">\n  Welcome to Our Service\n</goa-text>"
+    }
+  },
+
+  "api": {
+    "validProperties": {
+      "supported": [
+        "tag - HTML element (h1, h2, h3, h4, h5, span, div, p)",
+        "size - Typography size (heading-xl, heading-l, heading-m, heading-s, heading-xs, body-l, body-m, body-s, body-xs)",
+        "color - Design system colors (primary, secondary, success, warning, emergency, information)",
+        "alignment - Text alignment (start, center, end)",
+        "variant - Typography variant (normal, mono)",
+        "maxWidth - Maximum width for readability",
+        "mt, mb - Margin spacing tokens",
+        "testId - For testing automation"
+      ],
+      "notSupported": [
+        "❌ weight - Font weight is NOT a valid property",
+        "❌ className - Use component props instead",
+        "❌ style - Never use custom styling"
+      ]
+    },
+    "semanticVsVisual": {
+      "principle": "Tag determines semantic meaning, size determines visual appearance",
+      "examples": {
+        "pageTitle": "<GoabText tag='h1' size='heading-l'>Main Page Title</GoabText>",
+        "sectionTitle": "<GoabText tag='h2' size='heading-m'>Section Title</GoabText>",
+        "note": "Don't assume h1 = heading-xl. Always match the design's visual size."
+      }
+    },
+    "propertyValidation": {
+      "enforcementRule": "ONLY use documented property values - invalid properties break component functionality",
+      "validationRequired": true
+    },
+    "strictPropertyEnforcement": {
+      "size": {
+        "validValues": ["heading-xl", "heading-l", "heading-m", "heading-s", "heading-xs", "body-l", "body-m", "body-s", "body-xs"],
+        "commonMistakes": ["xl", "l", "m", "s", "xs", "large", "medium", "small"],
+        "correctionMap": {
+          "xl": "heading-xl",
+          "l": "heading-l",
+          "m": "heading-m",
+          "s": "heading-s",
+          "xs": "heading-xs"
+        },
+        "invalidExamples": [
+          "❌ size='xl' (should be size='heading-xl')",
+          "❌ size='large' (should be size='heading-l')",
+          "❌ size='m' (should be size='heading-m' or 'body-m')"
+        ]
+      },
+      "color": {
+        "validValues": ["primary", "secondary"],
+        "commonMistakes": ["text-primary", "text-secondary", "default", "muted"],
+        "correctionMap": {
+          "text-primary": "primary",
+          "text-secondary": "secondary",
+          "default": "primary",
+          "muted": "secondary"
+        },
+        "invalidExamples": [
+          "❌ color='text-secondary' (should be color='secondary')",
+          "❌ color='muted' (should be color='secondary')"
+        ]
+      }
+    },
+    "implementationEnforcement": {
+      "propertyValidation": "MANDATORY - Invalid properties cause component failures",
+      "validationSequence": [
+        "1. Check size property exists in validValues list",
+        "2. Check color property exists in validValues list",
+        "3. Verify against design specifications if provided",
+        "4. Generate code only after full validation"
+      ]
+    },
+    "props": [
+      {
+        "name": "tag",
+        "type": "h1 | h2 | h3 | h4 | h5 | span | div | p",
+        "default": "div",
+        "required": false,
+        "description": "HTML element to render",
+        "usage": "Use semantic headings (h1-h6) for proper document structure, p for paragraphs, span for inline text"
+      },
+      {
+        "name": "size",
+        "type": "heading-xl | heading-l | heading-m | heading-s | heading-xs | body-l | body-m | body-s | body-xs",
+        "default": "Auto-determined by tag",
+        "required": false,
+        "description": "Text size override",
+        "usage": "Automatically mapped from tag (h1→heading-xl, p→body-m). Override only when needed"
+      },
+      {
+        "name": "color",
+        "type": "primary | secondary | light | dark | emergency | success | warning | information",
+        "default": "primary",
+        "required": false,
+        "description": "Text color using design system tokens",
+        "usage": "Use semantic colors: emergency for errors, success for confirmations, information for helpful tips"
+      },
+      {
+        "name": "weight",
+        "type": "regular | medium | bold",
+        "default": "regular",
+        "required": false,
+        "description": "Font weight",
+        "usage": "Use medium for emphasis, bold for strong emphasis or key information",
+        "deprecated": true,
+        "note": "⚠️ DEPRECATED - Weight is NOT a valid property in GoabText component"
+      },
+      {
+        "name": "alignment",
+        "type": "start | center | end",
+        "default": "start",
+        "required": false,
+        "description": "Text alignment",
+        "usage": "Center for titles/headings, start for body text, end for numerical data"
+      },
+      {
+        "name": "variant",
+        "type": "normal | mono",
+        "default": "normal",
+        "required": false,
+        "description": "Typography variant",
+        "usage": "Use mono for code, IDs, technical data, or when character alignment is important"
+      },
+      {
+        "name": "maxWidth",
+        "type": "string (CSS width)",
+        "required": false,
+        "description": "Maximum width for optimal reading",
+        "usage": "Use for long-form content to maintain readable line lengths (45-75 characters)"
+      },
+      {
+        "name": "mt",
+        "type": "none | xs | s | m | l | xl | 2xl | 3xl | 4xl",
+        "required": false,
+        "description": "Margin top spacing using design system tokens",
+        "usage": "Controls top spacing - use design system spacing tokens for consistency"
+      },
+      {
+        "name": "mb",
+        "type": "none | xs | s | m | l | xl | 2xl | 3xl | 4xl",
+        "required": false,
+        "description": "Margin bottom spacing using design system tokens",
+        "usage": "Controls bottom spacing - use design system spacing tokens for consistency"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Sets the data-testid attribute for testing"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Content Hierarchy",
+          "description": "Proper semantic structure for page content",
+          "code": "function AboutPage() {\n  return (\n    <div className=\"about-page\">\n      <GoabText tag=\"h1\">\n        About Our Organization\n      </GoabText>\n      \n      <GoabText tag=\"p\" size=\"body-l\" color=\"secondary\">\n        We are committed to providing excellent public services \n        that improve the lives of all citizens.\n      </GoabText>\n      \n      <GoabText tag=\"h2\">\n        Our Mission\n      </GoabText>\n      \n      <GoabText tag=\"p\">\n        To deliver accessible, efficient, and transparent government \n        services that meet the evolving needs of our community.\n      </GoabText>\n      \n      <GoabText tag=\"h3\">\n        Core Values\n      </GoabText>\n      \n      <GoabText tag=\"p\">\n        <GoabText tag=\"span\" weight=\"medium\">Excellence:</GoabText> We strive for the highest standards in everything we do.\n      </GoabText>\n      \n      <GoabText tag=\"p\">\n        <GoabText tag=\"span\" weight=\"medium\">Transparency:</GoabText> We operate with openness and accountability.\n      </GoabText>\n      \n      <GoabText tag=\"p\">\n        <GoabText tag=\"span\" weight=\"medium\">Innovation:</GoabText> We embrace new ideas and technologies.\n      </GoabText>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Status Messages and Notifications",
+          "description": "Using color semantics for different message types",
+          "code": "function StatusMessages() {\n  return (\n    <div className=\"status-section\">\n      <GoabText tag=\"h3\">\n        System Status\n      </GoabText>\n      \n      <GoabText color=\"success\" weight=\"medium\">\n        ✓ All systems operational\n      </GoabText>\n      \n      <GoabText color=\"warning\">\n        ⚠️ Scheduled maintenance tonight 2:00-4:00 AM\n      </GoabText>\n      \n      <GoabText color=\"information\">\n        💡 New features available in the settings panel\n      </GoabText>\n      \n      <GoabText color=\"emergency\">\n        ⚠️ Service disruption: Authentication service temporarily unavailable\n      </GoabText>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Data Display with Monospace",
+          "description": "Technical data and code display",
+          "code": "function DataDisplay({ user }) {\n  return (\n    <div className=\"user-details\">\n      <GoabText tag=\"h3\">\n        User Information\n      </GoabText>\n      \n      <div className=\"detail-row\">\n        <GoabText weight=\"medium\">User ID:</GoabText>\n        <GoabText variant=\"mono\" color=\"secondary\">\n          {user.id}\n        </GoabText>\n      </div>\n      \n      <div className=\"detail-row\">\n        <GoabText weight=\"medium\">API Key:</GoabText>\n        <GoabText variant=\"mono\" size=\"body-s\">\n          sk_live_51H7zBqL4jGz8s2XLm9Qhj4...\n        </GoabText>\n      </div>\n      \n      <div className=\"detail-row\">\n        <GoabText weight=\"medium\">Last Login:</GoabText>\n        <GoabText variant=\"mono\">\n          2025-06-27 14:32:15 MST\n        </GoabText>\n      </div>\n      \n      <GoabText tag=\"h4\">\n        Configuration\n      </GoabText>\n      \n      <GoabText \n        tag=\"pre\" \n        variant=\"mono\" \n        size=\"body-s\" \n        color=\"secondary\"\n        style={{ background: '#f5f5f5', padding: '1rem', borderRadius: '4px' }}>\n{`{\n  \"theme\": \"light\",\n  \"notifications\": true,\n  \"language\": \"en-CA\"\n}`}\n      </GoabText>\n    </div>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Dashboard Statistics",
+          "description": "Displaying various data types with appropriate styling",
+          "code": "@Component({\n  template: `\n    <div class=\"dashboard-overview\">\n      <goa-text tag=\"h2\">\n        System Overview\n      </goa-text>\n      \n      <div class=\"stats-grid\">\n        <div class=\"stat-card\">\n          <goa-text \n            size=\"heading-xl\" \n            weight=\"bold\" \n            alignment=\"center\" \n            color=\"primary\">\n            {{ totalUsers | number }}\n          </goa-text>\n          <goa-text \n            size=\"body-s\" \n            color=\"secondary\" \n            alignment=\"center\">\n            Total Users\n          </goa-text>\n        </div>\n        \n        <div class=\"stat-card\">\n          <goa-text \n            size=\"heading-l\" \n            weight=\"medium\" \n            color=\"success\" \n            alignment=\"center\">\n            {{ activeUsers | number }}\n          </goa-text>\n          <goa-text \n            size=\"body-s\" \n            color=\"secondary\" \n            alignment=\"center\">\n            Active This Month\n          </goa-text>\n        </div>\n        \n        <div class=\"stat-card\">\n          <goa-text \n            size=\"heading-m\" \n            variant=\"mono\" \n            alignment=\"center\">\n            {{ uptime }}%\n          </goa-text>\n          <goa-text \n            size=\"body-s\" \n            color=\"secondary\" \n            alignment=\"center\">\n            System Uptime\n          </goa-text>\n        </div>\n      </div>\n      \n      <goa-text \n        tag=\"p\" \n        maxWidth=\"600px\" \n        color=\"information\">\n        📊 Performance metrics are updated every 15 minutes. \n        Historical data is available for the past 90 days.\n      </goa-text>\n    </div>\n  `\n})\nexport class DashboardOverviewComponent {\n  totalUsers = 24750;\n  activeUsers = 8341;\n  uptime = 99.8;\n}"
+        },
+        {
+          "title": "Form Instructions and Help",
+          "description": "Instructional content with proper hierarchy",
+          "code": "@Component({\n  template: `\n    <div class=\"form-instructions\">\n      <goa-text tag=\"h2\">\n        Application Instructions\n      </goa-text>\n      \n      <goa-text tag=\"p\" size=\"body-l\">\n        Please complete all sections of this application. \n        Required fields are marked with an asterisk (*).\n      </goa-text>\n      \n      <goa-text tag=\"h3\">\n        Before You Begin\n      </goa-text>\n      \n      <goa-text tag=\"p\">\n        Ensure you have the following documents ready:\n      </goa-text>\n      \n      <ul>\n        <li>\n          <goa-text weight=\"medium\">Government-issued photo ID</goa-text>\n          <goa-text size=\"body-s\" color=\"secondary\">\n            (driver's license, passport, or provincial ID card)\n          </goa-text>\n        </li>\n        <li>\n          <goa-text weight=\"medium\">Proof of residency</goa-text>\n          <goa-text size=\"body-s\" color=\"secondary\">\n            (utility bill, lease agreement, or property tax statement)\n          </goa-text>\n        </li>\n        <li>\n          <goa-text weight=\"medium\">Supporting documentation</goa-text>\n          <goa-text size=\"body-s\" color=\"secondary\">\n            (specific to your application type)\n          </goa-text>\n        </li>\n      </ul>\n      \n      <goa-text \n        tag=\"div\" \n        color=\"warning\" \n        style=\"background: #fff3cd; padding: 1rem; border-radius: 4px; margin: 1rem 0;\">\n        <goa-text weight=\"medium\">Important:</goa-text>\n        Your application will be processed within 5-7 business days. \n        You will receive email confirmation once processing begins.\n      </goa-text>\n      \n      <goa-text tag=\"h3\">\n        Need Help?\n      </goa-text>\n      \n      <goa-text tag=\"p\">\n        If you need assistance, contact our support team:\n      </goa-text>\n      \n      <goa-text variant=\"mono\">\n        📞 1-800-123-4567\n      </goa-text>\n      \n      <goa-text variant=\"mono\">\n        ✉️ support@example.gov.ab.ca\n      </goa-text>\n    </div>\n  `\n})\nexport class FormInstructionsComponent {}"
+        }
+      ]
+    },
+
+    "advancedExamples": {
+      "react": [
+        {
+          "title": "Responsive Content Layout",
+          "description": "Content that adapts to different screen sizes",
+          "code": "function ResponsiveContent() {\n  return (\n    <div className=\"responsive-content\">\n      <GoabText tag=\"h1\" alignment=\"center\">\n        Digital Services Platform\n      </GoabText>\n      \n      <GoabText \n        tag=\"p\" \n        size=\"body-l\" \n        alignment=\"center\" \n        maxWidth=\"800px\"\n        style={{ margin: '0 auto 2rem' }}>\n        Streamline your government interactions with our comprehensive \n        digital platform designed for citizens and businesses.\n      </GoabText>\n      \n      <div className=\"feature-grid\">\n        <div className=\"feature\">\n          <GoabText tag=\"h3\" alignment=\"center\">\n            🚀 Fast Processing\n          </GoabText>\n          <GoabText \n            tag=\"p\" \n            alignment=\"center\" \n            maxWidth=\"300px\">\n            Most applications processed within 24 hours of submission.\n          </GoabText>\n        </div>\n        \n        <div className=\"feature\">\n          <GoabText tag=\"h3\" alignment=\"center\">\n            🔒 Secure & Private\n          </GoabText>\n          <GoabText \n            tag=\"p\" \n            alignment=\"center\" \n            maxWidth=\"300px\">\n            Your personal information is protected with bank-level security.\n          </GoabText>\n        </div>\n        \n        <div className=\"feature\">\n          <GoabText tag=\"h3\" alignment=\"center\">\n            📱 Mobile Friendly\n          </GoabText>\n          <GoabText \n            tag=\"p\" \n            alignment=\"center\" \n            maxWidth=\"300px\">\n            Access services anywhere, anytime from your phone or tablet.\n          </GoabText>\n        </div>\n      </div>\n    </div>\n  );\n}"
+        }
+      ]
+    }
+  },
+
+  "playgroundExamples": {
+    "basic": [
+      {
+        "title": "Typography Hierarchy",
+        "description": "Complete typography scale demonstration showing all heading and body sizes",
+        "code": "<>\n  <GoabText\n    color=\"secondary\"\n    size=\"heading-xl\"\n    mt=\"xl\"\n    mb=\"none\"\n    maxWidth=\"1168px\"\n    tag=\"h5\"\n  >\n    Text colour\n  </GoabText>\n\n  <GoabText size=\"heading-l\" mt=\"none\" mb=\"none\" maxWidth=\"1168px\" tag=\"h1\">\n    Heading for the page\n  </GoabText>\n\n  <GoabText tag=\"h1\">Heading for the page</GoabText>\n\n  <GoabText size=\"heading-l\">Heading for the page</GoabText>\n\n  <GoabText size=\"body-l\" mt=\"none\" mb=\"none\" maxWidth=\"1168px\" tag=\"p\">\n    TEST Heading extra large as page h1 Heading extra large as page h1 Heading\n    extra large as page h1 Heading extra large as page h1 Heading extra large\n    as page h1 Heading extra large as page h1 Heading extra large as page h1\n    Heading extra large as page h1\n  </GoabText>\n\n  <GoabText size=\"heading-l\" mt=\"none\" mb=\"none\">\n    Heading large\n  </GoabText>\n\n  <GoabText size=\"heading-m\" mt=\"2xl\" mb=\"none\">\n    Heading medium\n  </GoabText>\n\n  <GoabText size=\"heading-s\" mt=\"2xl\" mb=\"none\">\n    Heading small\n  </GoabText>\n\n  <GoabText size=\"heading-xs\" mt=\"2xl\" mb=\"none\">\n    Heading extra small\n  </GoabText>\n\n  <GoabText size=\"body-l\" mt=\"xl\" mb=\"none\">\n    Body large Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec\n    rutrum dignissim erat quis iaculis.\n  </GoabText>\n\n  <GoabText size=\"body-m\" mt=\"l\" mb=\"xl\">\n    Body medium text, lorem ipsum dolor sit amet, consectetur adipiscing elit.\n    Donec rutrum dignissim erat quis iaculis.\n  </GoabText>\n\n  <GoabText size=\"body-s\" mt=\"l\" mb=\"xl\">\n    Body small text, lorem ipsum dolor sit amet, consectetur adipiscing elit.\n    Donec rutrum dignissim erat quis iaculis.\n  </GoabText>\n\n  <GoabText size=\"body-xs\" mt=\"l\" mb=\"xl\">\n    Body extra small text, lorem ipsum dolor sit amet, consectetur adipiscing\n    elit. Donec rutrum dignissim erat quis iaculis.\n  </GoabText>\n</>",
+        "usage": "Demonstrates the complete typography scale available in the design system, from heading-xl to body-xs sizes"
+      }
+    ],
+    "spacing": [
+      {
+        "title": "Margin Control Examples",
+        "description": "How to control spacing above and below text elements using margin tokens",
+        "code": "<>\n  <GoabText tag=\"h3\" size=\"heading-l\" mt=\"3xl\" mb=\"4xl\">\n    Text component with margin top and bottom\n  </GoabText>\n\n  <GoabText tag=\"h3\" size=\"heading-l\" mt=\"4xl\">\n    Text component with margin top\n  </GoabText>\n\n  <GoabText tag=\"h3\" size=\"heading-l\" mb=\"4xl\">\n    Text component with margin bottom\n  </GoabText>\n</>",
+        "usage": "Use mt and mb props with design system spacing tokens (none, xs, s, m, l, xl, 2xl, 3xl, 4xl) to control vertical spacing"
+      }
+    ],
+    "semanticTags": [
+      {
+        "title": "Semantic HTML vs Visual Sizing",
+        "description": "How to balance semantic HTML structure with visual design requirements",
+        "code": "<>\n  {/* Semantic approach - tag determines both meaning and size */}\n  <GoabText tag=\"h1\">Heading for the page</GoabText>\n\n  {/* Visual override - maintain semantic meaning but adjust visual size */}\n  <GoabText size=\"heading-l\" tag=\"h1\">Heading for the page</GoabText>\n\n  {/* Size-only approach - when semantic tag isn't specified */}\n  <GoabText size=\"heading-l\">Heading for the page</GoabText>\n</>",
+        "usage": "Use semantic tags (h1-h6) for proper document structure. Override size when visual requirements differ from semantic meaning."
+      }
+    ],
+    "colorAndContent": [
+      {
+        "title": "Color Usage and Long-form Content",
+        "description": "Using semantic colors and managing readable line lengths",
+        "code": "<>\n  <GoabText\n    color=\"secondary\"\n    size=\"heading-xl\"\n    mt=\"xl\"\n    mb=\"none\"\n    maxWidth=\"1168px\"\n    tag=\"h5\"\n  >\n    Text colour\n  </GoabText>\n\n  <GoabText size=\"body-l\" mt=\"none\" mb=\"none\" maxWidth=\"1168px\" tag=\"p\">\n    TEST Heading extra large as page h1 Heading extra large as page h1 Heading\n    extra large as page h1 Heading extra large as page h1 Heading extra large\n    as page h1 Heading extra large as page h1 Heading extra large as page h1\n    Heading extra large as page h1\n  </GoabText>\n</>",
+        "usage": "Use maxWidth to maintain readable line lengths (45-75 characters). Use semantic colors like 'secondary' for supporting content."
+      }
+    ]
+  },
+
+  "governmentServiceTypographyPatterns": {
+    "description": "Standard text sizing patterns for Alberta Government service pages",
+    "servicePageHierarchy": {
+      "pageTitle": {
+        "pattern": "<GoabText tag='h1' size='heading-xl' mb='l'>Service Name</GoabText>",
+        "usage": "Main service title, always heading-xl",
+        "visualCue": "Largest text on page, clearly the main heading"
+      },
+      "serviceOverview": {
+        "pattern": "<GoabText tag='p' size='body-l' mb='l'>Service description</GoabText>",
+        "usage": "Introductory/overview paragraphs that describe the service", 
+        "visualCue": "Larger than regular body text, provides service summary",
+        "importance": "CRITICAL - often missed, this creates proper visual hierarchy"
+      },
+      "sectionHeadings": {
+        "pattern": "<GoabText tag='h2' size='heading-l' mb='m'>Section Title</GoabText>",
+        "usage": "Major page sections like 'Before you begin', 'Support'",
+        "visualCue": "Secondary headings, smaller than page title"
+      },
+      "regularContent": {
+        "pattern": "<GoabText tag='p' mb='l'>Regular content</GoabText>",
+        "usage": "Standard body content, instructions, explanations",
+        "note": "Uses default body-m sizing when no size specified"
+      },
+      "supportingDetails": {
+        "pattern": "<GoabText tag='p' size='body-s' mb='m'>Fine print</GoabText>",
+        "usage": "Disclaimers, fine print, secondary information",
+        "visualCue": "Smaller text for less important details"
+      }
+    },
+    "aiImplementationRules": {
+      "serviceOverviewRule": "IF paragraph introduces/describes the service AND appears early on page THEN use size='body-l'",
+      "visualSizeDetection": "Look for text that appears larger than surrounding paragraphs in Figma design",
+      "hierarchyPrinciple": "Service overview should be visually larger than regular content to establish information hierarchy"
+    },
+    "commonPatterns": {
+      "serviceIntroduction": "Service title (heading-xl) → Service overview (body-l) → Regular content (body-m)",
+      "beforeYouBegin": "Section heading (heading-l) → Instructions (body-m) → Requirements list (body-m)",
+      "support": "Section heading (heading-l) → Contact information (body-m)"
+    }
+  },
+
+  "designGuidance": {
+    "when": {
+      "use": [
+        "ALL text content - headings, paragraphs, labels, body text",
+        "Replace all HTML text elements (h1-h6, p, span) with GoabText",
+        "Any text that needs width constraints, spacing, or design system styling",
+        "All text content that needs consistent design system styling",
+        "Headings and content hierarchy (h1-h6, paragraphs)",
+        "Status messages and notifications with semantic meaning",
+        "Technical data display (IDs, codes, timestamps)",
+        "Form labels and instructional content"
+      ],
+      "dontUse": [
+        "When you need rich text editing capabilities",
+        "For interactive text elements (use Button or Link instead)",
+        "When you need complex text formatting (use native HTML or rich text editor)",
+        "For user-generated content that may contain HTML (sanitize first)"
+      ]
+    },
+    "contentStructure": {
+      "semanticHTML": [
+        "Use proper heading tags (h1-h6) for document structure",
+        "Use p tags for paragraphs and body content",
+        "Use span for inline text that needs styling",
+        "Use div only when no other semantic element fits"
+      ],
+      "hierarchy": [
+        "Establish clear content hierarchy with heading sizes",
+        "Use consistent spacing between sections",
+        "Limit heading levels to 3-4 for most content",
+        "Ensure logical progression of heading levels (h1 → h2 → h3)"
+      ],
+      "readability": [
+        "Use maxWidth for long-form content (45-75 characters per line)",
+        "Choose appropriate text sizes for content type",
+        "Use adequate contrast with color choices",
+        "Consider line length and spacing for accessibility"
+      ]
+    },
+    "colorUsage": {
+      "semantic": [
+        "Use 'primary' for main content text",
+        "Use 'secondary' for supporting or less important text",
+        "Use 'success' for positive confirmations or status",
+        "Use 'warning' for cautions or important notices",
+        "Use 'emergency' for errors or critical information",
+        "Use 'information' for helpful tips or neutral notifications"
+      ],
+      "accessibility": [
+        "Ensure sufficient color contrast for all text colors",
+        "Don't rely on color alone to convey information",
+        "Test with color blindness simulation tools",
+        "Use weight and size for emphasis alongside color"
+      ]
+    },
+    "typography": [
+      "Use automatic size mapping when possible (let tag determine size)",
+      "Override size only when semantic tag doesn't match visual needs",
+      "Use mono variant for technical data, codes, or aligned text",
+      "Use weight strategically for emphasis and hierarchy"
+    ],
+    "spacing": [
+      "Use mt/mb props with design system spacing tokens for consistent vertical rhythm",
+      "Prefer design system spacing tokens over custom CSS margins",
+      "Use 'none' value to remove default margins when needed",
+      "Consider the visual hierarchy when choosing spacing sizes"
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabFormItem",
+      "relationship": "Content provider",
+      "usage": "Text component used for labels, help text, and error messages",
+      "example": "Form field labels and instructional content"
+    },
+    {
+      "name": "GoabCard",
+      "relationship": "Content container",
+      "usage": "Text provides structure and content within cards",
+      "example": "Card titles, descriptions, and body content"
+    },
+    {
+      "name": "GoabModal",
+      "relationship": "Content provider",
+      "usage": "Text for modal headings, body content, and messages",
+      "example": "Confirmation dialogs, informational modals"
+    },
+    {
+      "name": "GoabButton",
+      "relationship": "Action alternative",
+      "usage": "When text needs to be interactive, use Button instead",
+      "example": "Links, calls-to-action, navigation elements"
+    },
+    {
+      "name": "GoabBadge",
+      "relationship": "Status alternative",
+      "usage": "For short status or label text, consider Badge component",
+      "example": "Status indicators, categories, tags"
+    }
+  ],
+
+  "commonPatterns": [
+    {
+      "name": "Content Pages",
+      "description": "Information pages with proper heading hierarchy",
+      "components": ["Text (h1-h6, p)", "Card", "Button"]
+    },
+    {
+      "name": "Dashboard Display",
+      "description": "Data and statistics presentation",
+      "components": ["Text", "Card", "Badge", "Table"]
+    },
+    {
+      "name": "Form Instructions",
+      "description": "Guidance and help content for forms",
+      "components": ["Text", "FormItem", "Card", "Modal"]
+    },
+    {
+      "name": "Status Messaging",
+      "description": "System status and user notifications",
+      "components": ["Text", "Alert", "Modal", "Badge"]
+    }
+  ],
+
+  "troubleshooting": [
+    {
+      "issue": "Text not displaying with expected styling",
+      "cause": "CSS conflicts or missing design tokens",
+      "solution": "Check that design system CSS is loaded and no conflicting styles override component styles"
+    },
+    {
+      "issue": "Heading levels not creating proper document structure",
+      "cause": "Using visual size instead of semantic heading tags",
+      "solution": "Use proper h1-h6 tags for headings. Override size if needed: `<GoabText tag=\"h2\" size=\"heading-s\">`"
+    },
+    {
+      "issue": "Text too wide and hard to read",
+      "cause": "No width constraints on long-form content",
+      "solution": "Use maxWidth prop for optimal reading: `<GoabText maxWidth=\"600px\">` or use CSS container queries"
+    },
+    {
+      "issue": "Color not appearing as expected",
+      "cause": "Invalid color value or CSS specificity issues",
+      "solution": "Use valid color values (primary, secondary, success, etc.) and check for CSS conflicts"
+    },
+    {
+      "issue": "Screen readers not announcing content properly",
+      "cause": "Non-semantic HTML or missing structure",
+      "solution": "Use semantic HTML tags (h1-h6 for headings, p for paragraphs) and ensure logical heading progression"
+    },
+    {
+      "issue": "Monospace text not aligning properly",
+      "cause": "Mixed content or inconsistent font families",
+      "solution": "Ensure all related text uses variant=\"mono\" and consider table layout for aligned data"
+    },
+    {
+      "issue": "Text appearing too small on mobile",
+      "cause": "Fixed sizing not responsive to screen size",
+      "solution": "Test text sizes on mobile devices and consider using larger base sizes for mobile-first designs"
+    },
+    {
+      "issue": "Inconsistent spacing between text elements",
+      "cause": "Not using design system spacing tokens",
+      "solution": "Use mt/mb props with design system tokens (none, xs, s, m, l, xl, 2xl, 3xl, 4xl) for consistent spacing"
+    }
+  ],
+
+  "accessibility": {
+    "semanticStructure": [
+      "Use proper HTML elements (h1-h6, p, span, div) for document structure",
+      "Maintain logical heading hierarchy for screen reader navigation",
+      "Use headings to create document outline and navigation landmarks"
+    ],
+    "screenReader": [
+      "Semantic HTML tags announced correctly by screen readers",
+      "Heading levels provide navigation structure",
+      "Color changes are visual only - don't rely on color alone for meaning",
+      "Monospace text may be announced as 'code' or 'literal' text"
+    ],
+    "keyboardNavigation": [
+      "Text content is accessible to all assistive technologies",
+      "Heading elements provide navigation landmarks",
+      "No interactive behavior - purely presentational content"
+    ]
+  },
+
+  "performanceConsiderations": [
+    "Text component is lightweight with minimal performance impact",
+    "Automatic margin calculation adds slight runtime overhead",
+    "Typography token resolution happens at render time",
+    "Consider virtualization for very long text content or many text elements"
+  ],
+
+  "tags": ["typography", "content", "heading", "body", "text", "semantic", "spacing"],
+  "category": "typography",
+  "status": "stable",
+  "lastUpdated": "2025-07-02",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/text.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

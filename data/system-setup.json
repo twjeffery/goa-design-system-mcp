@@ -1,0 +1,455 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "GoA Design System Setup",
+  "summary": "Complete setup and integration guide for implementing the GoA Design System across React, Angular, and Web Component frameworks",
+  "purpose": "Enable developers to quickly set up and start using the GoA Design System in their projects",
+
+  "systemRequirements": {
+    "nodeVersion": ">=16.0.0",
+    "frameworkVersions": {
+      "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+      "angular": "^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
+    },
+    "dependencies": {
+      "ionicons": "Required for icon display in components",
+      "designTokens": "Included automatically with @abgov/web-components"
+    }
+  },
+
+  "installation": {
+    "quickStart": {
+      "recommended": "Use official templates for fastest setup with all dependencies pre-configured",
+      "templates": {
+        "angular": {
+          "url": "https://github.com/GovAlta/ui-components-angular-template",
+          "description": "Complete Angular starter with all dependencies configured",
+          "steps": [
+            "1. Click 'Use this template' → Create new repository",
+            "2. Clone and run: npm install",
+            "3. Run: npm run build", 
+            "4. Run: npm run start",
+            "5. Open browser to localhost port shown in terminal"
+          ],
+          "features": [
+            "Pre-configured routing and navigation",
+            "Example pages showing component usage",
+            "Form validation examples",
+            "Responsive layout templates"
+          ]
+        },
+        "react": {
+          "url": "https://github.com/GovAlta/ui-components-react-template",
+          "description": "Complete React starter with all dependencies configured", 
+          "steps": [
+            "1. Click 'Use this template' → Create new repository",
+            "2. Clone and run: npm install",
+            "3. Run: npm run build",
+            "4. Run: npm run dev",
+            "5. Open browser to localhost port shown in terminal"
+          ],
+          "features": [
+            "React Router setup with example routes",
+            "TypeScript configuration",
+            "Component usage examples",
+            "State management patterns"
+          ]
+        }
+      }
+    },
+    
+    "manualSetup": {
+      "whenToUse": "Adding GoA Design System to existing projects or custom build setups",
+      
+      "react": {
+        "dependencies": {
+          "required": ["@abgov/react-components", "@abgov/web-components"],
+          "commands": [
+            "npm install @abgov/react-components",
+            "npm install @abgov/web-components"
+          ],
+          "devDependencies": {
+            "typescript": "For TypeScript projects (recommended)",
+            "@types/react": "For TypeScript support"
+          }
+        },
+        "configuration": {
+          "ionicons": {
+            "required": "Required for most components (icons, buttons, etc.)",
+            "location": "Add to public/index.html head element",
+            "scripts": [
+              "<script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js\"></script>",
+              "<script nomodule src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js\"></script>"
+            ]
+          },
+          "styles": {
+            "import": "@import \"@abgov/web-components/index.css\";",
+            "location": "src/index.css file or your main CSS entry point",
+            "description": "Provides all component styling and design tokens"
+          },
+          "webComponents": {
+            "import": "import '@abgov/web-components';",
+            "location": "src/index.js or src/index.tsx",
+            "description": "Registers web components for use in React"
+          }
+        },
+        "basicExample": {
+          "title": "React App with GoA Components",
+          "code": "// src/App.tsx\nimport React from 'react';\nimport { GoabButton, GoabContainer, GoabFormItem, GoabInput } from '@abgov/react-components';\nimport '@abgov/web-components';\n\nfunction App() {\n  const [name, setName] = React.useState('');\n  \n  return (\n    <div className=\"App\">\n      <GoabContainer accent=\"thick\" title=\"Welcome\">\n        <GoabFormItem label=\"Your Name\">\n          <GoabInput \n            value={name}\n            onChange={(e) => setName(e.target.value)}\n            placeholder=\"Enter your name\"\n          />\n        </GoabFormItem>\n        \n        <GoabButton type=\"primary\" mt=\"m\">\n          Submit\n        </GoabButton>\n      </GoabContainer>\n    </div>\n  );\n}\n\nexport default App;"
+        }
+      },
+      
+      "angular": {
+        "dependencies": {
+          "required": ["@abgov/web-components", "@abgov/angular-components"],
+          "commands": [
+            "npm install @abgov/web-components",
+            "npm install @abgov/angular-components"
+          ]
+        },
+        "configuration": {
+          "moduleSetup": {
+            "file": "src/app/app.module.ts",
+            "imports": [
+              "import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';",
+              "import '@abgov/web-components';",
+              "import { AngularComponentsModule } from '@abgov/angular-components';"
+            ],
+            "moduleImports": ["BrowserModule", "AngularComponentsModule"],
+            "schemas": ["CUSTOM_ELEMENTS_SCHEMA"],
+            "example": "// src/app/app.module.ts\nimport { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\nimport { AngularComponentsModule } from '@abgov/angular-components';\nimport '@abgov/web-components';\n\nimport { AppComponent } from './app.component';\n\n@NgModule({\n  declarations: [AppComponent],\n  imports: [BrowserModule, AngularComponentsModule],\n  schemas: [CUSTOM_ELEMENTS_SCHEMA],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }"
+          },
+          "ionicons": {
+            "required": "Required for most components",
+            "location": "Add to src/index.html head element", 
+            "scripts": [
+              "<script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js\"></script>",
+              "<script nomodule src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js\"></script>"
+            ]
+          },
+          "styles": {
+            "import": "@import \"@abgov/web-components/index.css\";",
+            "location": "src/styles.css file",
+            "description": "Provides all component styling and design tokens"
+          }
+        },
+        "basicExample": {
+          "title": "Angular Component with GoA Components",
+          "code": "// app.component.ts\nimport { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  template: `\n    <goab-container accent=\"thick\" title=\"Welcome\">\n      <goab-form-item label=\"Your Name\">\n        <goab-input \n          [(ngModel)]=\"name\"\n          placeholder=\"Enter your name\">\n        </goab-input>\n      </goab-form-item>\n      \n      <goab-button type=\"primary\" mt=\"m\">\n        Submit\n      </goab-button>\n    </goab-container>\n  `\n})\nexport class AppComponent {\n  name = '';\n}"
+        }
+      },
+      
+      "webComponents": {
+        "dependencies": {
+          "required": ["@abgov/web-components"],
+          "commands": ["npm install @abgov/web-components"]
+        },
+        "configuration": {
+          "moduleImport": {
+            "import": "import '@abgov/web-components';",
+            "location": "src/main.js or your main entry point file"
+          },
+          "ionicons": {
+            "required": "Required for most components",
+            "location": "Add to index.html head element",
+            "scripts": [
+              "<script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js\"></script>",
+              "<script nomodule src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js\"></script>"
+            ]
+          },
+          "styles": {
+            "import": "@import \"@abgov/web-components/index.css\";",
+            "location": "src/assets/main.css or your main CSS file"
+          }
+        },
+        "basicExample": {
+          "title": "HTML with GoA Web Components",
+          "code": "<!DOCTYPE html>\n<html>\n<head>\n  <script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js\"></script>\n  <script nomodule src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js\"></script>\n  <link rel=\"stylesheet\" href=\"node_modules/@abgov/web-components/index.css\">\n</head>\n<body>\n  <goa-container accent=\"thick\" title=\"Welcome\">\n    <goa-form-item label=\"Your Name\">\n      <goa-input placeholder=\"Enter your name\"></goa-input>\n    </goa-form-item>\n    \n    <goa-button type=\"primary\" mt=\"m\">\n      Submit\n    </goa-button>\n  </goa-container>\n  \n  <script type=\"module\">\n    import '@abgov/web-components';\n  </script>\n</body>\n</html>"
+        }
+      }
+    }
+  },
+
+  "usage": {
+    "gettingStarted": {
+      "steps": [
+        "1. Choose your framework and follow the appropriate setup instructions",
+        "2. Import required dependencies and configure your build system",
+        "3. Add ionicons scripts to your HTML head element",
+        "4. Import the design system CSS for styling",
+        "5. Start with basic components like Button, Input, and Container",
+        "6. Use the Layout System (GoabColumnLayout) for page structure",
+        "7. Reference individual component documentation for detailed usage"
+      ],
+      "firstComponents": [
+        "GoabButton - Interactive actions and form submissions",
+        "GoabInput - Text input for forms and data entry",
+        "GoabContainer - Content grouping and visual organization",
+        "GoabFormItem - Proper form field labeling and structure",
+        "GoabColumnLayout - Page layout structure with header/footer"
+      ]
+    },
+    
+    "commonPatterns": {
+      "formCreation": {
+        "description": "Building forms with proper validation and structure",
+        "components": ["GoabFormItem", "GoabInput", "GoabTextArea", "GoabButton", "GoabContainer"],
+        "example": "Use GoabFormItem to wrap form controls, GoabContainer to group sections, and GoabButton for actions"
+      },
+      "pageLayout": {
+        "description": "Creating consistent page structure across your application",
+        "components": ["GoabOneColumnLayout", "GoabAppHeader", "GoabPageBlock", "GoabContainer"],
+        "example": "Start with GoabOneColumnLayout, add header/footer, use GoabPageBlock for content, organize with GoabContainer"
+      },
+      "dataDisplay": {
+        "description": "Presenting information and data to users",
+        "components": ["GoabTable", "GoabList", "GoabContainer", "GoabCallout"],
+        "example": "Use GoabTable for structured data, GoabList for simple lists, GoabCallout for important information"
+      },
+      "navigation": {
+        "description": "Creating navigation and user flows",
+        "components": ["GoabLink", "GoabButton", "GoabSideMenu", "GoabAppHeader"],
+        "example": "Use GoabLink for navigation, GoabSideMenu for section navigation, GoabButton for actions"
+      }
+    },
+    
+    "designPrinciples": {
+      "noCustomCSS": {
+        "rule": "Never add custom className styling - use component props only",
+        "rationale": "Design system components provide all necessary styling through props",
+        "examples": {
+          "incorrect": "<div className=\"mb-8\"><GoabButton>Click me</GoabButton></div>",
+          "correct": "<GoabButton mb=\"l\">Click me</GoabButton>"
+        }
+      },
+      "spacingOwnership": {
+        "rule": "Components manage spacing to subsequent elements (mb, mr) not from previous (mt, ml)",
+        "rationale": "Each component controls space it creates, preventing spacing conflicts",
+        "examples": {
+          "incorrect": "<div><GoabButton mt=\"l\">Second Button</GoabButton></div>",
+          "correct": "<GoabButton mb=\"l\">First Button</GoabButton>\n<GoabButton>Second Button</GoabButton>"
+        },
+        "alternative": "Use GoabSpacer component for explicit spacing between elements"
+      },
+      "useGoabText": {
+        "rule": "All text content uses GoabText component with size, maxWidth, and spacing props",
+        "rationale": "Ensures consistent typography and spacing throughout the application",
+        "examples": {
+          "incorrect": "<p className=\"text-lg mb-4\">Some content</p>",
+          "correct": "<GoabText size=\"m\" mb=\"m\">Some content</GoabText>"
+        }
+      },
+      "noWrapperDivs": {
+        "rule": "Avoid wrapper divs - use component properties for layout and spacing",
+        "rationale": "Reduces DOM complexity and relies on design system patterns",
+        "examples": {
+          "incorrect": "<div className=\"flex gap-4\"><GoabButton>A</GoabButton><GoabButton>B</GoabButton></div>",
+          "correct": "<GoabButtonGroup gap=\"m\"><GoabButton>A</GoabButton><GoabButton>B</GoabButton></GoabButtonGroup>"
+        }
+      },
+      "iconProperties": {
+        "rule": "Use component icon props (leadingIcon, trailingIcon) not custom SVG",
+        "rationale": "Ensures consistent icon sizing, theming, and accessibility",
+        "examples": {
+          "incorrect": "<GoabButton><svg>...</svg> Click me</GoabButton>",
+          "correct": "<GoabButton leadingIcon=\"checkmark\">Click me</GoabButton>"
+        }
+      },
+      "spacingTokens": {
+        "rule": "Use design system spacing tokens for all margin and padding props",
+        "rationale": "Maintains consistent spacing scale across the application",
+        "availableTokens": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "examples": {
+          "incorrect": "<GoabContainer style={{marginBottom: '32px'}}>Content</GoabContainer>",
+          "correct": "<GoabContainer mb=\"l\">Content</GoabContainer>"
+        }
+      }
+    }
+  },
+
+  "packages": {
+    "webComponents": {
+      "name": "@abgov/web-components",
+      "description": "Core web components and styling",
+      "repository": "https://github.com/GovAlta/ui-components/tree/alpha/libs/web-components",
+      "npmUrl": "https://www.npmjs.com/package/@abgov/web-components"
+    },
+    "react": {
+      "name": "@abgov/react-components",
+      "description": "React wrapper components",
+      "repository": "https://github.com/GovAlta/ui-components/tree/alpha/libs/react-components",
+      "npmUrl": "https://www.npmjs.com/package/@abgov/react-components"
+    },
+    "angular": {
+      "name": "@abgov/angular-components",
+      "description": "Angular wrapper components",
+      "repository": "https://github.com/GovAlta/ui-components/tree/alpha/libs/angular-components",
+      "npmUrl": "https://www.npmjs.com/package/@abgov/angular-components"
+    }
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "problem": "Icons not displaying in components",
+        "symptoms": ["Missing icons in buttons", "Icon placeholders showing", "Console errors about ionicons"],
+        "solution": "Ensure ionicons scripts are added to index.html head element",
+        "code": "<script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js\"></script>\n<script nomodule src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js\"></script>"
+      },
+      {
+        "problem": "Components appear unstyled",
+        "symptoms": ["No visual styling", "Components look like plain HTML", "Missing design tokens"],
+        "solution": "Verify @abgov/web-components/index.css is imported in your main CSS file",
+        "code": "@import \"@abgov/web-components/index.css\";"
+      },
+      {
+        "problem": "Angular template parse errors for goa- components",
+        "symptoms": ["Template compilation errors", "Unknown element warnings", "Angular build failures"],
+        "solution": "Add CUSTOM_ELEMENTS_SCHEMA to your module schemas array",
+        "code": "schemas: [CUSTOM_ELEMENTS_SCHEMA]"
+      },
+      {
+        "problem": "React components not rendering",
+        "symptoms": ["Components don't appear", "Import errors", "TypeScript errors"],
+        "solution": "Ensure both @abgov/react-components and @abgov/web-components are installed and imported",
+        "code": "import { GoabButton } from '@abgov/react-components';\nimport '@abgov/web-components';"
+      },
+      {
+        "problem": "Build errors with web components",
+        "symptoms": ["Bundler errors", "Module resolution issues", "Build process fails"],
+        "solution": "Ensure your bundler supports ES modules and custom elements",
+        "recommendations": ["Use Vite, Webpack 5+, or modern build tools", "Configure bundler for ES modules", "Add custom elements polyfill if needed"]
+      }
+    ],
+    
+    "debuggingSteps": [
+      "1. Check browser console for JavaScript errors",
+      "2. Verify all required packages are installed (npm list)",
+      "3. Confirm ionicons scripts are loaded in Network tab",
+      "4. Check that CSS is applied using browser dev tools",
+      "5. Validate component imports and usage syntax",
+      "6. Test with a minimal example to isolate issues"
+    ]
+  },
+
+  "migration": {
+    "currentVersion": "2.1.0",
+    "upgradeGuides": {
+      "from-2.0": {
+        "description": "Minor updates with enhanced AI context features",
+        "changes": ["Added AI optimization metadata", "Enhanced component documentation", "Improved TypeScript support"],
+        "breakingChanges": "None - backward compatible"
+      },
+      "from-1.x": {
+        "description": "Major version upgrade with new component architecture",
+        "changes": ["Updated component API", "New design tokens", "Enhanced accessibility"],
+        "breakingChanges": "Some prop names changed - see component-specific migration guides"
+      }
+    },
+    "deprecations": [],
+    "futureRoadmap": [
+      "Enhanced mobile responsiveness",
+      "Additional form components",
+      "Advanced data visualization components",
+      "Improved theming capabilities"
+    ]
+  },
+
+  "designTokens": {
+    "included": "Design tokens are automatically included with @abgov/web-components",
+    "customization": "Tokens can be overridden using CSS custom properties",
+    "categories": ["spacing", "colors", "typography", "borders", "shadows"],
+    "repository": "https://github.com/GovAlta/design-tokens",
+    "usage": "Use var(--goa-color-primary) syntax to reference tokens in custom CSS"
+  },
+
+  "accessibility": {
+    "compliance": "WCAG 2.1 AA compliant components",
+    "features": [
+      "Semantic HTML structure",
+      "Proper ARIA labels and roles",
+      "Keyboard navigation support",
+      "Screen reader optimization",
+      "High contrast color support"
+    ],
+    "testing": "Test with screen readers and keyboard-only navigation",
+    "resources": [
+      "Built-in accessibility features in all components",
+      "Accessibility guidance in component documentation",
+      "Testing tools and guidelines available"
+    ]
+  },
+
+  "support": {
+    "documentation": "https://ui-components.alberta.ca/",
+    "github": "https://github.com/GovAlta/ui-components",
+    "issues": "https://github.com/GovAlta/ui-components/issues",
+    "discussions": "https://github.com/GovAlta/ui-components/discussions",
+    "designSystem": "Contact the GoA Design System team for design questions"
+  },
+
+  "source": {
+    "templateRepositories": {
+      "react": "https://github.com/GovAlta/ui-components-react-template",
+      "angular": "https://github.com/GovAlta/ui-components-angular-template"
+    },
+    "packageRepositories": {
+      "webComponents": "https://github.com/GovAlta/ui-components/tree/alpha/libs/web-components",
+      "react": "https://github.com/GovAlta/ui-components/tree/alpha/libs/react-components",
+      "angular": "https://github.com/GovAlta/ui-components/tree/alpha/libs/angular-components"
+    },
+    "lastUpdated": "2025-07-01",
+    "updatedBy": "design-system-team",
+    "syncedWithPackageVersions": {
+      "webComponents": "2.1.0",
+      "react": "2.1.0",
+      "angular": "2.1.0"
+    }
+  },
+
+  "aiHints": {
+    "commonMistakes": [
+      "Forgetting to add ionicons scripts to HTML head",
+      "Not importing web-components CSS file",
+      "Missing CUSTOM_ELEMENTS_SCHEMA in Angular projects",
+      "Using components before web components are registered",
+      "Not following proper component hierarchy (FormItem wrapping inputs)",
+      "Adding custom className styling instead of using component props",
+      "Using wrapper divs with CSS classes instead of component spacing props",
+      "Using mt/ml props instead of letting previous components control spacing with mb/mr",
+      "Not using GoabText for text content",
+      "Adding custom SVG icons instead of using component icon props"
+    ],
+    "suggestedAlternatives": [
+      "Use templates for new projects instead of manual setup",
+      "Start with basic components before adding complex features",
+      "Reference component-specific documentation for detailed usage",
+      "Use GoabSpacer component for explicit spacing between elements",
+      "Use component spacing props (mb, mr) instead of wrapper divs"
+    ],
+    "implementationTips": [
+      "Always test with a simple component first (like GoabButton)",
+      "Use GoabOneColumnLayout early to establish page structure",
+      "Follow the recommended component combinations for common patterns",
+      "Check browser console for setup issues during development",
+      "Let components manage their own spacing using mb/mr props",
+      "Use GoabText component for all text content with proper sizing",
+      "Avoid custom CSS classes - use component props for all styling"
+    ],
+    "quickStartFlow": [
+      "1. Choose framework template or manual setup",
+      "2. Verify ionicons and CSS are loading", 
+      "3. Test with GoabButton component",
+      "4. Add GoabContainer for content organization",
+      "5. Implement GoabOneColumnLayout for page structure",
+      "6. Build forms using GoabFormItem + input components",
+      "7. Use component spacing props instead of custom CSS",
+      "8. Reference individual component docs for advanced features"
+    ]
+  },
+
+  "tags": ["setup", "installation", "configuration", "getting-started", "framework-integration"],
+  "category": "system-setup",
+  "status": "stable",
+  "lastUpdated": "2025-07-01"
+}

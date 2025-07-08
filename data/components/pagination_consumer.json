@@ -1,0 +1,330 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "componentName": "pagination",
+  "audience": "ai-systems-helping-consumer-developers",
+  "summary": "Navigation component for moving between multiple pages of data with configurable page size and navigation controls",
+  "category": "component",
+  "tags": ["navigation", "pagination", "table", "data"],
+  "status": "stable",
+
+  "customElement": {
+    "tagName": "goa-pagination",
+    "className": "GoabPagination"
+  },
+
+  "playgroundExamples": {
+    "note": "Playground configurations will be added in future versions"
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["@abgov/web-components", "@abgov/design-tokens"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabPagination } from '@abgov/react-components'",
+      "quickExample": "<GoabPagination \n  itemCount={100} \n  pageNumber={1} \n  perPageCount={10}\n  onChange={(page) => setCurrentPage(page)}\n/>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-pagination \n  [itemCount]=\"totalItems\" \n  [pageNumber]=\"currentPage\"\n  [perPageCount]=\"itemsPerPage\"\n  (onChange)=\"handlePageChange($event)\"\n></goab-pagination>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-pagination \n  itemcount=\"100\" \n  pagenumber=\"1\" \n  perpagecount=\"10\"\n></goa-pagination>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "itemCount",
+        "type": "number",
+        "required": true,
+        "description": "Total number of items across all pages",
+        "example": "250 items total"
+      },
+      {
+        "title": "Content Listing with Async Data",
+        "description": "Pagination with server-side data fetching",
+        "code": "import { Component, OnInit } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { GoabPaginationOnChangeDetail } from '@abgov/angular-components';\n\ninterface Article {\n  id: number;\n  title: string;\n  excerpt: string;\n  publishDate: string;\n}\n\ninterface ApiResponse {\n  articles: Article[];\n  total: number;\n  page: number;\n}\n\n@Component({\n  selector: 'app-articles',\n  template: `\n    <div class=\"articles-list\">\n      <h2>Latest Articles</h2>\n      \n      <div *ngIf=\"loading\" class=\"loading\">\n        Loading articles...\n      </div>\n\n      <div *ngIf=\"!loading\" class=\"articles\">\n        <article *ngFor=\"let article of articles\" class=\"article-card\">\n          <h3>{{ article.title }}</h3>\n          <p>{{ article.excerpt }}</p>\n          <small>Published: {{ article.publishDate | date }}</small>\n        </article>\n      </div>\n\n      <goab-block *ngIf=\"totalArticles > articlesPerPage\" alignment=\"center\" mt=\"l\">\n        <goab-pagination\n          [itemCount]=\"totalArticles\"\n          [pageNumber]=\"currentPage\"\n          [perPageCount]=\"articlesPerPage\"\n          (onChange)=\"handlePageChange($event)\"\n          variant=\"all\"\n        ></goab-pagination>\n      </goab-block>\n    </div>\n  `\n})\nexport class ArticlesComponent implements OnInit {\n  articles: Article[] = [];\n  currentPage = 1;\n  articlesPerPage = 12;\n  totalArticles = 0;\n  loading = false;\n\n  constructor(private http: HttpClient) {}\n\n  ngOnInit() {\n    this.loadArticles();\n  }\n\n  async loadArticles() {\n    this.loading = true;\n    try {\n      const response = await this.http.get<ApiResponse>(\n        `/api/articles?page=${this.currentPage}&size=${this.articlesPerPage}`\n      ).toPromise();\n      \n      this.articles = response?.articles || [];\n      this.totalArticles = response?.total || 0;\n    } catch (error) {\n      console.error('Failed to load articles:', error);\n    } finally {\n      this.loading = false;\n    }\n  }\n\n  handlePageChange(event: GoabPaginationOnChangeDetail) {\n    this.currentPage = event.page;\n    this.loadArticles();\n    \n    // Scroll to top of content\n    window.scrollTo({ top: 0, behavior: 'smooth' });\n  }\n}"
+      },
+      {
+        "name": "pageNumber",
+        "type": "number",
+        "required": true,
+        "description": "Current page number (1-based)",
+        "example": "Page 3 of 25"
+      },
+      {
+        "name": "perPageCount",
+        "type": "number",
+        "required": false,
+        "default": 10,
+        "description": "Number of items to show per page",
+        "recommendations": ["10", "20", "25", "50", "100"]
+      },
+      {
+        "name": "variant",
+        "type": "string",
+        "required": false,
+        "default": "all",
+        "options": ["all", "links-only"],
+        "description": "Controls which navigation elements are visible",
+        "usage": {
+          "all": "Shows page dropdown and navigation buttons (recommended for desktop)",
+          "links-only": "Shows only Previous/Next buttons (recommended for mobile)"
+        }
+      },
+      {
+        "name": "onChange",
+        "type": "function",
+        "required": true,
+        "description": "Called when user navigates to a different page",
+        "signature": "(pageNumber: number) => void",
+        "frameworks": ["React", "Angular"]
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Sets the data-testid attribute for automated testing"
+      }
+    ]
+  },
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Data Table with Pagination",
+          "description": "Complete example with table data, page size selection, and pagination",
+          "code": "import { useState, useEffect } from 'react';\nimport { GoabTable, GoabPagination, GoabDropdown, GoabDropdownItem } from '@abgov/react-components';\n\nfunction UserTable() {\n  const [users, setUsers] = useState([]);\n  const [currentPage, setCurrentPage] = useState(1);\n  const [pageSize, setPageSize] = useState(10);\n  const [totalUsers, setTotalUsers] = useState(0);\n  const [loading, setLoading] = useState(false);\n\n  // Fetch data when page or page size changes\n  useEffect(() => {\n    fetchUsers(currentPage, pageSize);\n  }, [currentPage, pageSize]);\n\n  const fetchUsers = async (page, size) => {\n    setLoading(true);\n    try {\n      const response = await fetch(`/api/users?page=${page}&size=${size}`);\n      const data = await response.json();\n      setUsers(data.users);\n      setTotalUsers(data.total);\n    } catch (error) {\n      console.error('Failed to fetch users:', error);\n    } finally {\n      setLoading(false);\n    }\n  };\n\n  const handlePageChange = (page) => {\n    setCurrentPage(page);\n  };\n\n  const handlePageSizeChange = (newSize) => {\n    setPageSize(Number(newSize));\n    setCurrentPage(1); // Reset to first page\n  };\n\n  return (\n    <div>\n      <GoabTable caption=\"User Management\">\n        <thead>\n          <tr>\n            <th>Name</th>\n            <th>Email</th>\n            <th>Role</th>\n            <th>Last Login</th>\n          </tr>\n        </thead>\n        <tbody>\n          {users.map(user => (\n            <tr key={user.id}>\n              <td>{user.name}</td>\n              <td>{user.email}</td>\n              <td>{user.role}</td>\n              <td>{user.lastLogin}</td>\n            </tr>\n          ))}\n        </tbody>\n      </GoabTable>\n\n      <div className=\"pagination-controls\">\n        <div className=\"page-size-selector\">\n          <span>Show </span>\n          <GoabDropdown \n            value={pageSize.toString()} \n            onChange={(value) => handlePageSizeChange(value)}\n            width=\"80px\"\n          >\n            <GoabDropdownItem value=\"10\" label=\"10\" />\n            <GoabDropdownItem value=\"20\" label=\"20\" />\n            <GoabDropdownItem value=\"50\" label=\"50\" />\n            <GoabDropdownItem value=\"100\" label=\"100\" />\n          </GoabDropdown>\n          <span> of {totalUsers} users</span>\n        </div>\n\n        <GoabPagination\n          itemCount={totalUsers}\n          pageNumber={currentPage}\n          perPageCount={pageSize}\n          onChange={handlePageChange}\n          testId=\"user-pagination\"\n        />\n      </div>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Search Results Pagination",
+          "description": "Pagination for search results with loading states",
+          "code": "import { GoabPagination, GoabSpacer } from '@abgov/react-components';\n\nfunction SearchResults({ searchQuery }) {\n  const [results, setResults] = useState([]);\n  const [currentPage, setCurrentPage] = useState(1);\n  const [totalResults, setTotalResults] = useState(0);\n  const [loading, setLoading] = useState(false);\n  const resultsPerPage = 20;\n\n  const handlePageChange = useCallback(async (page) => {\n    setLoading(true);\n    setCurrentPage(page);\n    \n    try {\n      const response = await fetch(\n        `/api/search?q=${encodeURIComponent(searchQuery)}&page=${page}&size=${resultsPerPage}`\n      );\n      const data = await response.json();\n      setResults(data.results);\n      setTotalResults(data.total);\n    } catch (error) {\n      console.error('Search failed:', error);\n    } finally {\n      setLoading(false);\n    }\n  }, [searchQuery, resultsPerPage]);\n\n  return (\n    <div>\n      <div className=\"search-summary\">\n        Found {totalResults} results for \"{searchQuery}\"\n      </div>\n      \n      {loading && <div className=\"loading\">Loading results...</div>}\n      \n      <div className=\"search-results\">\n        {results.map(result => (\n          <div key={result.id} className=\"search-result\">\n            <h3>{result.title}</h3>\n            <p>{result.excerpt}</p>\n          </div>\n        ))}\n      </div>\n\n      {totalResults > resultsPerPage && (\n        <>\n          <GoabSpacer vSpacing=\"l\" />\n          <div style={{ display: 'flex', justifyContent: 'center' }}>\n            <GoabPagination\n              itemCount={totalResults}\n              pageNumber={currentPage}\n              perPageCount={resultsPerPage}\n              onChange={handlePageChange}\n              variant=\"all\"\n            />\n          </div>\n        </>\n      )}\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Mobile-Friendly Pagination",
+          "description": "Responsive pagination that adapts to screen size",
+          "code": "import { useState, useEffect } from 'react';\nimport { GoabPagination } from '@abgov/react-components';\n\nfunction ResponsivePagination({ data }) {\n  const [currentPage, setCurrentPage] = useState(1);\n  const [isMobile, setIsMobile] = useState(false);\n  const itemsPerPage = 15;\n  const totalItems = data.length;\n\n  // Detect mobile screen size\n  useEffect(() => {\n    const checkMobile = () => {\n      setIsMobile(window.innerWidth < 768);\n    };\n    \n    checkMobile();\n    window.addEventListener('resize', checkMobile);\n    return () => window.removeEventListener('resize', checkMobile);\n  }, []);\n\n  // Calculate displayed items\n  const startIndex = (currentPage - 1) * itemsPerPage;\n  const displayedItems = data.slice(startIndex, startIndex + itemsPerPage);\n\n  return (\n    <div>\n      <div className=\"item-grid\">\n        {displayedItems.map(item => (\n          <div key={item.id} className=\"item-card\">\n            {item.content}\n          </div>\n        ))}\n      </div>\n\n      <div className=\"pagination-wrapper\">\n        <GoabPagination\n          itemCount={totalItems}\n          pageNumber={currentPage}\n          perPageCount={itemsPerPage}\n          onChange={setCurrentPage}\n          variant={isMobile ? \"links-only\" : \"all\"}\n        />\n      </div>\n    </div>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Data Table with Pagination",
+          "description": "Complete Angular implementation with table and pagination",
+          "code": "import { Component, OnInit } from '@angular/core';\nimport { GoabPaginationOnChangeDetail, GoabDropdownOnChangeDetail } from '@abgov/angular-components';\n\ninterface User {\n  id: number;\n  name: string;\n  email: string;\n  department: string;\n}\n\n@Component({\n  selector: 'app-user-list',\n  template: `\n    <div class=\"user-management\">\n      <goab-table caption=\"Employee Directory\">\n        <thead>\n          <tr>\n            <th>Name</th>\n            <th>Email</th>\n            <th>Department</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let user of displayedUsers\">\n            <td>{{ user.name }}</td>\n            <td>{{ user.email }}</td>\n            <td>{{ user.department }}</td>\n          </tr>\n        </tbody>\n      </goab-table>\n\n      <goab-block alignment=\"center\" mt=\"m\">\n        <goab-block alignment=\"center\" mb=\"s\">\n          Show\n          <goab-dropdown\n            [value]=\"pageSize.toString()\"\n            (onChange)=\"handlePageSizeChange($event)\"\n            width=\"80px\"\n          >\n            <goab-dropdown-item value=\"10\" label=\"10\"></goab-dropdown-item>\n            <goab-dropdown-item value=\"25\" label=\"25\"></goab-dropdown-item>\n            <goab-dropdown-item value=\"50\" label=\"50\"></goab-dropdown-item>\n          </goab-dropdown>\n          of {{ allUsers.length }} employees\n        </goab-block>\n\n        <goab-spacer hSpacing=\"fill\"></goab-spacer>\n\n        <goab-pagination\n          [itemCount]=\"allUsers.length\"\n          [pageNumber]=\"currentPage\"\n          [perPageCount]=\"pageSize\"\n          (onChange)=\"handlePageChange($event)\"\n          testId=\"employee-pagination\"\n        ></goab-pagination>\n      </goab-block>\n    </div>\n  `\n})\nexport class UserListComponent implements OnInit {\n  allUsers: User[] = [];\n  displayedUsers: User[] = [];\n  currentPage = 1;\n  pageSize = 10;\n\n  ngOnInit() {\n    this.loadUsers();\n  }\n\n  loadUsers() {\n    // Simulate API call\n    this.allUsers = [\n      { id: 1, name: 'John Doe', email: 'john.doe@gov.ab.ca', department: 'IT' },\n      { id: 2, name: 'Jane Smith', email: 'jane.smith@gov.ab.ca', department: 'HR' },\n      // ... more users\n    ];\n    this.updateDisplayedUsers();\n  }\n\n  handlePageChange(event: GoabPaginationOnChangeDetail) {\n    this.currentPage = event.page;\n    this.updateDisplayedUsers();\n  }\n\n  handlePageSizeChange(event: GoabDropdownOnChangeDetail) {\n    this.pageSize = Number(event.value);\n    this.currentPage = 1; // Reset to first page\n    this.updateDisplayedUsers();\n  }\n\n  private updateDisplayedUsers() {\n    const startIndex = (this.currentPage - 1) * this.pageSize;\n    const endIndex = startIndex + this.pageSize;\n    this.displayedUsers = this.allUsers.slice(startIndex, endIndex);\n  }\n}"
+        }
+      ],
+      "webComponent": [
+        {
+          "title": "Basic Pagination Usage",
+          "description": "Simple pagination with vanilla JavaScript",
+          "code": "<div id=\"content-list\">\n  <!-- Content items will be populated here -->\n</div>\n\n<goa-pagination \n  id=\"content-pagination\"\n  itemcount=\"150\" \n  pagenumber=\"1\" \n  perpagecount=\"20\"\n  variant=\"all\"\n></goa-pagination>\n\n<script>\n  const pagination = document.getElementById('content-pagination');\n  const contentList = document.getElementById('content-list');\n  let currentData = [];\n  \n  // Sample data\n  const allItems = Array.from({ length: 150 }, (_, i) => ({\n    id: i + 1,\n    title: `Item ${i + 1}`,\n    description: `Description for item ${i + 1}`\n  }));\n\n  // Handle page changes\n  pagination.addEventListener('_change', function(event) {\n    const newPage = event.detail.page;\n    const itemsPerPage = 20;\n    const startIndex = (newPage - 1) * itemsPerPage;\n    const endIndex = startIndex + itemsPerPage;\n    \n    // Update displayed content\n    const pageItems = allItems.slice(startIndex, endIndex);\n    displayItems(pageItems);\n    \n    // Update pagination\n    pagination.setAttribute('pagenumber', newPage.toString());\n  });\n\n  function displayItems(items) {\n    contentList.innerHTML = items.map(item => `\n      <div class=\"content-item\">\n        <h3>${item.title}</h3>\n        <p>${item.description}</p>\n      </div>\n    `).join('');\n  }\n\n  // Initialize with first page\n  displayItems(allItems.slice(0, 20));\n</script>"
+        },
+        {
+          "title": "Links-Only Variant",
+          "description": "Simplified pagination for mobile or simple use cases",
+          "code": "<div class=\"mobile-content\">\n  <div id=\"items-container\">\n    <!-- Items will be loaded here -->\n  </div>\n  \n  <goa-pagination \n    id=\"mobile-pagination\"\n    itemcount=\"75\" \n    pagenumber=\"1\" \n    perpagecount=\"10\"\n    variant=\"links-only\"\n  ></goa-pagination>\n</div>\n\n<script>\n  const mobilePagination = document.getElementById('mobile-pagination');\n  const container = document.getElementById('items-container');\n  \n  mobilePagination.addEventListener('_change', function(event) {\n    const page = event.detail.page;\n    console.log(`Navigated to page ${page}`);\n    \n    // Update page number attribute\n    mobilePagination.setAttribute('pagenumber', page.toString());\n    \n    // Show loading state\n    container.innerHTML = '<div class=\"loading\">Loading...</div>';\n    \n    // Simulate async data loading\n    setTimeout(() => {\n      loadPageData(page);\n    }, 500);\n  });\n  \n  function loadPageData(page) {\n    const itemsPerPage = 10;\n    const startIndex = (page - 1) * itemsPerPage;\n    \n    container.innerHTML = Array.from({ length: itemsPerPage }, (_, i) => {\n      const itemNum = startIndex + i + 1;\n      return `<div class=\"item\">Mobile Item ${itemNum}</div>`;\n    }).join('');\n  }\n  \n  // Load initial page\n  loadPageData(1);\n</script>"
+        }
+      ]
+    },
+
+    "designGuidance": {
+      "whenToUse": [
+        "Large datasets that would overwhelm users if shown all at once",
+        "Tables with more than 25 rows of data",
+        "Search results with multiple pages",
+        "Content listings like articles, products, or directory entries",
+        "Any interface where users need to navigate through sequential content"
+      ],
+      "whenNotToUse": [
+        "Small datasets (less than 25 items) - show all items instead",
+        "Content that benefits from continuous scrolling (like social feeds)",
+        "Real-time data that updates frequently",
+        "Content where users need to see all items to make decisions"
+      ],
+      "responsiveConsiderations": [
+        "Use 'links-only' variant on mobile devices for simpler navigation",
+        "Consider reducing items per page on smaller screens",
+        "Ensure pagination is easily thumb-accessible on touch devices",
+        "Test navigation with both keyboard and touch interactions"
+      ],
+      "contentLayout": [
+        "Position pagination at the bottom of the content it controls",
+        "Align pagination with the content width (usually center-aligned)",
+        "Provide clear context about total items and current position",
+        "Consider adding 'items per page' controls for user flexibility"
+      ]
+    },
+
+    "accessibility": {
+      "keyboardNavigation": [
+        "Tab - Navigate to page dropdown (if visible)",
+        "Tab - Navigate to Previous button",
+        "Tab - Navigate to Next button",
+        "Enter/Space - Activate buttons or dropdown",
+        "Arrow keys - Navigate dropdown options when open"
+      ],
+      "screenReaderSupport": [
+        "Page change events are announced to screen readers",
+        "Navigation buttons indicate current state (enabled/disabled)",
+        "Page context is clearly communicated (\"Page 3 of 10\")",
+        "Total item count provides dataset size context"
+      ],
+      "focusManagement": [
+        "Logical tab order through navigation controls",
+        "Visible focus indicators on all interactive elements",
+        "Focus returns appropriately after page changes"
+      ]
+    },
+
+    "integrationPatterns": [
+      {
+        "name": "Table Pagination",
+        "description": "Standard pattern for paginating table data",
+        "usage": "Place pagination below table, aligned with table width",
+        "considerations": "Include items per page selector and total count display"
+      },
+      {
+        "name": "Search Results",
+        "description": "Pagination for search and filter results",
+        "usage": "Show result count context and maintain search parameters across pages",
+        "considerations": "Handle loading states and empty results gracefully"
+      },
+      {
+        "name": "Content Grid",
+        "description": "Pagination for card-based or grid layouts",
+        "usage": "Center-align pagination and consider mobile layout adjustments",
+        "considerations": "Optimize page size for grid layout and screen size"
+      }
+    ],
+
+    "relatedComponents": [
+      {
+        "name": "GoabTable",
+        "relationship": "Primary integration component",
+        "usage": "Most commonly used together for data table navigation",
+        "example": "Employee directories, data reports, content management"
+      },
+      {
+        "name": "GoabDropdown",
+        "relationship": "Complementary for page size selection",
+        "usage": "Often used alongside pagination for items-per-page controls",
+        "example": "\"Show 10/25/50 items per page\" dropdown"
+      },
+      {
+        "name": "GoabBlock",
+        "relationship": "Layout container",
+        "usage": "Use Block for alignment and spacing around pagination",
+        "example": "Center-align pagination with proper spacing from content"
+      },
+      {
+        "name": "GoabSpacer",
+        "relationship": "Layout spacing utility",
+        "usage": "Add consistent spacing between content and pagination",
+        "example": "Vertical spacing between table and pagination controls"
+      }
+    ],
+
+    "troubleshooting": {
+      "commonIssues": [
+        {
+          "issue": "Pagination not updating when data changes",
+          "cause": "Not recalculating page count when itemCount changes",
+          "solution": "Ensure pageNumber is reset when itemCount or perPageCount changes",
+          "example": "// Reset to page 1 when changing page size\nsetCurrentPage(1);\nsetPageSize(newSize);"
+        },
+        {
+          "issue": "Page number out of range errors",
+          "cause": "pageNumber prop exceeds calculated total pages",
+          "solution": "Validate pageNumber against Math.ceil(itemCount / perPageCount)",
+          "example": "const maxPage = Math.ceil(itemCount / perPageCount);\nconst validPage = Math.min(Math.max(1, pageNumber), maxPage);"
+        },
+        {
+          "issue": "onChange event not firing in React",
+          "cause": "Missing or incorrectly defined onChange handler",
+          "solution": "Ensure onChange prop is a function that accepts page number",
+          "example": "const handlePageChange = (page) => {\n  setCurrentPage(page);\n  // Fetch new data for this page\n};"
+        },
+        {
+          "issue": "Poor mobile experience with default variant",
+          "cause": "Page dropdown is difficult to use on touch devices",
+          "solution": "Use 'links-only' variant on mobile or smaller screens",
+          "example": "variant={isMobile ? 'links-only' : 'all'}"
+        },
+        {
+          "issue": "Loading states not handled during page changes",
+          "cause": "No visual feedback during async data fetching",
+          "solution": "Show loading indicators and disable pagination during fetches",
+          "example": "Show spinner or skeleton while loading new page data"
+        }
+      ],
+      "performanceTips": [
+        "Debounce rapid page changes if using async data fetching",
+        "Consider virtual scrolling for very large datasets (1000+ items)",
+        "Cache recently viewed pages to improve navigation performance",
+        "Use server-side pagination for datasets larger than a few hundred items"
+      ]
+    },
+
+    "performanceConsiderations": [
+      "Pagination component itself is lightweight with minimal rendering overhead",
+      "Performance depends on how data is fetched and rendered for each page",
+      "Consider server-side pagination for large datasets to reduce client memory usage",
+      "Implement loading states to improve perceived performance during page changes"
+    ],
+
+    "commonMistakes": [
+      {
+        "mistake": "Not recalculating total pages when itemCount changes",
+        "why": "Leads to invalid page numbers and broken navigation",
+        "instead": "Always recalculate page bounds when data changes and reset to valid page",
+        "example": "// ❌ Wrong - no page validation\nsetItemCount(newData.length);\n// pageNumber might now be invalid\n\n// ✅ Correct - validate and reset page\nconst newItemCount = newData.length;\nconst maxPage = Math.ceil(newItemCount / perPageCount);\nsetItemCount(newItemCount);\nsetPageNumber(Math.min(pageNumber, maxPage));"
+      },
+      {
+        "mistake": "Using client-side pagination for large datasets",
+        "why": "Loads all data into memory causing performance issues and poor UX",
+        "instead": "Implement server-side pagination for datasets larger than 100-200 items",
+        "example": "// ❌ Wrong - all data in client\nconst allData = await fetchAllRecords(); // 10,000 items\nconst pageData = allData.slice(startIndex, endIndex);\n\n// ✅ Correct - server-side pagination\nconst response = await fetch(`/api/data?page=${page}&size=${pageSize}`);\nconst { data, total } = await response.json();"
+      },
+      {
+        "mistake": "Not handling loading states during page changes",
+        "why": "Users don't know if their navigation worked, leading to repeated clicks",
+        "instead": "Show loading indicators and disable pagination during data fetching",
+        "example": "// ❌ Wrong - no loading feedback\nconst handlePageChange = (page) => {\n  setCurrentPage(page);\n  fetchData(page);\n};\n\n// ✅ Correct - loading state management\nconst handlePageChange = async (page) => {\n  setLoading(true);\n  setCurrentPage(page);\n  try {\n    await fetchData(page);\n  } finally {\n    setLoading(false);\n  }\n};"
+      },
+      {
+        "mistake": "Using zero-based page numbers when component expects one-based",
+        "why": "Component shows wrong page numbers and navigation breaks",
+        "instead": "Always use 1-based page numbers for component props",
+        "example": "// ❌ Wrong - zero-based indexing\nconst currentPage = 0; // First page\n<GoabPagination pageNumber={currentPage} /> // Shows \"Page 0\"\n\n// ✅ Correct - one-based indexing\nconst currentPage = 1; // First page\n<GoabPagination pageNumber={currentPage} /> // Shows \"Page 1\""
+      },
+      {
+        "mistake": "Not using appropriate variant for mobile devices",
+        "why": "Page dropdown is difficult to use on touch devices",
+        "instead": "Use 'links-only' variant on mobile or provide responsive variant switching",
+        "example": "// ❌ Wrong - always use full variant\n<GoabPagination variant=\"all\" />\n\n// ✅ Correct - responsive variant\nconst isMobile = useMediaQuery('(max-width: 768px)');\n<GoabPagination variant={isMobile ? 'links-only' : 'all'} />"
+      }
+    ],
+
+    "frameworkNotes": {
+      "propCasing": "React uses camelCase (pageNumber, itemCount, perPageCount, onChange), web components use lowercase (pagenumber, itemcount, perpagecount, onchange), Angular uses camelCase in templates",
+      "slotHandling": "No slot content - pagination is self-contained. All configuration through props",
+      "constraints": "Requires itemCount, pageNumber, and onChange props. PageNumber must be 1-based. ItemCount must be non-negative. PerPageCount must be positive integer",
+      "responsiveBehavior": "Component adapts layout for different screen sizes, but variant selection is manual. Use 'links-only' for mobile, 'all' for desktop"
+    },
+
+    "tags": ["navigation", "pagination", "table", "data"],
+    "category": "component",
+    "status": "stable",
+    "lastUpdated": "2025-06-27",
+    "derivedFrom": {
+      "maintainerVersion": "../maintainer/pagination.json",
+      "note": "See maintainer version for implementation details and development information"
+    }
+  }
+}

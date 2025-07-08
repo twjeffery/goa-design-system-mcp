@@ -1,0 +1,393 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "IconButton",
+  "customElement": "goa-icon-button",
+  "summary": "Compact interactive button displaying only an icon, perfect for universal actions and space-constrained interfaces",
+  
+  "customElement": {
+    "tagName": "goa-icon-button",
+    "className": "goa-icon-button"
+  },
+
+  "playgroundExamples": {
+    "react": [
+      {
+        "title": "All Variants Showcase",
+        "description": "Demonstrates all available variants (color, light, dark, destructive) across different sizes with disabled states",
+        "code": "<GoabBlock gap=\"xl\" mb=\"xl\" direction=\"column\">\n  {/* Color variant examples */}\n  <GoabBlock>\n    <GoabIconButton\n      variant=\"color\"\n      size=\"medium\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n    />\n    <GoabIconButton\n      variant=\"color\"\n      size=\"large\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n    />\n    <GoabIconButton\n      variant=\"color\"\n      size=\"xlarge\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n    />\n    <GoabIconButton\n      variant=\"color\"\n      size=\"xlarge\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n      disabled={true}\n    />\n  </GoabBlock>\n  \n  {/* Light variant on dark background */}\n  <div style={{ backgroundColor: \"#2F2F2F\", padding: \"8px\" }}>\n    <GoabBlock>\n      <GoabIconButton\n        variant=\"light\"\n        size=\"medium\"\n        icon=\"refresh\"\n        ariaLabel=\"Refresh icon\"\n      />\n      <GoabIconButton\n        variant=\"light\"\n        size=\"large\"\n        icon=\"refresh\"\n        ariaLabel=\"Refresh icon\"\n      />\n      <GoabIconButton\n        variant=\"light\"\n        size=\"xlarge\"\n        icon=\"refresh\"\n        ariaLabel=\"Refresh icon\"\n      />\n      <GoabIconButton\n        variant=\"light\"\n        size=\"xlarge\"\n        icon=\"refresh\"\n        ariaLabel=\"Refresh icon\"\n        disabled={true}\n      />\n    </GoabBlock>\n  </div>\n  \n  {/* Dark variant examples */}\n  <GoabBlock>\n    <GoabIconButton\n      variant=\"dark\"\n      size=\"medium\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n    />\n    <GoabIconButton\n      variant=\"dark\"\n      size=\"large\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n    />\n    <GoabIconButton\n      variant=\"dark\"\n      size=\"xlarge\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n    />\n    <GoabIconButton\n      variant=\"dark\"\n      size=\"xlarge\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n      disabled={true}\n    />\n  </GoabBlock>\n  \n  {/* Destructive variant examples */}\n  <GoabBlock>\n    <GoabIconButton\n      variant=\"destructive\"\n      size=\"medium\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n    />\n    <GoabIconButton\n      variant=\"destructive\"\n      size=\"large\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n    />\n    <GoabIconButton\n      variant=\"destructive\"\n      size=\"xlarge\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n    />\n    <GoabIconButton\n      variant=\"destructive\"\n      size=\"xlarge\"\n      icon=\"refresh\"\n      ariaLabel=\"Refresh icon\"\n      disabled={true}\n    />\n  </GoabBlock>\n</GoabBlock>",
+        "notes": [
+          "Shows visual progression from medium to xlarge sizes",
+          "Demonstrates disabled state behavior across all variants",
+          "Light variant example includes dark background container for proper contrast",
+          "Each button maintains proper aria-label for accessibility",
+          "Uses GoabBlock for consistent spacing and layout"
+        ]
+      },
+      {
+        "title": "Size Comparison",
+        "description": "Side-by-side comparison of all available sizes for the same variant",
+        "code": "<GoabBlock gap=\"s\" alignment=\"center\">\n  <GoabIconButton\n    variant=\"color\"\n    size=\"small\"\n    icon=\"settings\"\n    ariaLabel=\"Settings - Small\"\n  />\n  <GoabIconButton\n    variant=\"color\"\n    size=\"medium\"\n    icon=\"settings\"\n    ariaLabel=\"Settings - Medium\"\n  />\n  <GoabIconButton\n    variant=\"color\"\n    size=\"large\"\n    icon=\"settings\"\n    ariaLabel=\"Settings - Large\"\n  />\n  <GoabIconButton\n    variant=\"color\"\n    size=\"xlarge\"\n    icon=\"settings\"\n    ariaLabel=\"Settings - Extra Large\"\n  />\n</GoabBlock>",
+        "notes": [
+          "Use small for compact interfaces like table rows",
+          "Medium is the default and most commonly used size",
+          "Large for prominent secondary actions",
+          "XLarge for featured actions or accessibility needs"
+        ]
+      },
+      {
+        "title": "Variant Color Comparison",
+        "description": "Same icon and size across all color variants to show visual differences",
+        "code": "<GoabBlock gap=\"m\" direction=\"column\">\n  <GoabBlock gap=\"s\">\n    <GoabIconButton\n      variant=\"primary\"\n      size=\"large\"\n      icon=\"download\"\n      ariaLabel=\"Download - Primary\"\n    />\n    <GoabIconButton\n      variant=\"secondary\"\n      size=\"large\"\n      icon=\"download\"\n      ariaLabel=\"Download - Secondary\"\n    />\n    <GoabIconButton\n      variant=\"tertiary\"\n      size=\"large\"\n      icon=\"download\"\n      ariaLabel=\"Download - Tertiary\"\n    />\n  </GoabBlock>\n  \n  <GoabBlock gap=\"s\">\n    <GoabIconButton\n      variant=\"destructive\"\n      size=\"large\"\n      icon=\"trash\"\n      ariaLabel=\"Delete - Destructive\"\n    />\n    <GoabIconButton\n      variant=\"dark\"\n      size=\"large\"\n      icon=\"create\"\n      ariaLabel=\"Edit - Dark\"\n    />\n  </GoabBlock>\n  \n  {/* Light variant on dark background */}\n  <div style={{ backgroundColor: \"#2F2F2F\", padding: \"12px\", borderRadius: \"4px\" }}>\n    <GoabIconButton\n      variant=\"light\"\n      size=\"large\"\n      icon=\"close\"\n      ariaLabel=\"Close - Light\"\n    />\n  </div>\n</GoabBlock>",
+        "notes": [
+          "Primary variant for main actions",
+          "Secondary for supporting actions", 
+          "Tertiary for subtle actions like modal close",
+          "Destructive specifically for delete/remove actions",
+          "Dark variant for light backgrounds",
+          "Light variant only on dark backgrounds for proper contrast"
+        ]
+      },
+      {
+        "title": "Disabled State Examples",
+        "description": "Shows how disabled state affects appearance across variants",
+        "code": "<GoabBlock gap=\"m\" direction=\"column\">\n  <GoabBlock gap=\"s\">\n    <span>Enabled:</span>\n    <GoabIconButton\n      variant=\"primary\"\n      size=\"medium\"\n      icon=\"save\"\n      ariaLabel=\"Save\"\n    />\n    <GoabIconButton\n      variant=\"secondary\"\n      size=\"medium\"\n      icon=\"save\"\n      ariaLabel=\"Save\"\n    />\n    <GoabIconButton\n      variant=\"destructive\"\n      size=\"medium\"\n      icon=\"trash\"\n      ariaLabel=\"Delete\"\n    />\n  </GoabBlock>\n  \n  <GoabBlock gap=\"s\">\n    <span>Disabled:</span>\n    <GoabIconButton\n      variant=\"primary\"\n      size=\"medium\"\n      icon=\"save\"\n      ariaLabel=\"Save\"\n      disabled={true}\n    />\n    <GoabIconButton\n      variant=\"secondary\"\n      size=\"medium\"\n      icon=\"save\"\n      ariaLabel=\"Save\"\n      disabled={true}\n    />\n    <GoabIconButton\n      variant=\"destructive\"\n      size=\"medium\"\n      icon=\"trash\"\n      ariaLabel=\"Delete\"\n      disabled={true}\n    />\n  </GoabBlock>\n</GoabBlock>",
+        "notes": [
+          "Disabled buttons maintain their shape but appear muted",
+          "Disabled state prevents all user interaction",
+          "Use when action is temporarily unavailable",
+          "Ensure aria-label still explains the intended action"
+        ]
+      },
+      {
+        "title": "Common Icon Usage",
+        "description": "Real-world icon choices for different action types",
+        "code": "<GoabBlock gap=\"l\" direction=\"column\">\n  {/* File operations */}\n  <div>\n    <h4>File Operations:</h4>\n    <GoabBlock gap=\"s\">\n      <GoabIconButton\n        variant=\"secondary\"\n        size=\"medium\"\n        icon=\"download\"\n        ariaLabel=\"Download file\"\n      />\n      <GoabIconButton\n        variant=\"secondary\"\n        size=\"medium\"\n        icon=\"create\"\n        ariaLabel=\"Edit file\"\n      />\n      <GoabIconButton\n        variant=\"destructive\"\n        size=\"medium\"\n        icon=\"trash\"\n        ariaLabel=\"Delete file\"\n      />\n      <GoabIconButton\n        variant=\"secondary\"\n        size=\"medium\"\n        icon=\"copy\"\n        ariaLabel=\"Copy file\"\n      />\n    </GoabBlock>\n  </div>\n  \n  {/* Navigation */}\n  <div>\n    <h4>Navigation:</h4>\n    <GoabBlock gap=\"s\">\n      <GoabIconButton\n        variant=\"secondary\"\n        size=\"medium\"\n        icon=\"arrow-back\"\n        ariaLabel=\"Go back\"\n      />\n      <GoabIconButton\n        variant=\"secondary\"\n        size=\"medium\"\n        icon=\"arrow-forward\"\n        ariaLabel=\"Go forward\"\n      />\n      <GoabIconButton\n        variant=\"secondary\"\n        size=\"medium\"\n        icon=\"home\"\n        ariaLabel=\"Go to home\"\n      />\n      <GoabIconButton\n        variant=\"tertiary\"\n        size=\"medium\"\n        icon=\"close\"\n        ariaLabel=\"Close panel\"\n      />\n    </GoabBlock>\n  </div>\n  \n  {/* Media controls */}\n  <div>\n    <h4>Media Controls:</h4>\n    <GoabBlock gap=\"s\">\n      <GoabIconButton\n        variant=\"primary\"\n        size=\"medium\"\n        icon=\"play\"\n        ariaLabel=\"Play video\"\n      />\n      <GoabIconButton\n        variant=\"secondary\"\n        size=\"medium\"\n        icon=\"pause\"\n        ariaLabel=\"Pause video\"\n      />\n      <GoabIconButton\n        variant=\"secondary\"\n        size=\"medium\"\n        icon=\"stop\"\n        ariaLabel=\"Stop video\"\n      />\n      <GoabIconButton\n        variant=\"secondary\"\n        size=\"medium\"\n        icon=\"refresh\"\n        ariaLabel=\"Refresh content\"\n      />\n    </GoabBlock>\n  </div>\n</GoabBlock>",
+        "notes": [
+          "Use universally recognized icons for better usability",
+          "Group related actions together visually",
+          "Destructive variant only for truly destructive actions",
+          "Primary variant sparingly for the most important action"
+        ]
+      }
+    ]
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Ionicons library", "Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabIconButton } from '@abgov/react-components'",
+      "quickExample": "<GoabIconButton \n  icon=\"create\" \n  ariaLabel=\"Edit item\" \n  onClick={handleEdit} \n/>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-icon-button \n  icon=\"create\" \n  ariaLabel=\"Edit item\" \n  (clickEvent)=\"handleEdit()\">\n</goab-icon-button>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-icon-button \n  icon=\"create\" \n  aria-label=\"Edit item\">\n</goa-icon-button>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "icon",
+        "type": "string (ionicon name)",
+        "required": true,
+        "description": "The icon to display in the button",
+        "usage": "Use universally understood icons like 'create', 'trash', 'close', 'download'"
+      },
+      {
+        "name": "variant",
+        "type": "primary | secondary | tertiary | destructive | dark | light",
+        "default": "primary",
+        "required": false,
+        "description": "Visual style of the icon button",
+        "usage": "primary for main actions, secondary for supporting actions, destructive for delete/remove"
+      },
+      {
+        "name": "size",
+        "type": "small | medium | large | xlarge",
+        "default": "medium",
+        "required": false,
+        "description": "Size of the icon button",
+        "usage": "medium for most cases, small for compact layouts, large for prominent actions"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Prevents interaction with the button",
+        "usage": "Use when the action is not available due to permissions or state"
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": true,
+        "description": "Accessible label describing what the button does",
+        "usage": "CRITICAL: Always provide clear, descriptive text like 'Edit user' or 'Delete item'"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Data attribute for testing and automation",
+        "usage": "Set unique identifier for testing specific icon buttons"
+      }
+    ],
+    "events": [
+      {
+        "name": "onClick",
+        "framework": "React",
+        "description": "Fired when button is clicked",
+        "signature": "(event: MouseEvent) => void"
+      },
+      {
+        "name": "clickEvent",
+        "framework": "Angular", 
+        "description": "Fired when button is clicked",
+        "signature": "$event: MouseEvent"
+      },
+      {
+        "name": "_click",
+        "framework": "Web Component",
+        "description": "Custom event fired when button is clicked",
+        "signature": "detail: undefined"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Table Row Actions",
+          "description": "Standard CRUD operations in data tables",
+          "code": "function UserTable({ users, onEdit, onDelete }) {\n  return (\n    <table>\n      <thead>\n        <tr>\n          <th>Name</th>\n          <th>Email</th>\n          <th>Actions</th>\n        </tr>\n      </thead>\n      <tbody>\n        {users.map(user => (\n          <tr key={user.id}>\n            <td>{user.name}</td>\n            <td>{user.email}</td>\n            <td>\n              <GoabButtonGroup gap=\"xs\">\n                <GoabIconButton\n                  icon=\"create\"\n                  variant=\"secondary\"\n                  size=\"small\"\n                  ariaLabel={`Edit ${user.name}`}\n                  onClick={() => onEdit(user.id)}\n                  testId={`edit-user-${user.id}`}\n                />\n                <GoabIconButton\n                  icon=\"trash\"\n                  variant=\"destructive\"\n                  size=\"small\"\n                  ariaLabel={`Delete ${user.name}`}\n                  onClick={() => onDelete(user.id)}\n                  testId={`delete-user-${user.id}`}\n                />\n              </GoabButtonGroup>\n            </td>\n          </tr>\n        ))}\n      </tbody>\n    </table>\n  );\n}"
+        },
+        {
+          "title": "Modal with Close Button",
+          "description": "Standard modal header with close action",
+          "code": "function ConfirmationModal({ isOpen, onClose, onConfirm, title, message }) {\n  return (\n    <GoabModal open={isOpen}>\n      <GoabModalHeader>\n        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>\n          <h2>{title}</h2>\n          <GoabIconButton\n            icon=\"close\"\n            variant=\"tertiary\"\n            ariaLabel=\"Close dialog\"\n            onClick={onClose}\n            testId=\"modal-close\"\n          />\n        </div>\n      </GoabModalHeader>\n      <GoabModalBody>\n        <p>{message}</p>\n      </GoabModalBody>\n      <GoabButtonGroup alignment=\"end\">\n        <GoabButton type=\"secondary\" onClick={onClose}>\n          Cancel\n        </GoabButton>\n        <GoabButton type=\"primary\" onClick={onConfirm}>\n          Confirm\n        </GoabButton>\n      </GoabButtonGroup>\n    </GoabModal>\n  );\n}"
+        },
+        {
+          "title": "Document Card Actions",
+          "description": "Compact actions for card components",
+          "code": "function DocumentCard({ document, onDownload, onShare, onDelete }) {\n  const [showMenu, setShowMenu] = useState(false);\n\n  return (\n    <GoabCard>\n      <GoabCardHeader>\n        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>\n          <div>\n            <h3>{document.title}</h3>\n            <p>{document.description}</p>\n          </div>\n          <GoabButtonGroup gap=\"xs\">\n            <GoabIconButton\n              icon=\"download\"\n              variant=\"secondary\"\n              ariaLabel={`Download ${document.title}`}\n              onClick={() => onDownload(document.id)}\n            />\n            <GoabIconButton\n              icon=\"share\"\n              variant=\"secondary\"\n              ariaLabel={`Share ${document.title}`}\n              onClick={() => onShare(document.id)}\n            />\n            <GoabIconButton\n              icon=\"ellipsis-vertical\"\n              variant=\"tertiary\"\n              ariaLabel=\"More actions\"\n              onClick={() => setShowMenu(!showMenu)}\n            />\n          </GoabButtonGroup>\n        </div>\n      </GoabCardHeader>\n      <GoabCardBody>\n        <p>Last modified: {document.lastModified}</p>\n        <p>Size: {document.size}</p>\n      </GoabCardBody>\n    </GoabCard>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "File Manager Actions",
+          "description": "File operations with permission-based disabling",
+          "code": "export class FileManagerComponent {\n  files = [\n    { id: 1, name: 'document.pdf', canEdit: true, canDelete: false },\n    { id: 2, name: 'image.jpg', canEdit: true, canDelete: true }\n  ];\n\n  downloadFile(fileId: number) {\n    console.log('Downloading file:', fileId);\n  }\n\n  editFile(fileId: number) {\n    console.log('Editing file:', fileId);\n  }\n\n  deleteFile(fileId: number) {\n    console.log('Deleting file:', fileId);\n  }\n}\n\n<!-- Template -->\n<div class=\"file-list\">\n  <div *ngFor=\"let file of files\" class=\"file-item\">\n    <span>{{ file.name }}</span>\n    <goab-button-group gap=\"xs\">\n      <goab-icon-button\n        icon=\"download\"\n        variant=\"secondary\"\n        [ariaLabel]=\"'Download ' + file.name\"\n        (clickEvent)=\"downloadFile(file.id)\">\n      </goab-icon-button>\n      \n      <goab-icon-button\n        icon=\"create\"\n        variant=\"secondary\"\n        [disabled]=\"!file.canEdit\"\n        [ariaLabel]=\"'Edit ' + file.name\"\n        (clickEvent)=\"editFile(file.id)\">\n      </goab-icon-button>\n      \n      <goab-icon-button\n        icon=\"trash\"\n        variant=\"destructive\"\n        [disabled]=\"!file.canDelete\"\n        [ariaLabel]=\"'Delete ' + file.name\"\n        (clickEvent)=\"deleteFile(file.id)\">\n      </goab-icon-button>\n    </goab-button-group>\n  </div>\n</div>"
+        },
+        {
+          "title": "Toolbar with Multiple Actions",
+          "description": "Document editor toolbar with formatting actions",
+          "code": "export class DocumentEditorComponent {\n  isBold = false;\n  isItalic = false;\n  isUnderlined = false;\n\n  toggleBold() {\n    this.isBold = !this.isBold;\n    // Apply bold formatting\n  }\n\n  toggleItalic() {\n    this.isItalic = !this.isItalic;\n    // Apply italic formatting\n  }\n\n  toggleUnderline() {\n    this.isUnderlined = !this.isUnderlined;\n    // Apply underline formatting\n  }\n\n  insertLink() {\n    // Show link dialog\n  }\n\n  insertImage() {\n    // Show image upload dialog\n  }\n}\n\n<!-- Template -->\n<div class=\"editor-toolbar\">\n  <goab-button-group gap=\"xs\">\n    <!-- Text formatting -->\n    <goab-icon-button\n      icon=\"text-bold\"\n      [variant]=\"isBold ? 'primary' : 'secondary'\"\n      ariaLabel=\"Bold text\"\n      (clickEvent)=\"toggleBold()\">\n    </goab-icon-button>\n    \n    <goab-icon-button\n      icon=\"text-italic\"\n      [variant]=\"isItalic ? 'primary' : 'secondary'\"\n      ariaLabel=\"Italic text\"\n      (clickEvent)=\"toggleItalic()\">\n    </goab-icon-button>\n    \n    <goab-icon-button\n      icon=\"text-underline\"\n      [variant]=\"isUnderlined ? 'primary' : 'secondary'\"\n      ariaLabel=\"Underline text\"\n      (clickEvent)=\"toggleUnderline()\">\n    </goab-icon-button>\n  </goab-button-group>\n  \n  <goab-button-group gap=\"xs\">\n    <!-- Insert actions -->\n    <goab-icon-button\n      icon=\"link\"\n      variant=\"secondary\"\n      ariaLabel=\"Insert link\"\n      (clickEvent)=\"insertLink()\">\n    </goab-icon-button>\n    \n    <goab-icon-button\n      icon=\"image\"\n      variant=\"secondary\"\n      ariaLabel=\"Insert image\"\n      (clickEvent)=\"insertImage()\">\n    </goab-icon-button>\n  </goab-button-group>\n</div>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Table Row Actions",
+        "description": "Edit, delete, and view actions for data rows",
+        "usage": "Use small size and secondary/destructive variants",
+        "code": "<GoabButtonGroup gap=\"xs\">\n  <GoabIconButton icon=\"eye\" variant=\"secondary\" ariaLabel=\"View details\" />\n  <GoabIconButton icon=\"create\" variant=\"secondary\" ariaLabel=\"Edit item\" />\n  <GoabIconButton icon=\"trash\" variant=\"destructive\" ariaLabel=\"Delete item\" />\n</GoabButtonGroup>"
+      },
+      {
+        "name": "Modal Close Button",
+        "description": "Standard close action for modals and dialogs",
+        "usage": "Use tertiary variant in modal headers",
+        "code": "<GoabIconButton \n  icon=\"close\" \n  variant=\"tertiary\" \n  ariaLabel=\"Close dialog\" \n  onClick={onClose} \n/>"
+      },
+      {
+        "name": "Compact Toolbar",
+        "description": "Space-efficient action groups",
+        "usage": "Use small size with xs gap between buttons",
+        "code": "<GoabButtonGroup gap=\"xs\">\n  <GoabIconButton icon=\"copy\" size=\"small\" ariaLabel=\"Copy\" />\n  <GoabIconButton icon=\"share\" size=\"small\" ariaLabel=\"Share\" />\n  <GoabIconButton icon=\"bookmark\" size=\"small\" ariaLabel=\"Bookmark\" />\n</GoabButtonGroup>"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Actions that are universally understood (edit, delete, close, download)",
+      "Space-constrained interfaces (table rows, toolbars, cards)",
+      "Secondary actions that don't need prominent text",
+      "Repeated actions in lists or grids",
+      "Quick actions that users perform frequently"
+    ],
+    "whenNotToUse": [
+      "Actions that are not universally understood (use Button with text)",
+      "Primary call-to-action buttons (use Button instead)",
+      "Navigation actions (use Link or navigation components)",
+      "Complex actions that need explanation",
+      "Citizen-facing applications where icon meaning may be unclear"
+    ],
+    "bestPractices": [
+      "ALWAYS provide meaningful aria-label text",
+      "Use universally recognized icons (create, trash, close, download)",
+      "Limit to 3-4 icon buttons in a group for usability",
+      "Use consistent sizing within the same context",
+      "Consider providing tooltips for non-obvious actions",
+      "Group related actions using ButtonGroup component",
+      "Use appropriate variants (destructive for delete actions)"
+    ],
+    "accessibility": [
+      "aria-label is required - never omit this prop",
+      "Use descriptive labels that explain the action ('Edit user John' not just 'Edit')",
+      "Ensure sufficient color contrast for all variants",
+      "Provide 44px minimum touch targets on mobile",
+      "Test with keyboard navigation (Tab, Enter, Space)",
+      "Test with screen readers to verify clear announcements"
+    ]
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "issue": "Icon not displaying",
+        "cause": "Invalid icon name or ionicons not loaded",
+        "solution": "Verify the icon name exists in ionicons library and that ionicons is properly imported in your project"
+      },
+      {
+        "issue": "Button not accessible to screen readers",
+        "cause": "Missing or insufficient aria-label",
+        "solution": "Always provide descriptive aria-label text that explains what the button does in context"
+      },
+      {
+        "issue": "Click events not firing",
+        "cause": "Missing event handler or incorrect event binding",
+        "solution": "Ensure onClick (React) or clickEvent (Angular) handlers are properly bound to your component methods"
+      },
+      {
+        "issue": "Buttons not aligned properly in groups",
+        "cause": "Inconsistent sizing or missing ButtonGroup wrapper",
+        "solution": "Use ButtonGroup component with consistent size props on all icon buttons"
+      },
+      {
+        "issue": "Icons too small/large for context",
+        "cause": "Inappropriate size selection",
+        "solution": "Use 'small' for compact layouts like tables, 'medium' for general use, 'large' for prominent actions"
+      },
+      {
+        "issue": "Poor usability on mobile devices",
+        "cause": "Touch targets too small",
+        "solution": "Ensure adequate spacing between buttons and consider larger sizes for mobile interfaces"
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabButton",
+      "relationship": "Alternative with text content",
+      "usage": "Use Button when the action needs text clarification or for primary CTAs",
+      "example": "Submit forms, primary actions, unclear icons"
+    },
+    {
+      "name": "GoabButtonGroup",
+      "relationship": "Container for multiple icon buttons",
+      "usage": "Essential for grouping related icon button actions with proper spacing",
+      "example": "Table row actions, toolbars, card actions"
+    },
+    {
+      "name": "GoabTable",
+      "relationship": "Common usage context",
+      "usage": "Icon buttons provide standard CRUD operations for table rows",
+      "example": "Edit, delete, view actions in data tables"
+    },
+    {
+      "name": "GoabModal",
+      "relationship": "Standard close button",
+      "usage": "Icon buttons provide close/dismiss actions in modal headers",
+      "example": "Close dialogs, dismiss notifications"
+    },
+    {
+      "name": "GoabCard",
+      "relationship": "Compact actions",
+      "usage": "Icon buttons provide space-efficient actions in card headers or footers",
+      "example": "Document actions, user profile actions"
+    }
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Missing or inadequate aria-label",
+      "why": "Icon buttons are not accessible to screen reader users without proper labels",
+      "instead": "Always provide descriptive aria-label that explains the action",
+      "example": "// ❌ Wrong\n<GoabIconButton icon=\"create\" onClick={handleEdit} />\n\n// ✅ Correct\n<GoabIconButton \n  icon=\"create\" \n  ariaLabel=\"Edit user profile\" \n  onClick={handleEdit} \n/>"
+    },
+    {
+      "mistake": "Using for non-universal actions",
+      "why": "Users may not understand what obscure icons do, leading to poor UX",
+      "instead": "Use Button with text for unclear actions, reserve IconButton for universally understood actions",
+      "example": "// ❌ Wrong - unclear action\n<GoabIconButton \n  icon=\"analytics\" \n  ariaLabel=\"Generate advanced analytics report\"\n  onClick={generateReport} \n/>\n\n// ✅ Correct\n<GoabButton \n  leadingIcon=\"analytics\" \n  onClick={generateReport}\n>\n  Generate Report\n</GoabButton>"
+    },
+    {
+      "mistake": "Using in citizen-facing applications without context",
+      "why": "Citizens may not be familiar with internal government icons or actions",
+      "instead": "Provide text labels or use full buttons for citizen-facing interfaces",
+      "example": "// ❌ Wrong - citizen portal\n<GoabIconButton \n  icon=\"document-text\" \n  ariaLabel=\"View application status\" \n/>\n\n// ✅ Correct\n<GoabButton \n  leadingIcon=\"document-text\"\n  onClick={viewStatus}\n>\n  View Status\n</GoabButton>"
+    },
+    {
+      "mistake": "Inconsistent sizing within the same context",
+      "why": "Mixed sizes create visual chaos and poor alignment",
+      "instead": "Use consistent sizes within related groups or contexts",
+      "example": "// ❌ Wrong\n<GoabButtonGroup>\n  <GoabIconButton icon=\"edit\" size=\"small\" />\n  <GoabIconButton icon=\"delete\" size=\"large\" />\n</GoabButtonGroup>\n\n// ✅ Correct\n<GoabButtonGroup>\n  <GoabIconButton icon=\"edit\" size=\"small\" ariaLabel=\"Edit\" />\n  <GoabIconButton icon=\"delete\" size=\"small\" ariaLabel=\"Delete\" />\n</GoabButtonGroup>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": "React uses camelCase (ariaLabel, testId) while web components use kebab-case (aria-label, testid)",
+    "slotHandling": "IconButton does not use slots/children - content is determined by icon prop",
+    "constraints": "ariaLabel is required for accessibility; icon must be valid ionicon name",
+    "responsiveBehavior": "IconButtons maintain appropriate touch targets (44px minimum) on mobile devices"
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate to icon button",
+      "Enter - Activate button",
+      "Space - Activate button",
+      "Shift+Tab - Navigate backwards"
+    ],
+    "screenReader": [
+      "Button role is announced",
+      "aria-label text is read aloud (critical for understanding)",
+      "Disabled state is announced when applicable",
+      "Context should be clear from the label"
+    ],
+    "focusManagement": [
+      "Visible focus indicators (focus ring)",
+      "Logical tab order through button groups",
+      "Focus returns appropriately after action completion"
+    ]
+  },
+
+  "performanceConsiderations": [
+    "IconButtons are lightweight with minimal rendering overhead",
+    "Icon loading depends on ionicons being properly cached",
+    "Multiple icon buttons in groups render efficiently",
+    "Event handlers should be optimized for frequent interactions",
+    "Consider debouncing rapid-fire actions like bulk operations"
+  ],
+
+  "tags": ["interactive", "button", "icon", "compact", "action", "space-saving", "accessible"],
+  "category": "component",
+  "status": "stable", 
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/icon-button.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

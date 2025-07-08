@@ -1,0 +1,444 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Dropdown",
+  "customElement": {
+    "tagName": "goa-dropdown",
+    "className": "GoabDropdown"
+  },
+  "summary": "Selection component that allows users to choose from a list of predefined options with search capabilities",
+  "purpose": "Provide an intuitive way to select from multiple options while saving screen space",
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system", "Form components"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabDropdown, GoabDropdownItem } from '@abgov/react-components'",
+      "quickExample": "<GoabDropdown><GoabDropdownItem value=\"option1\">Option 1</GoabDropdownItem></GoabDropdown>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goa-dropdown><goa-dropdown-item value=\"option1\">Option 1</goa-dropdown-item></goa-dropdown>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-dropdown><goa-dropdown-item value=\"option1\">Option 1</goa-dropdown-item></goa-dropdown>"
+    }
+  },
+
+  "playgroundExamples": {
+    "basic": {
+      "title": "Basic Dropdown",
+      "description": "Standard dropdown with placeholder and basic options",
+      "interactiveProps": ["placeholder", "value"],
+      "react": {
+        "code": "function BasicDropdown() {\n  const [selectedValue, setSelectedValue] = useState('');\n\n  function handleChange(event) {\n    setSelectedValue(event.value);\n  }\n\n  return (\n    <GoabFormItem label=\"Basic dropdown\">\n      <GoabDropdown\n        placeholder=\"—Select—\"\n        name=\"basicItem\"\n        value={selectedValue}\n        onChange={handleChange}\n      >\n        <GoabDropdownItem value=\"red\" label=\"Red\"></GoabDropdownItem>\n        <GoabDropdownItem value=\"green\" label=\"Green\"></GoabDropdownItem>\n        <GoabDropdownItem value=\"blue\" label=\"Blue\"></GoabDropdownItem>\n      </GoabDropdown>\n    </GoabFormItem>\n  );\n}",
+        "usageNotes": ["Use placeholder text to guide user selection", "Value must match exactly with dropdown item values", "Always wrap in GoabFormItem for proper labeling"]
+      },
+      "angular": {
+        "code": "<goa-form-item label=\"Basic dropdown\">\n  <goa-dropdown\n    placeholder=\"—Select—\"\n    name=\"basicItem\"\n    [value]=\"selectedValue\"\n    (onChange)=\"handleChange($event)\"\n  >\n    <goa-dropdown-item value=\"red\" label=\"Red\"></goa-dropdown-item>\n    <goa-dropdown-item value=\"green\" label=\"Green\"></goa-dropdown-item>\n    <goa-dropdown-item value=\"blue\" label=\"Blue\"></goa-dropdown-item>\n  </goa-dropdown>\n</goa-form-item>"
+      }
+    },
+
+    "sizing": {
+      "title": "Dropdown Sizing Options",
+      "description": "Demonstrates different width configurations and how content length affects dropdown appearance",
+      "interactiveProps": ["width"],
+      "react": {
+        "code": "function DropdownSizing() {\n  const [values, setValues] = useState({\n    fullWidth: '',\n    longContent: '',\n    shortContent: '',\n    fixedWidth: ''\n  });\n\n  function handleChange(name, value) {\n    setValues(prev => ({ ...prev, [name]: value }));\n  }\n\n  return (\n    <>\n      {/* Full width dropdown */}\n      <GoabFormItem label=\"Basic dropdown width 100%\">\n        <GoabDropdown\n          placeholder=\"—Select—\"\n          name=\"fullWidth\"\n          value={values.fullWidth}\n          width=\"100%\"\n          onChange={(e) => handleChange('fullWidth', e.value)}\n        >\n          <GoabDropdownItem value=\"red\" label=\"Red\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"green\" label=\"Green\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"blue\" label=\"Blue\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n\n      {/* Long content options */}\n      <GoabFormItem label=\"Dropdown with longest option 100ch\">\n        <GoabDropdown\n          name=\"longContent\"\n          value={values.longContent}\n          onChange={(e) => handleChange('longContent', e.value)}\n          placeholder=\"—Select—\"\n        >\n          <GoabDropdownItem\n            value=\"long\"\n            label=\"100ch: ipsum dolor sit amet, consectetur porttitor. Ipsum dolor sit amet, consectetur porttitor.\"\n          ></GoabDropdownItem>\n          <GoabDropdownItem value=\"abc\" label=\"abc\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"mmm\" label=\"MMM\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n\n      {/* Short content options */}\n      <GoabFormItem label=\"Dropdown with short options (3ch)\">\n        <GoabDropdown\n          name=\"shortContent\"\n          value={values.shortContent}\n          onChange={(e) => handleChange('shortContent', e.value)}\n        >\n          <GoabDropdownItem value=\"000\" label=\"000\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"111\" label=\"111\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"222\" label=\"222\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n    </>\n  );\n}",
+        "usageNotes": ["Use width=\"100%\" for full-width layouts", "Dropdown automatically adjusts to longest option", "Short content may result in narrow dropdowns", "Avoid rem units for width - use px or % instead"]
+      }
+    },
+
+    "withIcons": {
+      "title": "Dropdown with Leading Icons",
+      "description": "Shows how to add icons to enhance dropdown functionality and visual appeal",
+      "interactiveProps": ["leadingIcon"],
+      "react": {
+        "code": "function DropdownWithIcons() {\n  const [values, setValues] = useState({\n    withMail: '',\n    withSearch: ''\n  });\n\n  function handleChange(name, value) {\n    setValues(prev => ({ ...prev, [name]: value }));\n  }\n\n  return (\n    <>\n      {/* Dropdown with mail icon */}\n      <GoabFormItem label=\"Dropdown with leading icon\">\n        <GoabDropdown\n          name=\"withMail\"\n          value={values.withMail}\n          leadingIcon=\"mail\"\n          onChange={(e) => handleChange('withMail', e.value)}\n        >\n          <GoabDropdownItem value=\"personal\" label=\"Personal Email\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"work\" label=\"Work Email\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"other\" label=\"Other\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n\n      {/* Filterable dropdown with search icon */}\n      <GoabFormItem label=\"Filterable dropdown with search icon\">\n        <GoabDropdown\n          name=\"withSearch\"\n          value={values.withSearch}\n          filterable={true}\n          leadingIcon=\"search\"\n          onChange={(e) => handleChange('withSearch', e.value)}\n        >\n          <GoabDropdownItem value=\"calgary\" label=\"Calgary\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"edmonton\" label=\"Edmonton\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"lethbridge\" label=\"Lethbridge\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"medicine-hat\" label=\"Medicine Hat\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n    </>\n  );\n}",
+        "usageNotes": ["Icons help convey the dropdown's purpose", "Use search icon with filterable dropdowns", "Mail icon works well for email-related selections", "Icons appear on the left side of the dropdown"]
+      }
+    },
+
+    "filterable": {
+      "title": "Filterable Dropdown",
+      "description": "Interactive dropdown with search functionality for large option lists",
+      "interactiveProps": ["filterable", "leadingIcon"],
+      "react": {
+        "code": "function FilterableDropdown() {\n  const [selectedCity, setSelectedCity] = useState('');\n  const [selectedCountry, setSelectedCountry] = useState('');\n\n  const cities = [\n    { value: 'calgary', label: 'Calgary' },\n    { value: 'edmonton', label: 'Edmonton' },\n    { value: 'lethbridge', label: 'Lethbridge' },\n    { value: 'medicine-hat', label: 'Medicine Hat' },\n    { value: 'red-deer', label: 'Red Deer' },\n    { value: 'grande-prairie', label: 'Grande Prairie' },\n    { value: 'fort-mcmurray', label: 'Fort McMurray' }\n  ];\n\n  const countries = [\n    { value: 'ca', label: 'Canada' },\n    { value: 'us', label: 'United States' },\n    { value: 'uk', label: 'United Kingdom' },\n    { value: 'au', label: 'Australia' },\n    { value: 'de', label: 'Germany' },\n    { value: 'fr', label: 'France' },\n    { value: 'jp', label: 'Japan' }\n  ];\n\n  return (\n    <>\n      {/* Basic filterable dropdown */}\n      <GoabFormItem label=\"Filterable city selection\">\n        <GoabDropdown\n          name=\"city\"\n          value={selectedCity}\n          filterable={true}\n          placeholder=\"Search cities...\"\n          onChange={(e) => setSelectedCity(e.value)}\n        >\n          {cities.map(city => (\n            <GoabDropdownItem\n              key={city.value}\n              value={city.value}\n              label={city.label}\n            ></GoabDropdownItem>\n          ))}\n        </GoabDropdown>\n      </GoabFormItem>\n\n      {/* Filterable with search icon */}\n      <GoabFormItem label=\"Country selection with search\">\n        <GoabDropdown\n          name=\"country\"\n          value={selectedCountry}\n          filterable={true}\n          leadingIcon=\"search\"\n          placeholder=\"Search countries...\"\n          onChange={(e) => setSelectedCountry(e.value)}\n        >\n          {countries.map(country => (\n            <GoabDropdownItem\n              key={country.value}\n              value={country.value}\n              label={country.label}\n            ></GoabDropdownItem>\n          ))}\n        </GoabDropdown>\n      </GoabFormItem>\n    </>\n  );\n}",
+        "usageNotes": ["Essential for lists with 7+ options", "Include search icon for better UX", "Use descriptive placeholder text", "Filter works on the label text", "Great for location, category, or user selections"]
+      }
+    },
+
+    "states": {
+      "title": "Dropdown States",
+      "description": "Demonstrates error, disabled, and validation states",
+      "interactiveProps": ["error", "disabled"],
+      "react": {
+        "code": "function DropdownStates() {\n  const [formData, setFormData] = useState({\n    priority: '',\n    category: '',\n    status: 'draft'\n  });\n  const [errors, setErrors] = useState({});\n\n  function validatePriority(value) {\n    if (!value) {\n      setErrors(prev => ({ ...prev, priority: 'Priority is required' }));\n    } else {\n      setErrors(prev => ({ ...prev, priority: '' }));\n    }\n  }\n\n  function handleChange(field, value) {\n    setFormData(prev => ({ ...prev, [field]: value }));\n    if (field === 'priority') validatePriority(value);\n  }\n\n  return (\n    <>\n      {/* Error state */}\n      <GoabFormItem \n        label=\"Priority Level\" \n        error={errors.priority}\n        requirement=\"required\"\n      >\n        <GoabDropdown\n          name=\"priority\"\n          value={formData.priority}\n          error={!!errors.priority}\n          placeholder=\"Select priority...\"\n          onChange={(e) => handleChange('priority', e.value)}\n        >\n          <GoabDropdownItem value=\"low\" label=\"Low Priority\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"medium\" label=\"Medium Priority\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"high\" label=\"High Priority\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"urgent\" label=\"Urgent\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n\n      {/* Disabled state */}\n      <GoabFormItem \n        label=\"Category\" \n        helpText=\"Categories are assigned automatically\"\n      >\n        <GoabDropdown\n          name=\"category\"\n          value={formData.category}\n          disabled={true}\n          placeholder=\"Auto-assigned\"\n          onChange={(e) => handleChange('category', e.value)}\n        >\n          <GoabDropdownItem value=\"technical\" label=\"Technical\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"business\" label=\"Business\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"support\" label=\"Support\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n\n      {/* Normal state with helper text */}\n      <GoabFormItem \n        label=\"Status\" \n        helpText=\"Current document status\"\n      >\n        <GoabDropdown\n          name=\"status\"\n          value={formData.status}\n          onChange={(e) => handleChange('status', e.value)}\n        >\n          <GoabDropdownItem value=\"draft\" label=\"Draft\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"review\" label=\"Under Review\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"approved\" label=\"Approved\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"published\" label=\"Published\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n    </>\n  );\n}",
+        "usageNotes": ["Use error prop with FormItem error message", "Disabled state prevents all interaction", "Combine with validation for better UX", "Helper text provides additional context", "Error styling applies red border automatically"]
+      }
+    },
+
+    "native": {
+      "title": "Native Dropdown",
+      "description": "Browser-native select element with simplified styling",
+      "interactiveProps": ["native"],
+      "react": {
+        "code": "function NativeDropdown() {\n  const [selectedValue, setSelectedValue] = useState('');\n\n  function handleChange(event) {\n    setSelectedValue(event.value);\n    console.log('Selected:', event.value);\n  }\n\n  return (\n    <GoabFormItem \n      label=\"Native dropdown\" \n      helpText=\"Uses browser's native select element\"\n    >\n      <GoabDropdown\n        name=\"nativeItem\"\n        value={selectedValue}\n        native={true}\n        onChange={handleChange}\n      >\n        <GoabDropdownItem value=\"red\" label=\"Red\"></GoabDropdownItem>\n        <GoabDropdownItem value=\"green\" label=\"Green\"></GoabDropdownItem>\n        <GoabDropdownItem value=\"blue\" label=\"Blue\"></GoabDropdownItem>\n        <GoabDropdownItem value=\"purple\" label=\"Purple\"></GoabDropdownItem>\n      </GoabDropdown>\n    </GoabFormItem>\n  );\n}",
+        "usageNotes": ["Simpler styling and behavior", "Better mobile compatibility", "Limited customization options", "Use when custom styling isn't needed", "Faster rendering for large option lists"]
+      }
+    },
+
+    "formIntegration": {
+      "title": "Form Integration",
+      "description": "Complete form example showing dropdown integration with validation and submission",
+      "interactiveProps": ["name", "value", "onChange"],
+      "react": {
+        "code": "function FormIntegration() {\n  const [formData, setFormData] = useState({\n    department: '',\n    priority: '',\n    assignee: '',\n    dueDate: ''\n  });\n  const [errors, setErrors] = useState({});\n  const [submitted, setSubmitted] = useState(false);\n\n  function validateForm() {\n    const newErrors = {};\n    if (!formData.department) newErrors.department = 'Department is required';\n    if (!formData.priority) newErrors.priority = 'Priority is required';\n    if (!formData.assignee) newErrors.assignee = 'Assignee is required';\n    \n    setErrors(newErrors);\n    return Object.keys(newErrors).length === 0;\n  }\n\n  function handleChange(field, value) {\n    setFormData(prev => ({ ...prev, [field]: value }));\n    // Clear error when user selects a value\n    if (errors[field]) {\n      setErrors(prev => ({ ...prev, [field]: '' }));\n    }\n  }\n\n  function handleSubmit() {\n    if (validateForm()) {\n      console.log('Form submitted:', formData);\n      setSubmitted(true);\n      // Reset form after submission\n      setTimeout(() => {\n        setFormData({ department: '', priority: '', assignee: '', dueDate: '' });\n        setSubmitted(false);\n      }, 2000);\n    }\n  }\n\n  if (submitted) {\n    return (\n      <GoabBlock>\n        <p>✅ Task created successfully!</p>\n      </GoabBlock>\n    );\n  }\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"m\">\n      <h3>Create New Task</h3>\n      \n      <GoabFormItem \n        label=\"Department\" \n        error={errors.department}\n        requirement=\"required\"\n      >\n        <GoabDropdown\n          name=\"department\"\n          value={formData.department}\n          error={!!errors.department}\n          placeholder=\"Select department...\"\n          onChange={(e) => handleChange('department', e.value)}\n        >\n          <GoabDropdownItem value=\"engineering\" label=\"Engineering\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"design\" label=\"Design\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"marketing\" label=\"Marketing\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"sales\" label=\"Sales\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n\n      <GoabFormItem \n        label=\"Priority\" \n        error={errors.priority}\n        requirement=\"required\"\n      >\n        <GoabDropdown\n          name=\"priority\"\n          value={formData.priority}\n          error={!!errors.priority}\n          placeholder=\"Select priority...\"\n          onChange={(e) => handleChange('priority', e.value)}\n        >\n          <GoabDropdownItem value=\"low\" label=\"Low\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"medium\" label=\"Medium\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"high\" label=\"High\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"urgent\" label=\"Urgent\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n\n      <GoabFormItem \n        label=\"Assignee\" \n        error={errors.assignee}\n        requirement=\"required\"\n      >\n        <GoabDropdown\n          name=\"assignee\"\n          value={formData.assignee}\n          error={!!errors.assignee}\n          filterable={true}\n          leadingIcon=\"person\"\n          placeholder=\"Search team members...\"\n          onChange={(e) => handleChange('assignee', e.value)}\n        >\n          <GoabDropdownItem value=\"john\" label=\"John Smith\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"sarah\" label=\"Sarah Johnson\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"mike\" label=\"Mike Chen\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"anna\" label=\"Anna Williams\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n\n      <GoabFormItem label=\"Due Date\" helpText=\"Optional deadline\">\n        <GoabDropdown\n          name=\"dueDate\"\n          value={formData.dueDate}\n          placeholder=\"Select timeframe...\"\n          onChange={(e) => handleChange('dueDate', e.value)}\n        >\n          <GoabDropdownItem value=\"today\" label=\"Today\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"tomorrow\" label=\"Tomorrow\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"week\" label=\"This Week\"></GoabDropdownItem>\n          <GoabDropdownItem value=\"month\" label=\"This Month\"></GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n\n      <GoabButtonGroup alignment=\"start\">\n        <GoabButton type=\"primary\" onClick={handleSubmit}>\n          Create Task\n        </GoabButton>\n        <GoabButton type=\"secondary\" onClick={() => setFormData({ department: '', priority: '', assignee: '', dueDate: '' })}>\n          Reset\n        </GoabButton>\n      </GoabButtonGroup>\n    </GoabBlock>\n  );\n}",
+        "usageNotes": ["Always use name attribute for form data", "Implement validation with error states", "Clear errors when user makes selections", "Use filterable for user/assignee selections", "Combine with ButtonGroup for form actions", "Consider optional vs required fields"]
+      }
+    },
+
+    "multipleDropdowns": {
+      "title": "Multiple Related Dropdowns",
+      "description": "Cascading dropdowns where selection in one affects options in another",
+      "interactiveProps": ["value", "disabled"],
+      "react": {
+        "code": "function MultipleDropdowns() {\n  const [location, setLocation] = useState({\n    province: '',\n    city: ''\n  });\n\n  const provinces = {\n    'ab': 'Alberta',\n    'bc': 'British Columbia',\n    'on': 'Ontario'\n  };\n\n  const cities = {\n    'ab': [\n      { value: 'calgary', label: 'Calgary' },\n      { value: 'edmonton', label: 'Edmonton' },\n      { value: 'lethbridge', label: 'Lethbridge' }\n    ],\n    'bc': [\n      { value: 'vancouver', label: 'Vancouver' },\n      { value: 'victoria', label: 'Victoria' },\n      { value: 'burnaby', label: 'Burnaby' }\n    ],\n    'on': [\n      { value: 'toronto', label: 'Toronto' },\n      { value: 'ottawa', label: 'Ottawa' },\n      { value: 'hamilton', label: 'Hamilton' }\n    ]\n  };\n\n  function handleProvinceChange(value) {\n    setLocation({\n      province: value,\n      city: '' // Reset city when province changes\n    });\n  }\n\n  function handleCityChange(value) {\n    setLocation(prev => ({ ...prev, city: value }));\n  }\n\n  const availableCities = location.province ? cities[location.province] : [];\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"m\">\n      <h3>Location Selection</h3>\n      \n      <GoabFormItem label=\"Province/Territory\">\n        <GoabDropdown\n          name=\"province\"\n          value={location.province}\n          placeholder=\"Select province...\"\n          onChange={(e) => handleProvinceChange(e.value)}\n        >\n          {Object.entries(provinces).map(([code, name]) => (\n            <GoabDropdownItem\n              key={code}\n              value={code}\n              label={name}\n            ></GoabDropdownItem>\n          ))}\n        </GoabDropdown>\n      </GoabFormItem>\n\n      <GoabFormItem \n        label=\"City\" \n        helpText={!location.province ? 'Select a province first' : ''}\n      >\n        <GoabDropdown\n          name=\"city\"\n          value={location.city}\n          disabled={!location.province}\n          placeholder={location.province ? 'Select city...' : 'Select province first'}\n          onChange={(e) => handleCityChange(e.value)}\n        >\n          {availableCities.map(city => (\n            <GoabDropdownItem\n              key={city.value}\n              value={city.value}\n              label={city.label}\n            ></GoabDropdownItem>\n          ))}\n        </GoabDropdown>\n      </GoabFormItem>\n\n      {location.province && location.city && (\n        <GoabBlock mt=\"m\">\n          <p><strong>Selected:</strong> {cities[location.province].find(c => c.value === location.city)?.label}, {provinces[location.province]}</p>\n        </GoabBlock>\n      )}\n    </GoabBlock>\n  );\n}",
+        "usageNotes": ["Reset dependent dropdowns when parent changes", "Disable child dropdowns until parent is selected", "Use helpText to guide user through sequence", "Consider loading states for dynamic data", "Clear dependent values when parent changes"]
+      }
+    }
+  },
+
+  "api": {
+    "dropdown": {
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Name attribute for form integration"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Currently selected value (must match a dropdown-item value)",
+          "note": "Currently limited to string values only"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Text shown when no option is selected",
+          "example": "Select an option..."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Disable the dropdown interaction"
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Show error state with red styling"
+        },
+        {
+          "name": "filterable",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Enable search/filter functionality",
+          "note": "Adds search input to filter options"
+        },
+        {
+          "name": "native",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Use native browser select element",
+          "note": "Simpler styling but limited customization"
+        },
+        {
+          "name": "width",
+          "type": "string",
+          "required": false,
+          "description": "Width of the dropdown",
+          "note": "Use px or % units (rem units have known issues). Only override when design specifically requires it - component auto-sizes optimally by default",
+          "aiGuidance": "NEVER add width prop unless explicitly shown in design mockup"
+        },
+        {
+          "name": "testId",
+          "type": "string",
+          "required": false,
+          "description": "Data attribute for testing automation"
+        },
+        {
+          "name": "leadingIcon",
+          "type": "string",
+          "required": false,
+          "description": "Icon to display on the left side of the dropdown",
+          "note": "// NEEDS_INPUT: Available icon names and usage guidelines"
+        },
+        {
+          "name": "mt",
+          "type": "string",
+          "required": false,
+          "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+          "description": "Apply margin to the top of the component"
+        },
+        {
+          "name": "mr",
+          "type": "string",
+          "required": false,
+          "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+          "description": "Apply margin to the right of the component"
+        },
+        {
+          "name": "mb",
+          "type": "string",
+          "required": false,
+          "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+          "description": "Apply margin to the bottom of the component"
+        },
+        {
+          "name": "ml",
+          "type": "string",
+          "required": false,
+          "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+          "description": "Apply margin to the left of the component"
+        }
+      ],
+      "events": [
+        {
+          "name": "onChange",
+          "description": "Triggered when selection changes",
+          "detail": {
+            "name": "Form field name",
+            "value": "Selected option value"
+          }
+        }
+      ]
+    },
+    "dropdownItem": {
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "description": "The value associated with this option",
+          "note": "Used for selection matching and form data"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Alternative display text (defaults to slot content)"
+        }
+      ]
+    }
+  },
+
+  "states": {
+    "default": "Closed dropdown with placeholder or selected value displayed",
+    "hover": "Subtle highlight on hover interaction",
+    "focus": "Focused state with keyboard navigation support",
+    "open": "Expanded dropdown showing all available options",
+    "disabled": "Non-interactive state with reduced opacity",
+    "error": "Red border indicating validation error",
+    "filtering": "Search mode when filterable prop is enabled"
+  },
+
+  "designTokens": {
+    "component": {
+      "// NEEDS_INPUT": "Specific dropdown component tokens from design system"
+    },
+    "spacing": {
+      "internal": "Padding and spacing within dropdown",
+      "options": "Spacing between dropdown items"
+    },
+    "colors": {
+      "border": "Default and focus border colors",
+      "background": "Dropdown and option backgrounds",
+      "text": "Text colors for various states",
+      "error": "Error state styling"
+    },
+    "typography": {
+      "placeholder": "Placeholder text styling",
+      "selected": "Selected value text styling",
+      "options": "Dropdown option text styling"
+    }
+  },
+
+  "accessibility": {
+    "keyboard": {
+      "enter": "Open/close dropdown or select highlighted option",
+      "space": "Open dropdown or select option",
+      "escape": "Close dropdown",
+      "arrowDown": "Navigate to next option",
+      "arrowUp": "Navigate to previous option",
+      "home": "Jump to first option",
+      "end": "Jump to last option",
+      "typing": "Filter options when filterable is enabled"
+    },
+    "screenReader": {
+      "role": "combobox",
+      "ariaExpanded": "Indicates if dropdown is open/closed",
+      "ariaActivedescendant": "Points to currently highlighted option",
+      "ariaLabel": "Descriptive label for the dropdown"
+    },
+    "focusManagement": "Focus returns to trigger after selection",
+    "colorContrast": "Meets WCAG AA standards for all states"
+  },
+
+  "widthAndSizing": {
+    "defaultBehavior": {
+      "rule": "By default, let dropdown auto-size to longest option",
+      "reason": "Component automatically sets optimal width based on content",
+      "dontOverride": "Don't set width='100%' unless specifically required by design"
+    },
+    "whenToOverrideWidth": [
+      "Design specifically shows full-width dropdown",
+      "Layout constraints require specific width",
+      "Accessibility requirements demand consistent widths"
+    ],
+    "aiImplementationRule": "NEVER add width prop to dropdown unless explicitly shown in design"
+  },
+
+  "usageGuidance": {
+    "whenToUse": [
+      "Selecting from 4-15 predefined options",
+      "Space-constrained layouts requiring compact selection",
+      "Form fields with specific allowed values",
+      "Categorization or status selection"
+    ],
+    "whenNotToUse": [
+      "2-3 options (use radio buttons instead)",
+      "Large lists 20+ items without search (use filterable)",
+      "Complex multi-selection (use checkbox group)",
+      "Navigation between pages (use links or tabs)"
+    ],
+    "bestPractices": [
+      "Always wrap in GoabFormItem for proper labeling",
+      "Use filterable for lists over 7 options",
+      "Provide meaningful placeholder text",
+      "Implement validation with error states",
+      "Reset dependent dropdowns when parent changes",
+      "Use leadingIcon to enhance context",
+      "Let dropdown auto-size unless design specifically requires width override"
+    ],
+    "commonMistakes": [
+      "Not clearing dependent dropdown values",
+      "Using rem units for width (causes issues)",
+      "Missing form integration with name attribute",
+      "No placeholder for required fields",
+      "Overly long option labels without truncation",
+      "Adding width='100%' when not needed (breaks optimal auto-sizing)"
+    ]
+  },
+
+  "relatedComponents": [
+    "FormItem",
+    "Input", 
+    "Checkbox",
+    "Button",
+    "ButtonGroup"
+  ],
+
+  "relatedPatterns": [
+    "Form validation",
+    "Cascading selections",
+    "Search and filter",
+    "Multi-step forms"
+  ],
+
+  "testing": {
+    "testIds": {
+      "dropdown": "[data-testid='dropdown']",
+      "option": "[data-testid='dropdown-item']",
+      "searchInput": "[data-testid='dropdown-search']"
+    },
+    "scenarios": [
+      "Verify onChange event fires with correct value",
+      "Test keyboard navigation through options",
+      "Validate error state styling",
+      "Confirm filterable search functionality",
+      "Check disabled state prevents interaction"
+    ]
+  },
+
+  "performance": {
+    "considerations": [
+      "Use native prop for large option lists",
+      "Implement virtual scrolling for 100+ options",
+      "Consider lazy loading for dynamic data"
+    ],
+    "optimization": "Minimize re-renders by memoizing option lists"
+  },
+
+  "browserSupport": {
+    "modern": "Full support in all modern browsers",
+    "mobile": "Touch-friendly with native mobile behavior when native=true",
+    "legacy": "Graceful degradation to native select in older browsers"
+  },
+
+  "devNotes": {
+    "knownIssues": [
+      "rem units for width cause display issues - use px or % instead",
+      "Value prop currently limited to strings only"
+    ],
+    "futureEnhancements": [
+      "Support for object values",
+      "Option grouping/categorization",
+      "Async option loading"
+    ]
+  },
+
+  "versions": {
+    "webComponent": "// NEEDS_INPUT: Current web component version",
+    "react": "// NEEDS_INPUT: Current React wrapper version", 
+    "angular": "// NEEDS_INPUT: Current Angular wrapper version"
+  },
+
+  "source": {
+    "svelteFile": "// NEEDS_INPUT: Path to dropdown.svelte",
+    "reactWrapper": "// NEEDS_INPUT: Path to Dropdown.tsx",
+    "angularWrapper": "// NEEDS_INPUT: Path to dropdown.component.ts",
+    "figmaNodeUrl": "// NEEDS_INPUT: Figma design system link",
+    "lastUpdated": "// NEEDS_INPUT: Last modification date",
+    "updatedBy": "design-system-team"
+  },
+
+  "aiHints": {
+    "primaryUseCase": "Form field selection from predefined options",
+    "keyFeatures": ["Filterable search", "Icon support", "Form integration", "Accessibility"],
+    "commonMistakes": [
+      "Not implementing validation with error states",
+      "Using for navigation instead of selection",
+      "Missing form integration",
+      "Adding width prop when component should auto-size"
+    ],
+    "suggestedAlternatives": {
+      "fewOptions": "Radio buttons for 2-3 options",
+      "manyOptions": "Filterable dropdown or autocomplete",
+      "multiSelect": "Checkbox group",
+      "navigation": "Link or menu components"
+    },
+    "integrationTips": [
+      "Always combine with FormItem for labels",
+      "Use ButtonGroup for form actions",
+      "Implement with Input for complex forms"
+    ],
+    "criticalRule": "Let dropdown auto-size by default - only add width prop when design explicitly shows specific width requirement"
+  },
+
+  "tags": ["form", "selection", "interactive", "filterable", "validation"]
+}

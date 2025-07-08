@@ -1,0 +1,466 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Link",
+  "customElement": {
+    "tagName": "goa-link",
+    "className": "GoabLink"
+  },
+  "summary": "Enhancement wrapper that adds icons and consistent spacing to anchor elements while preserving native link semantics",
+  
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Icon component", "Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabLink } from '@abgov/react-components'",
+      "quickExample": "<GoabLink trailingIcon=\"open\">\n  <a href=\"https://external.com\">External link</a>\n</GoabLink>",
+      "dependencies": "Requires @abgov/react-components and @abgov/web-components packages"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-link trailingIcon=\"open\">\n  <a href=\"https://external.com\">External link</a>\n</goab-link>",
+      "module": "Add AngularComponentsModule to your module imports",
+      "dependencies": "Requires @abgov/angular-components and @abgov/web-components packages"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-link trailingicon=\"open\">\n  <a href=\"https://external.com\">External link</a>\n</goa-link>",
+      "dependencies": "Requires @abgov/web-components package"
+    }
+  },
+  
+  "propertyValidation": {
+    "enforcementRule": "ONLY use documented property values - invalid properties break component functionality",
+    "validationRequired": true
+  },
+  "strictPropertyEnforcement": {
+    "leadingIcon": {
+      "validValues": ["chevron-back", "pencil", "download", "person", "settings", "document-text", "arrow-forward"],
+      "commonMistakes": ["edit", "back", "user", "file"],
+      "correctionMap": {
+        "edit": "pencil",
+        "back": "chevron-back",
+        "user": "person",
+        "file": "document-text"
+      },
+      "invalidExamples": [
+        "❌ leadingIcon='edit' (should be leadingIcon='pencil')",
+        "❌ leadingIcon='back' (should be leadingIcon='chevron-back')"
+      ]
+    },
+    "trailingIcon": {
+      "validValues": ["open", "arrow-forward", "download"],
+      "commonMistakes": ["external", "next", "continue"],
+      "correctionMap": {
+        "external": "open",
+        "next": "arrow-forward"
+      }
+    }
+  },
+  "api": {
+    "props": [
+      {
+        "name": "leadingIcon",
+        "type": "string (ionicon name)",
+        "required": false,
+        "description": "Icon displayed before the link text",
+        "usage": "Use for contextual icons like 'download', 'document-text', 'person', 'chevron-back'",
+        "validValues": ["chevron-back", "pencil", "download", "person", "settings", "document-text", "arrow-forward"],
+        "validation": "ONLY use documented valid values - invalid icon names break component functionality"
+      },
+      {
+        "name": "trailingIcon",
+        "type": "string (ionicon name)",
+        "required": false,
+        "description": "Icon displayed after the link text",
+        "usage": "Use 'open' for external links, 'arrow-forward' for continuation actions",
+        "validValues": ["open", "arrow-forward", "download"],
+        "validation": "ONLY use documented valid values - invalid icon names break component functionality"
+      },
+      {
+        "name": "mt",
+        "type": "none | 3xs | 2xs | xs | s | m | l | xl | 2xl | 3xl | 4xl",
+        "default": "none",
+        "required": false,
+        "description": "Margin top using design system spacing",
+        "usage": "Add consistent spacing above the link"
+      },
+      {
+        "name": "mr",
+        "type": "none | 3xs | 2xs | xs | s | m | l | xl | 2xl | 3xl | 4xl",
+        "default": "none",
+        "required": false,
+        "description": "Margin right using design system spacing",
+        "usage": "Add spacing to the right, useful for inline links"
+      },
+      {
+        "name": "mb",
+        "type": "none | 3xs | 2xs | xs | s | m | l | xl | 2xl | 3xl | 4xl",
+        "default": "none",
+        "required": false,
+        "description": "Margin bottom using design system spacing",
+        "usage": "Add consistent spacing below the link"
+      },
+      {
+        "name": "ml",
+        "type": "none | 3xs | 2xs | xs | s | m | l | xl | 2xl | 3xl | 4xl",
+        "default": "none",
+        "required": false,
+        "description": "Margin left using design system spacing",
+        "usage": "Add spacing to the left, useful for inline links"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Data attribute for testing and automation",
+        "usage": "Set unique identifier for testing specific links"
+      }
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "description": "Anchor element with link content",
+        "required": true,
+        "usage": "Must contain a semantic <a> element with proper href and content"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Back Navigation",
+          "description": "Standard back navigation with chevron icon",
+          "code": "function BackNavigation() {\n  return (\n    <GoabLink leadingIcon=\"chevron-back\" mb=\"l\">\n      <a href=\"#\">Back</a>\n    </GoabLink>\n  );\n}"
+        },
+        {
+          "title": "External Link with Icon",
+          "description": "Link to external resource with visual indicator",
+          "code": "function ExternalLinkExample() {\n  return (\n    <div className=\"content\">\n      <p>\n        For more information, visit our \n        <GoabLink trailingIcon=\"open\">\n          <a href=\"https://alberta.ca\" target=\"_blank\" rel=\"noopener\">\n            official website\n          </a>\n        </GoabLink>\n        .\n      </p>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Download Link",
+          "description": "Link for file downloads with appropriate icon",
+          "code": "function DocumentDownload({ documentUrl, documentName }) {\n  return (\n    <div className=\"document-list\">\n      <GoabLink leadingIcon=\"download\" mb=\"xs\">\n        <a href={documentUrl} download>\n          {documentName}\n        </a>\n      </GoabLink>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Navigation Links with Context",
+          "description": "Internal navigation with contextual icons",
+          "code": "function NavigationMenu() {\n  return (\n    <nav className=\"sidebar-nav\">\n      <ul>\n        <li>\n          <GoabLink leadingIcon=\"person\">\n            <a href=\"/profile\">My Profile</a>\n          </GoabLink>\n        </li>\n        <li>\n          <GoabLink leadingIcon=\"document-text\">\n            <a href=\"/applications\">My Applications</a>\n          </GoabLink>\n        </li>\n        <li>\n          <GoabLink leadingIcon=\"settings\">\n            <a href=\"/settings\">Account Settings</a>\n          </GoabLink>\n        </li>\n      </ul>\n    </nav>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Back Navigation",
+          "description": "Standard back navigation with chevron icon",
+          "code": "<goab-link leadingIcon=\"chevron-back\" mb=\"l\">\n  <a href=\"#\">Back</a>\n</goab-link>"
+        },
+        {
+          "title": "External Link with Icon",
+          "description": "Link to external resource with visual indicator",
+          "code": "<div class=\"content\">\n  <p>\n    For more information, visit our \n    <goab-link trailingIcon=\"open\">\n      <a href=\"https://alberta.ca\" target=\"_blank\" rel=\"noopener\">\n        official website\n      </a>\n    </goab-link>\n    .\n  </p>\n</div>"
+        },
+        {
+          "title": "Download Link",
+          "description": "Link for file downloads with appropriate icon",
+          "code": "<div class=\"document-list\">\n  <goab-link leadingIcon=\"download\" mb=\"xs\">\n    <a [href]=\"documentUrl\" download>\n      {{ documentName }}\n    </a>\n  </goab-link>\n</div>"
+        },
+        {
+          "title": "Navigation Links with Context",
+          "description": "Internal navigation with contextual icons",
+          "code": "<nav class=\"sidebar-nav\">\n  <ul>\n    <li>\n      <goab-link leadingIcon=\"person\">\n        <a routerLink=\"/profile\">My Profile</a>\n      </goab-link>\n    </li>\n    <li>\n      <goab-link leadingIcon=\"document-text\">\n        <a routerLink=\"/applications\">My Applications</a>\n      </goab-link>\n    </li>\n    <li>\n      <goab-link leadingIcon=\"settings\">\n        <a routerLink=\"/settings\">Account Settings</a>\n      </goab-link>\n    </li>\n  </ul>\n</nav>"
+        }
+      ],
+      "webComponent": [
+        {
+          "title": "Back Navigation",
+          "description": "Standard back navigation with chevron icon",
+          "code": "<goa-link leadingicon=\"chevron-back\" mb=\"l\">\n  <a href=\"#\">Back</a>\n</goa-link>"
+        },
+        {
+          "title": "External Link with Icon", 
+          "description": "Link to external resource with visual indicator",
+          "code": "<div class=\"content\">\n  <p>\n    For more information, visit our \n    <goa-link trailingicon=\"open\">\n      <a href=\"https://alberta.ca\" target=\"_blank\" rel=\"noopener\">\n        official website\n      </a>\n    </goa-link>\n    .\n  </p>\n</div>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Back Navigation Pattern",
+        "description": "Standard back navigation using chevron-back icon - never create custom SVG icons",
+        "code": "// React\n<GoabLink leadingIcon=\"chevron-back\" mb=\"l\">\n  <a href=\"#\">Back</a>\n</GoabLink>\n\n// Angular\n<goab-link leadingIcon=\"chevron-back\" mb=\"l\">\n  <a href=\"#\">Back</a>\n</goab-link>\n\n// Web Component\n<goa-link leadingicon=\"chevron-back\" mb=\"l\">\n  <a href=\"#\">Back</a>\n</goa-link>",
+        "dontImplementCustom": "Never create custom SVG icons - always use leadingIcon prop with system icons"
+      },
+      {
+        "name": "External Link Pattern",
+        "description": "Standard pattern for external links with proper accessibility",
+        "code": "// React\n<GoabLink trailingIcon=\"open\">\n  <a \n    href=\"https://external-site.com\" \n    target=\"_blank\" \n    rel=\"noopener noreferrer\"\n    aria-label=\"Visit external site (opens in new tab)\"\n  >\n    External Site\n  </a>\n</GoabLink>\n\n// Angular\n<goab-link trailingIcon=\"open\">\n  <a \n    href=\"https://external-site.com\" \n    target=\"_blank\" \n    rel=\"noopener noreferrer\"\n    aria-label=\"Visit external site (opens in new tab)\"\n  >\n    External Site\n  </a>\n</goab-link>"
+      },
+      {
+        "name": "File Download Pattern",
+        "description": "Consistent pattern for downloadable files",
+        "code": "// React - File download list\nfunction FileDownloads({ files }) {\n  return (\n    <div className=\"file-list\">\n      {files.map((file, index) => (\n        <div key={index} className=\"file-item\">\n          <GoabLink leadingIcon=\"document-text\" mb=\"xs\">\n            <a \n              href={file.url} \n              download={file.name}\n              aria-label={`Download ${file.name} (${file.size})`}\n            >\n              {file.name}\n            </a>\n          </GoabLink>\n          <span className=\"file-meta\">{file.size} • {file.type}</span>\n        </div>\n      ))}\n    </div>\n  );\n}"
+      },
+      {
+        "name": "Breadcrumb Navigation",
+        "description": "Enhanced breadcrumb links with spacing",
+        "code": "// React - Breadcrumb with enhanced links\nfunction Breadcrumb({ items }) {\n  return (\n    <nav aria-label=\"Breadcrumb\">\n      <ol className=\"breadcrumb-list\">\n        {items.map((item, index) => (\n          <li key={index}>\n            {index < items.length - 1 ? (\n              <>\n                <GoabLink mr=\"xs\">\n                  <a href={item.href}>{item.label}</a>\n                </GoabLink>\n                <span className=\"breadcrumb-separator\" aria-hidden=\"true\">/</span>\n              </>\n            ) : (\n              <span aria-current=\"page\">{item.label}</span>\n            )}\n          </li>\n        ))}\n      </ol>\n    </nav>\n  );\n}"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "when": [
+      "Add visual context to navigation links",
+      "Indicate external links or downloads", 
+      "Apply consistent spacing to links in layouts",
+      "Enhance link meaning without changing semantics",
+      "Group related links with visual hierarchy",
+      "Implement back navigation"
+    ],
+    "iconUsage": {
+      "rule": "NEVER use emojis - ALWAYS use leadingIcon or trailingIcon props",
+      "violations": [
+        "❌ ✏️ Change",
+        "❌ 📝 Edit", 
+        "❌ ⚠️ Warning",
+        "❌ ✅ Success"
+      ],
+      "correct": [
+        "✅ <GoabLink leadingIcon='pencil'><a>Change</a></GoabLink>",
+        "✅ <GoabLink leadingIcon='chevron-back'><a>Back</a></GoabLink>",
+        "✅ <GoabLink trailingIcon='open'><a>External</a></GoabLink>"
+      ],
+      "commonIcons": {
+        "edit": "pencil",
+        "back": "chevron-back", 
+        "external": "open",
+        "download": "download",
+        "person": "person",
+        "settings": "settings",
+        "document": "document-text",
+        "continuation": "arrow-forward"
+      },
+      "external": "Use trailingIcon='open' for external links",
+      "downloads": "Use leadingIcon='download' for file downloads",
+      "navigation": "Use contextual icons like 'person', 'settings', 'document-text'",
+      "backNavigation": "Use leadingIcon='chevron-back' for back navigation - never create custom SVG icons",
+      "actions": "Use directional icons like 'arrow-forward' for continuation",
+      "consistency": "Use the same icon for the same type of link throughout your application"
+    },
+    "childElementStyling": {
+      "rule": "NEVER add custom styling to anchor elements inside GoabLink",
+      "violation": "<GoabLink><a style={{ color: '#0070f3' }}>Link</a></GoabLink>",
+      "correct": "<GoabLink><a href='#'>Link</a></GoabLink>",
+      "explanation": "GoabLink automatically styles all child anchor elements"
+    },
+    "spacing": {
+      "inline": "Use mr/ml for horizontal spacing in text content",
+      "lists": "Use mb for consistent spacing in link lists",
+      "sections": "Use mt for spacing links from other content",
+      "backNavigation": "Use mb='l' for back navigation links to provide appropriate spacing",
+      "consistency": "Apply the same spacing patterns for similar link groups"
+    },
+    "accessibility": {
+      "descriptive": "Ensure link text describes the destination or action",
+      "context": "Provide additional context for external links and downloads",
+      "target": "Use target='_blank' with proper rel attributes for external links",
+      "labels": "Use aria-label for additional context when needed"
+    }
+  },
+
+  "playgroundExamples": {
+    "note": "Playground configurations will be added in future updates"
+  },
+
+  "commonMistakes": [
+    {
+      "mistake": "Using invalid icon names that break component functionality",
+      "why": "Component only supports specific documented icon values - invalid names cause rendering failures",
+      "instead": "Always use valid icon names from the documented list and correction mappings",
+      "example": "// ❌ Wrong\n<GoabLink leadingIcon=\"edit\">\n  <a href=\"#\">Change</a>\n</GoabLink>\n\n<GoabLink trailingIcon=\"external\">\n  <a href=\"https://site.com\">External</a>\n</GoabLink>\n\n// ✅ Correct\n<GoabLink leadingIcon=\"pencil\">\n  <a href=\"#\">Change</a>\n</GoabLink>\n\n<GoabLink trailingIcon=\"open\">\n  <a href=\"https://site.com\">External</a>\n</GoabLink>"
+    },
+    {
+      "mistake": "Using emojis instead of proper icon props",
+      "why": "Emojis break accessibility, are inconsistent across platforms, and don't follow design system patterns",
+      "instead": "Always use leadingIcon or trailingIcon props with proper icon names",
+      "example": "// ❌ Wrong\n<GoabLink>\n  <a href=\"#\">✏️ Change</a>\n</GoabLink>\n\n// ✅ Correct\n<GoabLink leadingIcon=\"pencil\">\n  <a href=\"#\">Change</a>\n</GoabLink>"
+    },
+    {
+      "mistake": "Adding custom styling to anchor elements inside GoabLink",
+      "why": "GoabLink automatically handles all styling for child anchor elements",
+      "instead": "Let GoabLink handle anchor styling automatically",
+      "example": "// ❌ Wrong\n<GoabLink>\n  <a href=\"#\" style={{ color: '#0070f3' }}>Link</a>\n</GoabLink>\n\n// ✅ Correct\n<GoabLink>\n  <a href=\"#\">Link</a>\n</GoabLink>"
+    },
+    {
+      "mistake": "Creating custom SVG icons for back navigation instead of using leadingIcon",
+      "why": "Custom icons break design system consistency and accessibility patterns",
+      "instead": "Always use leadingIcon='chevron-back' with proper spacing for back navigation",
+      "example": "// ❌ Wrong\n<GoabLink className=\"custom-back-button\">\n  <a href=\"#\"><svg>...</svg> Back</a>\n</GoabLink>\n\n// ✅ Correct\n<GoabLink leadingIcon=\"chevron-back\" mb=\"l\">\n  <a href=\"#\">Back</a>\n</GoabLink>"
+    },
+    {
+      "mistake": "Adding custom CSS classes for styling instead of using design system props",
+      "why": "Custom styling breaks design system consistency and overrides component's built-in sizing",
+      "instead": "Use component props for spacing and let the component handle sizing automatically",
+      "example": "// ❌ Wrong\n<GoabLink className=\"custom-link-style\">\n  <a href=\"#\">Link</a>\n</GoabLink>\n\n// ✅ Correct\n<GoabLink mt=\"none\" mb=\"none\">\n  <a href=\"#\">Link</a>\n</GoabLink>"
+    },
+    {
+      "mistake": "Using Link component without wrapping an anchor element",
+      "why": "Link is an enhancement wrapper, not a replacement for anchor tags",
+      "instead": "Always wrap semantic <a> elements to preserve accessibility and navigation behavior",
+      "example": "// ❌ Wrong\n<GoabLink trailingIcon=\"open\">External Site</GoabLink>\n\n// ✅ Correct\n<GoabLink trailingIcon=\"open\">\n  <a href=\"https://external.com\">External Site</a>\n</GoabLink>"
+    },
+    {
+      "mistake": "Using Link for primary actions instead of buttons",
+      "why": "Links are for navigation, buttons are for actions - this confuses users and screen readers",
+      "instead": "Use GoabButton for actions, GoabLink only for navigation to other pages or resources",
+      "example": "// ❌ Wrong\n<GoabLink onClick={handleSubmit}>Submit Form</GoabLink>\n\n// ✅ Correct\n<GoabButton onClick={handleSubmit}>Submit Form</GoabButton>"
+    },
+    {
+      "mistake": "Forgetting trailingIcon='open' for external links",
+      "why": "Users expect visual indication when links open in new tabs or lead to external sites",
+      "instead": "Always add trailingIcon='open' for external links and ensure target='_blank'",
+      "example": "// ❌ Wrong\n<GoabLink>\n  <a href=\"https://external.com\" target=\"_blank\">External Site</a>\n</GoabLink>\n\n// ✅ Correct\n<GoabLink trailingIcon=\"open\">\n  <a href=\"https://external.com\" target=\"_blank\" rel=\"noopener\">External Site</a>\n</GoabLink>"
+    },
+    {
+      "mistake": "Using custom CSS margins instead of design system spacing props",
+      "why": "Inconsistent spacing that doesn't align with design system spacing scale",
+      "instead": "Use mt, mr, mb, ml props with design system spacing tokens",
+      "example": "// ❌ Wrong\n<GoabLink style={{ marginRight: '8px' }}>\n  <a href=\"/page\">Page Link</a>\n</GoabLink>\n\n// ✅ Correct\n<GoabLink mr=\"xs\">\n  <a href=\"/page\">Page Link</a>\n</GoabLink>"
+    },
+    {
+      "mistake": "Using vague link text that doesn't describe the destination",
+      "why": "Screen reader users often navigate by links and need descriptive text",
+      "instead": "Use specific, descriptive link text that makes sense out of context",
+      "example": "// ❌ Wrong\n<GoabLink><a href=\"/report.pdf\">Click here</a></GoabLink>\n\n// ✅ Correct\n<GoabLink leadingIcon=\"download\">\n  <a href=\"/report.pdf\">Download 2024 Annual Report (PDF)</a>\n</GoabLink>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": "React uses camelCase (leadingIcon, trailingIcon) while web components use lowercase (leadingicon, trailingicon). Angular follows web component casing.",
+    "slotHandling": "Default slot expects semantic anchor elements. The Link component enhances rather than replaces anchor tags.",
+    "constraints": "Must contain anchor elements for proper semantics. Cannot be used as a standalone clickable element.",
+    "responsiveBehavior": "Link styling adapts automatically through CSS, but wrapped anchor elements should include appropriate responsive attributes.",
+    "sizing": "Component handles all sizing automatically - never add custom CSS classes for styling"
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate to the link",
+      "Enter - Activate the link",
+      "Shift+Tab - Navigate backwards",
+      "All navigation handled by native anchor element"
+    ],
+    "screenReader": [
+      "Link role and text announced normally",
+      "Icon context provided through surrounding content",
+      "External link indicators should be explicitly mentioned",
+      "Download links should indicate file type and size when relevant"
+    ],
+    "focusManagement": [
+      "Native anchor focus behavior preserved",
+      "Visible focus indicators maintained",
+      "Focus moves appropriately after link activation",
+      "Logical tab order through link groups"
+    ]
+  },
+
+  "troubleshooting": {
+    "iconValidation": {
+      "problem": "Invalid icon names causing component to break or not render icons",
+      "solutions": [
+        "Use only documented valid icon names from the strictPropertyEnforcement section",
+        "Check the correctionMap for common mistakes (edit → pencil, back → chevron-back)",
+        "Verify icon name spelling matches exactly (case-sensitive)",
+        "Never use custom icon names not in the valid values list"
+      ]
+    },
+    "spacingIssues": {
+      "problem": "Margin spacing doesn't apply correctly",
+      "solutions": [
+        "Use design system spacing tokens (xs, s, m, l, etc.) not CSS units",
+        "Check that design tokens are loaded in your application",
+        "Verify parent container doesn't override margin styles",
+        "Use browser dev tools to inspect applied margin values"
+      ]
+    },
+    "semanticProblems": {
+      "problem": "Link behavior or accessibility issues",
+      "solutions": [
+        "Ensure you're wrapping a proper <a> element, not other elements",
+        "Include proper href attribute on the anchor element",
+        "Add target='_blank' and rel='noopener' for external links",
+        "Use descriptive link text that makes sense out of context"
+      ]
+    },
+    "stylingConflicts": {
+      "problem": "Link appearance doesn't match expected design",
+      "solutions": [
+        "Link inherits default link styling - component only adds icons and spacing",
+        "Apply custom link styles to the anchor element, not the wrapper",
+        "Check for CSS specificity conflicts overriding link styles",
+        "Verify design tokens are loaded and accessible",
+        "Never add custom CSS classes - use component props instead"
+      ]
+    },
+    "frameworkIssues": {
+      "problem": "Component doesn't work as expected in React/Angular",
+      "solutions": [
+        "Use camelCase prop names in React (leadingIcon, trailingIcon)",
+        "Use kebab-case in Angular templates (leadingIcon, trailingIcon)",
+        "Ensure proper import statements for your framework",
+        "Check that the component module is properly imported in Angular"
+      ]
+    }
+  },
+
+  "relatedComponents": [
+    {
+      "name": "Button",
+      "relationship": "Alternative for actions",
+      "usage": "Use Button for primary actions and form submissions, Link for navigation",
+      "example": "Submit forms with Button, navigate pages with Link"
+    },
+    {
+      "name": "IconButton",
+      "relationship": "Alternative for icon-only actions",
+      "usage": "Use IconButton for compact actions without text labels",
+      "example": "Edit/delete actions vs navigational links"
+    },
+    {
+      "name": "Icon",
+      "relationship": "Visual enhancement",
+      "usage": "Link uses Icon component internally for leading and trailing icons",
+      "example": "Icons provide visual context for link purpose"
+    },
+    {
+      "name": "Navigation components",
+      "relationship": "Common usage context",
+      "usage": "Enhanced links frequently used in navigation menus and breadcrumbs",
+      "example": "Sidebar navigation, header menus, footer links"
+    }
+  ],
+
+  "performanceConsiderations": [
+    "Link wrapper adds minimal overhead to native anchor elements",
+    "Icons load only when specified via leadingIcon or trailingIcon props",
+    "Design system spacing calculated efficiently via CSS custom properties",
+    "Native anchor semantics preserved for optimal accessibility performance",
+    "Component renders efficiently in lists and repeated usage"
+  ],
+
+  "tags": ["navigation", "link", "anchor", "icon", "spacing", "external", "download", "enhancement", "back-navigation"],
+  "category": "component",
+  "status": "stable", 
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/link.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

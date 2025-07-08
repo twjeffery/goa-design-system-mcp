@@ -1,0 +1,312 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "lastUpdated": "2025-06-26",
+
+  "customElement": {
+    "tagName": "goa-grid",
+    "className": "GoaGrid"
+  },
+
+  "playgroundExamples": {
+    "// TODO": "Add playground configurations for interactive examples"
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": [
+      "Design token system",
+      "@abgov/web-components",
+      "CSS Grid support"
+    ]
+  },
+
+  "componentInfo": {
+    "name": "Grid",
+    "purpose": "Create responsive layouts that automatically adjust column count based on content width and screen size",
+    "category": "layout",
+    "bestFor": "Card layouts, dashboards, content galleries, and multi-column responsive designs"
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabGrid } from '@abgov/react-components'",
+      "quickExample": "// Responsive card grid\n<GoabGrid minChildWidth=\"300px\" gap=\"l\">\n  <GoabCard>\n    <h3>Service 1</h3>\n    <p>Description of service 1</p>\n  </GoabCard>\n  <GoabCard>\n    <h3>Service 2</h3>\n    <p>Description of service 2</p>\n  </GoabCard>\n  <GoabCard>\n    <h3>Service 3</h3>\n    <p>Description of service 3</p>\n  </GoabCard>\n  <GoabCard>\n    <h3>Service 4</h3>\n    <p>Description of service 4</p>\n  </GoabCard>\n</GoabGrid>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "// Service dashboard grid\n<goa-grid minChildWidth=\"250px\" gap=\"m\">\n  <goa-card *ngFor=\"let service of services\">\n    <h3>{{ service.name }}</h3>\n    <p>{{ service.description }}</p>\n    <goa-button type=\"tertiary\">Learn More</goa-button>\n  </goa-card>\n</goa-grid>\n\n// Component\nexport class ServicesComponent {\n  services = [\n    { name: 'Health Services', description: 'Access healthcare information' },\n    { name: 'Education', description: 'School and university resources' },\n    { name: 'Employment', description: 'Job search and training programs' },\n    { name: 'Business Support', description: 'Resources for Alberta businesses' }\n  ];\n}"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<!-- Basic content grid -->\n<goa-grid minchildwidth=\"280px\" gap=\"l\">\n  <div class=\"content-item\">\n    <h3>News Article 1</h3>\n    <p>Latest updates from the government</p>\n  </div>\n  <div class=\"content-item\">\n    <h3>News Article 2</h3>\n    <p>New services available to residents</p>\n  </div>\n  <div class=\"content-item\">\n    <h3>News Article 3</h3>\n    <p>Important policy changes</p>\n  </div>\n</goa-grid>\n\n<!-- Grid with margins -->\n<goa-grid \n  minchildwidth=\"320px\" \n  gap=\"m\" \n  mt=\"xl\" \n  mb=\"l\">\n  <goa-card>Card 1</goa-card>\n  <goa-card>Card 2</goa-card>\n  <goa-card>Card 3</goa-card>\n</goa-grid>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "minChildWidth",
+        "type": "string",
+        "required": true,
+        "description": "Minimum width of child elements before wrapping",
+        "usage": "Set based on your content's minimum readable width (e.g., '280px', '20rem')"
+      },
+      {
+        "name": "gap",
+        "type": "\"2xs\" | \"xs\" | \"s\" | \"m\" | \"l\" | \"xl\" | \"2xl\" | \"3xl\"",
+        "default": "\"m\"",
+        "required": false,
+        "description": "Space between grid items",
+        "usage": "Use 's' for compact layouts, 'l' for spacious layouts"
+      },
+      {
+        "name": "mt",
+        "type": "\"2xs\" | \"xs\" | \"s\" | \"m\" | \"l\" | \"xl\" | \"2xl\" | \"3xl\"",
+        "required": false,
+        "description": "Margin top",
+        "usage": "Add space above the grid"
+      },
+      {
+        "name": "mr",
+        "type": "\"2xs\" | \"xs\" | \"s\" | \"m\" | \"l\" | \"xl\" | \"2xl\" | \"3xl\"",
+        "required": false,
+        "description": "Margin right",
+        "usage": "Add space to the right of the grid"
+      },
+      {
+        "name": "mb",
+        "type": "\"2xs\" | \"xs\" | \"s\" | \"m\" | \"l\" | \"xl\" | \"2xl\" | \"3xl\"",
+        "required": false,
+        "description": "Margin bottom",
+        "usage": "Add space below the grid"
+      },
+      {
+        "name": "ml",
+        "type": "\"2xs\" | \"xs\" | \"s\" | \"m\" | \"l\" | \"xl\" | \"2xl\" | \"3xl\"",
+        "required": false,
+        "description": "Margin left",
+        "usage": "Add space to the left of the grid"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Test identifier for automation",
+        "usage": "Use for QA testing and automation scripts"
+      }
+    ],
+    "children": "Any content - commonly Cards, content blocks, or custom components"
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Service Cards Grid",
+          "code": "function ServicesGrid() {\n  const services = [\n    {\n      id: 1,\n      title: 'Health Services',\n      description: 'Access healthcare information, find clinics, and manage your health records.',\n      icon: 'heart',\n      link: '/health'\n    },\n    {\n      id: 2,\n      title: 'Education & Training', \n      description: 'School resources, post-secondary education, and skills training programs.',\n      icon: 'book',\n      link: '/education'\n    },\n    {\n      id: 3,\n      title: 'Employment Services',\n      description: 'Job search assistance, career development, and employment programs.',\n      icon: 'briefcase',\n      link: '/employment'\n    },\n    {\n      id: 4,\n      title: 'Business Support',\n      description: 'Resources and support for starting and growing your business in Alberta.',\n      icon: 'building',\n      link: '/business'\n    }\n  ];\n\n  return (\n    <div>\n      <h2>Government Services</h2>\n      <GoabGrid minChildWidth=\"300px\" gap=\"l\" mt=\"m\">\n        {services.map(service => (\n          <GoabCard key={service.id}>\n            <GoabIcon type={service.icon} size=\"large\" />\n            <h3>{service.title}</h3>\n            <p>{service.description}</p>\n            <GoabButton \n              type=\"tertiary\" \n              onClick={() => window.location.href = service.link}\n            >\n              Learn More\n            </GoabButton>\n          </GoabCard>\n        ))}\n      </GoabGrid>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Dashboard Stats Grid",
+          "code": "function DashboardStats({ stats }) {\n  return (\n    <div>\n      <h2>Service Statistics</h2>\n      <GoabGrid minChildWidth=\"250px\" gap=\"m\" mb=\"xl\">\n        {stats.map((stat, index) => (\n          <GoabCard key={index}>\n            <div style={{ textAlign: 'center' }}>\n              <div style={{ \n                fontSize: '2.5rem', \n                fontWeight: 'bold', \n                color: 'var(--goa-color-interactive-default)' \n              }}>\n                {stat.value}\n              </div>\n              <h3 style={{ margin: '0.5rem 0' }}>{stat.label}</h3>\n              <p style={{ \n                color: 'var(--goa-color-text-secondary)',\n                fontSize: '0.875rem'\n              }}>\n                {stat.description}\n              </p>\n              {stat.trend && (\n                <div style={{ \n                  display: 'flex', \n                  alignItems: 'center', \n                  justifyContent: 'center',\n                  gap: '0.25rem',\n                  marginTop: '0.5rem'\n                }}>\n                  <GoabIcon \n                    type={stat.trend > 0 ? 'arrow-up' : 'arrow-down'} \n                    size=\"small\"\n                  />\n                  <span>{Math.abs(stat.trend)}%</span>\n                </div>\n              )}\n            </div>\n          </GoabCard>\n        ))}\n      </GoabGrid>\n    </div>\n  );\n}\n\n// Usage\nconst dashboardStats = [\n  {\n    value: '12,543',\n    label: 'Applications Processed',\n    description: 'This month',\n    trend: 8.2\n  },\n  {\n    value: '98.5%',\n    label: 'System Uptime',\n    description: 'Last 30 days',\n    trend: 0.3\n  },\n  {\n    value: '1,247',\n    label: 'Active Users',\n    description: 'Currently online',\n    trend: -2.1\n  },\n  {\n    value: '45min',\n    label: 'Avg Response Time',\n    description: 'Customer service',\n    trend: -12.5\n  }\n];\n\n<DashboardStats stats={dashboardStats} />"
+        },
+        {
+          "title": "Responsive Content Gallery",
+          "code": "function ContentGallery({ items, loading }) {\n  if (loading) {\n    return (\n      <GoabGrid minChildWidth=\"280px\" gap=\"l\">\n        {Array.from({ length: 6 }).map((_, index) => (\n          <GoabCard key={index}>\n            <div style={{ \n              height: '200px', \n              backgroundColor: 'var(--goa-color-greyscale-100)',\n              borderRadius: '4px',\n              marginBottom: '1rem'\n            }} />\n            <div style={{ \n              height: '1.5rem',\n              backgroundColor: 'var(--goa-color-greyscale-100)',\n              borderRadius: '4px',\n              marginBottom: '0.5rem'\n            }} />\n            <div style={{ \n              height: '3rem',\n              backgroundColor: 'var(--goa-color-greyscale-100)',\n              borderRadius: '4px'\n            }} />\n          </GoabCard>\n        ))}\n      </GoabGrid>\n    );\n  }\n\n  return (\n    <div>\n      <div style={{ \n        display: 'flex', \n        justifyContent: 'space-between', \n        alignItems: 'center',\n        marginBottom: '1.5rem'\n      }}>\n        <h2>Latest News & Updates</h2>\n        <GoabButton type=\"tertiary\">View All</GoabButton>\n      </div>\n      \n      <GoabGrid minChildWidth=\"280px\" gap=\"l\">\n        {items.map(item => (\n          <GoabCard key={item.id}>\n            {item.image && (\n              <img \n                src={item.image} \n                alt={item.title}\n                style={{ \n                  width: '100%', \n                  height: '200px', \n                  objectFit: 'cover',\n                  borderRadius: '4px',\n                  marginBottom: '1rem'\n                }}\n              />\n            )}\n            <div style={{ padding: '0 1rem 1rem' }}>\n              <h3 style={{ marginBottom: '0.5rem' }}>\n                {item.title}\n              </h3>\n              <p style={{ \n                color: 'var(--goa-color-text-secondary)',\n                fontSize: '0.875rem',\n                marginBottom: '1rem'\n              }}>\n                {item.date}\n              </p>\n              <p style={{ marginBottom: '1rem' }}>\n                {item.excerpt}\n              </p>\n              <GoabButton \n                type=\"tertiary\" \n                size=\"compact\"\n                onClick={() => window.open(item.link, '_blank')}\n              >\n                Read More\n              </GoabButton>\n            </div>\n          </GoabCard>\n        ))}\n      </GoabGrid>\n    </div>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Product Grid Component",
+          "code": "export class ProductGridComponent {\n  @Input() products: Product[] = [];\n  @Input() loading: boolean = false;\n  \n  trackByProductId(index: number, product: Product): number {\n    return product.id;\n  }\n  \n  onProductClick(product: Product): void {\n    this.router.navigate(['/products', product.id]);\n  }\n}\n\ninterface Product {\n  id: number;\n  name: string;\n  description: string;\n  price: number;\n  image?: string;\n  category: string;\n}\n\n<!-- Template -->\n<div class=\"product-grid-container\">\n  <h2>Featured Products</h2>\n  \n  <goa-grid minChildWidth=\"320px\" gap=\"l\" mt=\"m\">\n    <goa-card \n      *ngFor=\"let product of products; trackBy: trackByProductId\"\n      (click)=\"onProductClick(product)\"\n      [style.cursor]=\"'pointer'\">\n      \n      <div *ngIf=\"product.image\" class=\"product-image\">\n        <img [src]=\"product.image\" [alt]=\"product.name\">\n      </div>\n      \n      <div class=\"product-content\">\n        <h3>{{ product.name }}</h3>\n        <p class=\"product-category\">{{ product.category }}</p>\n        <p class=\"product-description\">{{ product.description }}</p>\n        <div class=\"product-price\">\n          {{ product.price | currency:'CAD':'symbol':'1.2-2' }}\n        </div>\n        <goa-button \n          type=\"primary\" \n          size=\"compact\"\n          (click)=\"onProductClick(product); $event.stopPropagation()\">\n          View Details\n        </goa-button>\n      </div>\n    </goa-card>\n  </goa-grid>\n  \n  <!-- Loading state -->\n  <goa-grid \n    *ngIf=\"loading\" \n    minChildWidth=\"320px\" \n    gap=\"l\" \n    mt=\"m\">\n    <goa-card *ngFor=\"let item of [1,2,3,4,5,6]\">\n      <div class=\"loading-skeleton\">\n        <div class=\"skeleton-image\"></div>\n        <div class=\"skeleton-title\"></div>\n        <div class=\"skeleton-text\"></div>\n        <div class=\"skeleton-text short\"></div>\n      </div>\n    </goa-card>\n  </goa-grid>\n</div>\n\n<!-- Styles -->\n<style>\n.product-image img {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n  border-radius: 4px;\n  margin-bottom: 1rem;\n}\n\n.product-content {\n  padding: 0 1rem 1rem;\n}\n\n.product-category {\n  color: var(--goa-color-text-secondary);\n  font-size: 0.875rem;\n  margin-bottom: 0.5rem;\n}\n\n.product-description {\n  margin-bottom: 1rem;\n}\n\n.product-price {\n  font-size: 1.25rem;\n  font-weight: bold;\n  color: var(--goa-color-interactive-default);\n  margin-bottom: 1rem;\n}\n\n.loading-skeleton {\n  padding: 1rem;\n}\n\n.skeleton-image,\n.skeleton-title,\n.skeleton-text {\n  background-color: var(--goa-color-greyscale-100);\n  border-radius: 4px;\n  margin-bottom: 0.75rem;\n}\n\n.skeleton-image {\n  height: 200px;\n}\n\n.skeleton-title {\n  height: 1.5rem;\n}\n\n.skeleton-text {\n  height: 1rem;\n}\n\n.skeleton-text.short {\n  width: 60%;\n}\n</style>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Responsive Dashboard Layout",
+        "description": "Create dashboard layouts that work on all screen sizes",
+        "code": "function ResponsiveDashboard() {\n  return (\n    <div className=\"dashboard\">\n      {/* Header stats - smaller minimum width for more columns */}\n      <section>\n        <h2>Key Metrics</h2>\n        <GoabGrid minChildWidth=\"200px\" gap=\"s\" mb=\"xl\">\n          <MetricCard title=\"Total Users\" value=\"2,543\" trend=\"+12%\" />\n          <MetricCard title=\"Active Sessions\" value=\"847\" trend=\"+5%\" />\n          <MetricCard title=\"Revenue\" value=\"$45,230\" trend=\"+18%\" />\n          <MetricCard title=\"Conversion\" value=\"3.2%\" trend=\"-2%\" />\n        </GoabGrid>\n      </section>\n\n      {/* Main content - larger minimum width for detailed content */}\n      <section>\n        <h2>Service Areas</h2>\n        <GoabGrid minChildWidth=\"350px\" gap=\"l\" mb=\"xl\">\n          <ServiceCard \n            title=\"Healthcare\" \n            description=\"Manage appointments, records, and health information\"\n            actions={['Book Appointment', 'View Records']}\n          />\n          <ServiceCard \n            title=\"Education\" \n            description=\"School enrollment, transcripts, and educational resources\"\n            actions={['Enroll Student', 'Request Transcript']}\n          />\n          <ServiceCard \n            title=\"Business Services\" \n            description=\"Licensing, permits, and business registration\"\n            actions={['Apply for License', 'Renew Permit']}\n          />\n        </GoabGrid>\n      </section>\n\n      {/* Footer content - flexible sizing */}\n      <section>\n        <h2>Recent Activity</h2>\n        <GoabGrid minChildWidth=\"280px\" gap=\"m\">\n          <ActivityCard type=\"application\" time=\"2 hours ago\" />\n          <ActivityCard type=\"payment\" time=\"1 day ago\" />\n          <ActivityCard type=\"document\" time=\"3 days ago\" />\n        </GoabGrid>\n      </section>\n    </div>\n  );\n}"
+      },
+      {
+        "name": "Content Organization with Mixed Layouts",
+        "description": "Combine different grid configurations for varied content types",
+        "code": "function ContentPage() {\n  return (\n    <div>\n      {/* Featured content - wider layout */}\n      <section className=\"featured-section\">\n        <h2>Featured Services</h2>\n        <GoabGrid minChildWidth=\"400px\" gap=\"xl\" mb=\"2xl\">\n          <FeaturedCard priority=\"high\" />\n          <FeaturedCard priority=\"medium\" />\n        </GoabGrid>\n      </section>\n\n      {/* Regular content - balanced layout */}\n      <section className=\"services-section\">\n        <h2>All Services</h2>\n        <GoabGrid minChildWidth=\"300px\" gap=\"l\" mb=\"2xl\">\n          {services.map(service => (\n            <ServiceCard key={service.id} {...service} />\n          ))}\n        </GoabGrid>\n      </section>\n\n      {/* Quick links - compact layout */}\n      <section className=\"quick-links\">\n        <h2>Quick Links</h2>\n        <GoabGrid minChildWidth=\"200px\" gap=\"s\">\n          {quickLinks.map(link => (\n            <QuickLinkCard key={link.id} {...link} />\n          ))}\n        </GoabGrid>\n      </section>\n    </div>\n  );\n}"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Displaying cards or content blocks in a responsive layout",
+      "Creating dashboard layouts with multiple panels",
+      "Organizing content that should wrap to new rows",
+      "Building galleries or catalogs of items",
+      "Any layout needing automatic responsive behavior"
+    ],
+    "whenNotToUse": [
+      "Simple horizontal layouts (use flexbox or CSS directly)",
+      "Single-column layouts (use Block or Container instead)",
+      "Complex grid layouts requiring specific positioning (use CSS Grid directly)",
+      "Data tables (use Table component instead)"
+    ],
+    "bestPractices": [
+      "Set minChildWidth based on your content's minimum readable size",
+      "Use consistent gap values throughout your application",
+      "Test responsiveness at various screen sizes",
+      "Consider content hierarchy when choosing minChildWidth",
+      "Use larger gaps (l, xl) for important content, smaller gaps (s, m) for dense layouts",
+      "Ensure child content works well at various widths"
+    ],
+    "contentGuidelines": [
+      "Design child components to be flexible in width",
+      "Ensure content is readable at the minimum width",
+      "Use consistent card/content patterns within a grid",
+      "Consider loading states for dynamic content",
+      "Test with varying content lengths"
+    ],
+    "responsiveConsiderations": [
+      "Grid automatically stacks on mobile devices",
+      "minChildWidth determines when columns wrap",
+      "Test behavior at tablet and desktop breakpoints",
+      "Consider touch target sizes for mobile",
+      "Ensure adequate spacing for mobile interaction"
+    ]
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Navigation handled by child components",
+      "Tab order flows logically through grid items",
+      "Grid container itself is not focusable"
+    ],
+    "screenReader": [
+      "Grid provides visual layout only",
+      "Child components provide semantic meaning",
+      "Use appropriate headings and landmarks within children"
+    ],
+    "focusManagement": [
+      "Focus indicators controlled by child components",
+      "Logical tab order maintained across grid items",
+      "No specific focus management needed for grid container"
+    ]
+  },
+
+  "troubleshooting": {
+    "common": [
+      {
+        "issue": "Grid items not arranging in columns",
+        "cause": "minChildWidth not set or CSS conflicts",
+        "solution": "Ensure minChildWidth prop is provided and includes units (px, rem, etc.). Check for CSS overrides affecting display property."
+      },
+      {
+        "issue": "Grid not responsive on mobile",
+        "cause": "Mobile breakpoint behavior or CSS conflicts",
+        "solution": "Grid automatically stacks on mobile. If not working, check for CSS overrides or media query conflicts."
+      },
+      {
+        "issue": "Uneven spacing between items",
+        "cause": "Child components have different heights or margins",
+        "solution": "Ensure child components have consistent structure. Use CSS to normalize heights if needed."
+      },
+      {
+        "issue": "Grid items too narrow or too wide",
+        "cause": "Incorrect minChildWidth value",
+        "solution": "Adjust minChildWidth based on your content's optimal width. Test at different screen sizes."
+      },
+      {
+        "issue": "Large gaps between sections",
+        "cause": "Margin props or child component margins",
+        "solution": "Check margin props (mt, mb, etc.) and child component spacing. Adjust gap prop for internal spacing."
+      }
+    ],
+    "integration": [
+      {
+        "issue": "Grid not working with CSS frameworks",
+        "cause": "CSS framework grid systems conflicting",
+        "solution": "Ensure CSS framework grid classes aren't applied to Grid component. Use framework layout utilities outside of Grid."
+      },
+      {
+        "issue": "Child components not fitting properly",
+        "cause": "Child components not designed for flexible layouts",
+        "solution": "Design child components to be flexible in width. Use percentage widths or flex properties within children."
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabContainer",
+      "usage": "Wrap Grid for consistent page layout and maximum width",
+      "example": "<GoabContainer maxWidth=\"1200px\">\n  <GoabGrid minChildWidth=\"300px\" gap=\"l\">\n    {/* Grid items */}\n  </GoabGrid>\n</GoabContainer>"
+    },
+    {
+      "name": "GoabCard",
+      "usage": "Most common child component for grid layouts",
+      "example": "<GoabGrid minChildWidth=\"280px\" gap=\"m\">\n  <GoabCard>Content 1</GoabCard>\n  <GoabCard>Content 2</GoabCard>\n</GoabGrid>"
+    },
+    {
+      "name": "GoabBlock",
+      "usage": "Alternative for simpler layouts that don't need grid behavior",
+      "example": "Use Block for simple stacked layouts, Grid for responsive multi-column layouts"
+    }
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Missing minChildWidth prop",
+      "why": "minChildWidth is required for proper responsive grid behavior",
+      "instead": "Always provide minChildWidth based on your content's minimum readable size",
+      "example": "// ❌ Wrong - missing required prop\n<GoabGrid gap=\"l\">\n  <GoabCard>Content</GoabCard>\n</GoabGrid>\n\n// ✅ Correct - minChildWidth provided\n<GoabGrid minChildWidth=\"300px\" gap=\"l\">\n  <GoabCard>Content</GoabCard>\n</GoabGrid>"
+    },
+    {
+      "mistake": "Using Grid for single-column layouts",
+      "why": "Grid adds unnecessary complexity for simple stacked content",
+      "instead": "Use Block component or regular div for single-column layouts",
+      "example": "// ❌ Wrong - Grid for single column\n<GoabGrid minChildWidth=\"100%\">\n  <div>Item 1</div>\n  <div>Item 2</div>\n</GoabGrid>\n\n// ✅ Correct - Block for single column\n<GoabBlock gap=\"m\">\n  <div>Item 1</div>\n  <div>Item 2</div>\n</GoabBlock>"
+    },
+    {
+      "mistake": "Setting minChildWidth too small or too large",
+      "why": "Too small creates unreadable content, too large prevents responsive behavior",
+      "instead": "Set minChildWidth to the minimum size where your content remains readable",
+      "example": "// ❌ Wrong - too small for card content\n<GoabGrid minChildWidth=\"100px\">\n  <GoabCard>\n    <h3>Service Title</h3>\n    <p>Detailed description...</p>\n  </GoabCard>\n</GoabGrid>\n\n// ✅ Correct - appropriate minimum for card content\n<GoabGrid minChildWidth=\"280px\">\n  <GoabCard>\n    <h3>Service Title</h3>\n    <p>Detailed description...</p>\n  </GoabCard>\n</GoabGrid>"
+    },
+    {
+      "mistake": "Inconsistent child component heights",
+      "why": "Creates uneven grid layout that looks unprofessional",
+      "instead": "Design child components with consistent structure or use CSS to normalize heights",
+      "example": "// ❌ Wrong - inconsistent card heights\n<GoabGrid minChildWidth=\"300px\">\n  <GoabCard><h3>Short</h3></GoabCard>\n  <GoabCard>\n    <h3>Much Longer Title</h3>\n    <p>With description</p>\n    <button>Action</button>\n  </GoabCard>\n</GoabGrid>\n\n// ✅ Correct - consistent card structure\n<GoabGrid minChildWidth=\"300px\">\n  <GoabCard>\n    <h3>Short</h3>\n    <p>{description || 'Brief overview'}</p>\n    <GoabButton>Action</GoabButton>\n  </GoabCard>\n</GoabGrid>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": {
+      "react": "Use camelCase: minChildWidth, testId",
+      "webComponent": "Use lowercase: minchildwidth, testid",
+      "angular": "Use camelCase in templates: [minChildWidth], [testId]"
+    },
+    "slotHandling": {
+      "react": "Grid items passed as children prop",
+      "webComponent": "Grid items placed as child elements inside goa-grid tags",
+      "angular": "Grid items projected via ng-content"
+    },
+    "constraints": {
+      "minChildWidth": "Required prop - must include CSS units (px, rem, em, %)",
+      "gapValues": "Must use design system spacing tokens (xs, s, m, l, xl, etc.)",
+      "childFlexibility": "Child components should be flexible in width"
+    },
+    "responsiveBehavior": {
+      "automatic": "Grid automatically switches to stacked layout on mobile devices",
+      "breakpoint": "Uses CSS @media queries, not JavaScript, for responsive behavior",
+      "columnCalculation": "CSS Grid auto-fit calculates columns based on available space and minChildWidth"
+    }
+  },
+
+  "tags": ["layout", "grid", "responsive", "container"],
+  "category": "layout",
+  "status": "stable",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/grid.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

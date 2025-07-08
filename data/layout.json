@@ -1,0 +1,646 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "One Column Layout",
+  "customElement": {
+    "tagName": "goab-one-column-layout",
+    "className": "GoabOneColumnLayout",
+    "childComponents": [
+      "goab-page-block",
+      "goab-app-header",
+      "goab-microsite-header",
+      "goab-app-footer"
+    ]
+  },
+  "summary": "Default single-column layout with header and footer slots, plus centered content area using GoabPageBlock. Provides responsive margins and consistent page structure for Alberta Government services.",
+  "purpose": "Provide consistent page structure and responsive behavior for government applications and microsites",
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system", "@abgov/web-components"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabColumnLayout, GoabPageBlock, GoabSideMenu } from '@abgov/react-components'",
+      "quickExample": "<GoabColumnLayout>\n  <GoabAppHeader slot=\"header\" />\n  <GoabPageBlock>Content here</GoabPageBlock>\n  <GoabAppFooter slot=\"footer\" />\n</GoabColumnLayout>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-column-layout>\n  <goab-app-header slot=\"header\"></goab-app-header>\n  <goab-page-block>Content here</goab-page-block>\n  <goab-app-footer slot=\"footer\"></goab-app-footer>\n</goab-column-layout>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goab-column-layout>\n  <goab-app-header slot=\"header\"></goab-app-header>\n  <goab-page-block>Content here</goab-page-block>\n  <goab-app-footer slot=\"footer\"></goab-app-footer>\n</goab-column-layout>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Data attribute for testing automation"
+      }
+    ],
+    "slots": [
+      {
+        "name": "header",
+        "description": "Header content area - use section element with slot=\"header\"",
+        "required": false,
+        "usage": "Contains GoabMicrositeHeader and/or GoabAppHeader components"
+      },
+      {
+        "name": "default",
+        "description": "Main content area - use GoabPageBlock to control width and get responsive margins",
+        "required": true,
+        "usage": "Wrap content in GoabPageBlock with specified width (e.g. width=\"704px\" or width=\"full\")"
+      },
+      {
+        "name": "footer",
+        "description": "Footer content area - use section element with slot=\"footer\"",
+        "required": false,
+        "usage": "Contains GoabAppFooter component"
+      }
+    ],
+    "pageBlockProps": {
+      "note": "GoabPageBlock is used inside GoabOneColumnLayout to control content width and margins",
+      "width": {
+        "type": "string",
+        "description": "Sets max content width - use specific widths like '704px' or 'full' for full width",
+        "examples": ["704px", "960px", "1200px", "full"],
+        "default": "Centers content and provides responsive margins"
+      }
+    }
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Basic Page with Content Width",
+          "description": "Standard page layout with controlled content width",
+          "code": "function BasicPage() {\n  return (\n    <GoabOneColumnLayout>\n      <section slot=\"header\">\n        <GoabAppHeader heading=\"My Application\" url=\"/\" />\n      </section>\n      \n      <GoabPageBlock width=\"704px\">\n        <GoabContainer>\n          <h1>Welcome to Our Service</h1>\n          <p>This content is centered and has a max width of 704px.</p>\n          \n          <GoabButtonGroup mt=\"l\">\n            <GoabButton type=\"primary\">Get Started</GoabButton>\n            <GoabButton type=\"secondary\">Learn More</GoabButton>\n          </GoabButtonGroup>\n        </GoabContainer>\n      </GoabPageBlock>\n      \n      <section slot=\"footer\">\n        <GoabAppFooter />\n      </section>\n    </GoabOneColumnLayout>\n  );\n}"
+        },
+        {
+          "title": "Page with Microsite Header",
+          "description": "Layout with both microsite header and app header",
+          "code": "function MicrositePage() {\n  return (\n    <GoabOneColumnLayout>\n      <section slot=\"header\">\n        <GoabMicrositeHeader type=\"alpha\" version=\"UAT\" />\n        <GoabAppHeader url=\"/\" heading=\"Design System\">\n          <a href=\"/login\">Sign in</a>\n        </GoabAppHeader>\n      </section>\n      \n      <GoabPageBlock width=\"704px\">\n        <p>\n          <GoabSkeleton type=\"header\" size=\"4\" />\n          <GoabSkeleton type=\"text\" size=\"1\" />\n        </p>\n        <p>\n          <GoabSkeleton type=\"header\" size=\"4\" />\n          <GoabSkeleton type=\"text\" size=\"1\" />\n        </p>\n        <GoabGrid minChildWidth=\"30ch\">\n          <GoabSkeleton type=\"card\" size=\"2\" />\n          <GoabSkeleton type=\"card\" size=\"2\" />\n        </GoabGrid>\n      </GoabPageBlock>\n      \n      <section slot=\"footer\">\n        <GoabAppFooter />\n      </section>\n    </GoabOneColumnLayout>\n  );\n}"
+        },
+        {
+          "title": "Full Width Content Layout",
+          "description": "Layout with content that spans the full page width",
+          "code": "function FullWidthPage() {\n  return (\n    <GoabOneColumnLayout>\n      <section slot=\"header\">\n        <GoabAppHeader heading=\"Dashboard\" url=\"/\" />\n      </section>\n      \n      <GoabPageBlock width=\"full\">\n        <GoabContainer>\n          <h1>Analytics Dashboard</h1>\n        </GoabContainer>\n        \n        <GoabGrid minChildWidth=\"300px\" gap=\"l\">\n          <GoabContainer accent=\"thick\" title=\"Metric 1\">\n            <p>Full width content with grid layout</p>\n          </GoabContainer>\n          <GoabContainer accent=\"thick\" title=\"Metric 2\">\n            <p>Spans the entire page width</p>\n          </GoabContainer>\n          <GoabContainer accent=\"thick\" title=\"Metric 3\">\n            <p>Good for dashboards and data display</p>\n          </GoabContainer>\n        </GoabGrid>\n      </GoabPageBlock>\n      \n      <section slot=\"footer\">\n        <GoabAppFooter />\n      </section>\n    </GoabOneColumnLayout>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Basic Page Layout",
+          "description": "Standard page with controlled content width",
+          "code": "<goab-one-column-layout>\n  <section slot=\"header\">\n    <goab-app-header heading=\"My Application\" url=\"/\"></goab-app-header>\n  </section>\n  \n  <goab-page-block width=\"704px\">\n    <goab-container>\n      <h1>Welcome to Our Service</h1>\n      <p>This content is centered and has a max width of 704px.</p>\n      \n      <goab-button-group mt=\"l\">\n        <goab-button type=\"primary\">Get Started</goab-button>\n        <goab-button type=\"secondary\">Learn More</goab-button>\n      </goab-button-group>\n    </goab-container>\n  </goab-page-block>\n  \n  <section slot=\"footer\">\n    <goab-app-footer></goab-app-footer>\n  </section>\n</goab-one-column-layout>"
+        },
+        {
+          "title": "Form Layout",
+          "description": "Centered form layout with optimal width for readability",
+          "code": "<goab-one-column-layout>\n  <section slot=\"header\">\n    <goab-app-header heading=\"Application Form\" url=\"/\"></goab-app-header>\n  </section>\n  \n  <goab-page-block width=\"704px\">\n    <goab-container>\n      <h1>Personal Information</h1>\n      \n      <goab-form-item label=\"Full Name\">\n        <goab-input [(ngModel)]=\"fullName\" required></goab-input>\n      </goab-form-item>\n      \n      <goab-form-item label=\"Email Address\">\n        <goab-input type=\"email\" [(ngModel)]=\"email\" required></goab-input>\n      </goab-form-item>\n      \n      <goab-button-group mt=\"l\">\n        <goab-button type=\"primary\">Continue</goab-button>\n        <goab-button type=\"secondary\">Save Draft</goab-button>\n      </goab-button-group>\n    </goab-container>\n  </goab-page-block>\n  \n  <section slot=\"footer\">\n    <goab-app-footer></goab-app-footer>\n  </section>\n</goab-one-column-layout>"
+        }
+      ]
+    },
+    "advancedPatterns": [
+      {
+        "name": "Dynamic Content Width",
+        "description": "Adjust content width based on content type and user needs",
+        "code": "// React - Content width based on page context\nfunction AdaptiveLayout({ contentType, children }) {\n  const getPageWidth = () => {\n    switch(contentType) {\n      case 'article': case 'form': return '704px'; // Optimal reading/form width\n      case 'wide-form': return '960px'; // Wider forms with multiple columns\n      case 'dashboard': case 'full': return 'full'; // Full width for data/dashboards\n      default: return '704px';\n    }\n  };\n  \n  return (\n    <GoabOneColumnLayout>\n      <section slot=\"header\">\n        <GoabAppHeader heading=\"My App\" />\n      </section>\n      \n      <GoabPageBlock width={getPageWidth()}>\n        {children}\n      </GoabPageBlock>\n      \n      <section slot=\"footer\">\n        <GoabAppFooter />\n      </section>\n    </GoabOneColumnLayout>\n  );\n}"
+      },
+      {
+        "name": "Conditional Header Components",
+        "description": "Show different header combinations based on app context",
+        "code": "// React - Conditional microsite header\nfunction ConditionalHeaderLayout({ showMicrosite, environment, children }) {\n  return (\n    <GoabOneColumnLayout>\n      <section slot=\"header\">\n        {showMicrosite && (\n          <GoabMicrositeHeader \n            type={environment === 'production' ? 'live' : 'alpha'} \n            version={environment.toUpperCase()} \n          />\n        )}\n        <GoabAppHeader heading=\"My Application\" url=\"/\">\n          <a href=\"/login\">Sign in</a>\n        </GoabAppHeader>\n      </section>\n      \n      <GoabPageBlock width=\"704px\">\n        {children}\n      </GoabPageBlock>\n      \n      <section slot=\"footer\">\n        <GoabAppFooter />\n      </section>\n    </GoabOneColumnLayout>\n  );\n}"
+      }
+    ]
+  },
+
+  "layoutStructure": {
+    "header": {
+      "slot": "header",
+      "element": "section",
+      "components": ["goab-microsite-header", "goab-app-header"],
+      "description": "Use section element with slot='header' attribute",
+      "examples": [
+        "GoabAppHeader only for simple applications",
+        "GoabMicrositeHeader + GoabAppHeader for government microsites",
+        "Multiple header components can be stacked"
+      ]
+    },
+    "main": {
+      "slot": "default",
+      "component": "goab-page-block",
+      "required": true,
+      "widthOptions": {
+        "specific": "Set specific max width like '704px', '960px', '1200px'",
+        "full": "Use width='full' for full page width",
+        "default": "If no width specified, uses responsive default"
+      },
+      "margins": "Automatic responsive margins that adjust at breakpoints",
+      "centering": "Content is automatically centered within the specified width"
+    },
+    "footer": {
+      "slot": "footer",
+      "element": "section",
+      "component": "goab-app-footer",
+      "description": "Use section element with slot='footer' attribute"
+    }
+  },
+
+  "breakpoints": {
+    "small": {
+      "range": "<624px",
+      "viewport": "Small screen (mobile)",
+      "margin": "16px"
+    },
+    "medium": {
+      "range": "624px–1024px",
+      "viewport": "Medium screen (tablet)",
+      "margin": "32px"
+    },
+    "large": {
+      "range": ">1024px",
+      "viewport": "Large screen (desktop)",
+      "margin": "64px",
+      "note": "64px margins correspond to 4REM as shown in spacing annotations"
+    }
+  },
+
+  "mandatoryPatterns": {
+    "governmentServicePage": {
+      "description": "REQUIRED pattern for ALL Alberta Government service pages",
+      "rule": "Every government service page MUST use GoabOneColumnLayout as the root component",
+      "template": "GoabOneColumnLayout > header slot (GoabMicrositeHeader + GoabAppHeader) > GoabPageBlock (content) > footer slot (GoabAppFooter)",
+      "requiredStructure": {
+        "root": "GoabOneColumnLayout",
+        "headerSlot": "section slot='header' containing GoabMicrositeHeader and/or GoabAppHeader",
+        "content": "GoabPageBlock with specified width containing all page content",
+        "footerSlot": "section slot='footer' containing GoabAppFooter"
+      },
+      "neverUse": [
+        "div or generic HTML elements as page root",
+        "GoabContainer component as page wrapper",
+        "Custom layout structures without GoabOneColumnLayout",
+        "Direct header/footer placement without slots",
+        "Content outside of GoabPageBlock",
+        "Multiple GoabPageBlock elements on same page"
+      ],
+      "exceptionPolicy": "NO EXCEPTIONS - this pattern is mandatory for government compliance and accessibility",
+      "complianceReasons": [
+        "Ensures consistent government branding across all services",
+        "Maintains accessibility standards with proper landmark structure",
+        "Provides responsive behavior required for mobile government services",
+        "Guarantees proper header hierarchy for screen readers",
+        "Enforces Alberta Government visual identity standards"
+      ],
+      "mandatoryExample": {
+        "react": "// MANDATORY structure for ALL government service pages\nfunction GovernmentServicePage() {\n  return (\n    <GoabOneColumnLayout>\n      <section slot=\"header\">\n        <GoabMicrositeHeader type=\"live\" version=\"\" />\n        <GoabAppHeader url=\"/\" heading=\"Service Name\">\n          <a href=\"/login\">Sign in</a>\n        </GoabAppHeader>\n      </section>\n      \n      <GoabPageBlock width=\"704px\">\n        {/* ALL page content goes here */}\n        <GoabText size=\"l\" mb=\"m\">Service content...</GoabText>\n      </GoabPageBlock>\n      \n      <section slot=\"footer\">\n        <GoabAppFooter />\n      </section>\n    </GoabOneColumnLayout>\n  );\n}",
+        "angular": "<!-- MANDATORY structure for ALL government service pages -->\n<goab-one-column-layout>\n  <section slot=\"header\">\n    <goab-microsite-header type=\"live\" version=\"\"></goab-microsite-header>\n    <goab-app-header url=\"/\" heading=\"Service Name\">\n      <a href=\"/login\">Sign in</a>\n    </goab-app-header>\n  </section>\n  \n  <goab-page-block width=\"704px\">\n    <!-- ALL page content goes here -->\n    <goab-text size=\"l\" mb=\"m\">Service content...</goab-text>\n  </goab-page-block>\n  \n  <section slot=\"footer\">\n    <goab-app-footer></goab-app-footer>\n  </section>\n</goab-one-column-layout>"
+      },
+      "validationChecklist": [
+        "✓ Root element is GoabOneColumnLayout",
+        "✓ Header content in section slot='header'",
+        "✓ All content wrapped in single GoabPageBlock",
+        "✓ Footer content in section slot='footer'",
+        "✓ No content outside GoabPageBlock",
+        "✓ No custom wrapper divs around layout"
+      ]
+    }
+  },
+
+  "mandatorySpacing": {
+    "headerToContentRule": {
+      "rule": "ALWAYS add mt='2xl' to first content element after any header",
+      "applies": [
+        "PageBlock content",
+        "Section content",
+        "Post-header content",
+        "Any content following GoabAppHeader"
+      ],
+      "example": "<GoabText tag='h1' mt='2xl' mb='l'>First content after header</GoabText>",
+      "enforcement": "Every first element in GoabPageBlock or after headers must have mt='2xl'",
+      "rationale": "Provides consistent separation between header navigation and page content across all government services"
+    }
+  },
+
+  "criticalConstraints": {
+    "noCustomStyling": {
+      "rule": "NEVER use style={}, className with custom CSS, or any custom styling on GoA components",
+      "enforcement": "Components provide ALL necessary styling through props only",
+      "rationale": "Design system components are designed to handle all visual requirements through documented props",
+      "violations": [
+        "❌ style={{ padding: '16px', borderBottom: '1px solid #ccc' }}",
+        "❌ style={{ flex: '1', textAlign: 'center' }}",
+        "❌ style={{ color: '#0070f3' }}",
+        "❌ className='custom-spacing'",
+        "❌ style={{ marginTop: '32px' }}",
+        "❌ style={{ backgroundColor: '#f5f5f5' }}"
+      ],
+      "correct": [
+        "✅ Use only documented component properties: gap, direction, alignment, mb, mt",
+        "✅ Trust the design system - GoA components handle all styling automatically",
+        "✅ Use spacing props: mt='2xl', mb='l', gap='m'",
+        "✅ Use component variants: type='primary', accent='thick'",
+        "✅ Use size props: size='l', width='704px'"
+      ],
+      "emergencyOverride": {
+        "policy": "NO EXCEPTIONS - If styling needs cannot be met with component props, contact design system team",
+        "escalation": "Custom styling breaks government compliance and accessibility standards"
+      }
+    },
+    "layoutStructureEnforcement": {
+      "rule": "NEVER bypass GoabOneColumnLayout for government service pages",
+      "violations": [
+        "❌ Using div as page root",
+        "❌ Custom layout components",
+        "❌ Direct header/footer without slots",
+        "❌ Multiple GoabPageBlock elements",
+        "❌ Content outside GoabPageBlock"
+      ],
+      "enforcement": "All government service pages must follow: GoabOneColumnLayout > header slot > GoabPageBlock > footer slot",
+      "compliance": "Required for accessibility, government branding, and responsive behavior standards"
+    }
+  },
+
+  "designDataAnalysis": {
+    "rule": "When user provides Figma JSON or design specifications, ALWAYS analyze for exact component configurations",
+    "layoutSpecificRules": [
+      "Extract spacing values from design data and map to GoA spacing tokens",
+      "Match exact width specifications from provided JSON to GoabPageBlock width prop",
+      "Follow component hierarchy from design files while maintaining GoabOneColumnLayout structure",
+      "Never assume layout patterns without design confirmation - use provided specifications",
+      "Validate that custom spacing in designs maps to available GoA spacing tokens",
+      "Preserve exact content widths specified in design data"
+    ],
+    "dataExtractionPriority": [
+      "1. Page width specifications → GoabPageBlock width prop",
+      "2. Spacing between elements → component spacing props (mt, mb, gap)",
+      "3. Component hierarchy → proper slot and nesting structure",
+      "4. Header configurations → GoabMicrositeHeader and GoabAppHeader props",
+      "5. Content organization → GoabContainer and GoabBlock usage"
+    ],
+    "designToComponentMapping": {
+      "pageWidth": "Map design width to GoabPageBlock width prop (704px, 960px, 1200px, full)",
+      "elementSpacing": "Convert design spacing to GoA tokens (3xs through 4xl)",
+      "sectionBreaks": "Use GoabContainer or spacing props for visual separation",
+      "headerElements": "Map to GoabMicrositeHeader and GoabAppHeader configurations"
+    }
+  },
+
+  "spacingValidation": {
+    "validSpacingTokens": [
+      "none",
+      "3xs",
+      "2xs",
+      "xs",
+      "s",
+      "m",
+      "l",
+      "xl",
+      "2xl",
+      "3xl",
+      "4xl"
+    ],
+    "tokenMapping": {
+      "none": "0px",
+      "3xs": "2px",
+      "2xs": "4px",
+      "xs": "8px",
+      "s": "12px",
+      "m": "16px",
+      "l": "24px",
+      "xl": "32px",
+      "2xl": "48px",
+      "3xl": "64px",
+      "4xl": "96px"
+    },
+    "commonMistakes": [
+      "Using invalid tokens: '0', 'small', 'medium', 'large'",
+      "Using pixel values directly instead of tokens",
+      "Mixing CSS spacing with component props"
+    ],
+    "invalidExamples": [
+      "❌ mt='0' (should be mt='none')",
+      "❌ mb='large' (should be mb='l' or mb='xl')",
+      "❌ gap='small' (should be gap='s')",
+      "❌ mt='16px' (should be mt='m')",
+      "❌ style={{marginTop: '32px'}} (should be mt='xl')"
+    ],
+    "validExamples": [
+      "✅ mt='none' for no top margin",
+      "✅ mb='l' for 24px bottom margin",
+      "✅ gap='m' for 16px gap between elements",
+      "✅ mt='2xl' for 48px top margin",
+      "✅ mb='3xl' for 64px bottom margin"
+    ],
+    "designDataSpacingConversion": {
+      "rule": "When design data shows specific pixel values, convert to nearest GoA spacing token",
+      "conversionGuidance": [
+        "0-1px → 'none'",
+        "2-3px → '3xs'",
+        "4-6px → '2xs'",
+        "7-10px → 'xs'",
+        "11-14px → 's'",
+        "15-20px → 'm'",
+        "21-28px → 'l'",
+        "29-40px → 'xl'",
+        "41-56px → '2xl'",
+        "57-80px → '3xl'",
+        "81px+ → '4xl'"
+      ]
+    }
+  },
+
+  "pageContentSpacing": {
+    "description": "Standard spacing patterns for page content within GoabPageBlock components",
+    "mandatoryDefaults": {
+      "pageToFooter": {
+        "value": "3xl",
+        "rule": "ALWAYS add mb='3xl' to the last content element before footer",
+        "reason": "Provides proper separation between page content and footer",
+        "example": "<GoabButton type='primary' mb='3xl'>Submit</GoabButton>",
+        "applies": "Last element inside GoabPageBlock before footer appears"
+      },
+      "headerToBackButton": {
+        "value": "m",
+        "rule": "When back button present, use mt='m' on back button",
+        "reason": "Proper spacing from header to back navigation",
+        "example": "<GoabBackButton mt='m' mb='2xl'>Back</GoabBackButton>",
+        "applies": "First element after header when navigation is needed"
+      },
+      "backButtonToHeading": {
+        "value": "2xl",
+        "rule": "ALWAYS add mb='2xl' between back button and first heading",
+        "reason": "Maintains proper hierarchy and breathing room",
+        "example": "<GoabBackButton mb='2xl'>Back</GoabBackButton>\n<GoabText tag='h1'>Page Title</GoabText>",
+        "applies": "When back button precedes main page heading"
+      },
+      "firstContentElement": {
+        "value": "2xl",
+        "rule": "ALWAYS add mt='2xl' to first content element (when no back button)",
+        "reason": "Provides proper separation between header and content",
+        "example": "<GoabText tag='h1' mt='2xl' mb='l'>Page Title</GoabText>",
+        "applies": "First element inside GoabPageBlock when no back button present"
+      }
+    },
+    "spacingStrategy": {
+      "primaryRule": "Use mb (margin-bottom) instead of mt (margin-top) for consistent spacing flow",
+      "rationale": "Each component controls space it creates, preventing spacing conflicts",
+      "exceptions": "Only use mt for first element positioning from header or special layout needs"
+    },
+    "commonPatterns": {
+      "withBackButton": {
+        "description": "Page with back navigation",
+        "pattern": "Header → BackButton(mt='m', mb='2xl') → PageContent → LastElement(mb='3xl') → Footer",
+        "example": "<GoabPageBlock width='704px'>\n  <GoabBackButton mt='m' mb='2xl'>Back to Services</GoabBackButton>\n  <GoabText tag='h1' mb='l'>Application Form</GoabText>\n  <GoabText tag='p' mb='xl'>Content...</GoabText>\n  <GoabButton type='primary' mb='3xl'>Submit</GoabButton>\n</GoabPageBlock>"
+      },
+      "withoutBackButton": {
+        "description": "Standard page without back navigation",
+        "pattern": "Header → FirstElement(mt='2xl') → PageContent → LastElement(mb='3xl') → Footer",
+        "example": "<GoabPageBlock width='704px'>\n  <GoabText tag='h1' mt='2xl' mb='l'>Service Overview</GoabText>\n  <GoabText tag='p' mb='xl'>Content...</GoabText>\n  <GoabButton type='primary' mb='3xl'>Get Started</GoabButton>\n</GoabPageBlock>"
+      }
+    },
+    "whenToOverride": [
+      "Visual design explicitly shows different spacing in Figma",
+      "Special page types (error pages, landing pages with hero sections)",
+      "Content requires tighter/looser spacing for readability",
+      "Page has unique layout requirements approved by design team"
+    ],
+    "aiImplementationRule": "Follow the spacing strategy: use mb on elements to control following space, only use mt for first element positioning. Always end pages with mb='3xl' before footer.",
+    "commonMistakes": [
+      "Using mt instead of mb for general spacing flow",
+      "Forgetting mb='3xl' on last content element",
+      "Inconsistent spacing between back button and heading",
+      "Adding spacing to GoabPageBlock instead of content elements",
+      "Using custom CSS margins instead of component spacing props"
+    ],
+    "correctImplementation": {
+      "react": "// CORRECT: Proper page content spacing\n<GoabPageBlock width=\"704px\">\n  <GoabText tag=\"h1\" size=\"xl\" mt=\"2xl\" mb=\"l\">\n    Page Title\n  </GoabText>\n  \n  <GoabText tag=\"p\" size=\"m\" mb=\"m\">\n    Page content goes here...\n  </GoabText>\n  \n  <GoabButton type=\"primary\" mb=\"3xl\">\n    Call to Action\n  </GoabButton>\n</GoabPageBlock>",
+      "angular": "<!-- CORRECT: Proper page content spacing -->\n<goab-page-block width=\"704px\">\n  <goab-text tag=\"h1\" size=\"xl\" mt=\"2xl\" mb=\"l\">\n    Page Title\n  </goab-text>\n  \n  <goab-text tag=\"p\" size=\"m\" mb=\"m\">\n    Page content goes here...\n  </goab-text>\n  \n  <goab-button type=\"primary\" mb=\"3xl\">\n    Call to Action\n  </goab-button>\n</goab-page-block>"
+    }
+  },
+
+  "sectionSpacing": {
+    "description": "Spacing between major content sections within a page",
+    "patterns": {
+      "betweenMajorSections": {
+        "spacing": "mt='2xl' or mt='xl'",
+        "usage": "Between major page sections (Overview → Requirements → Process)",
+        "guideline": "Use 2xl for primary sections, xl for secondary sections"
+      },
+      "betweenSubsections": {
+        "spacing": "mt='l' or mt='xl'",
+        "usage": "Between subsections within a major section",
+        "guideline": "Use xl for important subsections, l for minor subsections"
+      },
+      "afterCallToAction": {
+        "spacing": "mb='2xl'",
+        "usage": "After buttons, forms, or interactive elements",
+        "guideline": "Separates action elements from following content"
+      },
+      "beforeImportantContent": {
+        "spacing": "mt='xl' or mt='2xl'",
+        "usage": "Before callouts, important notices, or key information",
+        "guideline": "Draws attention to critical content"
+      }
+    },
+    "exampleImplementation": {
+      "react": "// Service page with proper section spacing\n<GoabPageBlock width=\"704px\">\n  <GoabText tag=\"h1\" size=\"xl\" mt=\"2xl\" mb=\"l\">\n    Service Name\n  </GoabText>\n  \n  <GoabText tag=\"p\" size=\"m\" mb=\"xl\">\n    Service description...\n  </GoabText>\n  \n  {/* Major section spacing */}\n  <GoabText tag=\"h2\" size=\"l\" mt=\"2xl\" mb=\"m\">\n    Before you begin\n  </GoabText>\n  \n  <GoabText tag=\"p\" size=\"m\" mb=\"l\">\n    Requirements content...\n  </GoabText>\n  \n  {/* Subsection spacing */}\n  <GoabText tag=\"h3\" size=\"m\" mt=\"xl\" mb=\"s\">\n    Required documents\n  </GoabText>\n  \n  <GoabList mb=\"xl\">\n    <GoabListItem>Document 1</GoabListItem>\n    <GoabListItem>Document 2</GoabListItem>\n  </GoabList>\n  \n  {/* Call to action with proper spacing */}\n  <GoabButton type=\"primary\" mb=\"2xl\">\n    Start Application\n  </GoabButton>\n  \n  {/* Final section */}\n  <GoabText tag=\"h2\" size=\"l\" mt=\"2xl\" mb=\"m\">\n    Support\n  </GoabText>\n  \n  <GoabText tag=\"p\" size=\"m\" mb=\"3xl\">\n    Contact information...\n  </GoabText>\n</GoabPageBlock>",
+      "angular": "<!-- Service page with proper section spacing -->\n<goab-page-block width=\"704px\">\n  <goab-text tag=\"h1\" size=\"xl\" mt=\"2xl\" mb=\"l\">\n    Service Name\n  </goab-text>\n  \n  <goab-text tag=\"p\" size=\"m\" mb=\"xl\">\n    Service description...\n  </goab-text>\n  \n  <!-- Major section spacing -->\n  <goab-text tag=\"h2\" size=\"l\" mt=\"2xl\" mb=\"m\">\n    Before you begin\n  </goab-text>\n  \n  <goab-text tag=\"p\" size=\"m\" mb=\"l\">\n    Requirements content...\n  </goab-text>\n  \n  <!-- Subsection spacing -->\n  <goab-text tag=\"h3\" size=\"m\" mt=\"xl\" mb=\"s\">\n    Required documents\n  </goab-text>\n  \n  <goab-list mb=\"xl\">\n    <goab-list-item>Document 1</goab-list-item>\n    <goab-list-item>Document 2</goab-list-item>\n  </goab-list>\n  \n  <!-- Call to action with proper spacing -->\n  <goab-button type=\"primary\" mb=\"2xl\">\n    Start Application\n  </goab-button>\n  \n  <!-- Final section -->\n  <goab-text tag=\"h2\" size=\"l\" mt=\"2xl\" mb=\"m\">\n    Support\n  </goab-text>\n  \n  <goab-text tag=\"p\" size=\"m\" mb=\"3xl\">\n    Contact information...\n  </goab-text>\n</goab-page-block>"
+    },
+    "spacingHierarchy": {
+      "description": "Visual hierarchy through consistent spacing patterns",
+      "levels": {
+        "pageLevel": "mt='2xl' on first element, mb='3xl' on last element",
+        "majorSection": "mt='2xl' between primary sections",
+        "minorSection": "mt='xl' between secondary sections",
+        "subsection": "mt='l' between related content groups",
+        "contentElements": "mb='m' between paragraphs, mb='s' between closely related items"
+      }
+    }
+  },
+
+  "designGuidance": {
+    "primaryUseCases": [
+      "Standard government service pages",
+      "Forms and applications",
+      "Content pages and articles",
+      "Simple dashboards and data display",
+      "Landing pages for government services",
+      "Any page needing consistent header/footer structure"
+    ],
+    "whenToUse": [
+      "Default choice for most government pages",
+      "When you need consistent header and footer",
+      "For content that benefits from controlled width and centering",
+      "Pages with standard navigation requirements",
+      "Forms and content that need optimal reading width"
+    ],
+    "whenNotToUse": [
+      "Complex layouts requiring sidebars (use different layout components)",
+      "Highly interactive applications with custom layout needs",
+      "Landing pages requiring unique visual designs"
+    ],
+    "bestPractices": [
+      "Always wrap content in GoabPageBlock to get proper margins and centering",
+      "Use width='704px' for optimal reading width (forms, articles, content)",
+      "Use width='960px' for wider forms or content that needs more space",
+      "Use width='full' for dashboards, tables, or data that needs full width",
+      "Include both GoabMicrositeHeader and GoabAppHeader for government microsites",
+      "Use section elements with slot attributes for header and footer"
+    ],
+    "contentWidthGuidance": {
+      "704px": "Optimal for reading content, forms, articles - most common choice",
+      "960px": "Good for wider forms, content with sidebars, medium data displays",
+      "1200px": "For content requiring more horizontal space",
+      "full": "Dashboards, large tables, data that needs full page width"
+    },
+    "commonMistakes": [
+      "Forgetting to wrap content in GoabPageBlock",
+      "Not using section elements for header and footer slots",
+      "Using arbitrary width values instead of recommended sizes",
+      "Mixing up slot syntax (should be slot='header', not slot='slot-header')"
+    ]
+  },
+
+  "states": {
+    "default": "Single column layout with header, centered content area, and footer",
+    "withMicrositeHeader": "Includes both GoabMicrositeHeader and GoabAppHeader in header slot",
+    "fullWidth": "Content area spans full page width using width='full'",
+    "fixedWidth": "Content area constrained to specific width (e.g., 704px, 960px)"
+  },
+
+  "dependencies": {
+    "required": ["goab-one-column-layout", "goab-page-block"],
+    "optional": ["goab-microsite-header", "goab-app-header", "goab-app-footer"]
+  },
+
+  "devNotes": {
+    "implementationDetails": [
+      "Header and footer slots expect section elements with slot attributes",
+      "GoabPageBlock automatically provides responsive margins that change at breakpoints",
+      "Content is automatically centered within the specified width",
+      "Width can be specific values (704px, 960px, etc.) or 'full' for full width"
+    ],
+    "slotBehavior": {
+      "header": "Use <section slot='header'> to contain header components",
+      "footer": "Use <section slot='footer'> to contain footer components",
+      "default": "Main content area - always wrap in GoabPageBlock"
+    },
+    "responsiveBehavior": [
+      "Page margins automatically adjust at different breakpoints",
+      "Content width is maintained but margins change for mobile/tablet/desktop",
+      "Header and footer components handle their own responsive behavior"
+    ]
+  },
+
+  "accessibility": {
+    "landmarkRoles": {
+      "header": "banner",
+      "main": "main",
+      "footer": "contentinfo"
+    },
+    "keyboardNavigation": [
+      "Tab - Navigate through header elements",
+      "Tab - Enter main content area",
+      "Tab - Navigate to footer elements",
+      "Shift+Tab - Navigate backwards through regions"
+    ],
+    "screenReader": [
+      "Layout regions are announced with proper landmark roles",
+      "Skip links can be added to jump to main content",
+      "Content width constraints maintain readable line lengths",
+      "Proper heading hierarchy should be maintained within content"
+    ],
+    "skipLinks": {
+      "implementation": "Add skip links in header to jump to main content",
+      "example": "<a href=\"#main-content\" className=\"skip-link\">Skip to main content</a>"
+    }
+  },
+
+  "performanceConsiderations": [
+    "Layout component is lightweight with minimal rendering overhead",
+    "GoabPageBlock provides efficient responsive margin calculations",
+    "Header and footer components should be cached when possible",
+    "Content width constraints help with rendering performance"
+  ],
+
+  "source": {
+    "codeExample": "goab-one-column-layout",
+    "figmaNodeUrl": "// NEEDS_INPUT: Figma layout template URL",
+    "githubIssue": "// NEEDS_INPUT: GitHub issue or documentation URL",
+    "lastUpdated": "2025-07-01",
+    "updatedBy": "design-system-team"
+  },
+
+  "aiHints": {
+    "commonMistakes": [
+      "Forgetting mt='2xl' on first content element after header",
+      "Using custom styling instead of component props",
+      "Not using section elements for header and footer slots",
+      "Using arbitrary width values instead of recommended standard widths",
+      "Forgetting slot attributes on header and footer sections",
+      "Not considering that this is the DEFAULT layout choice for most pages",
+      "Adding style={{}} or className with custom CSS to components",
+      "Using mt instead of mb for general spacing flow",
+      "Bypassing GoabOneColumnLayout structure for government pages"
+    ],
+    "suggestedAlternatives": [
+      "For complex layouts with sidebars, consider other layout components",
+      "For highly custom layouts, build custom layout structure (non-government pages only)",
+      "For simple content without header/footer, use container components directly",
+      "Use GoabSpacer component for explicit spacing between elements",
+      "Contact design system team if component props don't meet styling needs"
+    ],
+    "implementationTips": [
+      "Start with GoabOneColumnLayout as the default for most pages",
+      "Use width='704px' for most content - it's optimal for reading",
+      "Always include GoabPageBlock to get proper responsive margins",
+      "Remember to use section elements with slot attributes for header/footer",
+      "Consider including GoabMicrositeHeader for government microsites",
+      "ALWAYS add mt='2xl' to first content element after any header",
+      "Use only component props for styling - never add custom CSS",
+      "Follow mb-first spacing strategy for consistent flow"
+    ],
+    "combinationPatterns": [
+      "Layout + Container: Use GoabContainer within GoabPageBlock for organized content sections",
+      "Layout + Form: Perfect for forms with GoabFormItem components",
+      "Layout + Grid: Use GoabGrid within GoabPageBlock for card layouts",
+      "Layout + Headers: Combine GoabMicrositeHeader + GoabAppHeader for government sites",
+      "Layout + Back Button: Use mt='m' mb='2xl' pattern for back navigation"
+    ],
+    "figmaToCodeTips": [
+      "This should be the default layout choice when converting Figma designs",
+      "Look for header, main content, and footer regions in Figma",
+      "Check content width in Figma to choose appropriate GoabPageBlock width",
+      "Use 704px width for most content unless Figma shows wider layouts",
+      "ALWAYS add mt='2xl' to first element after header regardless of Figma spacing",
+      "Never replicate Figma styling with custom CSS - use component props only"
+    ],
+    "strictEnforcement": [
+      "GoabOneColumnLayout is MANDATORY for all government service pages",
+      "Custom styling is FORBIDDEN - use component props only",
+      "Header spacing rule is NON-NEGOTIABLE - always use mt='2xl' on first content",
+      "Layout structure cannot be bypassed or modified for government compliance"
+    ]
+  },
+
+  "tags": [
+    "layout",
+    "structure",
+    "responsive",
+    "default",
+    "government",
+    "page-template",
+    "single-column"
+  ],
+  "category": "layout-system",
+  "status": "stable",
+  "lastUpdated": "2025-07-01"
+}

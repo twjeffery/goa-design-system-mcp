@@ -1,0 +1,291 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Block",
+  "customElement": {
+    "tagName": "goa-block",
+    "className": "GoabBlock"
+  },
+  "summary": "Flexible layout container for grouping components with consistent spacing and alignment",
+  "purpose": "Create organized layouts by grouping related components with design system spacing",
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabBlock } from '@abgov/react-components'",
+      "quickExample": "<GoabBlock gap=\"m\"><Component1 /><Component2 /></GoabBlock>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goa-block gap=\"m\"><component-1></component-1><component-2></component-2></goa-block>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-block gap=\"m\"><div>Item 1</div><div>Item 2</div></goa-block>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "gap",
+        "type": "string",
+        "required": false,
+        "default": "m",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Spacing between items using design system tokens",
+        "examples": {
+          "none": "No spacing - use with Spacer for manual control",
+          "xs": "Compact spacing for tight layouts",
+          "m": "Default balanced spacing for most use cases",
+          "xl": "Large spacing for section separation"
+        }
+      },
+      {
+        "name": "direction",
+        "type": "string",
+        "required": false,
+        "default": "row",
+        "allowedValues": ["row", "column"],
+        "description": "Layout direction for arranging child components",
+        "examples": {
+          "row": "Horizontal layout (side by side)",
+          "column": "Vertical layout (stacked)"
+        }
+      },
+      {
+        "name": "alignment",
+        "type": "string",
+        "required": false,
+        "default": "normal",
+        "allowedValues": ["center", "start", "end", "normal"],
+        "description": "How items align along the main axis",
+        "examples": {
+          "start": "Items aligned to the beginning",
+          "center": "Items centered",
+          "end": "Items aligned to the end",
+          "normal": "Browser default alignment"
+        }
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Data attribute for testing automation"
+      },
+      {
+        "name": "mt",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the top of the component"
+      },
+      {
+        "name": "mr",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the right of the component"
+      },
+      {
+        "name": "mb",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the bottom of the component"
+      },
+      {
+        "name": "ml",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the left of the component"
+      }
+    ]
+  },
+
+  "usageExamples": {
+    "react": [
+      {
+        "title": "Form Layout with Vertical Spacing",
+        "description": "Organize form elements with consistent vertical spacing",
+        "code": "import React, { useState } from 'react';\nimport { GoabBlock, GoabFormItem, GoabInput, GoabButton } from '@abgov/react-components';\n\nfunction ContactForm() {\n  const [formData, setFormData] = useState({\n    firstName: '',\n    lastName: '',\n    email: ''\n  });\n\n  const handleSubmit = () => {\n    console.log('Form submitted:', formData);\n  };\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"l\" testId=\"contact-form\">\n      <GoabFormItem label=\"First Name\">\n        <GoabInput \n          name=\"firstName\"\n          value={formData.firstName}\n          onChange={(e) => setFormData({...formData, firstName: e.value})}\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem label=\"Last Name\">\n        <GoabInput \n          name=\"lastName\"\n          value={formData.lastName}\n          onChange={(e) => setFormData({...formData, lastName: e.value})}\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem label=\"Email\">\n        <GoabInput \n          type=\"email\"\n          name=\"email\"\n          value={formData.email}\n          onChange={(e) => setFormData({...formData, email: e.value})}\n        />\n      </GoabFormItem>\n      \n      <GoabBlock direction=\"row\" gap=\"m\" alignment=\"start\" mt=\"l\">\n        <GoabButton type=\"primary\" onClick={handleSubmit}>\n          Submit\n        </GoabButton>\n        <GoabButton type=\"secondary\">\n          Cancel\n        </GoabButton>\n      </GoabBlock>\n    </GoabBlock>\n  );\n}"
+      },
+      {
+        "title": "Dashboard Section Layout",
+        "description": "Create organized dashboard sections with proper spacing",
+        "code": "import React from 'react';\nimport { GoabBlock, GoabCard, GoabBadge, GoabButton } from '@abgov/react-components';\n\ninterface ProjectData {\n  id: number;\n  title: string;\n  status: 'active' | 'completed' | 'pending';\n  priority: 'high' | 'medium' | 'low';\n}\n\nfunction ProjectDashboard() {\n  const projects: ProjectData[] = [\n    { id: 1, title: 'Website Redesign', status: 'active', priority: 'high' },\n    { id: 2, title: 'API Development', status: 'pending', priority: 'medium' },\n    { id: 3, title: 'User Research', status: 'completed', priority: 'low' }\n  ];\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"xl\" testId=\"project-dashboard\">\n      <GoabBlock direction=\"row\" gap=\"m\" alignment=\"center\">\n        <h1>Project Dashboard</h1>\n        <GoabButton type=\"primary\">Add Project</GoabButton>\n      </GoabBlock>\n      \n      <GoabBlock direction=\"column\" gap=\"m\">\n        {projects.map((project) => (\n          <GoabCard key={project.id} accent=\"thin\">\n            <GoabBlock direction=\"row\" gap=\"m\" alignment=\"center\">\n              <GoabBlock direction=\"column\" gap=\"xs\">\n                <h3>{project.title}</h3>\n                <GoabBlock direction=\"row\" gap=\"xs\">\n                  <GoabBadge \n                    type={project.status === 'active' ? 'information' : \n                          project.status === 'completed' ? 'success' : 'important'}\n                    content={project.status}\n                  />\n                  <GoabBadge \n                    type={project.priority === 'high' ? 'emergency' : \n                          project.priority === 'medium' ? 'important' : 'midtone'}\n                    content={`${project.priority} priority`}\n                  />\n                </GoabBlock>\n              </GoabBlock>\n              <GoabButton type=\"tertiary\">View Details</GoabButton>\n            </GoabBlock>\n          </GoabCard>\n        ))}\n      </GoabBlock>\n    </GoabBlock>\n  );\n}"
+      },
+      {
+        "title": "Responsive Content Organization",
+        "description": "Use nested Blocks for complex responsive layouts",
+        "code": "import React from 'react';\nimport { GoabBlock, GoabCard, GoabBadge } from '@abgov/react-components';\n\nfunction ContentGrid() {\n  const categories = [\n    { name: 'Applications', count: 12, status: 'active' },\n    { name: 'Approvals', count: 5, status: 'pending' },\n    { name: 'Reports', count: 8, status: 'ready' }\n  ];\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"xl\" testId=\"content-grid\">\n      {/* Page Header */}\n      <GoabBlock direction=\"row\" gap=\"m\" alignment=\"center\">\n        <h1>Content Management</h1>\n        <GoabBadge type=\"information\" content=\"Live\" />\n      </GoabBlock>\n      \n      {/* Content Categories */}\n      <GoabBlock direction=\"row\" gap=\"l\">\n        {categories.map((category, index) => (\n          <GoabCard key={index} accent=\"thick\">\n            <GoabBlock direction=\"column\" gap=\"m\" alignment=\"center\">\n              <h3>{category.name}</h3>\n              <GoabBlock direction=\"column\" gap=\"xs\" alignment=\"center\">\n                <span className=\"count-display\">{category.count} items</span>\n                <GoabBadge \n                  type={category.status === 'active' ? 'success' : \n                        category.status === 'pending' ? 'important' : 'information'}\n                  content={category.status}\n                />\n              </GoabBlock>\n            </GoabBlock>\n          </GoabCard>\n        ))}\n      </GoabBlock>\n    </GoabBlock>\n  );\n}"
+      }
+    ],
+    "angular": [
+      {
+        "title": "Settings Page Layout",
+        "description": "Organize settings sections with consistent spacing",
+        "typescript": "export class SettingsPageComponent {\n  userSettings = {\n    notifications: true,\n    darkMode: false,\n    language: 'en'\n  };\n\n  onSave() {\n    console.log('Settings saved:', this.userSettings);\n  }\n\n  onReset() {\n    this.userSettings = {\n      notifications: true,\n      darkMode: false,\n      language: 'en'\n    };\n  }\n}",
+        "template": "<goa-block direction=\"column\" gap=\"xl\" testId=\"settings-page\">\n  <!-- Page Header -->\n  <goa-block direction=\"row\" gap=\"m\" alignment=\"center\">\n    <h1>Account Settings</h1>\n    <goa-badge type=\"information\" content=\"Profile\"></goa-badge>\n  </goa-block>\n\n  <!-- Settings Sections -->\n  <goa-block direction=\"column\" gap=\"l\">\n    <!-- Notification Settings -->\n    <goa-card accent=\"thin\">\n      <goa-block direction=\"column\" gap=\"m\">\n        <h2>Notifications</h2>\n        <goa-block direction=\"column\" gap=\"s\">\n          <goa-form-item label=\"Email Notifications\">\n            <goa-checkbox \n              [checked]=\"userSettings.notifications\"\n              (onChange)=\"userSettings.notifications = $event.checked\">\n              Receive email notifications\n            </goa-checkbox>\n          </goa-form-item>\n        </goa-block>\n      </goa-block>\n    </goa-card>\n\n    <!-- Display Settings -->\n    <goa-card accent=\"thin\">\n      <goa-block direction=\"column\" gap=\"m\">\n        <h2>Display</h2>\n        <goa-form-item label=\"Theme\">\n          <goa-radio-group\n            name=\"theme\"\n            [value]=\"userSettings.darkMode ? 'dark' : 'light'\"\n            (onChange)=\"userSettings.darkMode = $event.value === 'dark'\">\n            <goa-radio-item value=\"light\">Light Mode</goa-radio-item>\n            <goa-radio-item value=\"dark\">Dark Mode</goa-radio-item>\n          </goa-radio-group>\n        </goa-form-item>\n      </goa-block>\n    </goa-card>\n  </goa-block>\n\n  <!-- Action Buttons -->\n  <goa-block direction=\"row\" gap=\"m\" alignment=\"start\" mt=\"xl\">\n    <goa-button type=\"primary\" (onClick)=\"onSave()\">Save Changes</goa-button>\n    <goa-button type=\"secondary\" (onClick)=\"onReset()\">Reset to Defaults</goa-button>\n  </goa-block>\n</goa-block>"
+      },
+      {
+        "title": "Data List with Actions",
+        "description": "Organize list items with consistent spacing and action buttons",
+        "typescript": "export class UserListComponent {\n  users = [\n    { id: 1, name: 'John Doe', role: 'admin', status: 'active' },\n    { id: 2, name: 'Jane Smith', role: 'user', status: 'pending' },\n    { id: 3, name: 'Bob Johnson', role: 'user', status: 'inactive' }\n  ];\n\n  editUser(userId: number) {\n    console.log('Edit user:', userId);\n  }\n\n  deleteUser(userId: number) {\n    console.log('Delete user:', userId);\n  }\n\n  getRoleBadgeType(role: string): 'important' | 'information' {\n    return role === 'admin' ? 'important' : 'information';\n  }\n\n  getStatusBadgeType(status: string): 'success' | 'important' | 'midtone' {\n    switch(status) {\n      case 'active': return 'success';\n      case 'pending': return 'important';\n      default: return 'midtone';\n    }\n  }",
+        "template": "<goa-block direction=\"column\" gap=\"l\" testId=\"user-list\">\n  <goa-block direction=\"row\" gap=\"m\" alignment=\"center\">\n    <h2>User Management</h2>\n    <goa-button type=\"primary\">Add User</goa-button>\n  </goa-block>\n\n  <goa-block direction=\"column\" gap=\"m\">\n    <div *ngFor=\"let user of users; trackBy: trackByUserId\">\n      <goa-card accent=\"thin\">\n        <goa-block direction=\"row\" gap=\"m\" alignment=\"center\">\n          <!-- User Info -->\n          <goa-block direction=\"column\" gap=\"xs\">\n            <h3>{{ user.name }}</h3>\n            <goa-block direction=\"row\" gap=\"xs\">\n              <goa-badge \n                [type]=\"getRoleBadgeType(user.role)\"\n                [content]=\"user.role\">\n              </goa-badge>\n              <goa-badge \n                [type]=\"getStatusBadgeType(user.status)\"\n                [content]=\"user.status\">\n              </goa-badge>\n            </goa-block>\n          </goa-block>\n          \n          <!-- Actions -->\n          <goa-block direction=\"row\" gap=\"s\">\n            <goa-button \n              type=\"tertiary\" \n              (onClick)=\"editUser(user.id)\">\n              Edit\n            </goa-button>\n            <goa-button \n              type=\"tertiary\" \n              variant=\"destructive\"\n              (onClick)=\"deleteUser(user.id)\">\n              Delete\n            </goa-button>\n          </goa-block>\n        </goa-block>\n      </goa-card>\n    </div>\n  </goa-block>\n</goa-block>"
+      }
+    ],
+    "webComponent": [
+      {
+        "title": "Simple Content Organization",
+        "description": "Basic usage for organizing page content",
+        "code": "<!-- Main content layout -->\n<goa-block direction=\"column\" gap=\"xl\">\n  <!-- Header section -->\n  <goa-block direction=\"row\" gap=\"m\" alignment=\"center\">\n    <h1>Page Title</h1>\n    <goa-badge type=\"information\" content=\"Active\"></goa-badge>\n  </goa-block>\n  \n  <!-- Content sections -->\n  <goa-block direction=\"column\" gap=\"l\">\n    <section>\n      <h2>Section 1</h2>\n      <p>Content goes here...</p>\n    </section>\n    \n    <section>\n      <h2>Section 2</h2>\n      <p>More content...</p>\n    </section>\n  </goa-block>\n  \n  <!-- Action buttons -->\n  <goa-block direction=\"row\" gap=\"m\" alignment=\"start\">\n    <goa-button type=\"primary\">Primary Action</goa-button>\n    <goa-button type=\"secondary\">Secondary Action</goa-button>\n  </goa-block>\n</goa-block>"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Group related components with consistent spacing",
+      "Create form layouts with proper vertical/horizontal rhythm", 
+      "Organize dashboard sections and content areas",
+      "Build button groups and action clusters",
+      "Structure card content with internal spacing"
+    ],
+    "whenNotToUse": [
+      "For single components that don't need grouping",
+      "When you need complex grid layouts (consider CSS Grid instead)",
+      "For text-only content (use appropriate typography components)",
+      "When manual spacing control is needed (use Spacer component with gap='none')"
+    ],
+    "bestPractices": [
+      "Use consistent gap values across similar content types",
+      "Start with default gap='m' and adjust based on content density",
+      "Use direction='column' for form layouts and content sections",
+      "Use direction='row' for button groups and horizontal layouts",
+      "Nest Blocks thoughtfully - avoid excessive nesting for performance",
+      "Combine with margin props (mt, mr, mb, ml) for component spacing"
+    ],
+    "responsiveConsiderations": [
+      "Block layouts are inherently responsive with CSS Flexbox",
+      "Consider how row layouts behave on mobile devices",
+      "Use media queries in your CSS for breakpoint-specific adjustments",
+      "Test nested Block layouts across different screen sizes"
+    ]
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "problem": "Items not spacing correctly",
+        "solution": "Verify gap value is set correctly. Remember default is 'm'. Use gap='none' only when using Spacer component for manual control.",
+        "example": "<GoabBlock gap=\"l\"> for larger spacing between items"
+      },
+      {
+        "problem": "Alignment not working as expected",
+        "solution": "Check that you're using the correct alignment value for your layout direction. 'center' works for both row and column directions.",
+        "example": "alignment='start' aligns items to the beginning of the main axis"
+      },
+      {
+        "problem": "Layout breaking on mobile devices",
+        "solution": "Row layouts may need responsive handling. Consider using direction='column' for mobile or CSS media queries for responsive adjustments.",
+        "example": "Test horizontal button groups on narrow screens"
+      },
+      {
+        "problem": "Nested Blocks creating too much spacing",
+        "solution": "Review your nesting structure. Each Block adds its own gap. Consider flattening the structure or adjusting gap values.",
+        "example": "Use smaller gap values for nested Blocks: outer gap='l', inner gap='s'"
+      },
+      {
+        "problem": "Dynamic content not rendering properly",
+        "solution": "This is a known issue (#2331). Ensure content is fully loaded before rendering Block. Consider using React keys for dynamic lists.",
+        "example": "Use proper key props in React when rendering dynamic content in Blocks"
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "Spacer",
+      "usage": "Manual spacing control when Block gap='none'",
+      "example": "Use Spacer for precise spacing between specific items"
+    },
+    {
+      "name": "ButtonGroup", 
+      "usage": "Specialized Block for button layouts",
+      "example": "ButtonGroup is optimized for button spacing and alignment"
+    },
+    {
+      "name": "FormItem",
+      "usage": "Form element organization within Block layouts",
+      "example": "Wrap FormItems in Block for consistent form spacing"
+    },
+    {
+      "name": "Card",
+      "usage": "Container for Block-organized content",
+      "example": "Use Block inside Cards for internal content organization"
+    }
+  ],
+
+  "integrationPatterns": [
+    {
+      "name": "Form Layout Pattern",
+      "description": "Organize form elements with consistent vertical spacing",
+      "components": ["Block", "FormItem", "Input", "Button"],
+      "example": "Column direction with large gap for form sections"
+    },
+    {
+      "name": "Dashboard Section Pattern",
+      "description": "Structure dashboard content with clear hierarchy",
+      "components": ["Block", "Card", "Badge", "Button"],
+      "example": "Nested Blocks for complex dashboard layouts"
+    },
+    {
+      "name": "Action Group Pattern",
+      "description": "Group related buttons and actions",
+      "components": ["Block", "Button"],
+      "example": "Row direction with medium gap for button groups"
+    },
+    {
+      "name": "Content Organization Pattern",
+      "description": "Structure page content with proper spacing",
+      "components": ["Block", "Card", "various content components"],
+      "example": "Column direction with extra-large gap for major sections"
+    }
+  ],
+
+  "spacingReference": {
+    "gapValues": {
+      "none": "0px - No spacing, use with Spacer for manual control",
+      "3xs": "2px - Minimal spacing for very tight layouts",
+      "2xs": "4px - Very tight spacing",
+      "xs": "8px - Compact spacing for dense interfaces",
+      "s": "12px - Small spacing for related items",
+      "m": "16px - Default balanced spacing (recommended starting point)",
+      "l": "24px - Large spacing for section separation",
+      "xl": "32px - Extra large spacing for major sections",
+      "2xl": "40px - Double extra large spacing",
+      "3xl": "64px - Triple extra large for page-level separation",
+      "4xl": "80px - Maximum spacing for major page divisions"
+    },
+    "usageGuidelines": {
+      "tightLayouts": "Use 3xs, 2xs, xs for compact interfaces",
+      "standardLayouts": "Use s, m, l for most content organization",
+      "spaciousLayouts": "Use xl, 2xl, 3xl, 4xl for major sections"
+    }
+  },
+
+  "tags": ["layout", "container", "spacing", "flexbox", "grouping", "utility"],
+  "category": "component", 
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/block.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

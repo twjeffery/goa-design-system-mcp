@@ -1,0 +1,450 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "callout",
+  "displayName": "Callout",
+  "summary": "Communicate important information through strong visual emphasis with contextual icons and styling. Perfect for success messages, important notices, and status updates.",
+
+  "visualIdentification": {
+    "appearanceMarkers": [
+      "Green background with built-in checkmark icon (success type)",
+      "Prominent bordered styling designed to draw attention",
+      "Icon automatically included based on type (success=checkmark, important=warning, etc.)",
+      "Designed specifically to communicate status, results, and notifications"
+    ],
+    "purposeDefinition": "Status communication component - announces results, confirmations, and important updates to users",
+    "commonlyMistakenFor": {
+      "container": {
+        "visualDifference": "Container has subtle accent border, no built-in icons, card-like appearance",
+        "semanticDifference": "Container groups content, Callout communicates status/notifications",
+        "decisionRule": "Ask: Is this telling the user about a status/result? → Callout. Is this organizing content? → Container",
+        "example": "// ❌ Wrong for status message\n<GoabContainer type=\"success\" title=\"Application Submitted\">\n  <p>Your application has been received...</p>\n</GoabContainer>\n\n// ✅ Correct for status message\n<GoabCallout type=\"success\" heading=\"Application submitted\">\n  <p>Your application has been received...</p>\n</GoabCallout>"
+      }
+    }
+  },
+
+  "customElement": {
+    "tagName": "goa-callout",
+    "className": "goa-callout"
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["GoA Icon component", "Design token system"]
+  },
+
+  "playgroundExamples": {
+    "note": "Playground configurations will be added in future versions for interactive component testing",
+    "calloutVsContainer": {
+      "title": "Callout vs Container: When to Use Which",
+      "description": "Shows the critical difference between status communication (Callout) and content organization (Container)",
+      "code": "// ✅ Status communication - use Callout\n<GoabCallout type=\"success\" heading=\"Application Submitted\" size=\"large\">\n  <GoabText size=\"body-m\">Your application has been received and is being processed.</GoabText>\n  <GoabText size=\"body-m\">Reference number: <strong>ABC123</strong></GoabText>\n</GoabCallout>\n\n// ✅ Content grouping - use Container\n<GoabContainer type=\"success\" title=\"Approved Applications\" accent=\"thick\">\n  <p>These applications have been approved and are ready for processing.</p>\n  <ul>\n    <li>Application #001 - John Smith</li>\n    <li>Application #002 - Jane Doe</li>\n  </ul>\n</GoabContainer>",
+      "decisionRule": "Choose based on PURPOSE: announcing status vs organizing content"
+    }
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabCallout } from '@abgov/react-components'",
+      "quickExample": "<GoabCallout type=\"success\">\n  Your form has been submitted successfully!\n</GoabCallout>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-callout type=\"information\">\n  Please review your information before continuing.\n</goab-callout>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-callout type=\"success\">\n  Your form has been submitted successfully!\n</goa-callout>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "type",
+        "type": "success | important | information | emergency | event",
+        "required": true,
+        "description": "The visual style and semantic meaning of the callout",
+        "usage": "Choose based on the importance and nature of your message"
+      },
+      {
+        "name": "heading",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Optional heading text displayed prominently",
+        "usage": "Use for important callouts that need a clear title"
+      },
+      {
+        "name": "size",
+        "type": "medium | large",
+        "default": "large",
+        "required": false,
+        "description": "Size variant - automatically becomes medium on mobile",
+        "usage": "Use medium when space is limited, large for standard emphasis"
+      },
+      {
+        "name": "ariaLive",
+        "type": "off | polite | assertive",
+        "default": "off",
+        "required": false,
+        "description": "How screen readers announce changes to callout content",
+        "usage": "Use 'polite' for status updates, 'assertive' for urgent messages"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Test identifier for automated testing",
+        "usage": "Use descriptive names like 'success-confirmation-callout'"
+      },
+      {
+        "name": "mt",
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin top spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      },
+      {
+        "name": "mr",
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin right spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      },
+      {
+        "name": "mb",
+        "type": "Spacing",
+        "default": "l",
+        "required": false,
+        "description": "Margin bottom spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      },
+      {
+        "name": "ml",
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin left spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      }
+    ],
+    "slots": [
+      {
+        "name": "children",
+        "description": "Main content of the callout",
+        "required": true,
+        "usage": "Keep content focused and scannable - one key message per callout"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Success Confirmation",
+          "description": "Positive feedback after successful actions",
+          "code": "function SuccessMessage() {\n  return (\n    <GoabCallout type=\"success\">\n      <p>Your application has been submitted successfully. You'll receive a confirmation email within 24 hours.</p>\n    </GoabCallout>\n  );\n}"
+        },
+        {
+          "title": "Important Notice with Heading",
+          "description": "Critical information that needs attention",
+          "code": "function ImportantNotice() {\n  return (\n    <GoabCallout \n      type=\"important\" \n      heading=\"Application Deadline Extended\"\n    >\n      <p>The deadline for applications has been extended to March 31st. \n         <a href=\"/apply\">Complete your application</a> before the new deadline.</p>\n    </GoabCallout>\n  );\n}"
+        },
+        {
+          "title": "Emergency Alert",
+          "description": "Urgent messages requiring immediate attention",
+          "code": "function EmergencyAlert() {\n  return (\n    <GoabCallout \n      type=\"emergency\" \n      heading=\"System Maintenance\"\n      ariaLive=\"assertive\"\n    >\n      <p>Our services will be unavailable tonight from 11 PM to 1 AM for scheduled maintenance. \n         Please save your work before this time.</p>\n    </GoabCallout>\n  );\n}"
+        },
+        {
+          "title": "Informational Notice",
+          "description": "Helpful information and guidance",
+          "code": "function InfoNotice() {\n  return (\n    <GoabCallout type=\"information\">\n      <p>Before submitting your application, make sure you have all required documents. \n         Visit our <a href=\"/documents\">document checklist</a> for details.</p>\n    </GoabCallout>\n  );\n}"
+        },
+        {
+          "title": "Event Announcement",
+          "description": "Upcoming events or scheduled items",
+          "code": "function EventNotice() {\n  return (\n    <GoabCallout \n      type=\"event\" \n      heading=\"Upcoming Town Hall\"\n      size=\"medium\"\n    >\n      <p>Join us for a virtual town hall on January 15th at 7 PM. \n         <a href=\"/register\">Register here</a> to attend.</p>\n    </GoabCallout>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Success Confirmation",
+          "description": "Positive feedback after successful actions",
+          "code": "<goab-callout type=\"success\">\n  <p>Your application has been submitted successfully. You'll receive a confirmation email within 24 hours.</p>\n</goab-callout>"
+        },
+        {
+          "title": "Important Notice with Heading",
+          "description": "Critical information that needs attention",
+          "code": "<goab-callout \n  type=\"important\" \n  heading=\"Application Deadline Extended\">\n  <p>The deadline for applications has been extended to March 31st. \n     <a href=\"/apply\">Complete your application</a> before the new deadline.</p>\n</goab-callout>"
+        },
+        {
+          "title": "Dynamic Content",
+          "description": "Callout with dynamic content updates",
+          "code": "<goab-callout \n  type=\"information\" \n  [ariaLive]=\"isUrgent ? 'assertive' : 'polite'\">\n  <p>{{ statusMessage }}</p>\n</goab-callout>"
+        }
+      ],
+      "webComponent": [
+        {
+          "title": "Success Confirmation",
+          "description": "Positive feedback after successful actions",
+          "code": "<goa-callout type=\"success\">\n  <p>Your application has been submitted successfully. You'll receive a confirmation email within 24 hours.</p>\n</goa-callout>"
+        },
+        {
+          "title": "Emergency Alert",
+          "description": "Urgent messages requiring immediate attention",
+          "code": "<goa-callout \n  type=\"emergency\" \n  heading=\"System Maintenance\" \n  arialive=\"assertive\">\n  <p>Our services will be unavailable tonight from 11 PM to 1 AM for scheduled maintenance.</p>\n</goa-callout>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Post-Action Confirmation",
+        "description": "Confirming successful completion with next steps",
+        "code": "function SubmissionComplete() {\n  const navigate = useNavigate();\n  \n  return (\n    <div>\n      <GoabCallout type=\"success\" heading=\"Application Submitted\">\n        <p>Your application has been received and is being reviewed. \n           Reference number: <strong>APP-2024-0123</strong></p>\n        <p>You'll receive email updates about your application status.</p>\n      </GoabCallout>\n      \n      <GoabButtonGroup alignment=\"start\" mt=\"l\">\n        <GoabButton \n          type=\"primary\" \n          onClick={() => navigate('/dashboard')}\n        >\n          View Dashboard\n        </GoabButton>\n        <GoabButton \n          type=\"tertiary\" \n          onClick={() => navigate('/applications')}\n        >\n          Submit Another Application\n        </GoabButton>\n      </GoabButtonGroup>\n    </div>\n  );\n}"
+      },
+      {
+        "name": "Page-Level Status Updates",
+        "description": "Important information affecting the entire page or process",
+        "code": "function PageWithStatus({ maintenanceMode, urgentNotice }) {\n  return (\n    <div>\n      {maintenanceMode && (\n        <GoabCallout \n          type=\"emergency\" \n          heading=\"Limited Service\"\n          ariaLive=\"assertive\"\n        >\n          <p>Some features are temporarily unavailable due to maintenance. \n             Expected completion: 2 PM today.</p>\n        </GoabCallout>\n      )}\n      \n      {urgentNotice && (\n        <GoabCallout \n          type=\"important\" \n          heading=\"Policy Update\"\n        >\n          <p>New eligibility requirements take effect March 1st. \n             <a href=\"/policy-changes\">Review the changes</a> to see how they affect you.</p>\n        </GoabCallout>\n      )}\n      \n      <main>\n        {/* Page content */}\n      </main>\n    </div>\n  );\n}"
+      },
+      {
+        "name": "Form Context Information",
+        "description": "Providing helpful context before or after forms",
+        "code": "function ApplicationForm() {\n  const [submitted, setSubmitted] = useState(false);\n  \n  if (submitted) {\n    return (\n      <GoabCallout type=\"success\">\n        <p>Thank you for your application. We'll contact you within 5 business days.</p>\n      </GoabCallout>\n    );\n  }\n  \n  return (\n    <div>\n      <GoabCallout type=\"information\">\n        <p>This application will take approximately 10 minutes to complete. \n           Make sure you have your identification and supporting documents ready.</p>\n      </GoabCallout>\n      \n      <form onSubmit={handleSubmit}>\n        {/* Form fields */}\n        <GoabButtonGroup alignment=\"end\" mt=\"l\">\n          <GoabButton type=\"primary\" onClick={() => setSubmitted(true)}>\n            Submit Application\n          </GoabButton>\n        </GoabButtonGroup>\n      </form>\n    </div>\n  );\n}"
+      }
+    ],
+    "integrations": [
+      {
+        "component": "GoabButton / GoabButtonGroup",
+        "description": "Follow callouts with relevant action buttons",
+        "example": "Success callouts often include 'Continue' or 'View Details' buttons"
+      },
+      {
+        "component": "GoabFormItem",
+        "description": "Use callouts to provide form-level context or instructions",
+        "example": "Important notices before complex form sections"
+      },
+      {
+        "component": "GoabContainer",
+        "description": "Nest callouts within containers for structured page layouts",
+        "example": "Status updates within dashboard widgets"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "typeGuidance": {
+      "success": {
+        "when": "Confirming successful actions, positive outcomes, completed processes",
+        "examples": ["Form submitted", "Payment processed", "Account created"],
+        "tone": "Positive and reassuring"
+      },
+      "information": {
+        "when": "Providing helpful context, instructions, or neutral updates",
+        "examples": ["Process explanations", "Helpful tips", "Status updates"],
+        "tone": "Neutral and informative"
+      },
+      "important": {
+        "when": "Drawing attention to significant information that affects user actions",
+        "examples": ["Policy changes", "Deadline reminders", "Required actions"],
+        "tone": "Attention-grabbing but not alarming"
+      },
+      "emergency": {
+        "when": "Critical issues requiring immediate attention or action",
+        "examples": ["System outages", "Security alerts", "Urgent deadlines"],
+        "tone": "Urgent and clear"
+      },
+      "event": {
+        "when": "Announcing upcoming events, schedules, or time-sensitive items",
+        "examples": ["Upcoming meetings", "Scheduled maintenance", "Event announcements"],
+        "tone": "Informative with time relevance"
+      }
+    },
+    "whenToUse": [
+      "Confirming successful actions or form submissions",
+      "Providing important context at the page or section level",
+      "Announcing system status or maintenance information",
+      "Highlighting policy changes or deadline updates",
+      "Giving users helpful tips or guidance before complex tasks"
+    ],
+    "whenNotToUse": [
+      "For field-level form validation errors (use field error messages instead)",
+      "For brief contextual help (use tooltips or helper text instead)",
+      "For dismissible notifications (callouts are meant to be persistent)",
+      "For long-form content (use details/accordion for extensive information)",
+      "As the primary content of a page (callouts are supplementary)"
+    ],
+    "bestPractices": [
+      "Keep content focused on one key message per callout",
+      "Use clear, action-oriented language",
+      "Include relevant links for additional information or next steps",
+      "Set maximum width to 700px for optimal readability",
+      "Use emergency type sparingly to maintain its impact",
+      "Place callouts near the content they relate to",
+      "Use headings for callouts that contain complex or multi-part information",
+      "Consider responsive behavior - callouts automatically adapt to smaller screens"
+    ],
+    "contentGuidelines": [
+      "Write in plain language that's easy to scan",
+      "Start with the most important information",
+      "Use active voice and direct statements",
+      "Include specific actions users can take",
+      "Keep line length under 75 characters for readability",
+      "Use inline links to provide additional context without overwhelming the message"
+    ],
+    "accessibilityConsiderations": [
+      "Use ariaLive='polite' for status updates that aren't urgent",
+      "Use ariaLive='assertive' only for critical messages that need immediate attention",
+      "Ensure sufficient color contrast (callouts meet WCAG AA standards)",
+      "Use clear heading text that describes the callout's purpose",
+      "Test with screen readers to verify proper announcement of content"
+    ]
+  },
+
+  "accessibility": {
+    "screenReader": [
+      "Content is announced naturally as part of page flow",
+      "Headings provide structure and context",
+      "Icons are decorative and don't interfere with content reading",
+      "ariaLive attribute controls how dynamic content changes are announced"
+    ],
+    "keyboardNavigation": [
+      "No special keyboard interaction required - callouts display static content",
+      "Links within callouts are keyboard accessible",
+      "Focus moves naturally through callout content"
+    ],
+    "requirements": [
+      "Always include meaningful content - don't rely solely on visual styling",
+      "Use headings appropriately to provide content structure",
+      "Ensure any links within callouts have descriptive text",
+      "Set ariaLive appropriately for dynamic content updates"
+    ]
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "problem": "Callout appears too wide on large screens",
+        "solution": "Wrap callout in a container with max-width or apply custom styling",
+        "code": "// ✅ Constrain width for better readability\n<div style={{ maxWidth: '700px' }}>\n  <GoabCallout type=\"information\">\n    This content won't stretch too wide on large screens.\n  </GoabCallout>\n</div>"
+      },
+      {
+        "problem": "Emergency callouts not getting screen reader attention",
+        "solution": "Use ariaLive='assertive' for urgent messages that need immediate announcement",
+        "code": "// ✅ Urgent message announced immediately\n<GoabCallout \n  type=\"emergency\" \n  ariaLive=\"assertive\"\n>\n  System maintenance starting in 5 minutes.\n</GoabCallout>"
+      },
+      {
+        "problem": "Too many callouts making page feel overwhelming",
+        "solution": "Limit to one primary callout per page section and prioritize by importance",
+        "code": "// ❌ Too many callouts compete for attention\n<GoabCallout type=\"information\">Info 1</GoabCallout>\n<GoabCallout type=\"success\">Success</GoabCallout>\n<GoabCallout type=\"important\">Important</GoabCallout>\n\n// ✅ One focused message per section\n<GoabCallout type=\"important\">\n  Most critical information that affects user actions\n</GoabCallout>"
+      },
+      {
+        "problem": "Callout content not updating dynamically",
+        "solution": "Ensure proper state management and consider ariaLive for screen reader announcements",
+        "code": "// ✅ Dynamic content with proper announcements\nconst [status, setStatus] = useState('processing');\n\n<GoabCallout \n  type={status === 'success' ? 'success' : 'information'}\n  ariaLive=\"polite\"\n>\n  {status === 'success' \n    ? 'Processing complete!' \n    : 'Processing your request...'}\n</GoabCallout>"
+      },
+      {
+        "problem": "Inconsistent spacing around callouts",
+        "solution": "Use the margin props or rely on default bottom margin for consistent spacing",
+        "code": "// ✅ Consistent spacing with margin props\n<GoabCallout type=\"information\" mb=\"l\">\n  Information that needs extra space below\n</GoabCallout>\n\n<GoabCallout type=\"success\" mb=\"none\">\n  Success message followed immediately by buttons\n</GoabCallout>\n<GoabButtonGroup mt=\"m\">\n  <GoabButton type=\"primary\">Continue</GoabButton>\n</GoabButtonGroup>"
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabDetails",
+      "relationship": "Alternative for expandable information",
+      "usage": "Use Details for optional information that can be hidden, Callout for important information that should be visible"
+    },
+    {
+      "name": "GoabAccordion",
+      "relationship": "Alternative for structured, collapsible content",
+      "usage": "Use Accordion for structured content sections, Callout for focused messages"
+    },
+    {
+      "name": "GoabButton / GoabButtonGroup",
+      "relationship": "Common follow-up pattern",
+      "usage": "Follow callouts with relevant action buttons to guide user next steps"
+    },
+    {
+      "name": "GoabContainer",
+      "relationship": "Often visually similar with success type but different purpose",
+      "usage": "Use Container for content grouping, Callout for status messages and notifications",
+      "decisionPoint": "Ask: Is this communicating status/result or organizing content?",
+      "example": "Status updates → Callout, Content sections → Container"
+    },
+    {
+      "name": "Field Error Messages",
+      "relationship": "Different use case",
+      "usage": "Use field errors for form validation, Callouts for page-level or section-level messages"
+    }
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Using callouts for form field validation errors",
+      "why": "Callouts are for page/section-level messages, not individual field errors",
+      "instead": "Use field-level error messages for form validation",
+      "example": "// ❌ Wrong - callout for field error\n<GoabInput name=\"email\" />\n<GoabCallout type=\"error\">Invalid email format</GoabCallout>\n\n// ✅ Correct - field-level error\n<GoabFormItem label=\"Email\" error=\"Invalid email format\">\n  <GoabInput name=\"email\" invalid />\n</GoabFormItem>"
+    },
+    {
+      "mistake": "Making callouts dismissible or temporary",
+      "why": "Callouts are meant to be persistent information, not notifications",
+      "instead": "Use notification/toast components for dismissible messages",
+      "example": "// ❌ Wrong - dismissible callout\n<GoabCallout type=\"success\">Saved! <button>×</button></GoabCallout>\n\n// ✅ Correct - persistent status\n<GoabCallout type=\"success\">Your changes have been saved and are now live.</GoabCallout>"
+    },
+    {
+      "mistake": "Using emergency type callouts too frequently",
+      "why": "Overuse reduces impact and creates alarm fatigue",
+      "instead": "Reserve emergency type for truly critical situations only",
+      "example": "// ❌ Wrong - emergency for minor issues\n<GoabCallout type=\"emergency\">Please update your profile</GoabCallout>\n\n// ✅ Correct - emergency for critical issues\n<GoabCallout type=\"emergency\">System outage - services unavailable</GoabCallout>\n<GoabCallout type=\"important\">Please update your profile by Friday</GoabCallout>"
+    },
+    {
+      "mistake": "Including too much content in a single callout",
+      "why": "Reduces scannability and dilutes the main message",
+      "instead": "Keep callouts focused on one key message with essential details only",
+      "example": "// ❌ Wrong - too much content\n<GoabCallout>Application submitted. Check email. Update profile. Review documents. Contact support if needed. Terms apply.</GoabCallout>\n\n// ✅ Correct - focused message\n<GoabCallout type=\"success\">Application submitted successfully. You'll receive email updates about your status.</GoabCallout>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": {
+      "react": "Use camelCase: ariaLive, testId",
+      "webComponent": "Use lowercase with hyphens: arialive, testid",
+      "angular": "Use camelCase in template: ariaLive, but accepts both formats"
+    },
+    "slotHandling": {
+      "react": "Use children prop for main callout content",
+      "webComponent": "Use default slot for content - no named slots available",
+      "angular": "Use ng-content projection for callout content",
+      "constraint": "No slot support for header elements - content is text and inline elements only"
+    },
+    "constraints": {
+      "typeRequired": "Type prop is required - component will not render without it",
+      "maxWidth": "Automatically constrains to 700px for readability - override with CSS if needed",
+      "responsiveSize": "Automatically switches to medium size below 624px viewport",
+      "ariaLive": "Use 'polite' for status updates, 'assertive' only for urgent interruptions"
+    },
+    "responsiveBehavior": {
+      "automatic": "JavaScript detects viewport width and switches to medium size below 624px",
+      "sizePadding": "Large size uses generous padding, medium uses compact padding",
+      "iconSizing": "Icon size adjusts automatically with callout size",
+      "typography": "Text size and line height adjust with responsive size changes"
+    }
+  },
+
+  "tags": ["notification", "alert", "information", "status", "feedback", "emphasis"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/callout.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

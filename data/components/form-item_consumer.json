@@ -1,0 +1,513 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "lastUpdated": "2025-07-02",
+
+  "customElement": {
+    "tagName": "goa-form-item",
+    "className": "GoaFormItem"
+  },
+
+  "playgroundExamples": {
+    "basic": {
+      "title": "Basic Form Fields",
+      "description": "Essential form item patterns with different field types and validation states",
+      "interactiveProps": [
+        {
+          "name": "label",
+          "type": "string",
+          "default": "Email Address",
+          "description": "Label text for the form control"
+        },
+        {
+          "title": "Large Label Form Field",
+          "description": "Form field with prominent large label sizing",
+          "code": "<GoabFormItem \n  label=\"Section Title\"\n  labelSize=\"large\"\n  helpText=\"Important form section with large label\"\n>\n  <GoabInput type=\"text\" value={value} onChange={handleChange} />\n</GoabFormItem>",
+          "usage": "Use large labels for section headers, important fields, or when Figma design specifies 'Size: Large/Heading'"
+        },
+        {
+          "name": "requirement",
+          "type": "select",
+          "options": ["none", "required", "optional"],
+          "default": "required",
+          "description": "Field requirement indicator"
+        },
+        {
+          "name": "helpText",
+          "type": "string",
+          "default": "We'll use this to send you updates",
+          "description": "Helper text providing additional context"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "default": "",
+          "description": "Error message for validation failures"
+        },
+        {
+          "name": "labelSize",
+          "type": "select",
+          "options": ["regular", "large"],
+          "default": "regular",
+          "description": "Size of the label text"
+        }
+      ],
+      "code": "function BasicFormExample() {\n  const [email, setEmail] = useState('');\n  const [emailError, setEmailError] = useState('');\n\n  const validateEmail = (value) => {\n    if (!value) {\n      setEmailError('Email is required');\n    } else if (!value.includes('@')) {\n      setEmailError('Please enter a valid email address');\n    } else {\n      setEmailError('');\n    }\n  };\n\n  return (\n    <GoabFormItem \n      label=\"Email Address\"\n      requirement=\"required\"\n      error={emailError}\n      helpText=\"We'll use this to send you updates\"\n    >\n      <GoabInput \n        value={email}\n        onChange={(name, value) => {\n          setEmail(value);\n          validateEmail(value);\n        }}\n        type=\"email\"\n        width=\"20ch\"\n      />\n    </GoabFormItem>\n  );\n}",
+      "usageNotes": [
+        "Error messages override help text when present",
+        "Always provide clear, descriptive labels",
+        "Use requirement indicators consistently across your form"
+      ]
+    },
+    "validation": {
+      "title": "Real-time Validation Examples",
+      "description": "Form fields with different validation patterns and error states",
+      "interactiveProps": [
+        {
+          "name": "validateOnBlur",
+          "type": "boolean",
+          "default": true,
+          "description": "Validate when field loses focus"
+        },
+        {
+          "name": "validateOnChange",
+          "type": "boolean",
+          "default": false,
+          "description": "Validate while typing"
+        },
+        {
+          "name": "showErrorStates",
+          "type": "boolean",
+          "default": true,
+          "description": "Display error styling on inputs"
+        }
+      ],
+      "code": "function ValidationExample() {\n  const [formData, setFormData] = useState({\n    password: '',\n    confirmPassword: '',\n    phone: ''\n  });\n  const [errors, setErrors] = useState({});\n  const [touched, setTouched] = useState({});\n\n  const validatePassword = (password) => {\n    if (!password) return 'Password is required';\n    if (password.length < 8) return 'Password must be at least 8 characters';\n    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/.test(password)) {\n      return 'Password must contain uppercase, lowercase, and a number';\n    }\n    return '';\n  };\n\n  const validateConfirmPassword = (confirm, original) => {\n    if (!confirm) return 'Please confirm your password';\n    if (confirm !== original) return 'Passwords do not match';\n    return '';\n  };\n\n  const validatePhone = (phone) => {\n    if (!phone) return '';\n    const phoneRegex = /^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;\n    if (!phoneRegex.test(phone)) return 'Please enter a valid phone number';\n    return '';\n  };\n\n  const handleChange = (fieldName, value) => {\n    setFormData(prev => ({ ...prev, [fieldName]: value }));\n    \n    // Clear error when user starts typing\n    if (errors[fieldName]) {\n      setErrors(prev => ({ ...prev, [fieldName]: '' }));\n    }\n  };\n\n  const handleBlur = (fieldName) => {\n    setTouched(prev => ({ ...prev, [fieldName]: true }));\n    \n    let error = '';\n    switch (fieldName) {\n      case 'password':\n        error = validatePassword(formData.password);\n        break;\n      case 'confirmPassword':\n        error = validateConfirmPassword(formData.confirmPassword, formData.password);\n        break;\n      case 'phone':\n        error = validatePhone(formData.phone);\n        break;\n    }\n    \n    setErrors(prev => ({ ...prev, [fieldName]: error }));\n  };\n\n  return (\n    <div>\n      <GoabFormItem \n        label=\"Password\"\n        requirement=\"required\"\n        error={touched.password ? errors.password : ''}\n        helpText=\"Must be at least 8 characters with uppercase, lowercase, and a number\"\n      >\n        <GoabInput \n          value={formData.password}\n          onChange={(name, value) => handleChange('password', value)}\n          onBlur={() => handleBlur('password')}\n          type=\"password\"\n          error={touched.password && errors.password}\n        />\n      </GoabFormItem>\n\n      <GoabFormItem \n        label=\"Confirm Password\"\n        requirement=\"required\"\n        error={touched.confirmPassword ? errors.confirmPassword : ''}\n      >\n        <GoabInput \n          value={formData.confirmPassword}\n          onChange={(name, value) => handleChange('confirmPassword', value)}\n          onBlur={() => handleBlur('confirmPassword')}\n          type=\"password\"\n          error={touched.confirmPassword && errors.confirmPassword}\n        />\n      </GoabFormItem>\n\n      <GoabFormItem \n        label=\"Phone Number\"\n        requirement=\"optional\"\n        error={touched.phone ? errors.phone : ''}\n        helpText=\"Include area code (e.g., 403-555-1234)\"\n      >\n        <GoabInput \n          value={formData.phone}\n          onChange={(name, value) => handleChange('phone', value)}\n          onBlur={() => handleBlur('phone')}\n          type=\"tel\"\n          error={touched.phone && errors.phone}\n        />\n      </GoabFormItem>\n    </div>\n  );\n}",
+      "usageNotes": [
+        "Validate on blur for better user experience",
+        "Clear errors when user starts correcting input",
+        "Provide specific, actionable error messages",
+        "Show validation status through both message and input styling"
+      ]
+    },
+    "multipleFieldTypes": {
+      "title": "Different Form Control Types",
+      "description": "FormItem wrapping various form controls like dropdowns, radio groups, checkboxes, and text areas",
+      "interactiveProps": [
+        {
+          "name": "showAllFields",
+          "type": "boolean",
+          "default": true,
+          "description": "Show all form field types"
+        },
+        {
+          "name": "largeLabels",
+          "type": "boolean",
+          "default": false,
+          "description": "Use large label size for all fields"
+        }
+      ],
+      "code": "function MultipleFieldTypesExample() {\n  const [formData, setFormData] = useState({\n    firstName: '',\n    contactMethod: '',\n    province: '',\n    comments: '',\n    newsletter: false,\n    interests: []\n  });\n\n  const updateField = (fieldName, value) => {\n    setFormData(prev => ({ ...prev, [fieldName]: value }));\n  };\n\n  const toggleInterest = (interest) => {\n    setFormData(prev => ({\n      ...prev,\n      interests: prev.interests.includes(interest)\n        ? prev.interests.filter(i => i !== interest)\n        : [...prev.interests, interest]\n    }));\n  };\n\n  return (\n    <div>\n      {/* Text Input */}\n      <GoabFormItem \n        label=\"First Name\"\n        requirement=\"required\"\n        helpText=\"Enter your legal first name\"\n      >\n        <GoabInput \n          value={formData.firstName}\n          onChange={(name, value) => updateField('firstName', value)}\n          type=\"text\"\n          width=\"20ch\"\n        />\n      </GoabFormItem>\n\n      {/* Radio Group */}\n      <GoabFormItem \n        label=\"Preferred Contact Method\"\n        requirement=\"required\"\n        helpText=\"How would you like us to reach you?\"\n      >\n        <GoabRadioGroup \n          name=\"contactMethod\"\n          value={formData.contactMethod}\n          onChange={(name, value) => updateField('contactMethod', value)}\n        >\n          <GoabRadioItem value=\"email\" label=\"Email\" />\n          <GoabRadioItem value=\"phone\" label=\"Phone\" />\n          <GoabRadioItem value=\"mail\" label=\"Mail\" />\n        </GoabRadioGroup>\n      </GoabFormItem>\n\n      {/* Dropdown */}\n      <GoabFormItem \n        label=\"Province\"\n        requirement=\"required\"\n        helpText=\"Select your province of residence\"\n      >\n        <GoabDropdown \n          name=\"province\"\n          value={formData.province}\n          onChange={(name, value) => updateField('province', value)}\n        >\n          <GoabDropdownItem value=\"AB\" label=\"Alberta\" />\n          <GoabDropdownItem value=\"BC\" label=\"British Columbia\" />\n          <GoabDropdownItem value=\"ON\" label=\"Ontario\" />\n          <GoabDropdownItem value=\"QC\" label=\"Quebec\" />\n        </GoabDropdown>\n      </GoabFormItem>\n\n      {/* Text Area */}\n      <GoabFormItem \n        label=\"Additional Comments\"\n        requirement=\"optional\"\n        helpText=\"Tell us anything else we should know\"\n      >\n        <GoabTextArea \n          value={formData.comments}\n          onChange={(name, value) => updateField('comments', value)}\n          rows={4}\n        />\n      </GoabFormItem>\n\n      {/* Checkbox List */}\n      <GoabFormItem \n        label=\"Areas of Interest\"\n        helpText=\"Select all that apply\"\n      >\n        <GoabCheckbox \n          name=\"healthcare\"\n          text=\"Healthcare Services\"\n          checked={formData.interests.includes('healthcare')}\n          onChange={() => toggleInterest('healthcare')}\n        />\n        <GoabCheckbox \n          name=\"education\"\n          text=\"Education Programs\"\n          checked={formData.interests.includes('education')}\n          onChange={() => toggleInterest('education')}\n        />\n        <GoabCheckbox \n          name=\"transportation\"\n          text=\"Transportation Updates\"\n          checked={formData.interests.includes('transportation')}\n          onChange={() => toggleInterest('transportation')}\n        />\n      </GoabFormItem>\n\n      {/* Single Checkbox */}\n      <GoabFormItem \n        helpText=\"Stay informed about government services\"\n      >\n        <GoabCheckbox \n          name=\"newsletter\"\n          text=\"Subscribe to newsletter\"\n          checked={formData.newsletter}\n          onChange={(name, checked) => updateField('newsletter', checked)}\n        />\n      </GoabFormItem>\n\n      {/* File Upload */}\n      <GoabFormItem \n        label=\"Supporting Documents\"\n        requirement=\"optional\"\n        helpText=\"Upload any relevant documents (PDF, DOC, or images)\"\n      >\n        <GoabFileUploadInput\n          maxFileSize=\"10MB\"\n          variant=\"button\"\n          onSelectFile={(file) => console.log('File selected:', file)}\n        />\n      </GoabFormItem>\n    </div>\n  );\n}",
+      "usageNotes": [
+        "FormItem provides consistent styling across all form control types",
+        "Each form control type handles its own specific interactions",
+        "Help text should be tailored to the specific input type",
+        "Checkbox groups can be structured as multiple individual checkboxes"
+      ]
+    },
+    "conditionalFields": {
+      "title": "Conditional Form Logic",
+      "description": "Dynamic form fields that show/hide based on user selections",
+      "interactiveProps": [
+        {
+          "name": "showConditionalLogic",
+          "type": "boolean",
+          "default": true,
+          "description": "Enable conditional field display"
+        },
+        {
+          "name": "animateTransitions",
+          "type": "boolean",
+          "default": true,
+          "description": "Animate field appearance/disappearance"
+        }
+      ],
+      "code": "function ConditionalFieldsExample() {\n  const [applicationType, setApplicationType] = useState('');\n  const [hasVehicle, setHasVehicle] = useState('');\n  const [vehicleDetails, setVehicleDetails] = useState({\n    make: '',\n    model: '',\n    year: '',\n    vin: ''\n  });\n  const [businessDetails, setBusinessDetails] = useState({\n    businessName: '',\n    registrationNumber: '',\n    employees: ''\n  });\n\n  const updateVehicleDetail = (field, value) => {\n    setVehicleDetails(prev => ({ ...prev, [field]: value }));\n  };\n\n  const updateBusinessDetail = (field, value) => {\n    setBusinessDetails(prev => ({ ...prev, [field]: value }));\n  };\n\n  return (\n    <div>\n      {/* Primary Selection */}\n      <GoabFormItem \n        label=\"Application Type\"\n        requirement=\"required\"\n        helpText=\"Select the type of application you're submitting\"\n      >\n        <GoabRadioGroup \n          name=\"applicationType\"\n          value={applicationType}\n          onChange={(name, value) => setApplicationType(value)}\n        >\n          <GoabRadioItem value=\"personal\" label=\"Personal\" />\n          <GoabRadioItem value=\"business\" label=\"Business\" />\n          <GoabRadioItem value=\"organization\" label=\"Non-profit Organization\" />\n        </GoabRadioGroup>\n      </GoabFormItem>\n\n      {/* Conditional: Business Fields */}\n      {(applicationType === 'business' || applicationType === 'organization') && (\n        <div className=\"conditional-section\">\n          <GoabFormItem \n            label={applicationType === 'business' ? 'Business Name' : 'Organization Name'}\n            requirement=\"required\"\n            helpText=\"Enter the legal name as registered\"\n          >\n            <GoabInput \n              value={businessDetails.businessName}\n              onChange={(name, value) => updateBusinessDetail('businessName', value)}\n              type=\"text\"\n            />\n          </GoabFormItem>\n\n          <GoabFormItem \n            label=\"Registration Number\"\n            requirement=\"required\"\n            helpText={applicationType === 'business' ? 'Business registration number' : 'Charity registration number'}\n          >\n            <GoabInput \n              value={businessDetails.registrationNumber}\n              onChange={(name, value) => updateBusinessDetail('registrationNumber', value)}\n              type=\"text\"\n            />\n          </GoabFormItem>\n\n          {applicationType === 'business' && (\n            <GoabFormItem \n              label=\"Number of Employees\"\n              requirement=\"required\"\n              helpText=\"Total number of current employees\"\n            >\n              <GoabInput \n                value={businessDetails.employees}\n                onChange={(name, value) => updateBusinessDetail('employees', value)}\n                type=\"number\"\n              />\n            </GoabFormItem>\n          )}\n        </div>\n      )}\n\n      {/* Secondary Conditional Logic */}\n      {applicationType && (\n        <GoabFormItem \n          label=\"Do you own a vehicle?\"\n          requirement=\"required\"\n          helpText=\"This affects your eligibility for certain benefits\"\n        >\n          <GoabRadioGroup \n            name=\"hasVehicle\"\n            value={hasVehicle}\n            onChange={(name, value) => setHasVehicle(value)}\n          >\n            <GoabRadioItem value=\"yes\" label=\"Yes\" />\n            <GoabRadioItem value=\"no\" label=\"No\" />\n          </GoabRadioGroup>\n        </GoabFormItem>\n      )}\n\n      {/* Nested Conditional: Vehicle Details */}\n      {hasVehicle === 'yes' && (\n        <div className=\"vehicle-details\">\n          <GoabFormItem \n            label=\"Vehicle Make\"\n            requirement=\"required\"\n          >\n            <GoabInput \n              value={vehicleDetails.make}\n              onChange={(name, value) => updateVehicleDetail('make', value)}\n              type=\"text\"\n            />\n          </GoabFormItem>\n\n          <GoabFormItem \n            label=\"Vehicle Model\"\n            requirement=\"required\"\n          >\n            <GoabInput \n              value={vehicleDetails.model}\n              onChange={(name, value) => updateVehicleDetail('model', value)}\n              type=\"text\"\n            />\n          </GoabFormItem>\n\n          <GoabFormItem \n            label=\"Year\"\n            requirement=\"required\"\n            helpText=\"Model year of the vehicle\"\n          >\n            <GoabInput \n              value={vehicleDetails.year}\n              onChange={(name, value) => updateVehicleDetail('year', value)}\n              type=\"number\"\n              width=\"8ch\"\n            />\n          </GoabFormItem>\n\n          <GoabFormItem \n            label=\"VIN (Vehicle Identification Number)\"\n            requirement=\"optional\"\n            helpText=\"17-character unique identifier (found on registration or dashboard)\"\n          >\n            <GoabInput \n              value={vehicleDetails.vin}\n              onChange={(name, value) => updateVehicleDetail('vin', value)}\n              type=\"text\"\n            />\n          </GoabFormItem>\n        </div>\n      )}\n    </div>\n  );\n}",
+      "usageNotes": [
+        "Group related conditional fields in containers for better organization",
+        "Clear previously entered data when conditions change if appropriate",
+        "Consider animation libraries for smooth field transitions",
+        "Provide clear help text that explains why additional fields appear"
+      ]
+    },
+    "largeLabels": {
+      "title": "Large Label Sizing",
+      "description": "Form sections with prominent large labels for better visual hierarchy",
+      "interactiveProps": [
+        {
+          "name": "labelSize",
+          "type": "select",
+          "options": ["regular", "large"],
+          "default": "large",
+          "description": "Size of form labels"
+        },
+        {
+          "name": "sectionStyle",
+          "type": "select",
+          "options": ["default", "card", "bordered"],
+          "default": "card",
+          "description": "Visual styling of form sections"
+        }
+      ],
+      "code": "function LargeLabelExample() {\n  const [personalInfo, setPersonalInfo] = useState({\n    firstName: '',\n    lastName: '',\n    email: '',\n    phone: ''\n  });\n  \n  const [preferences, setPreferences] = useState({\n    language: '',\n    contactTime: '',\n    notifications: false\n  });\n\n  const updatePersonalInfo = (field, value) => {\n    setPersonalInfo(prev => ({ ...prev, [field]: value }));\n  };\n\n  const updatePreferences = (field, value) => {\n    setPreferences(prev => ({ ...prev, [field]: value }));\n  };\n\n  return (\n    <div className=\"large-label-form\">\n      {/* Section 1: Personal Information */}\n      <div className=\"form-section\">\n        <GoabFormItem \n          label=\"Personal Information\"\n          labelSize=\"large\"\n          helpText=\"Please provide your basic contact details\"\n        >\n          <div className=\"field-group\">\n            <GoabFormItem \n              label=\"First Name\"\n              requirement=\"required\"\n            >\n              <GoabInput \n                value={personalInfo.firstName}\n                onChange={(name, value) => updatePersonalInfo('firstName', value)}\n                type=\"text\"\n              />\n            </GoabFormItem>\n\n            <GoabFormItem \n              label=\"Last Name\"\n              requirement=\"required\"\n            >\n              <GoabInput \n                value={personalInfo.lastName}\n                onChange={(name, value) => updatePersonalInfo('lastName', value)}\n                type=\"text\"\n              />\n            </GoabFormItem>\n          </div>\n        </GoabFormItem>\n\n        <GoabFormItem \n          label=\"Email Address\"\n          requirement=\"required\"\n          helpText=\"We'll use this for important notifications\"\n        >\n          <GoabInput \n            value={personalInfo.email}\n            onChange={(name, value) => updatePersonalInfo('email', value)}\n            type=\"email\"\n          />\n        </GoabFormItem>\n\n        <GoabFormItem \n          label=\"Phone Number\"\n          requirement=\"optional\"\n          helpText=\"Include area code for faster support\"\n        >\n          <GoabInput \n            value={personalInfo.phone}\n            onChange={(name, value) => updatePersonalInfo('phone', value)}\n            type=\"tel\"\n          />\n        </GoabFormItem>\n      </div>\n\n      {/* Section 2: Communication Preferences */}\n      <div className=\"form-section\">\n        <GoabFormItem \n          label=\"Communication Preferences\"\n          labelSize=\"large\"\n          helpText=\"Tell us how you'd like to receive updates\"\n        >\n          <GoabFormItem \n            label=\"Preferred Language\"\n            requirement=\"required\"\n          >\n            <GoabDropdown \n              name=\"language\"\n              value={preferences.language}\n              onChange={(name, value) => updatePreferences('language', value)}\n            >\n              <GoabDropdownItem value=\"en\" label=\"English\" />\n              <GoabDropdownItem value=\"fr\" label=\"French\" />\n              <GoabDropdownItem value=\"other\" label=\"Other\" />\n            </GoabDropdown>\n          </GoabFormItem>\n\n          <GoabFormItem \n            label=\"Best Time to Contact\"\n            helpText=\"When should we reach out if needed?\"\n          >\n            <GoabRadioGroup \n              name=\"contactTime\"\n              value={preferences.contactTime}\n              onChange={(name, value) => updatePreferences('contactTime', value)}\n            >\n              <GoabRadioItem value=\"morning\" label=\"Morning (9 AM - 12 PM)\" />\n              <GoabRadioItem value=\"afternoon\" label=\"Afternoon (12 PM - 5 PM)\" />\n              <GoabRadioItem value=\"evening\" label=\"Evening (5 PM - 8 PM)\" />\n              <GoabRadioItem value=\"anytime\" label=\"Any time\" />\n            </GoabRadioGroup>\n          </GoabFormItem>\n\n          <GoabFormItem \n            helpText=\"Stay informed about service updates and changes\"\n          >\n            <GoabCheckbox \n              name=\"notifications\"\n              text=\"Send me email notifications about my account\"\n              checked={preferences.notifications}\n              onChange={(name, checked) => updatePreferences('notifications', checked)}\n            />\n          </GoabFormItem>\n        </GoabFormItem>\n      </div>\n    </div>\n  );\n}",
+      "usageNotes": [
+        "Use large labels for section headings and major form divisions",
+        "Combine large labels with regular labels for hierarchical structure",
+        "Group related fields under large label sections",
+        "Large labels work well for multi-step or complex forms"
+      ]
+    }
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system", "@abgov/web-components", "Form control components"]
+  },
+
+  "componentInfo": {
+    "name": "FormItem",
+    "purpose": "Wrapper component that provides consistent labeling, validation states, helper text, and error messages for form controls",
+    "category": "form",
+    "essentialFor": "All form inputs requiring labels, validation, or helper text"
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabFormItem } from '@abgov/react-components'",
+      "quickExample": "// Basic form field with label and validation\nconst [email, setEmail] = useState('');\nconst [emailError, setEmailError] = useState('');\n\nconst validateEmail = (value) => {\n  if (!value.includes('@')) {\n    setEmailError('Please enter a valid email address');\n  } else {\n    setEmailError('');\n  }\n};\n\n<GoabFormItem \n  label=\"Email Address\"\n  requirement=\"required\"\n  error={emailError}\n  helpText=\"We'll use this to send you updates\"\n>\n  <GoabInput \n    value={email}\n    onChange={(name, value) => {\n      setEmail(value);\n      validateEmail(value);\n    }}\n    type=\"email\"\n  />\n</GoabFormItem>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "// Complete form field with validation\nexport class UserFormComponent {\n  userForm = this.fb.group({\n    fullName: ['', Validators.required],\n    email: ['', [Validators.required, Validators.email]]\n  });\n\n  getFieldError(fieldName: string): string {\n    const field = this.userForm.get(fieldName);\n    if (field?.errors && field?.touched) {\n      if (field.errors['required']) return 'This field is required';\n      if (field.errors['email']) return 'Please enter a valid email';\n    }\n    return '';\n  }\n}\n\n<!-- Template -->\n<goa-form-item \n  label=\"Full Name\"\n  requirement=\"required\"\n  [error]=\"getFieldError('fullName')\">\n  <goa-input \n    formControlName=\"fullName\"\n    type=\"text\">\n  </goa-input>\n</goa-form-item>\n\n<goa-form-item \n  label=\"Email Address\"\n  requirement=\"required\"\n  [error]=\"getFieldError('email')\"\n  helpText=\"We'll use this for account notifications\">\n  <goa-input \n    formControlName=\"email\"\n    type=\"email\">\n  </goa-input>\n</goa-form-item>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<!-- Basic form field -->\n<goa-form-item \n  label=\"First Name\"\n  requirement=\"required\"\n  helptext=\"Enter your legal first name\">\n  <goa-input type=\"text\" name=\"firstName\"></goa-input>\n</goa-form-item>\n\n<!-- Form field with error state -->\n<goa-form-item \n  label=\"Email\"\n  requirement=\"required\"\n  error=\"Please enter a valid email address\">\n  <goa-input type=\"email\" name=\"email\" value=\"invalid-email\"></goa-input>\n</goa-form-item>\n\n<script>\n// Handle validation\nconst emailInput = document.querySelector('goa-input[name=\"email\"]');\nconst emailFormItem = emailInput.closest('goa-form-item');\n\nemailInput.addEventListener('_input', (e) => {\n  const value = e.detail.value;\n  if (!value.includes('@')) {\n    emailFormItem.setAttribute('error', 'Please enter a valid email address');\n  } else {\n    emailFormItem.removeAttribute('error');\n  }\n});\n</script>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "description": "Label text for the form control",
+        "usage": "Use clear, descriptive labels that explain what input is expected"
+      },
+      {
+        "name": "labelSize",
+        "type": "regular | large",
+        "default": "regular",
+        "required": false,
+        "description": "Size of the form label text",
+        "usage": "Use 'large' for prominent form sections or when specified in Figma designs. Regular size for standard form fields."
+      },
+      {
+        "name": "helpText",
+        "type": "string",
+        "required": false,
+        "description": "Helper text providing additional context",
+        "usage": "Provide clarification or examples for complex fields"
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "description": "Error message for validation failures",
+        "usage": "Shows validation errors and overrides helpText when present"
+      },
+      {
+        "name": "requirement",
+        "type": "\"required\" | \"optional\"",
+        "required": false,
+        "description": "Requirement indicator for the field",
+        "usage": "Use 'required' for mandatory fields, 'optional' to clarify non-required fields"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Test identifier for automation",
+        "usage": "Use for QA testing and automation scripts"
+      }
+    ],
+    "children": "Form control components (GoabInput, GoabTextArea, GoabDropdown, etc.)"
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Simple Text Input with Label",
+          "code": "function BasicFormField() {\n  const [name, setName] = useState('');\n\n  return (\n    <GoabFormItem label=\"Full Name\" requirement=\"required\">\n      <GoabInput \n        value={name}\n        onChange={(name, value) => setName(value)}\n        type=\"text\"\n      />\n    </GoabFormItem>\n  );\n}"
+        },
+        {
+          "title": "Field with Helper Text and Validation",
+          "code": "function ValidatedFormField() {\n  const [password, setPassword] = useState('');\n  const [error, setError] = useState('');\n\n  const validatePassword = (value) => {\n    if (value.length < 8) {\n      setError('Password must be at least 8 characters long');\n    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/.test(value)) {\n      setError('Password must contain uppercase, lowercase, and a number');\n    } else {\n      setError('');\n    }\n  };\n\n  return (\n    <GoabFormItem \n      label=\"Password\"\n      requirement=\"required\"\n      error={error}\n      helpText=\"Must be at least 8 characters with uppercase, lowercase, and a number\"\n    >\n      <GoabInput \n        value={password}\n        onChange={(name, value) => {\n          setPassword(value);\n          validatePassword(value);\n        }}\n        type=\"password\"\n      />\n    </GoabFormItem>\n  );\n}"
+        },
+        {
+          "title": "Complex Form with Multiple Field Types",
+          "code": "function CompleteForm() {\n  const [formData, setFormData] = useState({\n    firstName: '',\n    lastName: '',\n    email: '',\n    phoneType: '',\n    message: '',\n    newsletter: false\n  });\n  const [errors, setErrors] = useState({});\n\n  const updateField = (fieldName, value) => {\n    setFormData(prev => ({ ...prev, [fieldName]: value }));\n    // Clear error when user starts typing\n    if (errors[fieldName]) {\n      setErrors(prev => ({ ...prev, [fieldName]: '' }));\n    }\n  };\n\n  const validateForm = () => {\n    const newErrors = {};\n    if (!formData.firstName) newErrors.firstName = 'First name is required';\n    if (!formData.email) newErrors.email = 'Email is required';\n    else if (!formData.email.includes('@')) newErrors.email = 'Please enter a valid email';\n    \n    setErrors(newErrors);\n    return Object.keys(newErrors).length === 0;\n  };\n\n  return (\n    <form onSubmit={(e) => { e.preventDefault(); validateForm(); }}>\n      <GoabFormItem \n        label=\"First Name\"\n        requirement=\"required\"\n        error={errors.firstName}\n      >\n        <GoabInput \n          value={formData.firstName}\n          onChange={(name, value) => updateField('firstName', value)}\n          type=\"text\"\n        />\n      </GoabFormItem>\n\n      <GoabFormItem \n        label=\"Last Name\"\n        requirement=\"optional\"\n      >\n        <GoabInput \n          value={formData.lastName}\n          onChange={(name, value) => updateField('lastName', value)}\n          type=\"text\"\n        />\n      </GoabFormItem>\n\n      <GoabFormItem \n        label=\"Email Address\"\n        requirement=\"required\"\n        error={errors.email}\n        helpText=\"We'll use this to send you a confirmation\"\n      >\n        <GoabInput \n          value={formData.email}\n          onChange={(name, value) => updateField('email', value)}\n          type=\"email\"\n        />\n      </GoabFormItem>\n\n      <GoabFormItem \n        label=\"Phone Type\"\n        helpText=\"Select your preferred contact method\"\n      >\n        <GoabDropdown \n          value={formData.phoneType}\n          onChange={(name, value) => updateField('phoneType', value)}\n        >\n          <GoabDropdownItem value=\"mobile\" label=\"Mobile\" />\n          <GoabDropdownItem value=\"home\" label=\"Home\" />\n          <GoabDropdownItem value=\"work\" label=\"Work\" />\n        </GoabDropdown>\n      </GoabFormItem>\n\n      <GoabFormItem \n        label=\"Message\"\n        helpText=\"Tell us how we can help you (optional)\"\n      >\n        <GoabTextArea \n          value={formData.message}\n          onChange={(name, value) => updateField('message', value)}\n          rows={4}\n        />\n      </GoabFormItem>\n\n      <GoabFormItem \n        helpText=\"Receive updates about our services\"\n      >\n        <GoabCheckbox \n          name=\"newsletter\"\n          checked={formData.newsletter}\n          onChange={(name, checked) => updateField('newsletter', checked)}\n          text=\"Subscribe to newsletter\"\n        />\n      </GoabFormItem>\n\n      <GoabButton type=\"primary\" onClick={validateForm}>\n        Submit Form\n      </GoabButton>\n    </form>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Reactive Form Integration",
+          "code": "export class ContactFormComponent {\n  contactForm = this.fb.group({\n    firstName: ['', [Validators.required, Validators.minLength(2)]],\n    lastName: [''],\n    email: ['', [Validators.required, Validators.email]],\n    subject: ['', Validators.required],\n    message: ['', [Validators.required, Validators.minLength(10)]]\n  });\n\n  constructor(private fb: FormBuilder) {}\n\n  getFieldError(fieldName: string): string {\n    const field = this.contactForm.get(fieldName);\n    if (field?.errors && field?.touched) {\n      if (field.errors['required']) {\n        return `${this.getFieldLabel(fieldName)} is required`;\n      }\n      if (field.errors['email']) {\n        return 'Please enter a valid email address';\n      }\n      if (field.errors['minlength']) {\n        const requiredLength = field.errors['minlength'].requiredLength;\n        return `Must be at least ${requiredLength} characters long`;\n      }\n    }\n    return '';\n  }\n\n  getFieldLabel(fieldName: string): string {\n    const labels = {\n      firstName: 'First Name',\n      lastName: 'Last Name', \n      email: 'Email',\n      subject: 'Subject',\n      message: 'Message'\n    };\n    return labels[fieldName] || fieldName;\n  }\n\n  onSubmit() {\n    if (this.contactForm.valid) {\n      console.log('Form submitted:', this.contactForm.value);\n    } else {\n      // Mark all fields as touched to show validation errors\n      Object.keys(this.contactForm.controls).forEach(key => {\n        this.contactForm.get(key)?.markAsTouched();\n      });\n    }\n  }\n}\n\n<!-- Template -->\n<form [formGroup]=\"contactForm\" (ngSubmit)=\"onSubmit()\">\n  <goa-form-item \n    label=\"First Name\"\n    requirement=\"required\"\n    [error]=\"getFieldError('firstName')\">\n    <goa-input \n      formControlName=\"firstName\"\n      type=\"text\">\n    </goa-input>\n  </goa-form-item>\n\n  <goa-form-item \n    label=\"Email Address\"\n    requirement=\"required\"\n    [error]=\"getFieldError('email')\"\n    helpText=\"We'll send confirmation to this address\">\n    <goa-input \n      formControlName=\"email\"\n      type=\"email\">\n    </goa-input>\n  </goa-form-item>\n\n  <goa-form-item \n    label=\"Subject\"\n    requirement=\"required\"\n    [error]=\"getFieldError('subject')\"\n    helpText=\"Brief description of your inquiry\">\n    <goa-dropdown formControlName=\"subject\">\n      <goa-dropdown-item value=\"general\" label=\"General Inquiry\"></goa-dropdown-item>\n      <goa-dropdown-item value=\"support\" label=\"Technical Support\"></goa-dropdown-item>\n      <goa-dropdown-item value=\"billing\" label=\"Billing Question\"></goa-dropdown-item>\n    </goa-dropdown>\n  </goa-form-item>\n\n  <goa-form-item \n    label=\"Message\"\n    requirement=\"required\"\n    [error]=\"getFieldError('message')\"\n    helpText=\"Please provide details about your request\">\n    <goa-text-area \n      formControlName=\"message\"\n      [rows]=\"5\">\n    </goa-text-area>\n  </goa-form-item>\n\n  <goa-button \n    type=\"primary\"\n    [disabled]=\"contactForm.invalid\">\n    Send Message\n  </goa-button>\n</form>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Real-time Validation",
+        "description": "Validate fields as users type and provide immediate feedback",
+        "code": "function RealTimeValidation() {\n  const [username, setUsername] = useState('');\n  const [usernameError, setUsernameError] = useState('');\n  const [isChecking, setIsChecking] = useState(false);\n\n  // Debounced validation to avoid excessive API calls\n  const debouncedValidateUsername = useCallback(\n    debounce(async (value) => {\n      if (value.length < 3) {\n        setUsernameError('Username must be at least 3 characters');\n        setIsChecking(false);\n        return;\n      }\n      \n      setIsChecking(true);\n      try {\n        const isAvailable = await checkUsernameAvailability(value);\n        if (!isAvailable) {\n          setUsernameError('This username is already taken');\n        } else {\n          setUsernameError('');\n        }\n      } catch (error) {\n        setUsernameError('Unable to check username availability');\n      } finally {\n        setIsChecking(false);\n      }\n    }, 500),\n    []\n  );\n\n  const handleUsernameChange = (name, value) => {\n    setUsername(value);\n    setUsernameError('');\n    if (value) {\n      debouncedValidateUsername(value);\n    }\n  };\n\n  return (\n    <GoabFormItem \n      label=\"Username\"\n      requirement=\"required\"\n      error={usernameError}\n      helpText={isChecking ? 'Checking availability...' : 'Choose a unique username'}\n    >\n      <GoabInput \n        value={username}\n        onChange={handleUsernameChange}\n        type=\"text\"\n      />\n    </GoabFormItem>\n  );\n}"
+      },
+      {
+        "name": "Conditional Field Display",
+        "description": "Show/hide form fields based on other field values",
+        "code": "function ConditionalFields() {\n  const [contactMethod, setContactMethod] = useState('');\n  const [phone, setPhone] = useState('');\n  const [email, setEmail] = useState('');\n\n  return (\n    <div>\n      <GoabFormItem \n        label=\"Preferred Contact Method\"\n        requirement=\"required\"\n      >\n        <GoabRadioGroup \n          value={contactMethod}\n          onChange={(name, value) => setContactMethod(value)}\n        >\n          <GoabRadioItem value=\"email\" text=\"Email\" />\n          <GoabRadioItem value=\"phone\" text=\"Phone\" />\n          <GoabRadioItem value=\"both\" text=\"Either\" />\n        </GoabRadioGroup>\n      </GoabFormItem>\n\n      {(contactMethod === 'email' || contactMethod === 'both') && (\n        <GoabFormItem \n          label=\"Email Address\"\n          requirement=\"required\"\n          helpText=\"We'll send updates to this address\"\n        >\n          <GoabInput \n            value={email}\n            onChange={(name, value) => setEmail(value)}\n            type=\"email\"\n          />\n        </GoabFormItem>\n      )}\n\n      {(contactMethod === 'phone' || contactMethod === 'both') && (\n        <GoabFormItem \n          label=\"Phone Number\"\n          requirement=\"required\"\n          helpText=\"Include area code\"\n        >\n          <GoabInput \n            value={phone}\n            onChange={(name, value) => setPhone(value)}\n            type=\"tel\"\n          />\n        </GoabFormItem>\n      )}\n    </div>\n  );\n}"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Every form input that needs a label",
+      "Form fields requiring validation feedback",
+      "Inputs needing helper text or additional context",
+      "Required/optional field indicators",
+      "Consistent form field spacing and layout"
+    ],
+    "whenNotToUse": [
+      "Simple buttons or actions (use Button component directly)",
+      "Read-only display of information (use appropriate display components)",
+      "Custom form layouts that can't use standard structure"
+    ],
+    "bestPractices": [
+      "Always provide clear, descriptive labels",
+      "Use helper text to clarify expected input format",
+      "Show validation errors immediately and clearly",
+      "Mark required fields consistently across your application",
+      "Use 'required' for mandatory fields, 'optional' sparingly for clarity",
+      "Keep error messages specific and actionable",
+      "Group related form fields logically"
+    ],
+    "contentGuidelines": [
+      "Labels: Use sentence case, be specific and clear",
+      "Helper text: Provide examples or clarification, keep concise",
+      "Error messages: Be specific about the problem and how to fix it",
+      "Use positive language when possible",
+      "Avoid technical jargon in user-facing text"
+    ],
+    "validationGuidelines": [
+      "Validate on blur for better user experience",
+      "Provide real-time feedback for complex validation rules",
+      "Clear errors when user starts correcting the input",
+      "Show success states for complex validations (e.g., password strength)",
+      "Group related validation errors together"
+    ]
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate to wrapped form control",
+      "Label click - Focus the associated form control",
+      "All specific navigation handled by wrapped control"
+    ],
+    "screenReader": [
+      "Label properly announced with form control",
+      "Helper text read after label and control type",
+      "Error messages announced immediately when they appear",
+      "Required/optional status clearly communicated"
+    ],
+    "focusManagement": [
+      "Focus moves to wrapped form control, not FormItem wrapper",
+      "Label clicking properly focuses the input",
+      "Focus indicators clear and visible on wrapped controls"
+    ]
+  },
+
+  "troubleshooting": {
+    "common": [
+      {
+        "issue": "Label not associated with form control",
+        "cause": "Form control missing proper id or name attribute",
+        "solution": "Ensure wrapped form control has appropriate identification. FormItem automatically handles association."
+      },
+      {
+        "issue": "Error messages not displaying",
+        "cause": "Error prop not being updated or cleared properly",
+        "solution": "Make sure error state is managed correctly. Set error to empty string or null to clear."
+      },
+      {
+        "issue": "Helper text and error text both showing",
+        "cause": "Expected behavior - error overrides helper text",
+        "solution": "This is correct behavior. Error messages take priority over helper text when present."
+      },
+      {
+        "issue": "Required indicator not showing",
+        "cause": "requirement prop not set or incorrect value",
+        "solution": "Set requirement='required' to show required indicator. Use 'optional' sparingly for clarity."
+      },
+      {
+        "issue": "Form control not styled correctly inside FormItem",
+        "cause": "CSS conflicts or incorrect component nesting",
+        "solution": "Ensure form control is direct child of FormItem. Check for CSS overrides affecting layout."
+      }
+    ],
+    "integration": [
+      {
+        "issue": "FormItem not working with form libraries (Formik, React Hook Form)",
+        "cause": "Form library state not connected to FormItem props",
+        "solution": "Connect form library validation state to FormItem error prop. Example: error={formik.errors.fieldName && formik.touched.fieldName ? formik.errors.fieldName : ''}"
+      },
+      {
+        "issue": "Angular reactive forms validation not showing",
+        "cause": "FormItem error prop not connected to Angular form state",
+        "solution": "Create helper method to extract errors from Angular form controls and pass to FormItem error prop."
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabInput",
+      "usage": "Most commonly wrapped component for text input fields",
+      "example": "<GoabFormItem label=\"Name\">\n  <GoabInput type=\"text\" value={name} onChange={handleChange} />\n</GoabFormItem>"
+    },
+    {
+      "name": "GoabTextArea",
+      "usage": "Wrap for multi-line text input fields",
+      "example": "<GoabFormItem label=\"Comments\" helpText=\"Optional feedback\">\n  <GoabTextArea rows={4} value={comments} onChange={handleChange} />\n</GoabFormItem>"
+    },
+    {
+      "name": "GoabDropdown",
+      "usage": "Wrap for selection input fields",
+      "example": "<GoabFormItem label=\"Province\" requirement=\"required\">\n  <GoabDropdown value={province} onChange={handleChange}>\n    <GoabDropdownItem value=\"AB\" label=\"Alberta\" />\n  </GoabDropdown>\n</GoabFormItem>"
+    },
+    {
+      "name": "GoabCheckbox",
+      "usage": "Wrap for boolean input fields",
+      "example": "<GoabFormItem helpText=\"Receive email updates\">\n  <GoabCheckbox name=\"newsletter\" text=\"Subscribe to newsletter\" />\n</GoabFormItem>"
+    },
+    {
+      "name": "GoabRadioGroup",
+      "usage": "Wrap for choice input fields",
+      "example": "<GoabFormItem label=\"Contact Preference\" requirement=\"required\">\n  <GoabRadioGroup value={contact} onChange={handleChange}>\n    <GoabRadioItem value=\"email\" text=\"Email\" />\n    <GoabRadioItem value=\"phone\" text=\"Phone\" />\n  </GoabRadioGroup>\n</GoabFormItem>"
+    }
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Using FormItem without a wrapped form control",
+      "why": "FormItem is a wrapper component that needs a form control inside it",
+      "instead": "Always wrap a form control component inside FormItem",
+      "example": "// ❌ Wrong - empty FormItem\n<GoabFormItem label=\"Name\" />\n\n// ✅ Correct - FormItem wrapping input\n<GoabFormItem label=\"Name\">\n  <GoabInput type=\"text\" value={name} onChange={handleChange} />\n</GoabFormItem>"
+    },
+    {
+      "mistake": "Setting both error and helpText expecting both to show",
+      "why": "Error message overrides helpText when present - only one displays at a time",
+      "instead": "Use error for validation feedback, helpText for guidance",
+      "example": "// ❌ Wrong - expecting both to show\n<GoabFormItem \n  label=\"Email\"\n  helpText=\"We'll never share your email\"\n  error=\"Invalid email format\"\n>\n  <GoabInput type=\"email\" />\n</GoabFormItem>\n\n// ✅ Correct - clear error when valid\nconst [error, setError] = useState('');\n<GoabFormItem \n  label=\"Email\"\n  helpText={error ? undefined : \"We'll never share your email\"}\n  error={error}\n>\n  <GoabInput type=\"email\" onChange={validateEmail} />\n</GoabFormItem>"
+    },
+    {
+      "mistake": "Not connecting form library validation to FormItem",
+      "why": "FormItem won't show validation errors from form libraries automatically",
+      "instead": "Extract validation state and pass to FormItem error prop",
+      "example": "// ❌ Wrong - form library validation not connected\n<GoabFormItem label=\"Email\">\n  <input {...formik.getFieldProps('email')} />\n</GoabFormItem>\n\n// ✅ Correct - connecting validation state\n<GoabFormItem \n  label=\"Email\"\n  error={formik.errors.email && formik.touched.email ? formik.errors.email : ''}\n>\n  <GoabInput {...formik.getFieldProps('email')} />\n</GoabFormItem>"
+    },
+    {
+      "mistake": "Inconsistent requirement prop usage",
+      "why": "Creates confusion about which fields are actually required",
+      "instead": "Use 'required' consistently for mandatory fields, avoid 'optional' unless needed for clarity",
+      "example": "// ❌ Wrong - inconsistent requirement indicators\n<GoabFormItem label=\"Name\" requirement=\"required\" />\n<GoabFormItem label=\"Email\" /> {/* No indicator */}\n<GoabFormItem label=\"Phone\" requirement=\"optional\" />\n\n// ✅ Correct - consistent requirement pattern\n<GoabFormItem label=\"Name\" requirement=\"required\" />\n<GoabFormItem label=\"Email\" requirement=\"required\" />\n<GoabFormItem label=\"Phone\" requirement=\"optional\" /> {/* Only when clarity needed */}"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": {
+      "react": "Use camelCase: labelSize, helpText, testId",
+      "webComponent": "Use lowercase: labelsize, helptext, testid",
+      "angular": "Use camelCase in templates: [labelSize], [helpText]"
+    },
+    "slotHandling": {
+      "react": "Form control passed as children prop",
+      "webComponent": "Form control placed as child element inside goa-form-item tags",
+      "angular": "Form control projected via ng-content"
+    },
+    "constraints": {
+      "childComponent": "Must contain exactly one form control component as child",
+      "labelAssociation": "FormItem automatically handles label-to-control association",
+      "errorHierarchy": "Error prop always takes precedence over helpText prop"
+    },
+    "responsiveBehavior": {
+      "layout": "FormItem layout adapts to mobile with adjusted spacing",
+      "labels": "Large label size automatically scales down on mobile devices",
+      "helpText": "Help text remains visible and readable on all screen sizes"
+    }
+  },
+
+  "labelSizeDetection": {
+    "figmaIndicators": [
+      "Size: Large/Heading → labelSize='large'",
+      "Size: Regular/Normal → labelSize='regular' (default)",
+      "Prominent label text in design → labelSize='large'",
+      "Standard form field labels → labelSize='regular'"
+    ],
+    "aiImplementationRule": "Check Figma component properties for 'Size' specification - 'Large/Heading' always maps to labelSize='large'"
+  },
+
+  "formSpacingPatterns": {
+    "verticalSpacing": {
+      "betweenInputs": {
+        "value": "xl",
+        "rule": "Use mb='xl' on each FormItem in a set",
+        "example": "<GoabFormItem label='Name' mb='xl'>"
+      },
+      "beforeButtons": {
+        "value": "2xl",
+        "rule": "2XL spacing between last input and button/button group",
+        "implementation": "Use marginBottom: 'var(--goa-space-2xl)' on container or mb='2xl' on last input"
+      },
+      "headingToFirstInput": {
+        "value": "xl",
+        "rule": "XL spacing between section heading (heading-l) and first input",
+        "example": "<GoabText tag='h2' size='heading-l' mb='xl'>Section Title</GoabText>"
+      }
+    },
+    "horizontalSpacing": {
+      "sideBySideInputs": {
+        "value": "xl",
+        "rule": "XL spacing between inputs arranged horizontally",
+        "implementation": "gap: 'var(--goa-space-xl)' in flex containers"
+      }
+    },
+    "requirementFieldGuidance": {
+      "defaultApproach": "Don't mark anything (assume required) to reduce visual noise",
+      "markOptional": "Use requirement='optional' only when field is truly optional and needs communication",
+      "markRequired": "Use requirement='required' only when there are many optional fields and you need to emphasize this specific one is required",
+      "helpTextRule": "NEVER use helpText to say '(optional)' - use requirement prop instead. HelpText is for additional context and guidance only"
+    }
+  },
+
+  "tags": ["form", "wrapper", "label", "validation", "accessibility"],
+  "category": "form",
+  "status": "stable",
+  "lastUpdated": "2025-07-02",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/form-item.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

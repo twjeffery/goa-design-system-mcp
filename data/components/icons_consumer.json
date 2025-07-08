@@ -1,0 +1,321 @@
+{
+  "metadataSchemaVersion": "2.0.0-consumer",
+  "audience": "product-teams",
+  "componentName": "Icon",
+  "customElement": "goa-icon",
+  "summary": "Display component providing access to 1300+ Ionic Framework icons with consistent sizing and theming",
+  
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Ionicons library", "Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabIcon } from '@abgov/react-components'",
+      "quickExample": "<GoabIcon type=\"home\" size=\"3\" />",
+      "dependencies": "Requires @abgov/react-components and @abgov/web-components packages"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-icon type=\"home\" size=\"3\"></goab-icon>",
+      "module": "Add AngularComponentsModule to your module imports",
+      "dependencies": "Requires @abgov/angular-components and @abgov/web-components packages"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-icon type=\"home\" size=\"3\"></goa-icon>",
+      "dependencies": "Requires @abgov/web-components package"
+    }
+  },
+  
+  "api": {
+    "props": [
+      {
+        "name": "type",
+        "type": "string (ionicon name)",
+        "required": true,
+        "description": "The icon to display",
+        "usage": "Use any Ionicon name like 'home', 'person', 'settings', 'warning'. Browse full list at ionicons.com"
+      },
+      {
+        "name": "size",
+        "type": "1 | 2 | 3 | 4 | 5 | 6",
+        "default": "3",
+        "required": false,
+        "description": "Size of the icon using design token scale",
+        "usage": "1 (16px) for inline text, 3 (24px) for buttons, 5 (40px) for prominent displays"
+      },
+      {
+        "name": "theme",
+        "type": "filled | outline",
+        "default": "filled",
+        "required": false,
+        "description": "Visual style of the icon",
+        "usage": "filled for most use cases, outline for lighter visual weight"
+      },
+      {
+        "name": "fillColor",
+        "type": "string (CSS color)",
+        "required": false,
+        "description": "Custom color for the icon",
+        "usage": "Use design tokens like 'var(--goa-color-interactive-primary)' or CSS colors"
+      },
+      {
+        "name": "inverted",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Light styling for dark backgrounds",
+        "usage": "Use when placing icons on dark backgrounds for proper contrast"
+      },
+      {
+        "name": "mt",
+        "type": "none | 3xs | 2xs | xs | s | m | l | xl | 2xl | 3xl | 4xl",
+        "default": "none",
+        "required": false,
+        "description": "Margin top using design system spacing",
+        "usage": "Add consistent spacing above the icon"
+      },
+      {
+        "name": "mr",
+        "type": "none | 3xs | 2xs | xs | s | m | l | xl | 2xl | 3xl | 4xl",
+        "default": "none",
+        "required": false,
+        "description": "Margin right using design system spacing",
+        "usage": "Common for spacing icons before text elements"
+      },
+      {
+        "name": "mb",
+        "type": "none | 3xs | 2xs | xs | s | m | l | xl | 2xl | 3xl | 4xl",
+        "default": "none",
+        "required": false,
+        "description": "Margin bottom using design system spacing",
+        "usage": "Add consistent spacing below the icon"
+      },
+      {
+        "name": "ml",
+        "type": "none | 3xs | 2xs | xs | s | m | l | xl | 2xl | 3xl | 4xl",
+        "default": "none",
+        "required": false,
+        "description": "Margin left using design system spacing",
+        "usage": "Common for spacing icons after text elements"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Data attribute for testing and automation",
+        "usage": "Set unique identifier for testing specific icons"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Status Indicator",
+          "description": "Icon showing system or content status",
+          "code": "function SystemStatus({ isOnline }) {\n  return (\n    <div className=\"status-display\">\n      <GoabIcon \n        type={isOnline ? \"checkmark-circle\" : \"warning\"}\n        size=\"2\"\n        fillColor={isOnline ? \"var(--goa-color-status-success)\" : \"var(--goa-color-status-warning)\"}\n        mr=\"xs\"\n      />\n      <span>{isOnline ? \"System Online\" : \"System Warning\"}</span>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Navigation Icon",
+          "description": "Icon in navigation menu or breadcrumb",
+          "code": "function NavigationItem({ label, iconName, href }) {\n  return (\n    <a href={href} className=\"nav-item\">\n      <GoabIcon \n        type={iconName}\n        size=\"2\"\n        mr=\"xs\"\n      />\n      {label}\n    </a>\n  );\n}"
+        },
+        {
+          "title": "Content Enhancement",
+          "description": "Icon adding visual context to content",
+          "code": "function FeatureCard({ title, description, iconName }) {\n  return (\n    <div className=\"feature-card\">\n      <div className=\"card-header\">\n        <GoabIcon \n          type={iconName}\n          size=\"4\"\n          fillColor=\"var(--goa-color-interactive-primary)\"\n          mb=\"s\"\n        />\n        <h3>{title}</h3>\n      </div>\n      <p>{description}</p>\n    </div>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Status Indicator",
+          "description": "Icon showing system or content status",
+          "code": "<div class=\"status-display\">\n  <goab-icon \n    [type]=\"isOnline ? 'checkmark-circle' : 'warning'\"\n    size=\"2\"\n    [fillColor]=\"isOnline ? 'var(--goa-color-status-success)' : 'var(--goa-color-status-warning)'\"\n    mr=\"xs\">\n  </goab-icon>\n  <span>{{ isOnline ? 'System Online' : 'System Warning' }}</span>\n</div>"
+        },
+        {
+          "title": "Navigation Icon",
+          "description": "Icon in navigation menu or breadcrumb",
+          "code": "<a [href]=\"href\" class=\"nav-item\">\n  <goab-icon \n    [type]=\"iconName\"\n    size=\"2\"\n    mr=\"xs\">\n  </goab-icon>\n  {{ label }}\n</a>"
+        },
+        {
+          "title": "Content Enhancement",
+          "description": "Icon adding visual context to content",
+          "code": "<div class=\"feature-card\">\n  <div class=\"card-header\">\n    <goab-icon \n      [type]=\"iconName\"\n      size=\"4\"\n      fillColor=\"var(--goa-color-interactive-primary)\"\n      mb=\"s\">\n    </goab-icon>\n    <h3>{{ title }}</h3>\n  </div>\n  <p>{{ description }}</p>\n</div>"
+        }
+      ],
+      "webComponent": [
+        {
+          "title": "Status Indicator",
+          "description": "Icon showing system or content status",
+          "code": "<div class=\"status-display\">\n  <goa-icon \n    id=\"status-icon\"\n    type=\"checkmark-circle\"\n    size=\"2\"\n    fillcolor=\"var(--goa-color-status-success)\"\n    mr=\"xs\">\n  </goa-icon>\n  <span>System Online</span>\n</div>\n\n<script>\n  const statusIcon = document.getElementById('status-icon');\n  // Update dynamically based on system state\n  function updateStatus(isOnline) {\n    statusIcon.setAttribute('type', isOnline ? 'checkmark-circle' : 'warning');\n    statusIcon.setAttribute('fillcolor', \n      isOnline ? 'var(--goa-color-status-success)' : 'var(--goa-color-status-warning)'\n    );\n  }\n</script>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Icon with Text",
+        "description": "Standard pattern for icons accompanying text content",
+        "code": "// React\n<div className=\"content-with-icon\">\n  <GoabIcon type=\"information-circle\" size=\"2\" mr=\"xs\" />\n  <span>Important information about your application</span>\n</div>\n\n// Angular\n<div class=\"content-with-icon\">\n  <goab-icon type=\"information-circle\" size=\"2\" mr=\"xs\"></goab-icon>\n  <span>Important information about your application</span>\n</div>"
+      },
+      {
+        "name": "Status Icons",
+        "description": "Visual indicators for different states and conditions",
+        "code": "// React - Dynamic status icons\nfunction StatusIcon({ status }) {\n  const statusConfig = {\n    success: { icon: 'checkmark-circle', color: 'var(--goa-color-status-success)' },\n    warning: { icon: 'warning', color: 'var(--goa-color-status-warning)' },\n    error: { icon: 'close-circle', color: 'var(--goa-color-status-error)' },\n    info: { icon: 'information-circle', color: 'var(--goa-color-status-info)' }\n  };\n  \n  const config = statusConfig[status];\n  return (\n    <GoabIcon \n      type={config.icon}\n      size=\"2\"\n      fillColor={config.color}\n    />\n  );\n}"
+      },
+      {
+        "name": "Icon Grid Layout",
+        "description": "Multiple icons in organized layouts",
+        "code": "// React - Feature showcase with icons\nfunction FeatureGrid({ features }) {\n  return (\n    <div className=\"feature-grid\">\n      {features.map((feature, index) => (\n        <div key={index} className=\"feature-item\">\n          <GoabIcon \n            type={feature.iconName}\n            size=\"5\"\n            fillColor=\"var(--goa-color-interactive-primary)\"\n            mb=\"m\"\n          />\n          <h4>{feature.title}</h4>\n          <p>{feature.description}</p>\n        </div>\n      ))}\n    </div>\n  );\n}"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "when": [
+      "Add visual meaning to text content",
+      "Indicate status, actions, or categories",
+      "Enhance navigation and wayfinding",
+      "Provide universal symbols for common concepts",
+      "Support users who prefer visual information"
+    ],
+    "iconSelection": {
+      "universal": "Choose universally understood icons (home, search, settings, help)",
+      "contextual": "Select icons that match the specific action or content",
+      "consistent": "Use the same icon for the same concept throughout your application",
+      "cultural": "Consider cultural differences in icon interpretation"
+    },
+    "sizing": {
+      "inline": "Size 1-2 for inline with text",
+      "buttons": "Size 2-3 for button icons",
+      "prominence": "Size 4-6 for featured content or primary actions",
+      "hierarchy": "Use consistent sizing to establish visual hierarchy"
+    },
+    "color": {
+      "inheritance": "Icons inherit text color by default",
+      "semantic": "Use semantic colors for status icons (success, warning, error)",
+      "brand": "Use brand colors for primary actions and key features",
+      "contrast": "Ensure sufficient contrast for accessibility"
+    },
+    "spacing": {
+      "text": "Use mr/ml for horizontal spacing with text",
+      "vertical": "Use mt/mb for vertical spacing in layouts",
+      "consistent": "Apply consistent spacing patterns across similar uses"
+    }
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Icons are not interactive by default",
+      "When used in buttons, follow button keyboard patterns",
+      "Interactive icons should be wrapped in focusable elements"
+    ],
+    "screenReader": [
+      "Icons are presentational by default",
+      "Meaningful icons need accessible names on parent elements",
+      "Decorative icons should remain hidden from screen readers",
+      "Use aria-label on interactive elements containing icons"
+    ],
+    "focusManagement": [
+      "Icons themselves don't receive focus",
+      "Interactive containers should have visible focus indicators",
+      "Ensure logical tab order through icon-containing elements"
+    ]
+  },
+
+  "troubleshooting": {
+    "iconNotDisplaying": {
+      "problem": "Icon doesn't appear or shows placeholder",
+      "solutions": [
+        "Verify the icon name exists in Ionicons library (check ionicons.com)",
+        "Ensure Ionicons CSS is loaded in your application",
+        "Check that the type prop is spelled correctly",
+        "Verify network access to icon resources"
+      ]
+    },
+    "sizingIssues": {
+      "problem": "Icon appears too large or small",
+      "solutions": [
+        "Use the new size system (1-6) instead of legacy sizes (xs-xl)",
+        "Check that design tokens are properly loaded",
+        "Verify parent container doesn't override icon sizing",
+        "Use appropriate size for context (1-2 for text, 3-4 for buttons)"
+      ]
+    },
+    "colorProblems": {
+      "problem": "Icon color doesn't match expected appearance",
+      "solutions": [
+        "Check that fillColor uses valid CSS color or design token",
+        "Verify parent element color if relying on inheritance",
+        "Use inverted prop for dark backgrounds",
+        "Ensure sufficient contrast for accessibility"
+      ]
+    },
+    "spacingIssues": {
+      "problem": "Icon spacing doesn't match design",
+      "solutions": [
+        "Use margin props (mt, mr, mb, ml) instead of external CSS",
+        "Verify design token values are loaded correctly",
+        "Check for CSS conflicts affecting margin",
+        "Use consistent spacing patterns across similar implementations"
+      ]
+    },
+    "accessibilityWarnings": {
+      "problem": "Screen reader or accessibility issues",
+      "solutions": [
+        "Add aria-label to interactive parent elements",
+        "Ensure meaningful icons have accessible names",
+        "Don't rely solely on icons to convey important information",
+        "Test with screen readers and keyboard navigation"
+      ]
+    }
+  },
+
+  "relatedComponents": [
+    {
+      "name": "IconButton",
+      "relationship": "Interactive wrapper",
+      "usage": "Use IconButton when the icon needs to trigger an action",
+      "example": "Edit, delete, or close actions"
+    },
+    {
+      "name": "Button",
+      "relationship": "Icon integration",
+      "usage": "Button accepts leadingIcon and trailingIcon props for enhanced actions",
+      "example": "Submit buttons with arrow icons, download buttons with download icons"
+    },
+    {
+      "name": "Link",
+      "relationship": "Navigation enhancement",
+      "usage": "Link accepts leadingIcon and trailingIcon props for navigation context",
+      "example": "External links with open icon, download links with download icon"
+    },
+    {
+      "name": "Notification",
+      "relationship": "Status indication",
+      "usage": "Notifications automatically include type-appropriate icons",
+      "example": "Warning notifications show warning icon"
+    }
+  ],
+
+  "performanceConsiderations": [
+    "Icons load dynamically based on the type prop",
+    "Ionicons library should be cached for optimal performance",
+    "Multiple identical icons reuse the same resources",
+    "Consider preloading commonly used icons in your application",
+    "Icon rendering is lightweight with minimal DOM impact"
+  ],
+
+  "tags": ["icon", "visual", "symbol", "status", "navigation", "enhancement", "accessible"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/icons.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

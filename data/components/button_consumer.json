@@ -1,0 +1,754 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Button",
+  "customElement": {
+    "tagName": "goa-button",
+    "className": "GoabButton"
+  },
+  "summary": "Interactive button component for user actions with multiple visual styles and states",
+  
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for installation instructions",
+    "ionicons": "required",
+    "webComponentStyles": "required",
+    "packages": ["@abgov/react-components", "@abgov/angular-components", "@abgov/web-components"]
+  },
+  
+  "installation": {
+    "react": {
+      "import": "import { GoabButton } from '@abgov/react-components'",
+      "quickExample": "<GoabButton type=\"primary\" onClick={handleClick}>Click Me</GoabButton>",
+      "dependencies": "Requires @abgov/react-components and @abgov/web-components packages"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-button type=\"primary\" (onClick)=\"handleClick()\">Click Me</goab-button>",
+      "module": "Add AngularComponentsModule to your module imports",
+      "dependencies": "Requires @abgov/angular-components and @abgov/web-components packages"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-button type=\"primary\">Click Me</goa-button>",
+      "dependencies": "Requires @abgov/web-components package"
+    }
+  },
+
+  "buttonVsLink": {
+    "useButton": [
+      "Actions that trigger functionality (submit, save, cancel)",
+      "Navigation within application flow (back, continue, next step)",
+      "Form submissions and data operations",
+      "Any action that changes application state"
+    ],
+    "useLink": [
+      "External links to different websites",
+      "Document downloads",
+      "Reference links within content",
+      "Navigation to different pages/sections"
+    ],
+    "example": {
+      "correct": "<GoabButton type='tertiary'>Back to task list</GoabButton>",
+      "incorrect": "<GoabLink><a>Back to task list</a></GoabLink>"
+    }
+  },
+
+  "buttonGrouping": {
+    "useButtonGroup": "For related action buttons with semantic relationship",
+    "useBlock": "For general layout and spacing of mixed components",
+    "example": {
+      "correct": "<GoabButtonGroup alignment='start'><GoabButton type='primary'>Confirm</GoabButton><GoabButton type='tertiary'>Cancel</GoabButton></GoabButtonGroup>",
+      "incorrect": "<GoabBlock direction='row' gap='m'><GoabButton>Button 1</GoabButton><GoabButton>Button 2</GoabButton></GoabBlock>"
+    }
+  },
+
+  "propertyValidation": {
+    "enforcementRule": "ONLY use documented property values - invalid properties break component functionality",
+    "validationRequired": true
+  },
+  "strictPropertyEnforcement": {
+    "type": {
+      "validValues": ["primary", "secondary", "tertiary", "start", "submit"],
+      "commonMistakes": ["default", "normal", "standard"],
+      "invalidExamples": [
+        "❌ type='default' (should be type='primary')",
+        "❌ type='normal' (should be type='primary')"
+      ]
+    },
+    "size": {
+      "validValues": ["normal", "compact"],
+      "commonMistakes": ["regular", "small", "large"],
+      "invalidExamples": [
+        "❌ size='regular' (should be size='normal')",
+        "❌ size='small' (should be size='compact')"
+      ]
+    },
+    "variant": {
+      "validValues": ["normal", "destructive"],
+      "commonMistakes": ["default", "danger", "warning"],
+      "invalidExamples": [
+        "❌ variant='danger' (should be variant='destructive')"
+      ]
+    }
+  },
+
+  "playgroundExamples": {
+    "basicUsage": {
+      "title": "Basic Button Types",
+      "description": "Demonstrates the three main button types: primary, secondary, and tertiary with their visual hierarchy",
+      "interactiveProps": [
+        {
+          "name": "type",
+          "type": "select",
+          "options": ["primary", "secondary", "tertiary"],
+          "default": "primary"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "code": {
+        "react": "<GoabButtonGroup alignment=\"start\">\n  <GoabButton type=\"primary\">Primary</GoabButton>\n  <GoabButton type=\"secondary\">Secondary</GoabButton>\n  <GoabButton type=\"tertiary\">Tertiary</GoabButton>\n</GoabButtonGroup>",
+        "angular": "<goa-button-group alignment=\"start\">\n  <goa-button type=\"primary\">Primary</goa-button>\n  <goa-button type=\"secondary\">Secondary</goa-button>\n  <goa-button type=\"tertiary\">Tertiary</goa-button>\n</goa-button-group>"
+      },
+      "notes": [
+        "Primary buttons should be used sparingly - typically one per page section",
+        "Secondary buttons support primary actions or provide alternative paths",
+        "Tertiary buttons are for less important actions or when visual weight needs to be minimal"
+      ]
+    },
+
+    "withIcons": {
+      "title": "Buttons with Icons",
+      "description": "Shows buttons with leading and trailing icons to provide visual context and improve usability",
+      "interactiveProps": [
+        {
+          "name": "iconPosition",
+          "type": "select",
+          "options": ["leading", "trailing"],
+          "default": "leading"
+        },
+        {
+          "name": "iconType",
+          "type": "select",
+          "options": ["add", "edit", "delete", "download", "upload", "search"],
+          "default": "add"
+        },
+        {
+          "name": "buttonType",
+          "type": "select",
+          "options": ["primary", "secondary", "tertiary"],
+          "default": "primary"
+        }
+      ],
+      "code": {
+        "react": "// Leading icon example\n<GoabButtonGroup alignment=\"start\">\n  <GoabButton leadingIcon=\"add\">Add Item</GoabButton>\n  <GoabButton type=\"secondary\" leadingIcon=\"edit\">Edit</GoabButton>\n  <GoabButton type=\"tertiary\" leadingIcon=\"search\">Search</GoabButton>\n</GoabButtonGroup>\n\n// Trailing icon example\n<GoabButtonGroup alignment=\"start\">\n  <GoabButton trailingIcon=\"add\">Continue</GoabButton>\n  <GoabButton type=\"secondary\" trailingIcon=\"download\">Download</GoabButton>\n  <GoabButton type=\"tertiary\" trailingIcon=\"external-link\">Learn More</GoabButton>\n</GoabButtonGroup>",
+        "angular": "<!-- Leading icon example -->\n<goa-button-group alignment=\"start\">\n  <goa-button leadingIcon=\"add\">Add Item</goa-button>\n  <goa-button type=\"secondary\" leadingIcon=\"edit\">Edit</goa-button>\n  <goa-button type=\"tertiary\" leadingIcon=\"search\">Search</goa-button>\n</goa-button-group>\n\n<!-- Trailing icon example -->\n<goa-button-group alignment=\"start\">\n  <goa-button trailingIcon=\"add\">Continue</goa-button>\n  <goa-button type=\"secondary\" trailingIcon=\"download\">Download</goa-button>\n  <goa-button type=\"tertiary\" trailingIcon=\"external-link\">Learn More</goa-button>\n</goa-button-group>"
+      },
+      "notes": [
+        "Leading icons work well for actions like 'Add', 'Create', or 'Upload'",
+        "Trailing icons are effective for directional actions like 'Continue', 'Next', or external links",
+        "Icons should reinforce the button's purpose, not replace clear text labels"
+      ]
+    },
+
+    "sizes": {
+      "title": "Button Sizes",
+      "description": "Demonstrates regular and compact button sizes for different layout requirements",
+      "interactiveProps": [
+        {
+          "name": "size",
+          "type": "select",
+          "options": ["regular", "compact"],
+          "default": "regular"
+        },
+        {
+          "name": "hasIcon",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "code": {
+        "react": "// Regular size buttons\n<GoabButtonGroup alignment=\"start\">\n  <GoabButton>Regular Primary</GoabButton>\n  <GoabButton type=\"secondary\">Regular Secondary</GoabButton>\n  <GoabButton type=\"tertiary\">Regular Tertiary</GoabButton>\n</GoabButtonGroup>\n\n// Compact size buttons\n<GoabButtonGroup alignment=\"start\" gap=\"compact\">\n  <GoabButton size=\"compact\">Compact Primary</GoabButton>\n  <GoabButton type=\"secondary\" size=\"compact\">Compact Secondary</GoabButton>\n  <GoabButton type=\"tertiary\" size=\"compact\">Compact Tertiary</GoabButton>\n</GoabButtonGroup>",
+        "angular": "<!-- Regular size buttons -->\n<goa-button-group alignment=\"start\">\n  <goa-button>Regular Primary</goa-button>\n  <goa-button type=\"secondary\">Regular Secondary</goa-button>\n  <goa-button type=\"tertiary\">Regular Tertiary</goa-button>\n</goa-button-group>\n\n<!-- Compact size buttons -->\n<goa-button-group alignment=\"start\" gap=\"compact\">\n  <goa-button size=\"compact\">Compact Primary</goa-button>\n  <goa-button type=\"secondary\" size=\"compact\">Compact Secondary</goa-button>\n  <goa-button type=\"tertiary\" size=\"compact\">Compact Tertiary</goa-button>\n</goa-button-group>"
+      },
+      "notes": [
+        "Regular size is the default and works for most use cases",
+        "Compact size is ideal for data tables, toolbars, or space-constrained layouts",
+        "When using compact buttons, ensure the ButtonGroup has gap=\"compact\" for proper spacing"
+      ]
+    },
+
+    "destructiveActions": {
+      "title": "Destructive Actions",
+      "description": "Shows the destructive variant for dangerous actions like delete, remove, or cancel operations",
+      "interactiveProps": [
+        {
+          "name": "buttonType",
+          "type": "select",
+          "options": ["primary", "secondary", "tertiary"],
+          "default": "primary"
+        },
+        {
+          "name": "size",
+          "type": "select",
+          "options": ["regular", "compact"],
+          "default": "regular"
+        },
+        {
+          "name": "hasIcon",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "code": {
+        "react": "// Destructive actions\n<GoabButtonGroup alignment=\"start\">\n  <GoabButton variant=\"destructive\">Delete Item</GoabButton>\n  <GoabButton type=\"secondary\" variant=\"destructive\">Remove</GoabButton>\n  <GoabButton type=\"tertiary\" variant=\"destructive\">Cancel</GoabButton>\n</GoabButtonGroup>\n\n// With icons for clarity\n<GoabButtonGroup alignment=\"start\">\n  <GoabButton variant=\"destructive\" leadingIcon=\"trash\">Delete Account</GoabButton>\n  <GoabButton type=\"secondary\" variant=\"destructive\" leadingIcon=\"remove\">Remove Access</GoabButton>\n  <GoabButton type=\"tertiary\" variant=\"destructive\" leadingIcon=\"close\">Cancel Order</GoabButton>\n</GoabButtonGroup>",
+        "angular": "<!-- Destructive actions -->\n<goa-button-group alignment=\"start\">\n  <goa-button variant=\"destructive\">Delete Item</goa-button>\n  <goa-button type=\"secondary\" variant=\"destructive\">Remove</goa-button>\n  <goa-button type=\"tertiary\" variant=\"destructive\">Cancel</goa-button>\n</goa-button-group>\n\n<!-- With icons for clarity -->\n<goa-button-group alignment=\"start\">\n  <goa-button variant=\"destructive\" leadingIcon=\"trash\">Delete Account</goa-button>\n  <goa-button type=\"secondary\" variant=\"destructive\" leadingIcon=\"remove\">Remove Access</goa-button>\n  <goa-button type=\"tertiary\" variant=\"destructive\" leadingIcon=\"close\">Cancel Order</goa-button>\n</goa-button-group>"
+      },
+      "notes": [
+        "Use destructive variant for actions that cannot be easily undone",
+        "Always provide confirmation dialogs for destructive primary actions",
+        "Consider using secondary or tertiary destructive for less critical removals"
+      ]
+    },
+
+    "startType": {
+      "title": "Start Button",
+      "description": "Special start button type with automatic arrow icon for beginning flows or processes",
+      "interactiveProps": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "code": {
+        "react": "// Start button for beginning flows\n<GoabButtonGroup alignment=\"start\">\n  <GoabButton type=\"start\">Start Application</GoabButton>\n</GoabButtonGroup>\n\n// Disabled state\n<GoabButtonGroup alignment=\"start\">\n  <GoabButton type=\"start\" disabled={true}>Start Application</GoabButton>\n</GoabButtonGroup>",
+        "angular": "<!-- Start button for beginning flows -->\n<goa-button-group alignment=\"start\">\n  <goa-button type=\"start\">Start Application</goa-button>\n</goa-button-group>\n\n<!-- Disabled state -->\n<goa-button-group alignment=\"start\">\n  <goa-button type=\"start\" [disabled]=\"true\">Start Application</goa-button>\n</goa-button-group>"
+      },
+      "notes": [
+        "Start buttons automatically include a trailing arrow icon",
+        "Use for beginning application processes, workflows, or guided experiences",
+        "Typically used as a single prominent call-to-action"
+      ]
+    },
+
+    "inverseTesting": {
+      "title": "Inverse Buttons (Experimental)",
+      "description": "Experimental inverse variants for use on dark backgrounds or colored containers",
+      "interactiveProps": [
+        {
+          "name": "buttonType",
+          "type": "select",
+          "options": ["primary", "secondary", "tertiary"],
+          "default": "primary"
+        },
+        {
+          "name": "backgroundType",
+          "type": "select",
+          "options": ["dark", "colored"],
+          "default": "dark"
+        }
+      ],
+      "code": {
+        "react": "// Regular buttons for comparison\n<GoabButtonGroup alignment=\"start\">\n  <GoabButton>Regular Primary</GoabButton>\n  <GoabButton type=\"secondary\">Regular Secondary</GoabButton>\n  <GoabButton type=\"tertiary\">Regular Tertiary</GoabButton>\n</GoabButtonGroup>\n\n// Inverse buttons on dark background\n<div style={{ backgroundColor: \"#2d2d2d\", padding: \"16px\", borderRadius: \"4px\" }}>\n  <GoabButtonGroup alignment=\"start\">\n    <GoabButton variant=\"inverse\">Inverse Primary</GoabButton>\n    <GoabButton type=\"secondary\" variant=\"inverse\">Inverse Secondary</GoabButton>\n    <GoabButton type=\"tertiary\" variant=\"inverse\">Inverse Tertiary</GoabButton>\n  </GoabButtonGroup>\n</div>",
+        "angular": "<!-- Regular buttons for comparison -->\n<goa-button-group alignment=\"start\">\n  <goa-button>Regular Primary</goa-button>\n  <goa-button type=\"secondary\">Regular Secondary</goa-button>\n  <goa-button type=\"tertiary\">Regular Tertiary</goa-button>\n</goa-button-group>\n\n<!-- Inverse buttons on dark background -->\n<div style=\"background-color: #2d2d2d; padding: 16px; border-radius: 4px;\">\n  <goa-button-group alignment=\"start\">\n    <goa-button variant=\"inverse\">Inverse Primary</goa-button>\n    <goa-button type=\"secondary\" variant=\"inverse\">Inverse Secondary</goa-button>\n    <goa-button type=\"tertiary\" variant=\"inverse\">Inverse Tertiary</goa-button>\n  </goa-button-group>\n</div>"
+      },
+      "notes": [
+        "Inverse variant is experimental and should be used cautiously",
+        "Ensure sufficient contrast ratios are maintained on all background colors",
+        "Test with screen readers and in high contrast mode before production use"
+      ]
+    },
+
+    "stateManagement": {
+      "title": "Interactive State Management",
+      "description": "Demonstrates button state management with loading, disabled states, and click handling",
+      "interactiveProps": [
+        {
+          "name": "currentState",
+          "type": "select",
+          "options": ["default", "loading", "disabled", "success"],
+          "default": "default"
+        }
+      ],
+      "code": {
+        "react": "import React, { useState } from 'react';\n\nfunction InteractiveButtonExample() {\n  const [isLoading, setIsLoading] = useState(false);\n  const [isSuccess, setIsSuccess] = useState(false);\n  \n  const handleSubmit = async () => {\n    setIsLoading(true);\n    try {\n      // Simulate API call\n      await new Promise(resolve => setTimeout(resolve, 2000));\n      setIsSuccess(true);\n      setTimeout(() => setIsSuccess(false), 3000);\n    } catch (error) {\n      console.error('Error:', error);\n    } finally {\n      setIsLoading(false);\n    }\n  };\n  \n  return (\n    <GoabButtonGroup alignment=\"start\">\n      <GoabButton \n        onClick={handleSubmit}\n        disabled={isLoading}\n        leadingIcon={isSuccess ? \"checkmark\" : undefined}\n      >\n        {isLoading ? \"Submitting...\" : isSuccess ? \"Success!\" : \"Submit Form\"}\n      </GoabButton>\n      \n      <GoabButton \n        type=\"secondary\"\n        onClick={() => {\n          setIsLoading(false);\n          setIsSuccess(false);\n        }}\n      >\n        Reset\n      </GoabButton>\n    </GoabButtonGroup>\n  );\n}",
+        "angular": "import { Component } from '@angular/core';\n\n@Component({\n  template: `\n    <goa-button-group alignment=\"start\">\n      <goa-button \n        (onClick)=\"handleSubmit()\"\n        [disabled]=\"isLoading\"\n        [leadingIcon]=\"isSuccess ? 'checkmark' : undefined\"\n      >\n        {{ isLoading ? 'Submitting...' : isSuccess ? 'Success!' : 'Submit Form' }}\n      </goa-button>\n      \n      <goa-button \n        type=\"secondary\"\n        (onClick)=\"reset()\"\n      >\n        Reset\n      </goa-button>\n    </goa-button-group>\n  `\n})\nexport class InteractiveButtonComponent {\n  isLoading = false;\n  isSuccess = false;\n  \n  async handleSubmit() {\n    this.isLoading = true;\n    try {\n      // Simulate API call\n      await new Promise(resolve => setTimeout(resolve, 2000));\n      this.isSuccess = true;\n      setTimeout(() => this.isSuccess = false, 3000);\n    } catch (error) {\n      console.error('Error:', error);\n    } finally {\n      this.isLoading = false;\n    }\n  }\n  \n  reset() {\n    this.isLoading = false;\n    this.isSuccess = false;\n  }\n}"
+      },
+      "notes": [
+        "Always provide visual feedback during loading states",
+        "Use meaningful button text that describes the current state",
+        "Consider using icons to reinforce state changes",
+        "Implement proper error handling for failed actions"
+      ]
+    },
+
+    "formIntegration": {
+      "title": "Form Integration Pattern",
+      "description": "Shows common patterns for buttons within forms and modal dialogs",
+      "interactiveProps": [
+        {
+          "name": "formType",
+          "type": "select",
+          "options": ["standard", "modal", "inline"],
+          "default": "standard"
+        },
+        {
+          "name": "validation",
+          "type": "select",
+          "options": ["valid", "invalid", "pending"],
+          "default": "valid"
+        }
+      ],
+      "code": {
+        "react": "// Standard form pattern\nfunction FormExample() {\n  const [formData, setFormData] = useState({ name: '', email: '' });\n  const [isValid, setIsValid] = useState(false);\n  \n  return (\n    <form onSubmit={(e) => {\n      e.preventDefault();\n      // Handle form submission\n    }}>\n      {/* Form fields would go here */}\n      \n      <GoabButtonGroup alignment=\"end\" mt=\"l\">\n        <GoabButton \n          type=\"secondary\" \n          onClick={() => setFormData({ name: '', email: '' })}\n        >\n          Cancel\n        </GoabButton>\n        <GoabButton \n          type=\"primary\"\n          disabled={!isValid}\n          onClick={() => console.log('Form submitted')}\n        >\n          Save Changes\n        </GoabButton>\n      </GoabButtonGroup>\n    </form>\n  );\n}\n\n// Modal dialog pattern\n<GoabModal>\n  <GoabModalHeader>Confirm Delete</GoabModalHeader>\n  <GoabModalBody>\n    Are you sure you want to delete this item? This action cannot be undone.\n  </GoabModalBody>\n  <GoabModalFooter>\n    <GoabButtonGroup alignment=\"end\">\n      <GoabButton type=\"secondary\" onClick={closeModal}>\n        Cancel\n      </GoabButton>\n      <GoabButton \n        variant=\"destructive\" \n        onClick={confirmDelete}\n      >\n        Delete\n      </GoabButton>\n    </GoabButtonGroup>\n  </GoabModalFooter>\n</GoabModal>",
+        "angular": "<!-- Standard form pattern -->\n<form (ngSubmit)=\"onSubmit()\">\n  <!-- Form fields would go here -->\n  \n  <goa-button-group alignment=\"end\" class=\"mt-l\">\n    <goa-button \n      type=\"secondary\" \n      (onClick)=\"resetForm()\"\n    >\n      Cancel\n    </goa-button>\n    <goa-button \n      type=\"primary\"\n      [disabled]=\"!isFormValid\"\n      (onClick)=\"saveChanges()\"\n    >\n      Save Changes\n    </goa-button>\n  </goa-button-group>\n</form>\n\n<!-- Modal dialog pattern -->\n<goa-modal>\n  <goa-modal-header>Confirm Delete</goa-modal-header>\n  <goa-modal-body>\n    Are you sure you want to delete this item? This action cannot be undone.\n  </goa-modal-body>\n  <goa-modal-footer>\n    <goa-button-group alignment=\"end\">\n      <goa-button type=\"secondary\" (onClick)=\"closeModal()\">\n        Cancel\n      </goa-button>\n      <goa-button \n        variant=\"destructive\" \n        (onClick)=\"confirmDelete()\"\n      >\n        Delete\n      </goa-button>\n    </goa-button-group>\n  </goa-modal-footer>\n</goa-modal>"
+      },
+      "notes": [
+        "Place primary action buttons on the right in button groups",
+        "Use secondary buttons for cancel or alternative actions",
+        "In modals, destructive actions should be clearly differentiated",
+        "Always validate form state before enabling submit buttons"
+      ]
+    }
+  },
+  
+  "api": {
+    "props": [
+      {
+        "name": "type",
+        "type": "primary | secondary | tertiary | start | submit",
+        "default": "primary",
+        "required": false,
+        "description": "Visual style of the button",
+        "usage": "primary for main actions, secondary for supporting actions, tertiary for minimal actions, start for initiating processes, submit for form submission"
+      },
+      {
+        "name": "size",
+        "type": "normal | compact",
+        "default": "normal",
+        "required": false,
+        "description": "Size of the button",
+        "usage": "compact for space-constrained interfaces"
+      },
+      {
+        "name": "variant",
+        "type": "normal | destructive",
+        "default": "normal",
+        "required": false,
+        "description": "Visual variant for different contexts",
+        "usage": "destructive for dangerous actions like delete"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Disables the button interaction",
+        "usage": "Use for form validation or conditional states"
+      },
+      {
+        "name": "leadingIcon",
+        "type": "GoAIconType",
+        "required": false,
+        "description": "Icon displayed before button text",
+        "usage": "Use to clarify action or add visual context"
+      },
+      {
+        "name": "trailingIcon",
+        "type": "GoAIconType",
+        "required": false,
+        "description": "Icon displayed after button text",
+        "usage": "Use for directional actions or additional context"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Sets the data-testid attribute for testing",
+        "usage": "Use for automated testing and QA"
+      }
+    ],
+    "events": [
+      {
+        "name": "onClick",
+        "type": "(event) => void",
+        "description": "Fired when button is clicked",
+        "frameworks": {
+          "react": "onClick prop",
+          "angular": "(onClick) event binding",
+          "webComponent": "_click custom event"
+        }
+      }
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "description": "Button text content",
+        "usage": "Keep text concise and action-oriented"
+      }
+    ]
+  },
+  
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Primary Action",
+          "code": "function handleSubmit() {\n  // Handle form submission\n}\n\n<GoabButton type=\"primary\" onClick={handleSubmit}>\n  Submit Form\n</GoabButton>"
+        },
+        {
+          "title": "With Icon",
+          "code": "<GoabButton type=\"secondary\" leadingIcon=\"download\">\n  Download Report\n</GoabButton>"
+        },
+        {
+          "title": "Destructive Action",
+          "code": "<GoabButton \n  type=\"primary\" \n  variant=\"destructive\" \n  onClick={handleDelete}\n>\n  Delete Account\n</GoabButton>"
+        },
+        {
+          "title": "Disabled State",
+          "code": "<GoabButton \n  type=\"primary\" \n  disabled={!isFormValid}\n  onClick={handleSubmit}\n>\n  Submit\n</GoabButton>"
+        },
+        {
+          "title": "Start Process",
+          "code": "<GoabButton \n  type=\"start\" \n  onClick={() => navigate('/application')}\n>\n  Start Application\n</GoabButton>"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Primary Action",
+          "code": "export class MyComponent {\n  handleSubmit() {\n    // Handle form submission\n  }\n}\n\n<goab-button type=\"primary\" (onClick)=\"handleSubmit()\">\n  Submit Form\n</goab-button>"
+        },
+        {
+          "title": "With Icon",
+          "code": "<goab-button type=\"secondary\" leadingIcon=\"download\">\n  Download Report\n</goab-button>"
+        },
+        {
+          "title": "Destructive Action",
+          "code": "<goab-button \n  type=\"primary\" \n  variant=\"destructive\" \n  (onClick)=\"handleDelete()\"\n>\n  Delete Account\n</goab-button>"
+        },
+        {
+          "title": "Disabled State",
+          "code": "<goab-button \n  type=\"primary\" \n  [disabled]=\"!isFormValid\"\n  (onClick)=\"handleSubmit()\"\n>\n  Submit\n</goab-button>"
+        }
+      ],
+      "webComponent": [
+        {
+          "title": "Basic Usage",
+          "code": "<goa-button type=\"primary\">\n  Click Me\n</goa-button>"
+        },
+        {
+          "title": "With Event Listener",
+          "code": "<goa-button type=\"secondary\" id=\"my-button\">\n  Action\n</goa-button>\n\n<script>\n  document.getElementById('my-button')\n    .addEventListener('_click', handleClick);\n</script>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Form Actions",
+        "description": "Submit and cancel button combination",
+        "code": {
+          "react": "<div className=\"form-actions\">\n  <GoabButton type=\"tertiary\" onClick={handleCancel}>\n    Cancel\n  </GoabButton>\n  <GoabButton type=\"primary\" onClick={handleSubmit}>\n    Submit\n  </GoabButton>\n</div>",
+          "angular": "<div class=\"form-actions\">\n  <goab-button type=\"tertiary\" (onClick)=\"handleCancel()\">\n    Cancel\n  </goab-button>\n  <goab-button type=\"primary\" (onClick)=\"handleSubmit()\">\n    Submit\n  </goab-button>\n</div>"
+        }
+      },
+      {
+        "name": "Modal Actions",
+        "description": "Confirmation dialog buttons",
+        "code": {
+          "react": "<GoabButtonGroup alignment=\"end\">\n  <GoabButton type=\"tertiary\" onClick={closeModal}>\n    Cancel\n  </GoabButton>\n  <GoabButton type=\"primary\" variant=\"destructive\" onClick={confirmDelete}>\n    Delete\n  </GoabButton>\n</GoabButtonGroup>",
+          "angular": "<goab-button-group alignment=\"end\">\n  <goab-button type=\"tertiary\" (onClick)=\"closeModal()\">\n    Cancel\n  </goab-button>\n  <goab-button type=\"primary\" variant=\"destructive\" (onClick)=\"confirmDelete()\">\n    Delete\n  </goab-button>\n</goab-button-group>"
+        }
+      },
+      {
+        "name": "Process Flow",
+        "description": "Multi-step navigation with start button",
+        "code": {
+          "react": "<div className=\"process-intro\">\n  <h1>Application Process</h1>\n  <p>Complete your application in 3 easy steps.</p>\n  <GoabButton type=\"start\" onClick={() => navigate('/step-1')}>\n    Begin Application\n  </GoabButton>\n</div>",
+          "angular": "<div class=\"process-intro\">\n  <h1>Application Process</h1>\n  <p>Complete your application in 3 easy steps.</p>\n  <goab-button type=\"start\" (onClick)=\"navigateToStep1()\">\n    Begin Application\n  </goab-button>\n</div>"
+        }
+      }
+    ],
+    "integrations": [
+      {
+        "component": "GoAButtonGroup",
+        "description": "Group related buttons with consistent spacing",
+        "usage": "Use for modal actions, form controls, or toolbar buttons",
+        "example": "<GoabButtonGroup alignment=\"end\">\n  <GoabButton type=\"tertiary\">Cancel</GoabButton>\n  <GoabButton type=\"primary\">Save</GoabButton>\n</GoabButtonGroup>"
+      },
+      {
+        "component": "GoAModal",
+        "description": "Common in modal footers for primary and secondary actions",
+        "usage": "Primary button for confirmation, tertiary for cancel"
+      },
+      {
+        "component": "GoAFormItem",
+        "description": "Submit buttons within form contexts",
+        "usage": "Use type='submit' for form submission"
+      },
+      {
+        "component": "GoACard",
+        "description": "Action buttons in card footers",
+        "usage": "Typically secondary or tertiary buttons for card actions"
+      }
+    ]
+  },
+  
+  "designGuidance": {
+    "whenToUse": [
+      "Triggering actions like form submissions, opening modals, or confirming decisions",
+      "Navigation that changes application state (not page navigation)",
+      "Providing clear calls-to-action for users",
+      "Starting processes or workflows",
+      "Submitting forms or saving data"
+    ],
+    "whenNotToUse": [
+      "Page navigation - use GoALink instead",
+      "Toggling states - use toggle components",
+      "Displaying information - use badges or text",
+      "Opening external links - use GoALink with external prop"
+    ],
+    "bestPractices": [
+      "Use only one primary button per page/section",
+      "Keep button text concise and action-oriented (2-4 words)",
+      "Place primary actions on the right in button groups",
+      "Use destructive variant sparingly for dangerous actions",
+      "Consider button hierarchy when designing interfaces",
+      "Use start buttons for prominent call-to-action scenarios",
+      "Provide clear visual feedback for disabled states"
+    ],
+    "hierarchy": {
+      "primary": "Main action user should take - limit to one per view",
+      "secondary": "Important but not primary actions",
+      "tertiary": "Subtle actions like cancel, back, or optional actions",
+      "start": "Prominent call-to-action for beginning processes",
+      "submit": "Form submission actions"
+    },
+    "accessibility": [
+      "Ensure sufficient color contrast (handled by design tokens)",
+      "Provide clear, descriptive button text",
+      "Use aria-label for additional context when needed",
+      "Ensure buttons are keyboard accessible (built-in)",
+      "Consider focus indicators for keyboard navigation",
+      "Test with screen readers to ensure proper announcement"
+    ]
+  },
+  
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "problem": "Button doesn't respond to clicks",
+        "solutions": [
+          "Check if disabled prop is set to true",
+          "Verify onClick handler is properly bound",
+          "Ensure component is properly imported",
+          "Check for CSS pointer-events: none overrides"
+        ]
+      },
+      {
+        "problem": "Icons not displaying",
+        "solutions": [
+          "Verify ionicons scripts are loaded in index.html",
+          "Check icon name matches available GoAIconType values",
+          "Ensure web component styles are imported",
+          "Check browser console for icon loading errors"
+        ]
+      },
+      {
+        "problem": "Styling not applied",
+        "solutions": [
+          "Import @abgov/web-components/index.css in your main CSS file",
+          "Check for CSS conflicts or overrides",
+          "Verify component is using correct class names",
+          "Ensure design tokens are properly loaded"
+        ]
+      },
+      {
+        "problem": "Start button icon not showing",
+        "solutions": [
+          "Start type automatically includes arrow-forward icon",
+          "Don't use trailingIcon with start type",
+          "Check ionicons are properly loaded",
+          "Verify start type is spelled correctly"
+        ]
+      },
+      {
+        "problem": "Button width issues on mobile",
+        "solutions": [
+          "Buttons automatically expand to full width on mobile",
+          "Use ButtonGroup for proper mobile layout",
+          "Check parent container constraints",
+          "Test responsive behavior in browser dev tools"
+        ]
+      },
+      {
+        "problem": "Form submission not working",
+        "solutions": [
+          "Use type='submit' for form submission buttons",
+          "Ensure button is inside a form element",
+          "Check form onSubmit handler is properly bound",
+          "Verify button is not disabled when form is valid"
+        ]
+      }
+    ],
+    "frameworkSpecific": {
+      "react": [
+        {
+          "issue": "onClick not firing",
+          "solution": "Ensure onClick prop is a function, not a function call"
+        },
+        {
+          "issue": "State not updating on click",
+          "solution": "Check that onClick handler properly updates state"
+        }
+      ],
+      "angular": [
+        {
+          "issue": "(onClick) not working",
+          "solution": "Use (onClick) event binding, not (click)"
+        },
+        {
+          "issue": "Property binding errors",
+          "solution": "Use [disabled] for boolean props, not disabled"
+        }
+      ]
+    }
+  },
+  
+  "relatedComponents": [
+    {
+      "name": "GoAButtonGroup",
+      "relationship": "Container for multiple buttons",
+      "usage": "Use to group related button actions with consistent spacing and alignment",
+      "example": "Modal actions, form controls, toolbars"
+    },
+    {
+      "name": "GoAIconButton",
+      "relationship": "Alternative for icon-only actions",
+      "usage": "Use when space is limited or action is universally understood",
+      "example": "Close buttons, edit actions, menu toggles"
+    },
+    {
+      "name": "GoALink",
+      "relationship": "Alternative for navigation actions",
+      "usage": "Use for page navigation instead of buttons",
+      "example": "Links to other pages, external resources"
+    },
+    {
+      "name": "GoAFormItem",
+      "relationship": "Form context integration",
+      "usage": "Contains buttons within form layouts",
+      "example": "Submit and cancel actions in forms"
+    },
+    {
+      "name": "GoAModal",
+      "relationship": "Modal action buttons",
+      "usage": "Confirm/cancel actions in modal footers",
+      "example": "Save/Cancel, Delete/Cancel dialogs"
+    }
+  ],
+  
+  "commonMistakes": [
+    {
+      "mistake": "Using buttons for navigation to other pages",
+      "why": "Buttons should trigger actions, not navigate. Screen readers and keyboard users expect different behavior.",
+      "instead": "Use GoabLink component for page navigation",
+      "example": "// ❌ Wrong\n<GoabButton onClick={() => navigate('/about')}>About Us</GoabButton>\n\n// ✅ Correct\n<GoabLink href=\"/about\">About Us</GoabLink>"
+    },
+    {
+      "mistake": "Multiple primary buttons in the same view",
+      "why": "Confuses users about the main action they should take",
+      "instead": "Use only one primary button per page/section, others should be secondary or tertiary",
+      "example": "// ❌ Wrong\n<GoabButton type=\"primary\">Save</GoabButton>\n<GoabButton type=\"primary\">Submit</GoabButton>\n\n// ✅ Correct\n<GoabButton type=\"secondary\">Save Draft</GoabButton>\n<GoabButton type=\"primary\">Submit</GoabButton>"
+    },
+    {
+      "mistake": "Using start type for regular actions",
+      "why": "Start type is specifically for beginning processes and includes a fixed arrow icon",
+      "instead": "Use primary type for regular important actions",
+      "example": "// ❌ Wrong\n<GoabButton type=\"start\" onClick={handleSave}>Save Changes</GoabButton>\n\n// ✅ Correct\n<GoabButton type=\"primary\" onClick={handleSave}>Save Changes</GoabButton>"
+    },
+    {
+      "mistake": "Adding trailingIcon to start type buttons",
+      "why": "Start type automatically includes arrow-forward icon, additional icons cause conflicts",
+      "instead": "Don't use trailingIcon with start type, or use primary type instead",
+      "example": "// ❌ Wrong\n<GoabButton type=\"start\" trailingIcon=\"checkmark\">Begin</GoabButton>\n\n// ✅ Correct\n<GoabButton type=\"start\">Begin Application</GoabButton>"
+    },
+    {
+      "mistake": "Using disabled={\"false\"} instead of boolean",
+      "why": "String 'false' is truthy in JavaScript, button will appear disabled",
+      "instead": "Use boolean values for disabled prop",
+      "example": "// ❌ Wrong\n<GoabButton disabled=\"false\">Click Me</GoabButton>\n\n// ✅ Correct\n<GoabButton disabled={false}>Click Me</GoabButton>"
+    },
+    {
+      "mistake": "Using submit type outside of forms",
+      "why": "Submit type is specifically for form submission and may not work as expected outside forms",
+      "instead": "Use primary type for non-form actions",
+      "example": "// ❌ Wrong\n<div>\n  <GoabButton type=\"submit\" onClick={handleAction}>Do Action</GoabButton>\n</div>\n\n// ✅ Correct\n<form onSubmit={handleSubmit}>\n  <GoabButton type=\"submit\">Submit Form</GoabButton>\n</form>"
+    }
+  ],
+  
+  "frameworkNotes": {
+    "propCasing": {
+      "react": "Use camelCase: leadingIcon, trailingIcon, testId, onClick",
+      "angular": "Use camelCase for property binding: [leadingIcon], (onClick)",
+      "webComponent": "Use lowercase with hyphens: leadingicon, trailingicon, testid",
+      "note": "React wrapper automatically converts camelCase to lowercase for web component"
+    },
+    "slotHandling": {
+      "react": "Children passed as JSX children: <GoabButton>Text</GoabButton>",
+      "angular": "Content projected: <goab-button>Text</goab-button>",
+      "webComponent": "Text content in slot: <goa-button>Text</goa-button>",
+      "note": "All frameworks support rich content in button text slot"
+    },
+    "constraints": {
+      "textLength": "Keep button text concise (2-4 words) for best UX",
+      "iconRequirement": "Icons require ionicons to be loaded in the application",
+      "startTypeIcon": "Start type buttons automatically include arrow-forward icon",
+      "mobileWidth": "Buttons automatically expand to full width on mobile devices"
+    },
+    "responsiveBehavior": {
+      "mobile": "Buttons automatically become full-width on mobile devices",
+      "desktop": "Buttons size to content with minimum touch target of 44px",
+      "buttonGroups": "Use GoabButtonGroup for proper responsive button layouts",
+      "note": "Mobile behavior is built-in and cannot be disabled"
+    }
+  },
+  
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate to button",
+      "Enter - Activate button",
+      "Space - Activate button"
+    ],
+    "screenReader": [
+      "Button role is announced",
+      "Button text is read aloud",
+      "Disabled state is announced",
+      "Icon meaning should be conveyed through text"
+    ],
+    "focusManagement": [
+      "Visible focus indicators provided",
+      "Focus moves logically through button groups",
+      "Focus returns appropriately after modal actions"
+    ]
+  },
+  
+  "performanceConsiderations": [
+    "Buttons are lightweight components with minimal overhead",
+    "Icon loading depends on ionicons being properly cached",
+    "Multiple buttons in groups are efficiently rendered",
+    "Event handlers should be optimized for frequent clicks"
+  ],
+  
+  "tags": ["interactive", "action", "form", "cta", "primary", "secondary"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/button.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

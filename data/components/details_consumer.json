@@ -1,0 +1,527 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Details",
+  "displayName": "GoA Details",
+  "summary": "Let users reveal more detailed information when they need it. Perfect for contextual help, additional explanations, and progressive disclosure of optional content.",
+
+  "customElement": {
+    "tagName": "goa-details",
+    "className": "goa-details"
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["GoA Icon component", "Design token system"]
+  },
+
+  "playgroundExamples": {
+    "basic": {
+      "title": "Basic Details Usage",
+      "description": "Basic expandable details with different heading lengths to test text wrapping and layout",
+      "interactiveProps": [
+        {
+          "prop": "heading",
+          "values": [
+            "Detail Heading",
+            "Detail Heading that goes for a long time that is longer and maybe wraps as well because it is so long"
+          ]
+        },
+        {
+          "prop": "open",
+          "values": [false, true]
+        }
+      ],
+      "code": "<GoabBlock gap=\"xl\" mb=\"xl\" direction=\"column\">\n  <GoabDetails heading=\"Detail Heading that goes for a long time that is longer and maybe wraps as well because it is so long\">\n    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel\n    lacinia metus, sed sodales lectus. Aliquam sed volutpat velit.\n  </GoabDetails>\n\n  <GoabDetails heading=\"Detail Heading\">\n    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel\n    lacinia metus, sed sodales lectus. Aliquam sed volutpat velit.\n  </GoabDetails>\n</GoabBlock>",
+      "usageNotes": "Demonstrates basic usage with varying heading lengths to test responsive behavior and content wrapping"
+    },
+    "interactive": {
+      "title": "Interactive Props Demonstration",
+      "description": "Test all interactive properties including open state, maxWidth, and spacing options",
+      "interactiveProps": [
+        {
+          "prop": "open",
+          "values": [false, true],
+          "description": "Toggle initial expanded state"
+        },
+        {
+          "prop": "maxWidth", 
+          "values": ["75ch", "400px", "600px", "100%"],
+          "description": "Adjust content width for readability"
+        },
+        {
+          "prop": "mb",
+          "values": ["none", "xs", "s", "m", "l", "xl"],
+          "description": "Modify bottom margin spacing"
+        },
+        {
+          "prop": "mt",
+          "values": ["none", "xs", "s", "m", "l", "xl"],
+          "description": "Modify top margin spacing"
+        }
+      ],
+      "code": "function InteractiveDetailsDemo() {\n  const [isOpen, setIsOpen] = useState(false);\n  const [maxWidth, setMaxWidth] = useState('75ch');\n  const [spacing, setSpacing] = useState('m');\n\n  return (\n    <GoabBlock gap=\"l\" direction=\"column\">\n      <GoabBlock gap=\"m\" direction=\"row\">\n        <GoabButton \n          type=\"tertiary\" \n          onClick={() => setIsOpen(!isOpen)}\n        >\n          {isOpen ? 'Close' : 'Open'} Details\n        </GoabButton>\n        \n        <GoabSelect \n          value={maxWidth} \n          onChange={(name, value) => setMaxWidth(value)}\n          placeholder=\"Max Width\"\n        >\n          <option value=\"75ch\">75ch (default)</option>\n          <option value=\"400px\">400px</option>\n          <option value=\"600px\">600px</option>\n          <option value=\"100%\">100%</option>\n        </GoabSelect>\n      </GoabBlock>\n\n      <GoabDetails \n        heading=\"Interactive Details Example\"\n        open={isOpen}\n        maxWidth={maxWidth}\n        mb={spacing}\n        onToggle={setIsOpen}\n      >\n        <p>This content's width is controlled by the maxWidth prop: <strong>{maxWidth}</strong></p>\n        <p>Use the controls above to test different configurations and see how the component responds to prop changes.</p>\n        <ul>\n          <li>Toggle the open state with the button</li>\n          <li>Adjust maxWidth to see content reflow</li>\n          <li>Notice how the component maintains readability</li>\n        </ul>\n      </GoabDetails>\n    </GoabBlock>\n  );\n}",
+      "usageNotes": "Interactive example allowing real-time prop manipulation to understand component behavior"
+    },
+    "formHelp": {
+      "title": "Form Contextual Help Pattern",
+      "description": "Common pattern of providing contextual help information for form fields",
+      "interactiveProps": [
+        {
+          "prop": "open",
+          "values": [false, true],
+          "description": "Start with help expanded or collapsed"
+        },
+        {
+          "prop": "placement",
+          "values": ["after-field", "grouped-help"],
+          "description": "Position help after each field or group together"
+        }
+      ],
+      "code": "function FormWithContextualHelp() {\n  const [sin, setSin] = useState('');\n  const [businessNumber, setBusinessNumber] = useState('');\n  const [showAllHelp, setShowAllHelp] = useState(false);\n\n  return (\n    <GoabBlock gap=\"l\" direction=\"column\">\n      <GoabButtonGroup alignment=\"start\">\n        <GoabButton \n          type=\"tertiary\"\n          onClick={() => setShowAllHelp(!showAllHelp)}\n        >\n          {showAllHelp ? 'Hide All Help' : 'Show All Help'}\n        </GoabButton>\n      </GoabButtonGroup>\n\n      <GoabFormItem label=\"Social Insurance Number\" requirement=\"required\">\n        <GoabInput \n          name=\"sin\" \n          value={sin}\n          placeholder=\"000-000-000\"\n          onChange={(name, value) => setSin(value)}\n        />\n      </GoabFormItem>\n      \n      <GoabDetails \n        heading=\"What is a Social Insurance Number?\"\n        open={showAllHelp}\n      >\n        <p>Your Social Insurance Number (SIN) is a 9-digit number that you need to work in Canada or to have access to government programs and benefits.</p>\n        <h4>You can find your SIN on:</h4>\n        <ul>\n          <li>Your plastic SIN card (if you have one)</li>\n          <li>Your income tax assessment</li>\n          <li>Your T4 slip</li>\n          <li>Your Record of Employment</li>\n        </ul>\n        <p>If you don't have your SIN, you can <a href=\"#apply\">apply for one online</a>.</p>\n      </GoabDetails>\n\n      <GoabFormItem label=\"Business Number\" requirement=\"optional\">\n        <GoabInput \n          name=\"businessNumber\" \n          value={businessNumber}\n          placeholder=\"123456789RC0001\"\n          onChange={(name, value) => setBusinessNumber(value)}\n        />\n      </GoabFormItem>\n      \n      <GoabDetails \n        heading=\"How to find your Business Number\"\n        open={showAllHelp}\n      >\n        <p>Your Business Number is a 15-character identifier consisting of:</p>\n        <ul>\n          <li>9-digit business number</li>\n          <li>2-character program identifier (RC for Corporation)</li>\n          <li>4-digit reference number</li>\n        </ul>\n        <p>You can find it on business registration documents, tax correspondence from CRA, or your GST/HST registration certificate.</p>\n      </GoabDetails>\n    </GoabBlock>\n  );\n}",
+      "usageNotes": "Demonstrates the common pattern of providing contextual help for form fields with master show/hide control"
+    },
+    "faqPattern": {
+      "title": "FAQ-Style Information",
+      "description": "Multiple details components used to create an FAQ section with progressive disclosure",
+      "interactiveProps": [
+        {
+          "prop": "searchable",
+          "values": [false, true],
+          "description": "Add search functionality to filter FAQ items"
+        },
+        {
+          "prop": "openAll",
+          "values": [false, true],
+          "description": "Expand all FAQ items at once"
+        }
+      ],
+      "code": "function FAQSection() {\n  const [searchTerm, setSearchTerm] = useState('');\n  const [openAll, setOpenAll] = useState(false);\n  \n  const faqs = [\n    {\n      id: 1,\n      question: \"Can I change my business name after registration?\",\n      answer: \"Yes, you can change your business name, but the process depends on your business structure. For sole proprietorships, you'll need to register a new business name and close the old registration.\"\n    },\n    {\n      id: 2,\n      question: \"Do I need to register if I'm working from home?\",\n      answer: \"Generally yes, if you're operating a business for profit, you need to register regardless of location. However, there are exceptions for occasional sales of personal items or hobby activities.\"\n    },\n    {\n      id: 3,\n      question: \"What's the difference between registration and incorporation?\",\n      answer: \"Business registration is simpler and less expensive but offers no liability protection. Incorporation creates a separate legal entity with limited liability protection but has more complex requirements.\"\n    }\n  ];\n  \n  const filteredFAQs = faqs.filter(faq => \n    faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||\n    faq.answer.toLowerCase().includes(searchTerm.toLowerCase())\n  );\n\n  return (\n    <GoabBlock gap=\"l\" direction=\"column\">\n      <GoabBlock gap=\"m\" direction=\"row\" alignment=\"start\">\n        <GoabInput \n          placeholder=\"Search FAQs...\"\n          value={searchTerm}\n          onChange={(name, value) => setSearchTerm(value)}\n        />\n        <GoabButton \n          type=\"tertiary\"\n          onClick={() => setOpenAll(!openAll)}\n        >\n          {openAll ? 'Collapse All' : 'Expand All'}\n        </GoabButton>\n      </GoabBlock>\n      \n      <GoabText element=\"h2\">Frequently Asked Questions</GoabText>\n      \n      {filteredFAQs.length === 0 ? (\n        <GoabCallout type=\"information\">\n          No FAQs match your search term. Try a different search or clear the filter.\n        </GoabCallout>\n      ) : (\n        filteredFAQs.map(faq => (\n          <GoabDetails \n            key={faq.id}\n            heading={faq.question}\n            open={openAll}\n            mb=\"s\"\n          >\n            <p>{faq.answer}</p>\n          </GoabDetails>\n        ))\n      )}\n    </GoabBlock>\n  );\n}",
+      "usageNotes": "Shows how to build an interactive FAQ section with search and expand/collapse all functionality"
+    },
+    "stateManagement": {
+      "title": "Advanced State Management", 
+      "description": "Complex state management with event handling and coordination between multiple Details components",
+      "interactiveProps": [
+        {
+          "prop": "controlled",
+          "values": [false, true],
+          "description": "Toggle between controlled and uncontrolled component behavior"
+        },
+        {
+          "prop": "trackEvents",
+          "values": [false, true],
+          "description": "Enable event tracking and analytics"
+        }
+      ],
+      "code": "function AdvancedStateManagement() {\n  const [detailsStates, setDetailsStates] = useState({\n    personal: false,\n    employment: false,\n    documents: false\n  });\n  const [eventLog, setEventLog] = useState([]);\n  const [isControlled, setIsControlled] = useState(true);\n  \n  const handleToggle = (section, isOpen) => {\n    if (isControlled) {\n      setDetailsStates(prev => ({ ...prev, [section]: isOpen }));\n    }\n    \n    setEventLog(prev => [...prev, {\n      timestamp: new Date().toLocaleTimeString(),\n      section,\n      action: isOpen ? 'expanded' : 'collapsed'\n    }]);\n  };\n  \n  const openAll = () => {\n    setDetailsStates({ personal: true, employment: true, documents: true });\n  };\n  \n  const closeAll = () => {\n    setDetailsStates({ personal: false, employment: false, documents: false });\n  };\n\n  return (\n    <GoabBlock gap=\"l\" direction=\"column\">\n      <GoabBlock gap=\"m\" direction=\"row\">\n        <GoabButton type=\"tertiary\" onClick={openAll}>\n          Open All Sections\n        </GoabButton>\n        <GoabButton type=\"tertiary\" onClick={closeAll}>\n          Close All Sections\n        </GoabButton>\n        <GoabButton \n          type=\"tertiary\" \n          onClick={() => setIsControlled(!isControlled)}\n        >\n          {isControlled ? 'Uncontrolled' : 'Controlled'} Mode\n        </GoabButton>\n      </GoabBlock>\n      \n      <GoabDetails \n        heading=\"Personal Information Help\"\n        open={isControlled ? detailsStates.personal : undefined}\n        onToggle={(isOpen) => handleToggle('personal', isOpen)}\n        testId=\"personal-help-details\"\n      >\n        <p>Provide your legal name, address, and contact information as they appear on official documents.</p>\n        <ul>\n          <li>Use your full legal name (including middle names)</li>\n          <li>Provide current mailing address</li>\n          <li>Include area code with phone numbers</li>\n        </ul>\n      </GoabDetails>\n      \n      <GoabDetails \n        heading=\"Employment Information Help\"\n        open={isControlled ? detailsStates.employment : undefined}\n        onToggle={(isOpen) => handleToggle('employment', isOpen)}\n        testId=\"employment-help-details\"\n      >\n        <p>Include all current employment and income sources, even part-time or seasonal work.</p>\n        <ul>\n          <li>List primary employer first</li>\n          <li>Include gross monthly income</li>\n          <li>Add self-employment or contract work</li>\n        </ul>\n      </GoabDetails>\n      \n      <GoabDetails \n        heading=\"Required Documents Help\"\n        open={isControlled ? detailsStates.documents : undefined}\n        onToggle={(isOpen) => handleToggle('documents', isOpen)}\n        testId=\"documents-help-details\"\n      >\n        <p>Upload clear, readable copies of all required supporting documents.</p>\n        <ul>\n          <li>Government-issued photo ID</li>\n          <li>Proof of income (pay stubs, tax returns)</li>\n          <li>Proof of address (utility bill, lease)</li>\n        </ul>\n      </GoabDetails>\n      \n      {eventLog.length > 0 && (\n        <GoabContainer type=\"info\">\n          <GoabText element=\"h4\">Event Log:</GoabText>\n          <ul>\n            {eventLog.slice(-5).map((event, index) => (\n              <li key={index}>\n                {event.timestamp}: {event.section} section {event.action}\n              </li>\n            ))}\n          </ul>\n        </GoabContainer>\n      )}\n    </GoabBlock>\n  );\n}",
+      "usageNotes": "Advanced example showing controlled component behavior, event handling, and state coordination across multiple Details components"
+    },
+    "integrationPatterns": {
+      "title": "Integration with Related Components",
+      "description": "Common patterns combining Details with other GoA components like Callout, Container, and Button",
+      "interactiveProps": [
+        {
+          "prop": "withCallouts",
+          "values": [false, true],
+          "description": "Include callout components within expanded content"
+        },
+        {
+          "prop": "withContainers",
+          "values": [false, true],
+          "description": "Wrap details in container components"
+        }
+      ],
+      "code": "function IntegrationPatterns() {\n  const [showSuccess, setShowSuccess] = useState(false);\n  const [currentStep, setCurrentStep] = useState(1);\n  \n  const completeStep = () => {\n    setShowSuccess(true);\n    setTimeout(() => setShowSuccess(false), 3000);\n  };\n\n  return (\n    <GoabBlock gap=\"l\" direction=\"column\">\n      {showSuccess && (\n        <GoabCallout type=\"success\" ariaLive=\"polite\">\n          Step completed successfully! The help information below has been updated.\n        </GoabCallout>\n      )}\n      \n      <GoabContainer type=\"interactive\">\n        <GoabText element=\"h3\">Application Process</GoabText>\n        <p>Complete each step of the application process. Click on any step for detailed instructions.</p>\n        \n        <GoabDetails heading=\"Step 1: Prepare Your Information\" mb=\"m\">\n          <GoabCallout type=\"information\" size=\"medium\">\n            <strong>Estimated time:</strong> 10-15 minutes\n          </GoabCallout>\n          \n          <p>Before starting your application, gather the following information:</p>\n          <ul>\n            <li>Personal identification documents</li>\n            <li>Employment and income information</li>\n            <li>Supporting documentation</li>\n          </ul>\n          \n          <GoabButton \n            type=\"primary\" \n            onClick={completeStep}\n          >\n            Mark Step 1 Complete\n          </GoabButton>\n        </GoabDetails>\n        \n        <GoabDetails heading=\"Step 2: Complete the Application Form\" mb=\"m\">\n          <GoabCallout type=\"important\" size=\"medium\">\n            <strong>Important:</strong> All required fields must be completed before submission.\n          </GoabCallout>\n          \n          <p>Fill out the online application form with accurate information:</p>\n          <ol>\n            <li>Personal Information section</li>\n            <li>Employment Details section</li>\n            <li>Document Upload section</li>\n            <li>Review and Submit</li>\n          </ol>\n        </GoabDetails>\n        \n        <GoabDetails heading=\"Step 3: Submit and Track Your Application\" mb=\"none\">\n          <p>After submitting your application:</p>\n          <ul>\n            <li>You'll receive a confirmation email</li>\n            <li>Track progress on your dashboard</li>\n            <li>Receive notifications of status changes</li>\n          </ul>\n          \n          <GoabCallout type=\"event\" size=\"medium\">\n            <strong>Next:</strong> You'll be contacted within 5 business days with next steps.\n          </GoabCallout>\n        </GoabDetails>\n      </GoabContainer>\n      \n      <GoabContainer type=\"non-interactive\">\n        <GoabText element=\"h4\">Need Additional Help?</GoabText>\n        \n        <GoabDetails heading=\"Contact Support Options\">\n          <GoabBlock gap=\"m\" direction=\"column\">\n            <div>\n              <strong>Phone Support:</strong>\n              <p>1-800-555-0123 (Monday-Friday, 8 AM - 6 PM MST)</p>\n            </div>\n            \n            <div>\n              <strong>Email Support:</strong>\n              <p><a href=\"mailto:support@example.gov.ab.ca\">support@example.gov.ab.ca</a></p>\n            </div>\n            \n            <div>\n              <strong>In-Person Support:</strong>\n              <p><a href=\"#locations\">Find a service location near you</a></p>\n            </div>\n          </GoabBlock>\n        </GoabDetails>\n      </GoabContainer>\n    </GoabBlock>\n  );\n}",
+      "usageNotes": "Demonstrates integration patterns with Callout for status messages, Container for visual organization, and Button for actions within expanded content"
+    }
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabDetails } from '@abgov/react-components'",
+      "quickExample": "<GoabDetails heading=\"More Information\">\n  <p>Additional details revealed on click</p>\n</GoabDetails>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-details heading=\"More Information\">\n  <p>Additional details revealed on click</p>\n</goab-details>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-details heading=\"More Information\">\n  <p>Additional details revealed on click</p>\n</goa-details>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "heading",
+        "type": "string",
+        "required": true,
+        "description": "The clickable heading text that expands/collapses content",
+        "usage": "Use clear, descriptive text that indicates what information will be revealed"
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Controls whether the details starts expanded or collapsed",
+        "usage": "Set to true for important information that should be visible by default"
+      },
+      {
+        "name": "maxWidth",
+        "type": "string",
+        "default": "75ch",
+        "required": false,
+        "description": "Maximum width constraint for optimal readability",
+        "usage": "Default of 75ch provides good readability - adjust for specific layout needs"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Test identifier for automated testing",
+        "usage": "Use descriptive names like 'form-help-details' or 'additional-info-details'"
+      },
+      {
+        "name": "mt",
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin top spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      },
+      {
+        "name": "mr",
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin right spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      },
+      {
+        "name": "mb",
+        "type": "Spacing",
+        "default": "m",
+        "required": false,
+        "description": "Margin bottom spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      },
+      {
+        "name": "ml",
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin left spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      }
+    ],
+    "slots": [
+      {
+        "name": "children",
+        "description": "Content that expands and collapses",
+        "required": true,
+        "usage": "Keep content focused and scannable - detailed information that supplements the main content"
+      }
+    ],
+    "events": [
+      {
+        "name": "onToggle",
+        "description": "Fired when details opens or closes",
+        "parameters": "boolean - true when opened, false when closed",
+        "usage": "Use to track user interaction or coordinate with other components"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Form Field Help",
+          "description": "Contextual help information for form fields",
+          "code": "function FormWithHelp() {\n  return (\n    <div>\n      <GoabFormItem label=\"Social Insurance Number\">\n        <GoabInput name=\"sin\" placeholder=\"000-000-000\" />\n      </GoabFormItem>\n      \n      <GoabDetails heading=\"What is a Social Insurance Number?\">\n        <p>Your Social Insurance Number (SIN) is a 9-digit number that you need to work in Canada or to have access to government programs and benefits.</p>\n        <p>You can find your SIN on:</p>\n        <ul>\n          <li>Your plastic SIN card (if you have one)</li>\n          <li>Your income tax assessment</li>\n          <li>Your T4 slip</li>\n          <li>Your Record of Employment</li>\n        </ul>\n        <p>If you don't have your SIN, you can <a href=\"/apply-sin\">apply for one online</a>.</p>\n      </GoabDetails>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Process Information",
+          "description": "Additional details about processes or procedures",
+          "code": "function ApplicationProcess() {\n  return (\n    <div>\n      <h2>Submit Your Application</h2>\n      <p>Complete the form below to submit your application for review.</p>\n      \n      <GoabDetails heading=\"What happens after I submit?\">\n        <ol>\n          <li><strong>Initial Review (1-2 business days):</strong> We'll check that all required information is provided.</li>\n          <li><strong>Document Verification (3-5 business days):</strong> We'll verify any uploaded documents.</li>\n          <li><strong>Assessment (5-10 business days):</strong> Our team will review your application against eligibility criteria.</li>\n          <li><strong>Decision:</strong> You'll receive an email with the decision and next steps.</li>\n        </ol>\n        <p>You can check your application status at any time on your <a href=\"/dashboard\">dashboard</a>.</p>\n      </GoabDetails>\n      \n      <GoabDetails heading=\"Need help with your application?\">\n        <p>If you need assistance, you can:</p>\n        <ul>\n          <li>Call our support line at 1-800-555-0123 (Monday-Friday, 8 AM - 6 PM)</li>\n          <li>Email us at <a href=\"mailto:support@example.gov.ab.ca\">support@example.gov.ab.ca</a></li>\n          <li>Visit one of our <a href=\"/locations\">service locations</a></li>\n        </ul>\n      </GoabDetails>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Technical Information",
+          "description": "Optional technical details or specifications",
+          "code": "function TechnicalSpecs() {\n  return (\n    <div>\n      <h3>Document Upload Requirements</h3>\n      <p>Upload clear, readable copies of your supporting documents.</p>\n      \n      <GoabDetails heading=\"Supported file formats and sizes\">\n        <h4>Accepted Formats:</h4>\n        <ul>\n          <li>PDF (.pdf) - Recommended</li>\n          <li>Images: JPEG (.jpg), PNG (.png)</li>\n          <li>Microsoft Word (.doc, .docx)</li>\n        </ul>\n        \n        <h4>File Size Limits:</h4>\n        <ul>\n          <li>Maximum file size: 10 MB per file</li>\n          <li>Maximum total upload: 50 MB per application</li>\n        </ul>\n        \n        <h4>Image Quality Requirements:</h4>\n        <ul>\n          <li>Minimum 300 DPI resolution</li>\n          <li>All text must be clearly readable</li>\n          <li>No handwritten annotations required</li>\n        </ul>\n      </GoabDetails>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Controlled Details",
+          "description": "Managing details state with external controls",
+          "code": "function ExpandableHelp() {\n  const [showAllHelp, setShowAllHelp] = useState(false);\n  \n  return (\n    <div>\n      <GoabButtonGroup alignment=\"start\" mb=\"l\">\n        <GoabButton \n          type=\"tertiary\" \n          onClick={() => setShowAllHelp(!showAllHelp)}\n        >\n          {showAllHelp ? 'Hide All Help' : 'Show All Help'}\n        </GoabButton>\n      </GoabButtonGroup>\n      \n      <GoabFormItem label=\"Employment Status\">\n        <GoabRadioGroup name=\"employment\">\n          <GoabRadio value=\"employed\">Employed</GoabRadio>\n          <GoabRadio value=\"unemployed\">Unemployed</GoabRadio>\n          <GoabRadio value=\"student\">Student</GoabRadio>\n        </GoabRadioGroup>\n      </GoabFormItem>\n      \n      <GoabDetails \n        heading=\"Help with employment status\"\n        open={showAllHelp}\n      >\n        <h4>Choose the option that best describes your current situation:</h4>\n        <ul>\n          <li><strong>Employed:</strong> You have a job and receive regular income</li>\n          <li><strong>Unemployed:</strong> You're actively looking for work but don't currently have a job</li>\n          <li><strong>Student:</strong> You're enrolled in an educational program (full-time or part-time)</li>\n        </ul>\n      </GoabDetails>\n    </div>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Form Field Help",
+          "description": "Contextual help information for form fields",
+          "code": "<div>\n  <goab-form-item label=\"Social Insurance Number\">\n    <goab-input name=\"sin\" placeholder=\"000-000-000\"></goab-input>\n  </goab-form-item>\n  \n  <goab-details heading=\"What is a Social Insurance Number?\">\n    <p>Your Social Insurance Number (SIN) is a 9-digit number that you need to work in Canada or to have access to government programs and benefits.</p>\n    <p>You can find your SIN on your plastic SIN card, income tax assessment, T4 slip, or Record of Employment.</p>\n  </goab-details>\n</div>"
+        },
+        {
+          "title": "Process Information",
+          "description": "Additional details about processes or procedures",
+          "code": "<div>\n  <h2>Submit Your Application</h2>\n  <p>Complete the form below to submit your application for review.</p>\n  \n  <goab-details heading=\"What happens after I submit?\">\n    <ol>\n      <li><strong>Initial Review (1-2 business days):</strong> We'll check that all required information is provided.</li>\n      <li><strong>Document Verification (3-5 business days):</strong> We'll verify any uploaded documents.</li>\n      <li><strong>Assessment (5-10 business days):</strong> Our team will review your application.</li>\n      <li><strong>Decision:</strong> You'll receive an email with the decision and next steps.</li>\n    </ol>\n  </goab-details>\n</div>"
+        },
+        {
+          "title": "Controlled Details",
+          "description": "Managing details state with component logic",
+          "code": "<div>\n  <goab-button-group alignment=\"start\" mb=\"l\">\n    <goab-button type=\"tertiary\" (click)=\"toggleAllHelp()\">\n      {{ showAllHelp ? 'Hide All Help' : 'Show All Help' }}\n    </goab-button>\n  </goab-button-group>\n  \n  <goab-details \n    heading=\"Help with employment status\"\n    [open]=\"showAllHelp\"\n    (toggle)=\"onHelpToggle($event)\">\n    <p>Choose the option that best describes your current situation...</p>\n  </goab-details>\n</div>"
+        }
+      ],
+      "webComponent": [
+        {
+          "title": "Form Field Help",
+          "description": "Contextual help information for form fields",
+          "code": "<div>\n  <goa-form-item label=\"Social Insurance Number\">\n    <goa-input name=\"sin\" placeholder=\"000-000-000\"></goa-input>\n  </goa-form-item>\n  \n  <goa-details heading=\"What is a Social Insurance Number?\">\n    <p>Your Social Insurance Number (SIN) is a 9-digit number that you need to work in Canada or to have access to government programs and benefits.</p>\n  </goa-details>\n</div>"
+        },
+        {
+          "title": "Technical Information",
+          "description": "Optional technical details with width constraint",
+          "code": "<goa-details heading=\"File format requirements\" maxwidth=\"600px\">\n  <h4>Accepted Formats:</h4>\n  <ul>\n    <li>PDF (.pdf) - Recommended</li>\n    <li>Images: JPEG (.jpg), PNG (.png)</li>\n    <li>Microsoft Word (.doc, .docx)</li>\n  </ul>\n</goa-details>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Form Contextual Help",
+        "description": "Providing optional help information near form fields",
+        "code": "function FormWithContextualHelp() {\n  return (\n    <form>\n      <GoabFormItem label=\"Business Number\">\n        <GoabInput name=\"businessNumber\" placeholder=\"123456789RC0001\" />\n      </GoabFormItem>\n      \n      <GoabDetails heading=\"How to find your Business Number\">\n        <p>Your Business Number is a 15-character identifier consisting of:</p>\n        <ul>\n          <li>9-digit business number</li>\n          <li>2-character program identifier (RC for Corporation)</li>\n          <li>4-digit reference number</li>\n        </ul>\n        <p>You can find it on:</p>\n        <ul>\n          <li>Business registration documents</li>\n          <li>Tax correspondence from CRA</li>\n          <li>GST/HST registration certificate</li>\n        </ul>\n        <p>Don't have a Business Number? <a href=\"/register-business\">Register your business</a> first.</p>\n      </GoabDetails>\n      \n      <GoabFormItem label=\"Industry Type\">\n        <GoabSelect name=\"industry\" placeholder=\"Select industry\">\n          <option value=\"retail\">Retail</option>\n          <option value=\"manufacturing\">Manufacturing</option>\n          <option value=\"services\">Services</option>\n        </GoabSelect>\n      </GoabFormItem>\n      \n      <GoabDetails heading=\"Which industry category should I choose?\">\n        <h4>Industry Classification Guide:</h4>\n        <dl>\n          <dt><strong>Retail:</strong></dt>\n          <dd>Selling goods directly to consumers (stores, online sales, markets)</dd>\n          \n          <dt><strong>Manufacturing:</strong></dt>\n          <dd>Creating or producing goods (factories, workshops, assembly)</dd>\n          \n          <dt><strong>Services:</strong></dt>\n          <dd>Providing services rather than goods (consulting, maintenance, healthcare)</dd>\n        </dl>\n        <p>If your business spans multiple categories, choose the one that represents the majority of your revenue.</p>\n      </GoabDetails>\n    </form>\n  );\n}"
+      },
+      {
+        "name": "Progressive Information Disclosure",
+        "description": "Revealing layers of information based on user interest",
+        "code": "function ServiceInformation() {\n  return (\n    <div>\n      <h2>Business Registration Service</h2>\n      <p>Register your business with the Government of Alberta to operate legally and access business services.</p>\n      \n      <GoabDetails heading=\"What you'll need to register\">\n        <h3>Required Information:</h3>\n        <ul>\n          <li>Proposed business name (or confirmation you'll use your legal name)</li>\n          <li>Business address</li>\n          <li>Nature of business activities</li>\n          <li>Names and addresses of all partners/directors</li>\n        </ul>\n        \n        <h3>Required Documents:</h3>\n        <ul>\n          <li>Government-issued photo ID</li>\n          <li>Proof of business address (lease, utility bill, etc.)</li>\n          <li>Partnership agreement (if applicable)</li>\n        </ul>\n      </GoabDetails>\n      \n      <GoabDetails heading=\"How long does registration take?\">\n        <h3>Processing Times:</h3>\n        <ul>\n          <li><strong>Online registration:</strong> 1-2 business days</li>\n          <li><strong>Mail registration:</strong> 5-10 business days</li>\n          <li><strong>In-person registration:</strong> Same day (if all documents are complete)</li>\n        </ul>\n        \n        <h3>What happens after registration:</h3>\n        <ol>\n          <li>You'll receive a Certificate of Registration</li>\n          <li>Your business will be listed in the Corporate Registry</li>\n          <li>You can apply for required licenses and permits</li>\n          <li>You'll need to file annual returns to maintain registration</li>\n        </ol>\n      </GoabDetails>\n      \n      <GoabDetails heading=\"Registration fees and payment\">\n        <h3>Current Fees (2024):</h3>\n        <ul>\n          <li>Sole proprietorship: $60</li>\n          <li>Partnership: $70</li>\n          <li>Corporation: $100</li>\n        </ul>\n        \n        <h3>Payment Methods:</h3>\n        <ul>\n          <li>Credit card (Visa, MasterCard, American Express)</li>\n          <li>Debit card (online and in-person)</li>\n          <li>Cheque or money order (mail registration only)</li>\n        </ul>\n        \n        <p><strong>Note:</strong> Fees are non-refundable, even if registration is denied.</p>\n      </GoabDetails>\n    </div>\n  );\n}"
+      },
+      {
+        "name": "FAQ-Style Information",
+        "description": "Question and answer format for common inquiries",
+        "code": "function SupportFAQ() {\n  return (\n    <div>\n      <h2>Frequently Asked Questions</h2>\n      \n      <GoabDetails heading=\"Can I change my business name after registration?\">\n        <p>Yes, you can change your business name, but the process depends on your business structure:</p>\n        \n        <h4>Sole Proprietorship or Partnership:</h4>\n        <p>You'll need to register a new business name and close the old registration. This involves:</p>\n        <ol>\n          <li>Registering the new business name</li>\n          <li>Updating all licenses and permits</li>\n          <li>Notifying banks, suppliers, and customers</li>\n          <li>Filing final returns for the old registration</li>\n        </ol>\n        \n        <h4>Corporation:</h4>\n        <p>You can file an Amendment to change your corporate name. Contact the Corporate Registry for specific requirements.</p>\n      </GoabDetails>\n      \n      <GoabDetails heading=\"Do I need to register if I'm working from home?\">\n        <p>Generally yes, if you're operating a business for profit, you need to register regardless of location.</p>\n        \n        <h4>Exceptions:</h4>\n        <ul>\n          <li>Occasional sales of personal items</li>\n          <li>Hobby activities where profit isn't the primary goal</li>\n          <li>Some farm operations (check specific requirements)</li>\n        </ul>\n        \n        <h4>Additional Considerations for Home Businesses:</h4>\n        <ul>\n          <li>Check municipal zoning bylaws</li>\n          <li>Verify homeowner/tenant insurance coverage</li>\n          <li>Consider separate business phone line and address</li>\n          <li>Understand tax implications for home office expenses</li>\n        </ul>\n      </GoabDetails>\n      \n      <GoabDetails heading=\"What's the difference between registration and incorporation?\">\n        <p>These are two different legal processes with different implications:</p>\n        \n        <h4>Business Registration (Sole Proprietorship/Partnership):</h4>\n        <ul>\n          <li>Simpler and less expensive</li>\n          <li>Personal liability for business debts</li>\n          <li>Business income is personal income for tax purposes</li>\n          <li>Easier to dissolve</li>\n        </ul>\n        \n        <h4>Incorporation (Corporation):</h4>\n        <ul>\n          <li>More complex setup and ongoing requirements</li>\n          <li>Limited personal liability protection</li>\n          <li>Separate tax entity</li>\n          <li>Can have multiple shareholders</li>\n          <li>Perpetual existence</li>\n        </ul>\n        \n        <p>Consider consulting with a lawyer or accountant to determine the best structure for your business.</p>\n      </GoabDetails>\n    </div>\n  );\n}"
+      }
+    ],
+    "integrations": [
+      {
+        "component": "GoabFormItem",
+        "description": "Provide contextual help for form fields",
+        "example": "Help information placed after related form fields"
+      },
+      {
+        "component": "GoabButton / GoabButtonGroup",
+        "description": "Control multiple details components with master expand/collapse",
+        "example": "Show All Help / Hide All Help buttons"
+      },
+      {
+        "component": "GoabCallout",
+        "description": "Highlight important information within expanded content",
+        "example": "Warnings or important notes within help details"
+      },
+      {
+        "component": "GoabContainer",
+        "description": "Organize details within structured content sections",
+        "example": "Help sections within form containers"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Providing optional help information for form fields",
+      "Offering additional details about processes or procedures",
+      "Creating FAQ-style content with expandable answers",
+      "Revealing technical specifications or detailed requirements",
+      "Showing step-by-step instructions that some users may not need",
+      "Providing contextual information that supplements main content"
+    ],
+    "whenNotToUse": [
+      "For multiple related disclosures (use Accordion instead)",
+      "For primary navigation (use proper navigation components)",
+      "For critical information that all users must see",
+      "For very brief information that fits comfortably inline",
+      "When content would be better as a separate page or modal"
+    ],
+    "bestPractices": [
+      "Use clear, descriptive headings that indicate what information will be revealed",
+      "Keep expanded content focused and scannable",
+      "Place details components near the content they relate to",
+      "Use question format for headings when appropriate (\"How do I...?\", \"What is...?\")",
+      "Include helpful formatting like lists, headings, and links in expanded content",
+      "Keep line length under 75 characters for optimal readability",
+      "Consider using multiple details for different aspects rather than one large block",
+      "Test that expanded content is accessible to screen reader users"
+    ],
+    "contentGuidelines": [
+      "Write headings that clearly describe what the user will learn",
+      "Structure expanded content with proper headings and lists",
+      "Include relevant links for additional information",
+      "Use plain language and avoid jargon",
+      "Provide specific, actionable information",
+      "Consider including examples or visual aids for complex concepts"
+    ],
+    "layoutConsiderations": [
+      "Details automatically constrains width to 75 characters for readability",
+      "Place details after related content rather than before",
+      "Use consistent spacing between details components",
+      "Consider grouping related details components together",
+      "Ensure details don't interrupt critical user workflows"
+    ]
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab to focus on the details heading",
+      "Enter or Space to expand/collapse the details",
+      "Tab through expanded content normally",
+      "Screen reader users can navigate expanded content naturally"
+    ],
+    "screenReader": [
+      "Heading is announced as a button that can be expanded",
+      "Expanded/collapsed state is announced when changed",
+      "Content structure is preserved when expanded",
+      "Links and other interactive elements work normally within expanded content"
+    ],
+    "requirements": [
+      "Always provide a descriptive heading that indicates what will be revealed",
+      "Ensure expanded content has proper heading structure",
+      "Include sufficient context so details make sense when encountered with screen readers",
+      "Test with screen readers to verify content is announced properly when expanded"
+    ],
+    "considerations": [
+      "Details builds on native HTML details/summary elements for robust accessibility",
+      "State changes are automatically announced by browsers",
+      "Focus management is handled by the browser's native implementation"
+    ]
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "problem": "Details content feels too wide or hard to read",
+        "solution": "Adjust maxWidth prop for optimal readability based on content type",
+        "code": "// ✅ Adjust width for content type\n<GoabDetails \n  heading=\"Technical Specifications\"\n  maxWidth=\"600px\"  // Narrower for dense technical content\n>\n  <p>Technical details...</p>\n</GoabDetails>\n\n<GoabDetails \n  heading=\"Step-by-step Guide\"\n  maxWidth=\"800px\"  // Wider for instructional content\n>\n  <ol><li>First step...</li></ol>\n</GoabDetails>"
+      },
+      {
+        "problem": "Multiple details components look disconnected",
+        "solution": "Group related details and use consistent spacing",
+        "code": "// ✅ Grouped related help information\n<div className=\"help-section\">\n  <h3>Need Help?</h3>\n  \n  <GoabDetails heading=\"How to complete this form\" mb=\"s\">\n    <p>Step by step instructions...</p>\n  </GoabDetails>\n  \n  <GoabDetails heading=\"What documents do I need?\" mb=\"s\">\n    <p>Required documentation...</p>\n  </GoabDetails>\n  \n  <GoabDetails heading=\"Where to get help\" mb=\"none\">\n    <p>Contact information...</p>\n  </GoabDetails>\n</div>"
+      },
+      {
+        "problem": "Details content not announced properly by screen readers",
+        "solution": "This is a known accessibility issue - ensure content has clear structure and consider providing alternative access",
+        "code": "// ✅ Provide clear content structure\n<GoabDetails heading=\"How to apply for benefits\">\n  <h4>Step 1: Gather Required Documents</h4>\n  <p>You'll need the following documents...</p>\n  \n  <h4>Step 2: Complete the Application</h4>\n  <p>Fill out the online form...</p>\n  \n  {/* Alternative access for critical information */}\n  <p>You can also <a href=\"/application-guide\">view this guide as a separate page</a>.</p>\n</GoabDetails>"
+      },
+      {
+        "problem": "Details heading not descriptive enough",
+        "solution": "Use specific, action-oriented headings that clearly indicate what information will be revealed",
+        "code": "// ❌ Vague heading\n<GoabDetails heading=\"More info\">\n  <p>Additional details...</p>\n</GoabDetails>\n\n// ✅ Descriptive, specific heading\n<GoabDetails heading=\"What happens after I submit my application?\">\n  <p>Your application will be reviewed within 5 business days...</p>\n</GoabDetails>\n\n// ✅ Question format works well\n<GoabDetails heading=\"How do I find my Social Insurance Number?\">\n  <p>You can find your SIN on...</p>\n</GoabDetails>"
+      },
+      {
+        "problem": "Controlled details state not updating correctly",
+        "solution": "Ensure proper state management and event handling",
+        "code": "// ✅ Proper controlled component pattern\nconst [isHelpOpen, setIsHelpOpen] = useState(false);\n\n<GoabDetails \n  heading=\"Additional Information\"\n  open={isHelpOpen}\n  onToggle={setIsHelpOpen}  // Updates parent state\n>\n  <p>Help content here...</p>\n</GoabDetails>\n\n// ✅ Master control for multiple details\nconst [showAllHelp, setShowAllHelp] = useState(false);\n\n<GoabButton onClick={() => setShowAllHelp(!showAllHelp)}>\n  {showAllHelp ? 'Hide All Help' : 'Show All Help'}\n</GoabButton>\n\n{helpSections.map(section => (\n  <GoabDetails \n    key={section.id}\n    heading={section.heading}\n    open={showAllHelp}\n    onToggle={(isOpen) => {\n      // Individual control still works\n      if (!isOpen) setShowAllHelp(false);\n    }}\n  >\n    {section.content}\n  </GoabDetails>\n))}"
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabAccordion",
+      "relationship": "Alternative for structured, multiple disclosures",
+      "usage": "Use Accordion for multiple related sections with headers, Details for single, simple show/hide content"
+    },
+    {
+      "name": "GoabFormItem",
+      "relationship": "Frequently used together",
+      "usage": "Place Details components after FormItems to provide contextual help for form fields"
+    },
+    {
+      "name": "GoabCallout",
+      "relationship": "Content enhancement",
+      "usage": "Include Callouts within Details expanded content for important notices or warnings"
+    },
+    {
+      "name": "GoabButton / GoabButtonGroup",
+      "relationship": "Control pattern",
+      "usage": "Use buttons to control multiple Details components (expand/collapse all functionality)"
+    },
+    {
+      "name": "GoabContainer",
+      "relationship": "Layout combination",
+      "usage": "Group Details components within containers for organized help sections"
+    },
+    {
+      "name": "GoabTooltip",
+      "relationship": "Different use case",
+      "usage": "Use Tooltip for brief contextual information, Details for longer explanations and help content"
+    }
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Using multiple Details components instead of Accordion for related disclosures",
+      "why": "Multiple Details lack visual cohesion and master controls for grouped content",
+      "instead": "Use Accordion for multiple related sections, Details for single disclosures",
+      "example": "// ❌ Wrong - multiple details for related content\n<GoabDetails heading=\"Personal Info Help\">...</GoabDetails>\n<GoabDetails heading=\"Employment Help\">...</GoabDetails>\n<GoabDetails heading=\"Document Help\">...</GoabDetails>\n\n// ✅ Correct - accordion for grouped content\n<GoabAccordion heading=\"Personal Info Help\">...</GoabAccordion>\n<GoabAccordion heading=\"Employment Help\">...</GoabAccordion>"
+    },
+    {
+      "mistake": "Using Details for critical information that all users must see",
+      "why": "Important information may be missed if hidden by default",
+      "instead": "Use Details only for supplementary or optional information",
+      "example": "// ❌ Wrong - critical info hidden\n<GoabDetails heading=\"Important Legal Requirements\">You must provide valid ID...</GoabDetails>\n\n// ✅ Correct - critical info visible\n<GoabCallout type=\"important\">You must provide valid ID...</GoabCallout>\n<GoabDetails heading=\"What forms of ID are accepted?\">Acceptable ID types...</GoabDetails>"
+    },
+    {
+      "mistake": "Writing vague or non-descriptive heading text",
+      "why": "Users can't determine if the content is relevant to their needs",
+      "instead": "Use specific, descriptive headings that clearly indicate what will be revealed",
+      "example": "// ❌ Wrong - vague heading\n<GoabDetails heading=\"More info\">Additional details...</GoabDetails>\n\n// ✅ Correct - descriptive heading\n<GoabDetails heading=\"What documents do I need to apply?\">List of required documents...</GoabDetails>"
+    },
+    {
+      "mistake": "Including too much content that makes expanded area overwhelming",
+      "why": "Defeats the purpose of progressive disclosure if content is still overwhelming",
+      "instead": "Keep expanded content focused and well-structured with headings and lists",
+      "example": "// ❌ Wrong - wall of text\n<GoabDetails heading=\"Help\">Long paragraph of text without structure that explains many different concepts all at once...</GoabDetails>\n\n// ✅ Correct - structured content\n<GoabDetails heading=\"How to complete this section\">\n  <h4>Required Information:</h4>\n  <ul><li>Item 1</li><li>Item 2</li></ul>\n  <h4>Optional Information:</h4>\n  <ul><li>Item 3</li></ul>\n</GoabDetails>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": {
+      "react": "Use camelCase: maxWidth, testId",
+      "webComponent": "Use lowercase with hyphens: maxwidth, testid",
+      "angular": "Use camelCase in template: maxWidth, but accepts both formats"
+    },
+    "slotHandling": {
+      "react": "Use children prop for expandable content - no named slots available",
+      "webComponent": "Use default slot for content - Details has single content area only",
+      "angular": "Use ng-content projection for expandable content",
+      "limitation": "No slot support for summary customization - heading prop only accepts string text"
+    },
+    "constraints": {
+      "headingRequired": "Heading prop is required - component will not function without it",
+      "maxWidthDefault": "Defaults to 75ch for optimal readability - override only when necessary",
+      "nativeFoundation": "Built on HTML details/summary elements - inherits native behavior and limitations",
+      "singleContent": "Only supports one content area - no header slots or multiple sections"
+    },
+    "responsiveBehavior": {
+      "automatic": "Uses native browser responsive behavior with CSS constraints",
+      "maxWidth": "75ch default provides good readability across screen sizes",
+      "textWrapping": "Long content wraps appropriately within maxWidth constraints",
+      "touchTargets": "Summary element sized appropriately for touch interaction on mobile"
+    }
+  },
+
+  "tags": ["disclosure", "progressive-disclosure", "contextual-help", "expandable", "interactive", "form-helper", "accessibility"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/details.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

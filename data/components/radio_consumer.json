@@ -1,0 +1,343 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Radio",
+  "summary": "Interactive radio button system for single selection from multiple options with support for conditional reveal content",
+
+  "customElement": {
+    "tagName": "goa-radio-group",
+    "className": "goa-radio-group",
+    "childElement": "goa-radio-item"
+  },
+
+  "playgroundExamples": {
+    "react": [
+      {
+        "title": "Basic Radio",
+        "description": "Simple radio group with four options showing basic usage",
+        "code": "<GoabFormItem label=\"Basic radio\">\n  <GoabRadioGroup\n    name=\"item\"\n    value=\"1\"\n    onChange={(e) => radio1(e.name, e.value)}\n  >\n    <GoabRadioItem value=\"1\" label=\"Label 1\"></GoabRadioItem>\n    <GoabRadioItem value=\"2\" label=\"Label 2\"></GoabRadioItem>\n    <GoabRadioItem value=\"3\" label=\"Label 3\"></GoabRadioItem>\n    <GoabRadioItem value=\"4\" label=\"Label 4\"></GoabRadioItem>\n  </GoabRadioGroup>\n</GoabFormItem>",
+        "usage": "Use this pattern for standard radio groups with simple text labels"
+      },
+      {
+        "title": "Radio with Helper Text",
+        "description": "Radio group including helper text and label text wrapping demonstration",
+        "code": "<GoabFormItem\n  label=\"Radio with helper text\"\n  helpText=\"Helper text here\"\n>\n  <GoabRadioGroup\n    name=\"item\"\n    value=\"1\"\n    onChange={(e) => radio2(e.name, e.value)}\n  >\n    <GoabRadioItem value=\"1\" label=\"Label 1\"></GoabRadioItem>\n    <GoabRadioItem\n      value=\"2\"\n      label=\"Label 2 that wraps to a long wide thing later Label 2 that wraps to a long wide thing later\"\n    ></GoabRadioItem>\n    <GoabRadioItem value=\"3\" label=\"Label 3\"></GoabRadioItem>\n    <GoabRadioItem value=\"4\" label=\"Label 4\"></GoabRadioItem>\n  </GoabRadioGroup>\n</GoabFormItem>",
+        "usage": "Demonstrates how long labels wrap naturally and the proper use of helper text"
+      },
+      {
+        "title": "Radio with Reveal Content",
+        "description": "Radio items with conditional reveal content using slot mechanism",
+        "code": "<GoabFormItem label=\"Radio with reveal\" helpText=\"Helper text here\">\n  <GoabRadioGroup\n    name=\"item\"\n    value=\"1\"\n    onChange={(e) => radio2(e.name, e.value)}\n  >\n    <GoabRadioItem value=\"1\" label=\"Option 1\">\n      <div slot=\"reveal\">\n        <GoabFormItem label=\"Text input\" helpText=\"Helper text here\">\n          <GoabInput\n            name=\"name1\"\n            value=\"\"\n            width=\"40ch\"\n            onChange={noop}\n          ></GoabInput>\n        </GoabFormItem>\n      </div>\n    </GoabRadioItem>\n    <GoabRadioItem value=\"2\" label=\"Option 2\">\n      <div slot=\"reveal\">\n        <GoabFormItem label=\"Text input\" helpText=\"Helper text here\">\n          <GoabInput\n            name=\"name1\"\n            value=\"\"\n            width=\"40ch\"\n            onChange={noop}\n          ></GoabInput>\n        </GoabFormItem>\n      </div>\n    </GoabRadioItem>\n  </GoabRadioGroup>\n</GoabFormItem>",
+        "usage": "Use slot=\"reveal\" to show additional form fields when a radio option is selected"
+      },
+      {
+        "title": "Radio Items with Descriptions",
+        "description": "Radio options including descriptive text and links for additional context",
+        "code": "<GoabFormItem label=\"Radio items with descriptions\">\n  <GoabRadioGroup\n    name=\"selectOne\"\n    value=\"1\"\n    onChange={(e) => radio3(e.name, e.value)}\n  >\n    <GoabRadioItem\n      value=\"1\"\n      label=\"Option one\"\n      description={\n        <span>\n          Help text with a <a href=\"#\">link</a>.\n        </span>\n      }\n    />\n    <GoabRadioItem\n      value=\"2\"\n      label=\"Option two\"\n      description=\"description text\"\n    />\n    <GoabRadioItem\n      value=\"3\"\n      label=\"Option three\"\n      description=\"another description text\"\n    />\n  </GoabRadioGroup>\n</GoabFormItem>",
+        "usage": "Use descriptions to provide additional context or explanation for radio options"
+      },
+      {
+        "title": "Radio with Descriptions and Helper Text",
+        "description": "Combination of form-level helper text with individual option descriptions",
+        "code": "<GoabFormItem\n  label=\"Radio with descriptions and helper text\"\n  helpText=\"Helper text here\"\n>\n  <GoabRadioGroup\n    name=\"selectOne\"\n    value=\"1\"\n    onChange={(e) => radio3(e.name, e.value)}\n  >\n    <GoabRadioItem\n      value=\"1\"\n      label=\"Option one\"\n      description={\n        <span>\n          Help text with a <a href=\"#\">link</a>.\n        </span>\n      }\n    />\n    <GoabRadioItem\n      value=\"2\"\n      label=\"Option two\"\n      description=\"description text\"\n    />\n    <GoabRadioItem\n      value=\"3\"\n      label=\"Option three\"\n      description=\"another description text\"\n    />\n  </GoabRadioGroup>\n</GoabFormItem>",
+        "usage": "Shows how form-level helper text and option descriptions work together"
+      },
+      {
+        "title": "Radio with Error State",
+        "description": "Error state demonstration with validation styling and error message",
+        "code": "<GoabFormItem\n  label=\"Radio with error\"\n  helpText=\"Helper text here\"\n  error=\"Error message.\"\n>\n  <GoabRadioGroup\n    error={true}\n    name=\"item\"\n    value=\"1\"\n    onChange={(e) => radio2(e.name, e.value)}\n  >\n    <GoabRadioItem value=\"1\" label=\"Label 1\"></GoabRadioItem>\n    <GoabRadioItem value=\"2\" label=\"Label 2\"></GoabRadioItem>\n    <GoabRadioItem value=\"3\" label=\"Label 3\"></GoabRadioItem>\n    <GoabRadioItem value=\"4\" label=\"Label 4\"></GoabRadioItem>\n  </GoabRadioGroup>\n</GoabFormItem>",
+        "usage": "Set error prop to true on RadioGroup and provide error message in FormItem"
+      },
+      {
+        "title": "Horizontal Radio Layout",
+        "description": "Horizontal orientation for simple binary choices or short options",
+        "code": "<GoabFormItem label=\"Horizontal inputs\" helpText=\"Helper text here\">\n  <GoabRadioGroup\n    orientation=\"horizontal\"\n    name=\"item\"\n    value=\"1\"\n    onChange={(e) => radio2(e.name, e.value)}\n  >\n    <GoabRadioItem value=\"1\" label=\"Label 1\"></GoabRadioItem>\n    <GoabRadioItem value=\"2\" label=\"Label 2\"></GoabRadioItem>\n  </GoabRadioGroup>\n</GoabFormItem>",
+        "usage": "Use horizontal orientation for 2-3 short options like Yes/No questions"
+      },
+      {
+        "title": "Disabled Radio Group",
+        "description": "Disabled state affecting the entire radio group with descriptions",
+        "code": "<GoabFormItem\n  label=\"Disabled radio with item descriptions\"\n  helpText=\"Helper text here\"\n>\n  <GoabRadioGroup\n    disabled={true}\n    name=\"item\"\n    value=\"1\"\n    onChange={(e) => radio2(e.name, e.value)}\n  >\n    <GoabRadioItem\n      value=\"1\"\n      label=\"Label 1\"\n      description=\"description text\"\n    ></GoabRadioItem>\n    <GoabRadioItem value=\"2\" label=\"Label 2\"></GoabRadioItem>\n    <GoabRadioItem\n      value=\"3\"\n      label=\"Label 3\"\n      description=\"description text\"\n    ></GoabRadioItem>\n    <GoabRadioItem value=\"4\" label=\"Label 4\"></GoabRadioItem>\n  </GoabRadioGroup>\n</GoabFormItem>",
+        "usage": "Use disabled prop when the entire choice is not available to the user"
+      },
+      {
+        "title": "Disabled Radio with Error",
+        "description": "Combination of disabled state with error styling (edge case scenario)",
+        "code": "<GoabFormItem\n  label=\"Disabled radio with error\"\n  helpText=\"Helper text here\"\n>\n  <GoabRadioGroup\n    disabled={true}\n    error={true}\n    name=\"item\"\n    value=\"1\"\n    onChange={(e) => radio2(e.name, e.value)}\n  >\n    <GoabRadioItem\n      value=\"1\"\n      label=\"Label 1\"\n      description=\"description text\"\n    ></GoabRadioItem>\n    <GoabRadioItem value=\"2\" label=\"Label 2\"></GoabRadioItem>\n    <GoabRadioItem\n      value=\"3\"\n      label=\"Label 3\"\n      description=\"description text\"\n    ></GoabRadioItem>\n    <GoabRadioItem value=\"4\" label=\"Label 4\"></GoabRadioItem>\n  </GoabRadioGroup>\n</GoabFormItem>",
+        "usage": "Edge case showing how disabled and error states can coexist"
+      }
+    ]
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["FormItem component (recommended)", "Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabRadioGroup, GoabRadioItem, GoabFormItem } from '@abgov/react-components'",
+      "quickExample": "<GoabFormItem label=\"Contact method\">\n  <GoabRadioGroup name=\"contact\" value={method} onChange={setMethod}>\n    <GoabRadioItem value=\"email\" text=\"Email\" />\n    <GoabRadioItem value=\"phone\" text=\"Phone\" />\n  </GoabRadioGroup>\n</GoabFormItem>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-form-item label=\"Contact method\">\n  <goab-radio-group formControlName=\"contact\">\n    <goab-radio-item value=\"email\" text=\"Email\"></goab-radio-item>\n    <goab-radio-item value=\"phone\" text=\"Phone\"></goab-radio-item>\n  </goab-radio-group>\n</goab-form-item>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-form-item label=\"Contact method\">\n  <goa-radio-group name=\"contact\">\n    <goa-radio-item value=\"email\" text=\"Email\"></goa-radio-item>\n    <goa-radio-item value=\"phone\" text=\"Phone\"></goa-radio-item>\n  </goa-radio-group>\n</goa-form-item>"
+    }
+  },
+
+  "api": {
+    "radioGroup": {
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "Unique identifier for the radio group",
+          "usage": "Must be unique within the form - used for form submission and grouping radio items"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Currently selected value",
+          "usage": "For controlled components - bind to state to track selection"
+        },
+        {
+          "name": "orientation",
+          "type": "horizontal | vertical",
+          "default": "vertical",
+          "required": false,
+          "description": "Layout direction of radio items",
+          "usage": "Use horizontal for 2-3 short options (Yes/No), vertical for easier scanning"
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "default": false,
+          "required": false,
+          "description": "Shows error state styling",
+          "usage": "Typically controlled by form validation state"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "required": false,
+          "description": "Disables all radio items in the group",
+          "usage": "Use when the entire choice is not available"
+        },
+        {
+          "name": "testId",
+          "type": "string",
+          "default": "",
+          "required": false,
+          "description": "Data attribute for testing and automation",
+          "usage": "Set unique identifier for testing radio groups"
+        }
+      ],
+      "events": [
+        {
+          "name": "onChange",
+          "framework": "React",
+          "description": "Fired when selection changes",
+          "signature": "(name: string, value: string) => void"
+        },
+        {
+          "name": "changeEvent",
+          "framework": "Angular",
+          "description": "Fired when selection changes",
+          "signature": "$event: { name: string, value: string }"
+        }
+      ]
+    },
+    "radioItem": {
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "Name of the radio group this item belongs to",
+          "usage": "Must match the RadioGroup name to link items to their group"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "description": "Value associated with this radio option",
+          "usage": "Unique value within the group - returned when this option is selected"
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "required": false,
+          "description": "Label text for the radio option",
+          "usage": "Main label displayed next to the radio button"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Alternative to text prop for label text",
+          "usage": "Used in playground examples - same as text prop"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Additional descriptive text",
+          "usage": "Provide extra context or explanation for the option"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "required": false,
+          "description": "Disables this specific radio item",
+          "usage": "Use when individual options are not available"
+        },
+        {
+          "name": "testId",
+          "type": "string",
+          "default": "",
+          "required": false,
+          "description": "Data attribute for testing and automation",
+          "usage": "Set unique identifier for testing individual radio items"
+        }
+      ]
+    }
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Contact Preferences with Conditional Fields",
+          "description": "Radio group with reveal content based on selection",
+          "code": "function ContactPreferencesForm() {\n  const [contactMethod, setContactMethod] = useState('');\n  const [contactDetails, setContactDetails] = useState({\n    email: '',\n    phone: '',\n    address: ''\n  });\n  const [errors, setErrors] = useState({});\n\n  const handleContactMethodChange = (name, value) => {\n    setContactMethod(value);\n    // Clear errors when selection changes\n    setErrors(prev => ({ ...prev, contactMethod: false }));\n    \n    // Clear unrelated contact details\n    setContactDetails({\n      email: value === 'email' ? contactDetails.email : '',\n      phone: value === 'phone' ? contactDetails.phone : '',\n      address: value === 'mail' ? contactDetails.address : ''\n    });\n  };\n\n  const handleDetailsChange = (name, value) => {\n    setContactDetails(prev => ({ ...prev, [name]: value }));\n    // Clear related errors\n    if (errors[name]) {\n      setErrors(prev => ({ ...prev, [name]: false }));\n    }\n  };\n\n  const validateForm = () => {\n    const newErrors = {};\n    if (!contactMethod) {\n      newErrors.contactMethod = 'Please select a contact method';\n    } else {\n      if (contactMethod === 'email' && !contactDetails.email) {\n        newErrors.email = 'Email address is required';\n      }\n      if (contactMethod === 'phone' && !contactDetails.phone) {\n        newErrors.phone = 'Phone number is required';\n      }\n      if (contactMethod === 'mail' && !contactDetails.address) {\n        newErrors.address = 'Mailing address is required';\n      }\n    }\n    setErrors(newErrors);\n    return Object.keys(newErrors).length === 0;\n  };\n\n  return (\n    <form>\n      <GoabFormItem \n        label=\"How would you like to be contacted?\" \n        error={errors.contactMethod}\n        errorMessage={errors.contactMethod}\n        helpText=\"Choose your preferred communication method\"\n      >\n        <GoabRadioGroup\n          name=\"contactMethod\"\n          value={contactMethod}\n          onChange={handleContactMethodChange}\n          error={!!errors.contactMethod}\n        >\n          <GoabRadioItem\n            name=\"contactMethod\"\n            value=\"email\"\n            text=\"Email\"\n            description=\"We'll send updates to your email address\"\n          >\n            {contactMethod === 'email' && (\n              <GoabFormItem \n                label=\"Email Address\" \n                mt=\"s\"\n                error={errors.email}\n                errorMessage={errors.email}\n              >\n                <GoabInput\n                  name=\"email\"\n                  type=\"email\"\n                  value={contactDetails.email}\n                  onChange={handleDetailsChange}\n                  error={!!errors.email}\n                  placeholder=\"your.email@example.com\"\n                  leadingIcon=\"mail\"\n                />\n              </GoabFormItem>\n            )}\n          </GoabRadioItem>\n          \n          <GoabRadioItem\n            name=\"contactMethod\"\n            value=\"phone\"\n            text=\"Phone\"\n            description=\"We'll call you during business hours (9 AM - 5 PM)\"\n          >\n            {contactMethod === 'phone' && (\n              <GoabFormItem \n                label=\"Phone Number\" \n                mt=\"s\"\n                error={errors.phone}\n                errorMessage={errors.phone}\n              >\n                <GoabInput\n                  name=\"phone\"\n                  type=\"tel\"\n                  value={contactDetails.phone}\n                  onChange={handleDetailsChange}\n                  error={!!errors.phone}\n                  placeholder=\"(555) 123-4567\"\n                  leadingIcon=\"call\"\n                />\n              </GoabFormItem>\n            )}\n          </GoabRadioItem>\n          \n          <GoabRadioItem\n            name=\"contactMethod\"\n            value=\"mail\"\n            text=\"Mail\"\n            description=\"Physical mail to your registered address\"\n          >\n            {contactMethod === 'mail' && (\n              <GoabFormItem \n                label=\"Mailing Address\" \n                mt=\"s\"\n                error={errors.address}\n                errorMessage={errors.address}\n                helpText=\"Please provide your complete mailing address\"\n              >\n                <GoabTextArea\n                  name=\"address\"\n                  value={contactDetails.address}\n                  onChange={handleDetailsChange}\n                  error={!!errors.address}\n                  placeholder=\"123 Main Street&#10;City, Province&#10;Postal Code\"\n                  rows={4}\n                />\n              </GoabFormItem>\n            )}\n          </GoabRadioItem>\n          \n          <GoabRadioItem\n            name=\"contactMethod\"\n            value=\"none\"\n            text=\"No contact needed\"\n            description=\"We'll only contact you if absolutely necessary\"\n          />\n        </GoabRadioGroup>\n      </GoabFormItem>\n      \n      <GoabButtonGroup alignment=\"end\" mt=\"l\">\n        <GoabButton type=\"secondary\" onClick={() => {\n          setContactMethod('');\n          setContactDetails({ email: '', phone: '', address: '' });\n          setErrors({});\n        }}>\n          Reset\n        </GoabButton>\n        <GoabButton type=\"primary\" onClick={validateForm}>\n          Continue\n        </GoabButton>\n      </GoabButtonGroup>\n    </form>\n  );\n}"
+        },
+        {
+          "title": "Yes/No Question with Horizontal Layout",
+          "description": "Simple binary choice with horizontal orientation",
+          "code": "function ConsentForm() {\n  const [hasConsent, setHasConsent] = useState('');\n  const [error, setError] = useState('');\n\n  const handleConsentChange = (name, value) => {\n    setHasConsent(value);\n    setError(''); // Clear error when user makes selection\n  };\n\n  const handleSubmit = () => {\n    if (!hasConsent) {\n      setError('Please indicate whether you consent');\n      return;\n    }\n    console.log('Consent provided:', hasConsent === 'yes');\n  };\n\n  return (\n    <div>\n      <GoabFormItem \n        label=\"Do you consent to data processing?\" \n        error={error}\n        errorMessage={error}\n        helpText=\"We need your consent to process your personal information\"\n      >\n        <GoabRadioGroup\n          name=\"consent\"\n          value={hasConsent}\n          onChange={handleConsentChange}\n          orientation=\"horizontal\"\n          error={!!error}\n        >\n          <GoabRadioItem\n            name=\"consent\"\n            value=\"yes\"\n            text=\"Yes, I consent\"\n          />\n          <GoabRadioItem\n            name=\"consent\"\n            value=\"no\"\n            text=\"No, I do not consent\"\n          />\n        </GoabRadioGroup>\n      </GoabFormItem>\n      \n      <GoabButton \n        type=\"primary\" \n        onClick={handleSubmit}\n        disabled={!hasConsent}\n      >\n        Continue\n      </GoabButton>\n    </div>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Service Level Selection with Pricing",
+          "description": "Angular reactive form with service tiers and conditional validation",
+          "code": "export class ServiceSelectionComponent {\n  serviceForm = this.fb.group({\n    serviceLevel: ['', [Validators.required]],\n    billingCycle: ['monthly'],\n    contactEmail: [''],\n    emergencyContact: [''],\n    companySize: ['']\n  });\n\n  servicePricing = {\n    basic: { monthly: 29, yearly: 290 },\n    professional: { monthly: 79, yearly: 790 },\n    enterprise: { monthly: 199, yearly: 1990 }\n  };\n\n  constructor(private fb: FormBuilder) {\n    // Update validation requirements based on service level\n    this.serviceForm.get('serviceLevel')?.valueChanges.subscribe(level => {\n      this.updateValidationRules(level);\n    });\n  }\n\n  updateValidationRules(serviceLevel: string) {\n    const emailControl = this.serviceForm.get('contactEmail');\n    const emergencyControl = this.serviceForm.get('emergencyContact');\n    const companySizeControl = this.serviceForm.get('companySize');\n\n    // Clear existing validators\n    emailControl?.clearValidators();\n    emergencyControl?.clearValidators();\n    companySizeControl?.clearValidators();\n\n    if (serviceLevel === 'professional' || serviceLevel === 'enterprise') {\n      emailControl?.setValidators([Validators.required, Validators.email]);\n    }\n\n    if (serviceLevel === 'enterprise') {\n      emergencyControl?.setValidators([Validators.required]);\n      companySizeControl?.setValidators([Validators.required]);\n    }\n\n    // Update validity\n    emailControl?.updateValueAndValidity();\n    emergencyControl?.updateValueAndValidity();\n    companySizeControl?.updateValueAndValidity();\n  }\n\n  getCurrentPrice(): number {\n    const level = this.serviceForm.get('serviceLevel')?.value;\n    const cycle = this.serviceForm.get('billingCycle')?.value;\n    \n    if (level && this.servicePricing[level as keyof typeof this.servicePricing]) {\n      return this.servicePricing[level as keyof typeof this.servicePricing][cycle as keyof typeof this.servicePricing.basic];\n    }\n    return 0;\n  }\n\n  onSubmit() {\n    if (this.serviceForm.valid) {\n      console.log('Service selection:', this.serviceForm.value);\n    } else {\n      // Mark all fields as touched to show validation errors\n      Object.keys(this.serviceForm.controls).forEach(key => {\n        this.serviceForm.get(key)?.markAsTouched();\n      });\n    }\n  }\n}\n\n<!-- Template -->\n<form [formGroup]=\"serviceForm\" (ngSubmit)=\"onSubmit()\">\n  <goab-form-item \n    label=\"Choose Your Service Level\" \n    [error]=\"serviceForm.get('serviceLevel')?.invalid && serviceForm.get('serviceLevel')?.touched\"\n    errorMessage=\"Please select a service level\">\n    <goab-radio-group formControlName=\"serviceLevel\">\n      <goab-radio-item \n        value=\"basic\" \n        text=\"Basic Plan\"\n        description=\"Perfect for individuals and small projects. Includes basic support during business hours.\">\n        <div *ngIf=\"serviceForm.get('serviceLevel')?.value === 'basic'\" class=\"pricing-info\">\n          <p><strong>Price:</strong> ${{ servicePricing.basic[serviceForm.get('billingCycle')?.value] }} / {{ serviceForm.get('billingCycle')?.value }}</p>\n          <ul>\n            <li>Email support</li>\n            <li>Community forum access</li>\n            <li>Basic documentation</li>\n          </ul>\n        </div>\n      </goab-radio-item>\n      \n      <goab-radio-item \n        value=\"professional\" \n        text=\"Professional Plan\"\n        description=\"Ideal for growing businesses. Priority support with faster response times.\"\n        [reveal]=\"professionalReveal\">\n        <ng-template #professionalReveal>\n          <div class=\"pricing-info\">\n            <p><strong>Price:</strong> ${{ servicePricing.professional[serviceForm.get('billingCycle')?.value] }} / {{ serviceForm.get('billingCycle')?.value }}</p>\n            <ul>\n              <li>Priority email & chat support</li>\n              <li>Phone support during business hours</li>\n              <li>Advanced documentation & tutorials</li>\n              <li>Monthly check-ins</li>\n            </ul>\n          </div>\n          \n          <goab-form-item \n            label=\"Primary Contact Email\" \n            [error]=\"serviceForm.get('contactEmail')?.invalid && serviceForm.get('contactEmail')?.touched\"\n            errorMessage=\"Valid email address is required for Professional plan\">\n            <goab-input \n              formControlName=\"contactEmail\" \n              type=\"email\" \n              placeholder=\"admin@yourcompany.com\">\n            </goab-input>\n          </goab-form-item>\n        </ng-template>\n      </goab-radio-item>\n      \n      <goab-radio-item \n        value=\"enterprise\" \n        text=\"Enterprise Plan\"\n        description=\"For large organizations requiring 24/7 support and custom solutions.\"\n        [reveal]=\"enterpriseReveal\">\n        <ng-template #enterpriseReveal>\n          <div class=\"pricing-info\">\n            <p><strong>Price:</strong> ${{ servicePricing.enterprise[serviceForm.get('billingCycle')?.value] }} / {{ serviceForm.get('billingCycle')?.value }}</p>\n            <ul>\n              <li>24/7 priority support</li>\n              <li>Dedicated account manager</li>\n              <li>Custom integrations</li>\n              <li>SLA guarantees</li>\n              <li>On-site training available</li>\n            </ul>\n          </div>\n          \n          <goab-form-item \n            label=\"Primary Contact Email\" \n            [error]=\"serviceForm.get('contactEmail')?.invalid && serviceForm.get('contactEmail')?.touched\">\n            <goab-input \n              formControlName=\"contactEmail\" \n              type=\"email\" \n              placeholder=\"admin@yourcompany.com\">\n            </goab-input>\n          </goab-form-item>\n          \n          <goab-form-item \n            label=\"Emergency Contact Phone\" \n            [error]=\"serviceForm.get('emergencyContact')?.invalid && serviceForm.get('emergencyContact')?.touched\"\n            helpText=\"24/7 emergency support line\">\n            <goab-input \n              formControlName=\"emergencyContact\" \n              type=\"tel\" \n              placeholder=\"(555) 123-4567\">\n            </goab-input>\n          </goab-form-item>\n          \n          <goab-form-item \n            label=\"Company Size\" \n            [error]=\"serviceForm.get('companySize')?.invalid && serviceForm.get('companySize')?.touched\">\n            <goab-dropdown formControlName=\"companySize\">\n              <goab-dropdown-item value=\"1-10\">1-10 employees</goab-dropdown-item>\n              <goab-dropdown-item value=\"11-50\">11-50 employees</goab-dropdown-item>\n              <goab-dropdown-item value=\"51-200\">51-200 employees</goab-dropdown-item>\n              <goab-dropdown-item value=\"201-1000\">201-1000 employees</goab-dropdown-item>\n              <goab-dropdown-item value=\"1000+\">1000+ employees</goab-dropdown-item>\n            </goab-dropdown>\n          </goab-form-item>\n        </ng-template>\n      </goab-radio-item>\n    </goab-radio-group>\n  </goab-form-item>\n  \n  <goab-form-item label=\"Billing Cycle\" *ngIf=\"serviceForm.get('serviceLevel')?.value\">\n    <goab-radio-group formControlName=\"billingCycle\" orientation=\"horizontal\">\n      <goab-radio-item value=\"monthly\" text=\"Monthly\"></goab-radio-item>\n      <goab-radio-item value=\"yearly\" text=\"Yearly (Save 17%)\"></goab-radio-item>\n    </goab-radio-group>\n  </goab-form-item>\n  \n  <goab-button-group alignment=\"end\">\n    <goab-button type=\"secondary\" (clickEvent)=\"serviceForm.reset()\">Reset</goab-button>\n    <goab-button type=\"primary\" [disabled]=\"!serviceForm.valid\">\n      Continue - ${{ getCurrentPrice() }}\n    </goab-button>\n  </goab-button-group>\n</form>"
+        }
+      ]
+    }
+  },
+
+  "designGuidance": {
+    "when": [
+      "Users need to select exactly one option from a set of mutually exclusive choices",
+      "Presenting a small to medium number of options (2-7 items typically)",
+      "All options should be visible at once for easy comparison",
+      "Choices are permanent or semi-permanent (not frequently changing)",
+      "Users benefit from seeing all available options before making a decision"
+    ],
+    "whenNotToUse": [
+      "Multiple selections are allowed (use checkbox instead)",
+      "Very large number of options (use dropdown instead)",
+      "Options change frequently or are dynamic",
+      "Single yes/no or on/off choice (consider checkbox or toggle)"
+    ],
+    "bestPractices": [
+      "Always use FormItem wrapper for proper labeling and validation",
+      "Provide clear, concise option text that's easy to scan",
+      "Use descriptions to clarify options when needed",
+      "Group related radio items under a single RadioGroup",
+      "Consider horizontal orientation for simple binary choices",
+      "Use reveal content for conditional fields based on selection",
+      "Ensure radio groups have unique name attributes",
+      "Pre-select reasonable defaults when appropriate"
+    ],
+    "orientationGuidance": {
+      "vertical": "Default orientation, best for most use cases with 3+ options",
+      "horizontal": "Use for simple binary choices or when space is limited"
+    }
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate to radio group",
+      "Arrow keys - Navigate between radio options within group",
+      "Space - Select focused radio option",
+      "Tab - Move to next form element after selection"
+    ],
+    "screenReader": [
+      "Group label announced when entering radio group",
+      "Individual option text and descriptions announced",
+      "Current selection state clearly communicated",
+      "Required/optional status announced with group"
+    ],
+    "requirements": [
+      "Always use FormItem for proper group labeling",
+      "Ensure each radio group has a unique name attribute",
+      "Provide clear, descriptive labels for each option",
+      "Use description prop for additional context when needed",
+      "Test with screen readers and keyboard-only navigation"
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabFormItem",
+      "relationship": "Required wrapper",
+      "usage": "Always wrap RadioGroup with FormItem for proper labeling, help text, and error handling"
+    },
+    {
+      "name": "GoabCheckbox",
+      "relationship": "Alternative for multiple selection",
+      "usage": "Use Checkbox when users can select multiple options instead of just one"
+    },
+    {
+      "name": "GoabDropdown",
+      "relationship": "Alternative for large option sets",
+      "usage": "Use Dropdown when you have many options (8+) that would clutter the interface"
+    },
+    {
+      "name": "GoabInput",
+      "relationship": "Reveal content integration",
+      "usage": "Often used within reveal content for conditional fields based on radio selection"
+    }
+  ],
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "problem": "Radio buttons not working as a group",
+        "cause": "Missing or inconsistent name attribute across radio items",
+        "solution": "Ensure all radio items in a group have the same name attribute"
+      },
+      {
+        "problem": "Validation not working properly",
+        "cause": "Missing FormItem wrapper or incorrect error handling",
+        "solution": "Always wrap RadioGroup with FormItem and properly handle validation state"
+      },
+      {
+        "problem": "Reveal content not showing",
+        "cause": "Value mismatch between selection and conditional logic",
+        "solution": "Ensure conditional logic matches exact radio item values"
+      }
+    ]
+  },
+
+  "source": {
+    "figmaUrl": "https://www.figma.com/design/goa-design-system",
+    "designTokens": {
+      "spacing": "Uses standard GoA spacing tokens for radio button spacing and layout",
+      "colors": "Uses interactive color tokens for selection states and focus indicators",
+      "typography": "Uses standard text tokens for option labels and descriptions"
+    },
+    "lastUpdated": "2025-07-07",
+    "updatedBy": "design-system-team"
+  }
+}

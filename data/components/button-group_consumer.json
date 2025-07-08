@@ -1,0 +1,419 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "ButtonGroup",
+  "summary": "Container component for organizing related buttons with consistent spacing and alignment",
+  
+  "customElement": {
+    "tagName": "goa-button-group",
+    "className": "goa-button-group"
+  },
+
+  "playgroundExamples": {
+    "react": [
+      {
+        "title": "Basic Button Groups",
+        "description": "Demonstrates primary, secondary, and tertiary button combinations with different alignments",
+        "interactiveProps": [
+          {
+            "name": "alignment",
+            "type": "start | end | center",
+            "default": "start",
+            "description": "Controls horizontal alignment of buttons"
+          },
+          {
+            "name": "gap",
+            "type": "none | xs | s | m | l | xl | 2xl | 3xl | 4xl",
+            "default": "s",
+            "description": "Controls spacing between buttons"
+          }
+        ],
+        "code": "function BasicButtonGroups() {\n  const [alignment, setAlignment] = useState('start');\n  const [gap, setGap] = useState('s');\n\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"controls\">\n        <label>\n          Alignment:\n          <select value={alignment} onChange={(e) => setAlignment(e.target.value)}>\n            <option value=\"start\">Start</option>\n            <option value=\"center\">Center</option>\n            <option value=\"end\">End</option>\n          </select>\n        </label>\n        <label>\n          Gap:\n          <select value={gap} onChange={(e) => setGap(e.target.value)}>\n            <option value=\"xs\">XS</option>\n            <option value=\"s\">S</option>\n            <option value=\"m\">M</option>\n            <option value=\"l\">L</option>\n          </select>\n        </label>\n      </div>\n\n      <GoabButtonGroup alignment={alignment} gap={gap}>\n        <GoabButton type=\"primary\">Primary</GoabButton>\n        <GoabButton type=\"secondary\">Secondary</GoabButton>\n        <GoabButton type=\"tertiary\">Tertiary</GoabButton>\n      </GoabButtonGroup>\n    </div>\n  );\n}",
+        "usageNotes": [
+          "Experiment with different alignments to see how buttons position within their container",
+          "Gap controls are especially important for mobile layouts",
+          "Start alignment is most common for form actions"
+        ]
+      },
+      {
+        "title": "Button Variants and States",
+        "description": "Interactive demonstration of button variants (destructive, inverse) and states (disabled)",
+        "interactiveProps": [
+          {
+            "name": "variant",
+            "type": "default | destructive | inverse",
+            "default": "default",
+            "description": "Visual style variant for buttons"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": false,
+            "description": "Disable all buttons in the group"
+          },
+          {
+            "name": "size",
+            "type": "default | compact",
+            "default": "default",
+            "description": "Size of buttons in the group"
+          }
+        ],
+        "code": "function ButtonVariantsDemo() {\n  const [variant, setVariant] = useState('default');\n  const [disabled, setDisabled] = useState(false);\n  const [size, setSize] = useState('default');\n  const [showInverse, setShowInverse] = useState(false);\n\n  const buttonProps = {\n    variant: variant === 'default' ? undefined : variant,\n    disabled,\n    size: size === 'default' ? undefined : size\n  };\n\n  const containerStyle = showInverse ? {\n    backgroundColor: '#666',\n    padding: '16px',\n    borderRadius: '4px'\n  } : {};\n\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"controls\">\n        <label>\n          <input\n            type=\"checkbox\"\n            checked={showInverse}\n            onChange={(e) => setShowInverse(e.target.checked)}\n          />\n          Show Inverse Variant\n        </label>\n        <label>\n          <input\n            type=\"checkbox\"\n            checked={disabled}\n            onChange={(e) => setDisabled(e.target.checked)}\n          />\n          Disabled\n        </label>\n        <label>\n          Size:\n          <select value={size} onChange={(e) => setSize(e.target.value)}>\n            <option value=\"default\">Default</option>\n            <option value=\"compact\">Compact</option>\n          </select>\n        </label>\n      </div>\n\n      <div style={containerStyle}>\n        <GoabButtonGroup alignment=\"start\" gap={size === 'compact' ? 'compact' : 's'}>\n          <GoabButton\n            {...buttonProps}\n            variant={showInverse ? 'inverse' : 'destructive'}\n          >\n            {showInverse ? 'Inverse' : 'Destructive'} Primary\n          </GoabButton>\n          <GoabButton\n            type=\"secondary\"\n            {...buttonProps}\n            variant={showInverse ? 'inverse' : 'destructive'}\n          >\n            {showInverse ? 'Inverse' : 'Destructive'} Secondary\n          </GoabButton>\n          <GoabButton\n            type=\"tertiary\"\n            {...buttonProps}\n            variant={showInverse ? 'inverse' : 'destructive'}\n          >\n            {showInverse ? 'Inverse' : 'Destructive'} Tertiary\n          </GoabButton>\n        </GoabButtonGroup>\n      </div>\n    </div>\n  );\n}",
+        "usageNotes": [
+          "Destructive variant should be used sparingly for dangerous actions",
+          "Inverse variant is for use on dark backgrounds",
+          "Compact size is ideal for dashboard layouts or toolbars",
+          "Disabled state affects all buttons in the group"
+        ]
+      },
+      {
+        "title": "Modal Confirmation Pattern",
+        "description": "Interactive modal with typical save/cancel button group pattern",
+        "interactiveProps": [
+          {
+            "name": "actionType",
+            "type": "save | delete | submit",
+            "default": "save",
+            "description": "Type of action being confirmed"
+          },
+          {
+            "name": "isProcessing",
+            "type": "boolean",
+            "default": false,
+            "description": "Shows loading state during action"
+          }
+        ],
+        "code": "function ModalDemo() {\n  const [isOpen, setIsOpen] = useState(false);\n  const [actionType, setActionType] = useState('save');\n  const [isProcessing, setIsProcessing] = useState(false);\n\n  const actionConfigs = {\n    save: {\n      title: 'Save Changes?',\n      message: 'Your changes will be saved permanently.',\n      confirmText: 'Save Changes',\n      confirmVariant: 'primary'\n    },\n    delete: {\n      title: 'Delete Item?',\n      message: 'This action cannot be undone.',\n      confirmText: 'Delete',\n      confirmVariant: 'destructive'\n    },\n    submit: {\n      title: 'Submit Application?',\n      message: 'Once submitted, you cannot make changes.',\n      confirmText: 'Submit Application',\n      confirmVariant: 'primary'\n    }\n  };\n\n  const config = actionConfigs[actionType];\n\n  const handleConfirm = async () => {\n    setIsProcessing(true);\n    // Simulate API call\n    await new Promise(resolve => setTimeout(resolve, 2000));\n    setIsProcessing(false);\n    setIsOpen(false);\n    alert(`${actionType} completed!`);\n  };\n\n  const handleCancel = () => {\n    if (!isProcessing) {\n      setIsOpen(false);\n    }\n  };\n\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"controls\">\n        <label>\n          Action Type:\n          <select value={actionType} onChange={(e) => setActionType(e.target.value)}>\n            <option value=\"save\">Save</option>\n            <option value=\"delete\">Delete</option>\n            <option value=\"submit\">Submit</option>\n          </select>\n        </label>\n        <GoabButton onClick={() => setIsOpen(true)}>\n          Open {config.title}\n        </GoabButton>\n      </div>\n\n      {isOpen && (\n        <GoabModal>\n          <GoabModalHeader>{config.title}</GoabModalHeader>\n          <GoabModalBody>\n            <p>{config.message}</p>\n            {isProcessing && <p>Processing...</p>}\n          </GoabModalBody>\n          <GoabModalFooter>\n            <GoabButtonGroup alignment=\"end\">\n              <GoabButton\n                type=\"secondary\"\n                onClick={handleCancel}\n                disabled={isProcessing}\n              >\n                Cancel\n              </GoabButton>\n              <GoabButton\n                type=\"primary\"\n                variant={config.confirmVariant === 'destructive' ? 'destructive' : undefined}\n                onClick={handleConfirm}\n                disabled={isProcessing}\n              >\n                {isProcessing ? 'Processing...' : config.confirmText}\n              </GoabButton>\n            </GoabButtonGroup>\n          </GoabModalFooter>\n        </GoabModal>\n      )}\n    </div>\n  );\n}",
+        "usageNotes": [
+          "Always place cancel button first (left), confirm button second (right)",
+          "Use 'end' alignment for modal actions",
+          "Disable buttons during processing to prevent double-clicks",
+          "Use destructive variant for dangerous actions like delete"
+        ]
+      },
+      {
+        "title": "Form Actions with Validation",
+        "description": "Demonstrates button groups in form context with real-time validation",
+        "interactiveProps": [
+          {
+            "name": "formValid",
+            "type": "boolean",
+            "default": false,
+            "description": "Whether form validation passes"
+          },
+          {
+            "name": "hasChanges",
+            "type": "boolean",
+            "default": false,
+            "description": "Whether form has unsaved changes"
+          }
+        ],
+        "code": "function FormActionsDemo() {\n  const [formData, setFormData] = useState({\n    name: '',\n    email: '',\n    message: ''\n  });\n  const [isDirty, setIsDirty] = useState(false);\n  const [isSubmitting, setIsSubmitting] = useState(false);\n\n  const isFormValid = formData.name && formData.email.includes('@') && formData.message;\n  const canSubmit = isFormValid && isDirty && !isSubmitting;\n  const canSaveDraft = isDirty && !isSubmitting;\n\n  const handleInputChange = (field, value) => {\n    setFormData(prev => ({ ...prev, [field]: value }));\n    setIsDirty(true);\n  };\n\n  const handleSubmit = async () => {\n    setIsSubmitting(true);\n    await new Promise(resolve => setTimeout(resolve, 2000));\n    setIsSubmitting(false);\n    setIsDirty(false);\n    alert('Form submitted successfully!');\n  };\n\n  const handleSaveDraft = () => {\n    setIsDirty(false);\n    alert('Draft saved!');\n  };\n\n  const handleReset = () => {\n    setFormData({ name: '', email: '', message: '' });\n    setIsDirty(false);\n  };\n\n  return (\n    <div className=\"space-y-4\">\n      <form className=\"space-y-4\">\n        <GoabFormItem label=\"Name\" requirement=\"required\">\n          <GoabInput\n            value={formData.name}\n            onChange={(name, value) => handleInputChange('name', value)}\n            placeholder=\"Enter your name\"\n          />\n        </GoabFormItem>\n        \n        <GoabFormItem label=\"Email\" requirement=\"required\">\n          <GoabInput\n            type=\"email\"\n            value={formData.email}\n            onChange={(name, value) => handleInputChange('email', value)}\n            placeholder=\"Enter your email\"\n          />\n        </GoabFormItem>\n        \n        <GoabFormItem label=\"Message\" requirement=\"required\">\n          <GoabTextarea\n            value={formData.message}\n            onChange={(name, value) => handleInputChange('message', value)}\n            placeholder=\"Enter your message\"\n            rows={4}\n          />\n        </GoabFormItem>\n      </form>\n\n      <div className=\"form-status\">\n        <p>Form Valid: {isFormValid ? '✅' : '❌'}</p>\n        <p>Has Changes: {isDirty ? '✅' : '❌'}</p>\n        <p>Status: {isSubmitting ? 'Submitting...' : 'Ready'}</p>\n      </div>\n\n      <GoabButtonGroup alignment=\"start\" gap=\"m\">\n        <GoabButton\n          type=\"primary\"\n          onClick={handleSubmit}\n          disabled={!canSubmit}\n        >\n          {isSubmitting ? 'Submitting...' : 'Submit'}\n        </GoabButton>\n        <GoabButton\n          type=\"secondary\"\n          onClick={handleSaveDraft}\n          disabled={!canSaveDraft}\n        >\n          Save Draft\n        </GoabButton>\n        <GoabButton\n          type=\"tertiary\"\n          onClick={handleReset}\n          disabled={!isDirty}\n        >\n          Reset\n        </GoabButton>\n      </GoabButtonGroup>\n    </div>\n  );\n}",
+        "usageNotes": [
+          "Submit button should be disabled until form is valid",
+          "Use larger gap for form actions to create clear visual hierarchy",
+          "Save draft allows users to preserve work without validation",
+          "Reset should be tertiary to de-emphasize destructive action"
+        ]
+      },
+      {
+        "title": "Icon Button Combinations",
+        "description": "Shows ButtonGroup with various icon button configurations",
+        "interactiveProps": [
+          {
+            "name": "iconPosition",
+            "type": "leading | trailing",
+            "default": "leading",
+            "description": "Position of icons in buttons"
+          },
+          {
+            "name": "compactMode",
+            "type": "boolean",
+            "default": false,
+            "description": "Use compact button size"
+          }
+        ],
+        "code": "function IconButtonDemo() {\n  const [iconPosition, setIconPosition] = useState('leading');\n  const [compactMode, setCompactMode] = useState(false);\n  const [selectedAction, setSelectedAction] = useState(null);\n\n  const actions = [\n    { icon: 'create', label: 'Edit', action: 'edit' },\n    { icon: 'copy', label: 'Copy', action: 'copy' },\n    { icon: 'share', label: 'Share', action: 'share' },\n    { icon: 'trash', label: 'Delete', action: 'delete' }\n  ];\n\n  const iconProp = iconPosition === 'leading' ? 'leadingIcon' : 'trailingIcon';\n  const gapSize = compactMode ? 'compact' : 'xs';\n\n  const handleAction = (action, label) => {\n    setSelectedAction(`${label} clicked`);\n    setTimeout(() => setSelectedAction(null), 2000);\n  };\n\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"controls\">\n        <label>\n          Icon Position:\n          <select value={iconPosition} onChange={(e) => setIconPosition(e.target.value)}>\n            <option value=\"leading\">Leading</option>\n            <option value=\"trailing\">Trailing</option>\n          </select>\n        </label>\n        <label>\n          <input\n            type=\"checkbox\"\n            checked={compactMode}\n            onChange={(e) => setCompactMode(e.target.checked)}\n          />\n          Compact Mode\n        </label>\n      </div>\n\n      {selectedAction && (\n        <div className=\"status-message\">\n          {selectedAction}\n        </div>\n      )}\n\n      <div className=\"space-y-4\">\n        <h4>Standard Actions</h4>\n        <GoabButtonGroup alignment=\"start\" gap={gapSize}>\n          {actions.slice(0, 3).map(({ icon, label, action }) => (\n            <GoabButton\n              key={action}\n              type={action === 'edit' ? 'primary' : 'secondary'}\n              size={compactMode ? 'compact' : undefined}\n              {...{ [iconProp]: icon }}\n              onClick={() => handleAction(action, label)}\n            >\n              {label}\n            </GoabButton>\n          ))}\n        </GoabButtonGroup>\n\n        <h4>Destructive Action</h4>\n        <GoabButtonGroup alignment=\"start\" gap={gapSize}>\n          <GoabButton\n            type=\"secondary\"\n            variant=\"destructive\"\n            size={compactMode ? 'compact' : undefined}\n            {...{ [iconProp]: 'trash' }}\n            onClick={() => handleAction('delete', 'Delete')}\n          >\n            Delete\n          </GoabButton>\n        </GoabButtonGroup>\n\n        <h4>Toolbar Style (Compact)</h4>\n        <GoabButtonGroup alignment=\"center\" gap=\"xs\">\n          {actions.map(({ icon, label, action }) => (\n            <GoabButton\n              key={action}\n              type=\"tertiary\"\n              size=\"compact\"\n              variant={action === 'delete' ? 'destructive' : undefined}\n              {...{ [iconProp]: icon }}\n              onClick={() => handleAction(action, label)}\n            >\n              {label}\n            </GoabButton>\n          ))}\n        </GoabButtonGroup>\n      </div>\n    </div>\n  );\n}",
+        "usageNotes": [
+          "Leading icons are more common and provide better visual flow",
+          "Trailing icons work well for directional actions (Next →)",
+          "Compact mode with xs gap creates toolbar-like groupings",
+          "Center alignment works well for standalone action groups"
+        ]
+      },
+      {
+        "title": "Responsive Behavior Demo",
+        "description": "Shows how ButtonGroup adapts to different container widths",
+        "interactiveProps": [
+          {
+            "name": "containerWidth",
+            "type": "number",
+            "default": 400,
+            "description": "Container width in pixels"
+          },
+          {
+            "name": "buttonCount",
+            "type": "number",
+            "default": 3,
+            "description": "Number of buttons in group"
+          }
+        ],
+        "code": "function ResponsiveDemo() {\n  const [containerWidth, setContainerWidth] = useState(400);\n  const [buttonCount, setButtonCount] = useState(3);\n  const [alignment, setAlignment] = useState('start');\n\n  const buttonLabels = [\n    'Submit Application',\n    'Save as Draft', \n    'Cancel',\n    'Reset Form',\n    'Get Help'\n  ];\n\n  const buttonTypes = ['primary', 'secondary', 'tertiary', 'secondary', 'tertiary'];\n\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"controls\">\n        <label>\n          Container Width: {containerWidth}px\n          <input\n            type=\"range\"\n            min=\"200\"\n            max=\"800\"\n            value={containerWidth}\n            onChange={(e) => setContainerWidth(parseInt(e.target.value))}\n          />\n        </label>\n        <label>\n          Button Count: {buttonCount}\n          <input\n            type=\"range\"\n            min=\"2\"\n            max=\"5\"\n            value={buttonCount}\n            onChange={(e) => setButtonCount(parseInt(e.target.value))}\n          />\n        </label>\n        <label>\n          Alignment:\n          <select value={alignment} onChange={(e) => setAlignment(e.target.value)}>\n            <option value=\"start\">Start</option>\n            <option value=\"center\">Center</option>\n            <option value=\"end\">End</option>\n          </select>\n        </label>\n      </div>\n\n      <div className=\"demo-container\">\n        <div \n          style={{ \n            width: `${containerWidth}px`,\n            border: '2px dashed #ccc',\n            padding: '16px',\n            backgroundColor: '#f9f9f9'\n          }}\n        >\n          <p>Container: {containerWidth}px wide</p>\n          <GoabButtonGroup alignment={alignment} gap=\"s\">\n            {buttonLabels.slice(0, buttonCount).map((label, index) => (\n              <GoabButton\n                key={index}\n                type={buttonTypes[index]}\n                onClick={() => alert(`${label} clicked`)}\n              >\n                {label}\n              </GoabButton>\n            ))}\n          </GoabButtonGroup>\n        </div>\n      </div>\n\n      <div className=\"guidance\">\n        <h4>Responsive Guidelines:</h4>\n        <ul>\n          <li>• Buttons will wrap if container is too narrow</li>\n          <li>• Consider using fewer buttons on mobile screens</li>\n          <li>• Test with real content, not placeholder text</li>\n          <li>• Use dropdown menus for complex action sets</li>\n        </ul>\n      </div>\n    </div>\n  );\n}",
+        "usageNotes": [
+          "ButtonGroup doesn't automatically stack on mobile - implement responsive design in parent containers",
+          "Test with actual button text lengths, not placeholders",
+          "Consider using dropdown menus when space is limited",
+          "Monitor button wrapping behavior at different screen sizes"
+        ]
+      }
+    ]
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Button component", "Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabButtonGroup } from '@abgov/react-components'",
+      "quickExample": "<GoabButtonGroup>\n  <GoabButton type=\"primary\">Save</GoabButton>\n  <GoabButton type=\"secondary\">Cancel</GoabButton>\n</GoabButtonGroup>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-button-group>\n  <goab-button type=\"primary\">Save</goab-button>\n  <goab-button type=\"secondary\">Cancel</goab-button>\n</goab-button-group>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-button-group>\n  <goa-button type=\"primary\">Save</goa-button>\n  <goa-button type=\"secondary\">Cancel</goa-button>\n</goa-button-group>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "alignment",
+        "type": "start | end | center",
+        "default": "start",
+        "required": false,
+        "description": "Horizontal alignment of buttons within the group",
+        "usage": "Use 'end' for modal actions, 'center' for standalone groups, 'start' for form actions"
+      },
+      {
+        "name": "gap",
+        "type": "none | xs | s | m | l | xl | 2xl | 3xl | 4xl | compact",
+        "default": "s",
+        "required": false,
+        "description": "Space between buttons in the group",
+        "usage": "Use 's' for most cases, 'm' for more prominent spacing, 'xs' for compact layouts, 'compact' for compact buttons"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Data attribute for testing and automation",
+        "usage": "Set unique identifier for testing button groups"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Modal Actions",
+          "description": "Standard modal confirmation buttons",
+          "code": "function SaveModal({ onSave, onCancel, isSaving }) {\n  return (\n    <GoabModal>\n      <GoabModalHeader>\n        Save Changes?\n      </GoabModalHeader>\n      <GoabModalBody>\n        Your changes will be permanently saved.\n      </GoabModalBody>\n      <GoabButtonGroup alignment=\"end\">\n        <GoabButton \n          type=\"secondary\" \n          onClick={onCancel}\n          disabled={isSaving}\n        >\n          Cancel\n        </GoabButton>\n        <GoabButton \n          type=\"primary\" \n          onClick={onSave}\n          disabled={isSaving}\n        >\n          {isSaving ? 'Saving...' : 'Save Changes'}\n        </GoabButton>\n      </GoabButtonGroup>\n    </GoabModal>\n  );\n}"
+        },
+        {
+          "title": "Form Actions",
+          "description": "Form submission with multiple actions",
+          "code": "function ApplicationForm({ onSubmit, onDraft, onReset }) {\n  return (\n    <form>\n      {/* Form fields */}\n      \n      <GoabButtonGroup gap=\"m\" alignment=\"start\">\n        <GoabButton type=\"primary\" onClick={onSubmit}>\n          Submit Application\n        </GoabButton>\n        <GoabButton type=\"secondary\" onClick={onDraft}>\n          Save as Draft\n        </GoabButton>\n        <GoabButton type=\"tertiary\" onClick={onReset}>\n          Reset Form\n        </GoabButton>\n      </GoabButtonGroup>\n    </form>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Reactive Form Actions",
+          "description": "Form with validation state integration",
+          "code": "<form [formGroup]=\"applicationForm\">\n  <!-- Form fields -->\n  \n  <goab-button-group alignment=\"end\" gap=\"s\">\n    <goab-button \n      type=\"secondary\" \n      (clickEvent)=\"resetForm()\">\n      Reset\n    </goab-button>\n    <goab-button \n      type=\"primary\" \n      [disabled]=\"!applicationForm.valid\"\n      (clickEvent)=\"submitForm()\">\n      Submit\n    </goab-button>\n  </goab-button-group>\n</form>"
+        },
+        {
+          "title": "Card Actions",
+          "description": "Action buttons in card components",
+          "code": "<goab-card>\n  <goab-card-header>\n    User Profile\n  </goab-card-header>\n  <goab-card-body>\n    Profile information content\n  </goab-card-body>\n  <goab-button-group alignment=\"end\" gap=\"xs\">\n    <goab-button type=\"secondary\" (clickEvent)=\"editProfile()\">\n      Edit\n    </goab-button>\n    <goab-button type=\"primary\" (clickEvent)=\"saveProfile()\">\n      Save\n    </goab-button>\n  </goab-button-group>\n</goab-card>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Modal Confirmation",
+        "description": "Standard two-button confirmation pattern",
+        "usage": "Use alignment='end' with secondary (cancel) button first, primary (confirm) second",
+        "code": "<GoabButtonGroup alignment=\"end\">\n  <GoabButton type=\"secondary\">Cancel</GoabButton>\n  <GoabButton type=\"primary\">Confirm</GoabButton>\n</GoabButtonGroup>"
+      },
+      {
+        "name": "Progressive Actions",
+        "description": "Multiple action levels in forms",
+        "usage": "Use larger gap (m or l) for distinct action hierarchies",
+        "code": "<GoabButtonGroup gap=\"l\">\n  <GoabButton type=\"primary\">Submit</GoabButton>\n  <GoabButton type=\"secondary\">Save Draft</GoabButton>\n  <GoabButton type=\"tertiary\">Reset</GoabButton>\n</GoabButtonGroup>"
+      },
+      {
+        "name": "Toolbar Actions",
+        "description": "Icon buttons in compact layouts",
+        "usage": "Use smaller gap (xs) for toolbar-style groupings",
+        "code": "<GoabButtonGroup gap=\"xs\" alignment=\"center\">\n  <GoabIconButton icon=\"create\">Edit</GoabIconButton>\n  <GoabIconButton icon=\"copy\">Copy</GoabIconButton>\n  <GoabIconButton icon=\"trash\">Delete</GoabIconButton>\n</GoabButtonGroup>"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Multiple related actions that belong together",
+      "Modal confirmation dialogs (save/cancel, delete/cancel)",
+      "Form submissions with multiple options (submit, draft, reset)",
+      "Card or panel actions",
+      "Toolbar-style action groupings"
+    ],
+    "whenNotToUse": [
+      "Single button actions (no grouping needed)",
+      "Navigation buttons (use navigation components)",
+      "Actions that are unrelated to each other",
+      "More than 4 buttons (consider dropdown or progressive disclosure)"
+    ],
+    "bestPractices": [
+      "Limit to 2-3 buttons per group for optimal usability",
+      "Place most important action on the right for modal patterns",
+      "Use consistent button types within related contexts",
+      "Consider mobile layouts when choosing gap sizes",
+      "Group semantically related actions only"
+    ],
+    "accessibility": [
+      "Buttons maintain logical tab order (left to right)",
+      "Each button should have clear, descriptive labels",
+      "Use appropriate button types (primary for main action)",
+      "Ensure sufficient touch targets on mobile devices",
+      "Test with keyboard navigation"
+    ]
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "issue": "Buttons not aligning correctly",
+        "cause": "Parent container width constraints",
+        "solution": "Ensure parent container has sufficient width or use smaller gap values"
+      },
+      {
+        "issue": "Spacing inconsistent with other UI elements",
+        "cause": "Custom gap values not matching design system",
+        "solution": "Use standard gap values (xs, s, m, l) that align with design token spacing"
+      },
+      {
+        "issue": "Button group not responsive on mobile",
+        "cause": "Fixed width or inflexible parent containers",
+        "solution": "Use flexible layouts and consider stacking buttons on smaller screens"
+      },
+      {
+        "issue": "Too many buttons causing overflow",
+        "cause": "More than 3-4 buttons in horizontal layout",
+        "solution": "Consider dropdown menu, progressive disclosure, or vertical stacking"
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabButton",
+      "relationship": "Child component",
+      "usage": "Primary content for button groups - supports all button types and variants",
+      "example": "Modal actions, form submissions"
+    },
+    {
+      "name": "GoabIconButton",
+      "relationship": "Alternative child component",
+      "usage": "Use for compact action groups with universally understood icons",
+      "example": "Toolbar actions, table row actions"
+    },
+    {
+      "name": "GoabModal",
+      "relationship": "Common container",
+      "usage": "Button groups are standard for modal footer actions",
+      "example": "Confirmation dialogs, form modals"
+    },
+    {
+      "name": "GoabCard",
+      "relationship": "Container integration",
+      "usage": "Button groups work well in card footers for entity actions",
+      "example": "User cards, content cards"
+    },
+    {
+      "name": "GoabFormItem",
+      "relationship": "Form context",
+      "usage": "Button groups provide form action patterns",
+      "example": "Submit/cancel groups, multi-step navigation"
+    }
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Using ButtonGroup for navigation actions",
+      "why": "Navigation should use Link components or navigation elements, not buttons",
+      "instead": "Use navigation components for page transitions",
+      "example": "// ❌ Wrong\n<GoabButtonGroup>\n  <GoabButton onClick={() => navigate('/page1')}>Page 1</GoabButton>\n  <GoabButton onClick={() => navigate('/page2')}>Page 2</GoabButton>\n</GoabButtonGroup>\n\n// ✅ Correct\n<nav>\n  <GoabLink href=\"/page1\">Page 1</GoabLink>\n  <GoabLink href=\"/page2\">Page 2</GoabLink>\n</nav>"
+    },
+    {
+      "mistake": "Too many buttons in a single group",
+      "why": "More than 3-4 buttons overwhelms users and creates poor mobile experience",
+      "instead": "Use dropdown menus or progressive disclosure for many actions",
+      "example": "// ❌ Wrong\n<GoabButtonGroup>\n  <GoabButton>Save</GoabButton>\n  <GoabButton>Save Draft</GoabButton>\n  <GoabButton>Save Template</GoabButton>\n  <GoabButton>Export</GoabButton>\n  <GoabButton>Print</GoabButton>\n  <GoabButton>Email</GoabButton>\n</GoabButtonGroup>\n\n// ✅ Correct\n<GoabButtonGroup>\n  <GoabButton type=\"primary\">Save</GoabButton>\n  <GoabButton type=\"secondary\">Save Draft</GoabButton>\n  <GoabDropdown label=\"More Actions\">\n    <GoabDropdownItem>Export</GoabDropdownItem>\n    <GoabDropdownItem>Print</GoabDropdownItem>\n    <GoabDropdownItem>Email</GoabDropdownItem>\n  </GoabDropdown>\n</GoabButtonGroup>"
+    },
+    {
+      "mistake": "Mixing different button sizes within the same group",
+      "why": "Creates visual inconsistency and poor alignment",
+      "instead": "Use consistent button sizes within each group",
+      "example": "// ❌ Wrong\n<GoabButtonGroup>\n  <GoabButton size=\"small\">Cancel</GoabButton>\n  <GoabButton size=\"large\">Submit</GoabButton>\n</GoabButtonGroup>\n\n// ✅ Correct\n<GoabButtonGroup>\n  <GoabButton type=\"secondary\">Cancel</GoabButton>\n  <GoabButton type=\"primary\">Submit</GoabButton>\n</GoabButtonGroup>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": "React uses camelCase (alignment, testId) while web components use lowercase (alignment, testid)",
+    "slotHandling": "React uses children prop for button content, Angular uses content projection, web components use default slot",
+    "constraints": "ButtonGroup requires at least one child button component to be meaningful",
+    "responsiveBehavior": "ButtonGroup adapts to container width but does not automatically stack on mobile - consider responsive design in parent containers"
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Navigate between buttons in the group",
+      "Enter/Space - Activate focused button",
+      "Shift+Tab - Navigate backwards through buttons"
+    ],
+    "screenReader": [
+      "Buttons are announced individually with their labels",
+      "Group relationship is understood through DOM structure",
+      "Button states (disabled, pressed) are announced"
+    ],
+    "focusManagement": [
+      "Logical tab order from left to right",
+      "Focus indicators visible on each button",
+      "Focus moves appropriately after button activation"
+    ]
+  },
+
+  "performanceConsiderations": [
+    "ButtonGroup is a lightweight container with minimal overhead",
+    "Performance depends on the number and complexity of child buttons",
+    "CSS gap property provides efficient spacing without additional elements",
+    "Event handling delegated to child buttons for optimal performance"
+  ],
+
+  "tags": ["layout", "container", "button", "action", "group", "spacing"],
+  "category": "component", 
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/button-group.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

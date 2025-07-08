@@ -1,0 +1,494 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Modal",
+  "customElement": {
+    "tagName": "goa-modal",
+    "className": "GoabModal"
+  },
+  "summary": "Modal dialog component for focused interactions, confirmations, and content overlays with automatic focus management",
+  
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["IconButton component", "Design token system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabModal } from '@abgov/react-components'",
+      "quickExample": "<GoabModal open={isOpen} heading=\"Confirm\" onClose={() => setIsOpen(false)}>\n  Modal content\n</GoabModal>",
+      "dependencies": "Requires @abgov/react-components and @abgov/web-components packages"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-modal [open]=\"isOpen\" heading=\"Confirm\" (onClose)=\"isOpen = false\">\n  Modal content\n</goab-modal>",
+      "module": "Add AngularComponentsModule to your module imports",
+      "dependencies": "Requires @abgov/angular-components and @abgov/web-components packages"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-modal open=\"true\" heading=\"Confirm\">\n  Modal content\n</goa-modal>",
+      "dependencies": "Requires @abgov/web-components package"
+    }
+  },
+  
+  "api": {
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "description": "Controls whether the modal is visible",
+        "usage": "Use state management to control modal visibility"
+      },
+      {
+        "name": "heading",
+        "type": "string",
+        "required": false,
+        "description": "Title text displayed in the modal header",
+        "usage": "Provide clear, descriptive heading for modal purpose"
+      },
+      {
+        "name": "width",
+        "type": "string (CSS length)",
+        "required": false,
+        "description": "Custom width for the modal content",
+        "usage": "Use when default responsive width doesn't fit your content needs (e.g., '600px', '50vw')"
+      },
+      {
+        "name": "maxWidth",
+        "type": "string (CSS length)",
+        "default": "90vw",
+        "required": false,
+        "description": "Maximum width constraint for the modal",
+        "usage": "Prevents modal from exceeding viewport bounds on large screens"
+      },
+      {
+        "name": "closable",
+        "type": "boolean",
+        "default": true,
+        "required": false,
+        "description": "Enables close button and backdrop click to close modal",
+        "usage": "Set to false for critical confirmations that require explicit action"
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "default": "dialog",
+        "required": false,
+        "description": "ARIA role for accessibility (dialog or alertdialog)",
+        "usage": "Use 'alertdialog' for important confirmations that require immediate attention"
+      },
+      {
+        "name": "calloutVariant",
+        "type": "string",
+        "required": false,
+        "description": "Visual emphasis variant for critical modals",
+        "allowedValues": ["emergency"],
+        "usage": "Use 'emergency' for destructive actions to provide visual warning"
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "description": "Action buttons rendered in modal footer",
+        "usage": "Preferred method for modal actions instead of using slot syntax"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Data attribute for testing and automation",
+        "usage": "Set unique identifier for testing different modal types"
+      }
+    ],
+    "events": [
+      {
+        "name": "onClose",
+        "framework": "React",
+        "description": "Fired when modal is closed via close button or backdrop click",
+        "signature": "() => void"
+      },
+      {
+        "name": "onClose",
+        "framework": "Angular",
+        "description": "Fired when modal is closed via close button or backdrop click",
+        "signature": "$event: CustomEvent"
+      },
+      {
+        "name": "_close",
+        "framework": "Web Component",
+        "description": "Custom event fired when modal is closed",
+        "signature": "detail: { trigger: 'close-button' | 'backdrop' | 'escape' }"
+      }
+    ],
+    "slots": [
+      {
+        "name": "default",
+        "description": "Main content area of the modal",
+        "usage": "Place your primary modal content here (forms, text, media, etc.)"
+      },
+      {
+        "name": "actions",
+        "description": "Footer area for action buttons (when not using actions prop)",
+        "usage": "Alternative to actions prop - contains ButtonGroup with confirm/cancel actions"
+      }
+    ]
+  },
+
+  "playgroundExamples": {
+    "note": "Interactive examples from the GoA Design System playground demonstrating various modal configurations and usage patterns",
+    "examples": [
+      {
+        "title": "Destructive Confirmation Modal",
+        "description": "Critical confirmation modal for destructive actions with emergency callout styling",
+        "category": "confirmation",
+        "code": "const [destructiveModalOpen, setDestructiveModalOpen] = useState(false);\n\n<GoabButton\n  type=\"tertiary\"\n  leadingIcon=\"trash\"\n  onClick={() => setDestructiveModalOpen(true)}\n>\n  Delete my application\n</GoabButton>\n\n<GoabModal\n  heading=\"Are you sure you want to delete this application?\"\n  open={destructiveModalOpen}\n  role=\"alertdialog\"\n  calloutVariant=\"emergency\"\n  actions={\n    <GoabButtonGroup alignment=\"end\">\n      <GoabButton\n        type=\"tertiary\"\n        onClick={() => setDestructiveModalOpen(false)}\n      >\n        Cancel\n      </GoabButton>\n      <GoabButton\n        type=\"primary\"\n        variant=\"destructive\"\n        onClick={() => {\n          setDestructiveModalOpen(false);\n          // Handle delete action\n        }}\n      >\n        Delete application\n      </GoabButton>\n    </GoabButtonGroup>\n  }\n>\n  <p>This action cannot be undone.</p>\n</GoabModal>",
+        "usageNotes": [
+          "Uses calloutVariant='emergency' for visual emphasis on destructive actions",
+          "Role set to 'alertdialog' for screen reader accessibility",
+          "Clear, specific action button labels avoid generic terms like 'OK'",
+          "Confirmation message emphasizes irreversibility"
+        ]
+      },
+      {
+        "title": "Basic Modal with Close Button",
+        "description": "Simple informational modal that can be dismissed via close button or backdrop",
+        "category": "informational",
+        "code": "const [basicModalOpen, setBasicModalOpen] = useState(false);\n\n<GoabButton \n  type=\"tertiary\" \n  onClick={() => setBasicModalOpen(true)}\n>\n  Open basic modal with close\n</GoabButton>\n\n<GoabModal\n  heading=\"This is a modal with a close button\"\n  open={basicModalOpen}\n  role=\"alertdialog\"\n  onClose={() => setBasicModalOpen(false)}\n>\n  <p>\n    This is meant to be dismissed, the user can click outside of the\n    modal or click the close button in the top right corner.\n  </p>\n</GoabModal>",
+        "usageNotes": [
+          "Uses onClose prop to enable close button and backdrop dismissal",
+          "Suitable for informational content that doesn't require specific action",
+          "User has multiple ways to dismiss the modal for better UX"
+        ]
+      },
+      {
+        "title": "Action-Based Modal",
+        "description": "Modal requiring explicit user choice through action buttons",
+        "category": "decision",
+        "code": "const [basicModal2Open, setBasicModal2Open] = useState(false);\n\n<GoabButton \n  type=\"tertiary\" \n  onClick={() => setBasicModal2Open(true)}\n>\n  Open basic modal with actions\n</GoabButton>\n\n<GoabModal\n  heading=\"This is a modal with actions\"\n  open={basicModal2Open}\n  role=\"alertdialog\"\n  actions={\n    <GoabButtonGroup alignment=\"end\">\n      <GoabButton\n        type=\"tertiary\"\n        onClick={() => setBasicModal2Open(false)}\n      >\n        Cancel\n      </GoabButton>\n      <GoabButton\n        type=\"primary\"\n        onClick={() => {\n          setBasicModal2Open(false);\n          // Handle continue action\n        }}\n      >\n        Continue\n      </GoabButton>\n    </GoabButtonGroup>\n  }\n>\n  <p>\n    This is meant to make the user choose an option in order to\n    continue.\n  </p>\n</GoabModal>",
+        "usageNotes": [
+          "No onClose prop means modal can only be dismissed through actions",
+          "Forces user to make an explicit choice",
+          "Actions prop provides cleaner syntax than slot-based approach"
+        ]
+      },
+      {
+        "title": "Large Content Modal with Custom Width",
+        "description": "Modal with extensive content that scrolls and custom width sizing",
+        "category": "content",
+        "code": "const [contentModalOpen, setContentModalOpen] = useState(false);\n\n<GoabButton \n  type=\"tertiary\" \n  onClick={() => setContentModalOpen(true)}\n>\n  Open modal with lots of content and actions\n</GoabButton>\n\n<GoabModal\n  open={contentModalOpen}\n  heading=\"This is a modal with lots of content\"\n  maxWidth=\"1200px\"\n  role=\"alertdialog\"\n  actions={\n    <GoabButtonGroup alignment=\"end\">\n      <GoabButton\n        type=\"tertiary\"\n        onClick={() => setContentModalOpen(false)}\n      >\n        Cancel\n      </GoabButton>\n      <GoabButton\n        type=\"primary\"\n        onClick={() => {\n          setContentModalOpen(false);\n          // Handle continue action\n        }}\n      >\n        Continue\n      </GoabButton>\n    </GoabButtonGroup>\n  }\n>\n  <p>\n    This is a lot of content that makes the modal scroll...\n    {/* Extensive content that demonstrates scrolling behavior */}\n  </p>\n  <GoabFormItem label=\"Basic\">\n    <GoabInput\n      name=\"item\"\n      value={value}\n      width=\"20ch\"\n      onChange={(detail) => {\n        // Handle input change\n      }}\n    />\n  </GoabFormItem>\n</GoabModal>",
+        "usageNotes": [
+          "Uses maxWidth='1200px' for wider content display",
+          "Content automatically scrolls when it exceeds modal height",
+          "Can contain interactive elements like forms",
+          "Modal maintains responsive behavior on smaller screens"
+        ]
+      },
+      {
+        "title": "Combined Close and Actions Modal",
+        "description": "Modal with both close button and action buttons (not recommended pattern)",
+        "category": "anti-pattern",
+        "code": "const [basicModal3Open, setBasicModal3Open] = useState(false);\n\n<GoabButton \n  type=\"tertiary\" \n  onClick={() => setBasicModal3Open(true)}\n>\n  Open basic modal with actions and close button\n</GoabButton>\n\n<GoabModal\n  heading=\"This is a modal with actions and a close button\"\n  open={basicModal3Open}\n  role=\"alertdialog\"\n  onClose={() => setBasicModal3Open(false)}\n  actions={\n    <GoabButtonGroup alignment=\"end\">\n      <GoabButton\n        type=\"tertiary\"\n        onClick={() => setBasicModal3Open(false)}\n      >\n        Cancel\n      </GoabButton>\n      <GoabButton\n        type=\"primary\"\n        onClick={() => {\n          setBasicModal3Open(false);\n        }}\n      >\n        Continue\n      </GoabButton>\n    </GoabButtonGroup>\n  }\n>\n  <p>\n    The user can dismiss the modal by clicking outside of the modal,\n    clicking the close button, or choose an option to continue.\n  </p>\n</GoabModal>",
+        "usageNotes": [
+          "⚠️ Not recommended: Provides too many dismissal options",
+          "Can confuse users about the intended interaction pattern",
+          "Choose either close button OR actions, not both",
+          "Creates inconsistent user experience across the application"
+        ]
+      },
+      {
+        "title": "Modal Without Header",
+        "description": "Modal with empty heading (not recommended pattern)",
+        "category": "anti-pattern",
+        "code": "const [noHeaderModalOpen, setNoHeaderModalOpen] = useState(false);\n\n<GoabButton \n  type=\"tertiary\" \n  onClick={() => setNoHeaderModalOpen(true)}\n>\n  Open modal with no header\n</GoabButton>\n\n<GoabModal\n  heading=\"\"\n  open={noHeaderModalOpen}\n  role=\"alertdialog\"\n  actions={\n    <GoabButtonGroup alignment=\"end\">\n      <GoabButton\n        type=\"tertiary\"\n        onClick={() => setNoHeaderModalOpen(false)}\n      >\n        Cancel\n      </GoabButton>\n      <GoabButton\n        type=\"primary\"\n        onClick={() => {\n          setNoHeaderModalOpen(false);\n        }}\n      >\n        Continue\n      </GoabButton>\n    </GoabButtonGroup>\n  }\n>\n  <p>\n    This is a modal with no header. Choose an option to continue. Lorem\n    ipsum dolor sit amet, consectetur adipiscing elit...\n  </p>\n</GoabModal>",
+        "usageNotes": [
+          "⚠️ Not recommended: Missing heading reduces accessibility",
+          "Screen readers lose important context without proper heading",
+          "Always provide descriptive headings for better UX",
+          "Headings help users understand modal purpose immediately"
+        ]
+      }
+    ],
+    "bestPractices": [
+      {
+        "practice": "Always provide meaningful headings",
+        "rationale": "Headings give users immediate context about the modal's purpose and improve accessibility"
+      },
+      {
+        "practice": "Choose either close button OR actions, not both",
+        "rationale": "Consistent interaction patterns reduce user confusion and create clearer intent"
+      },
+      {
+        "practice": "Use calloutVariant='emergency' for destructive actions",
+        "rationale": "Visual emphasis helps users understand the severity of their action"
+      },
+      {
+        "practice": "Set role='alertdialog' for important confirmations",
+        "rationale": "Proper ARIA roles ensure screen readers announce the modal appropriately"
+      },
+      {
+        "practice": "Use specific action button labels",
+        "rationale": "Clear labels like 'Delete application' are better than generic 'OK' or 'Submit'"
+      }
+    ]
+  },
+
+  "commonMistakes": [
+    {
+      "mistake": "Using modals for simple confirmations that could use inline alerts",
+      "why": "Modals interrupt user flow and should be reserved for important interactions",
+      "instead": "Use modals for complex forms or critical confirmations, inline alerts for simple messages",
+      "example": "// ❌ Wrong\n<GoabModal open={showSaved} heading=\"Saved\">\n  <p>Your changes have been saved.</p>\n</GoabModal>\n\n// ✅ Correct\n<GoabNotificationBanner type=\"information\">\n  Your changes have been saved.\n</GoabNotificationBanner>"
+    },
+    {
+      "mistake": "Not implementing proper onClose event handling",
+      "why": "Modal becomes unclosable, trapping users in the interface",
+      "instead": "Always provide onClose handler and manage open state properly",
+      "example": "// ❌ Wrong\n<GoabModal open={true} heading=\"Confirm\">\n  Content\n</GoabModal>\n\n// ✅ Correct\n<GoabModal \n  open={isOpen} \n  heading=\"Confirm\" \n  onClose={() => setIsOpen(false)}\n>\n  Content\n</GoabModal>"
+    },
+    {
+      "mistake": "Setting closable=false for non-critical modals",
+      "why": "Users expect to be able to close modals and feel trapped when they cannot",
+      "instead": "Only use closable=false for truly critical confirmations that require explicit user choice",
+      "example": "// ❌ Wrong\n<GoabModal open={showInfo} closable={false}>\n  <p>Here's some information...</p>\n</GoabModal>\n\n// ✅ Correct\n<GoabModal open={showDeleteConfirm} closable={false}>\n  <p>Delete all data? This cannot be undone.</p>\n</GoabModal>"
+    },
+    {
+      "mistake": "Not using slots properly for modal actions",
+      "why": "Actions appear in main content area instead of proper footer location",
+      "instead": "Always use slot='actions' for buttons to ensure proper layout and spacing",
+      "example": "// ❌ Wrong\n<GoabModal open={isOpen} heading=\"Confirm\">\n  <p>Are you sure?</p>\n  <GoabButton onClick={confirm}>Yes</GoabButton>\n</GoabModal>\n\n// ✅ Correct\n<GoabModal open={isOpen} heading=\"Confirm\">\n  <p>Are you sure?</p>\n  <div slot=\"actions\">\n    <GoabButtonGroup alignment=\"end\">\n      <GoabButton type=\"tertiary\" onClick={cancel}>Cancel</GoabButton>\n      <GoabButton type=\"primary\" onClick={confirm}>Confirm</GoabButton>\n    </GoabButtonGroup>\n  </div>\n</GoabModal>"
+    },
+    {
+      "mistake": "Using fixed pixel widths that don't work on mobile",
+      "why": "Modal becomes unusable on small screens with horizontal scrolling",
+      "instead": "Use responsive widths or let modal auto-size, test on mobile devices",
+      "example": "// ❌ Wrong\n<GoabModal width=\"800px\" open={isOpen}>\n  Content\n</GoabModal>\n\n// ✅ Correct\n<GoabModal width=\"90vw\" maxWidth=\"600px\" open={isOpen}>\n  Content\n</GoabModal>"
+    },
+    {
+      "mistake": "Combining close button with action buttons",
+      "why": "Creates confusing user experience with multiple dismissal methods",
+      "instead": "Choose either close button for dismissible modals OR actions for decision-required modals",
+      "example": "// ❌ Wrong - Too many dismissal options\n<GoabModal \n  open={isOpen} \n  heading=\"Confirm\" \n  onClose={() => setIsOpen(false)}\n  actions={<ButtonGroup>...</ButtonGroup>}\n>\n  Content\n</GoabModal>\n\n// ✅ Correct - Clear interaction pattern\n<GoabModal \n  open={isOpen} \n  heading=\"Confirm\" \n  actions={<ButtonGroup>...</ButtonGroup>}\n>\n  Content\n</GoabModal>"
+    },
+    {
+      "mistake": "Omitting modal headings",
+      "why": "Reduces accessibility and user context about modal purpose",
+      "instead": "Always provide clear, descriptive headings for every modal",
+      "example": "// ❌ Wrong\n<GoabModal heading=\"\" open={isOpen}>\n  Choose an option to continue.\n</GoabModal>\n\n// ✅ Correct\n<GoabModal heading=\"Confirm Your Choice\" open={isOpen}>\n  Choose an option to continue.\n</GoabModal>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": "React uses camelCase (maxWidth, onClose) while web components use lowercase (maxwidth). Angular follows web component casing in templates.",
+    "slotHandling": "Actions slot expects div with slot='actions' in web components, children with slot prop in React, ng-content with slot in Angular.",
+    "constraints": "Modal requires focus management - ensure modal content has focusable elements. Only one modal should be open at a time.",
+    "responsiveBehavior": "Modal automatically adapts to viewport with maxWidth and maxHeight constraints. Content scrolls when needed.",
+    "actionsVsSlots": "React supports both actions prop (preferred) and slot-based action handling for backward compatibility."
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Confirmation Dialog",
+          "description": "Simple confirmation modal with action buttons",
+          "code": "function ConfirmationDialog({ isOpen, onClose, onConfirm, title, message }) {\n  return (\n    <GoabModal \n      open={isOpen} \n      heading={title}\n      onClose={onClose}\n      testId=\"confirmation-dialog\"\n    >\n      <p>{message}</p>\n      <div slot=\"actions\">\n        <GoabButtonGroup alignment=\"end\">\n          <GoabButton type=\"tertiary\" onClick={onClose}>\n            Cancel\n          </GoabButton>\n          <GoabButton \n            type=\"primary\" \n            variant=\"destructive\" \n            onClick={() => {\n              onConfirm();\n              onClose();\n            }}\n          >\n            Delete\n          </GoabButton>\n        </GoabButtonGroup>\n      </div>\n    </GoabModal>\n  );\n}\n\n// Usage\nfunction MyComponent() {\n  const [showConfirm, setShowConfirm] = useState(false);\n  \n  const handleDelete = async () => {\n    try {\n      await deleteItem(itemId);\n      // Handle success\n    } catch (error) {\n      // Handle error\n    }\n  };\n  \n  return (\n    <>\n      <GoabButton \n        type=\"primary\" \n        variant=\"destructive\" \n        onClick={() => setShowConfirm(true)}\n      >\n        Delete Item\n      </GoabButton>\n      \n      <ConfirmationDialog\n        isOpen={showConfirm}\n        onClose={() => setShowConfirm(false)}\n        onConfirm={handleDelete}\n        title=\"Delete Item\"\n        message=\"Are you sure you want to delete this item? This action cannot be undone.\"\n      />\n    </>\n  );\n}"
+        },
+        {
+          "title": "Form Modal",
+          "description": "Modal containing a form for data entry",
+          "code": "function EditProfileModal({ isOpen, onClose, user, onSave }) {\n  const [formData, setFormData] = useState({\n    name: user?.name || '',\n    email: user?.email || '',\n    phone: user?.phone || ''\n  });\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  \n  const handleSubmit = async (e) => {\n    e.preventDefault();\n    setIsSubmitting(true);\n    \n    try {\n      await onSave(formData);\n      onClose();\n    } catch (error) {\n      console.error('Failed to save profile:', error);\n    } finally {\n      setIsSubmitting(false);\n    }\n  };\n  \n  const handleInputChange = (field, value) => {\n    setFormData(prev => ({ ...prev, [field]: value }));\n  };\n  \n  return (\n    <GoabModal \n      open={isOpen} \n      heading=\"Edit Profile\"\n      width=\"500px\"\n      onClose={onClose}\n      testId=\"edit-profile-modal\"\n    >\n      <form onSubmit={handleSubmit}>\n        <GoabFormItem label=\"Full Name\" requirement=\"required\">\n          <GoabInput \n            name=\"name\"\n            value={formData.name}\n            onChange={(name, value) => handleInputChange('name', value)}\n            required\n          />\n        </GoabFormItem>\n        \n        <GoabFormItem label=\"Email Address\" requirement=\"required\">\n          <GoabInput \n            name=\"email\"\n            type=\"email\"\n            value={formData.email}\n            onChange={(name, value) => handleInputChange('email', value)}\n            required\n          />\n        </GoabFormItem>\n        \n        <GoabFormItem label=\"Phone Number\">\n          <GoabInput \n            name=\"phone\"\n            type=\"tel\"\n            value={formData.phone}\n            onChange={(name, value) => handleInputChange('phone', value)}\n          />\n        </GoabFormItem>\n      </form>\n      \n      <div slot=\"actions\">\n        <GoabButtonGroup alignment=\"end\">\n          <GoabButton \n            type=\"tertiary\" \n            onClick={onClose}\n            disabled={isSubmitting}\n          >\n            Cancel\n          </GoabButton>\n          <GoabButton \n            type=\"primary\" \n            onClick={handleSubmit}\n            disabled={isSubmitting}\n          >\n            {isSubmitting ? 'Saving...' : 'Save Changes'}\n          </GoabButton>\n        </GoabButtonGroup>\n      </div>\n    </GoabModal>\n  );\n}"
+        },
+        {
+          "title": "Information Modal",
+          "description": "Modal for displaying detailed information",
+          "code": "function HelpModal({ isOpen, onClose, topic }) {\n  const helpContent = {\n    'account-setup': {\n      title: 'Account Setup Help',\n      content: (\n        <div>\n          <h3>Setting up your account</h3>\n          <ol>\n            <li>Verify your email address</li>\n            <li>Complete your profile information</li>\n            <li>Set up two-factor authentication</li>\n            <li>Review privacy settings</li>\n          </ol>\n          <p>\n            If you need additional assistance, please contact our support team\n            at <a href=\"mailto:support@alberta.ca\">support@alberta.ca</a>.\n          </p>\n        </div>\n      )\n    },\n    'privacy': {\n      title: 'Privacy Information',\n      content: (\n        <div>\n          <h3>How we protect your privacy</h3>\n          <p>\n            Your personal information is protected under the Freedom of Information\n            and Protection of Privacy Act (FOIP). We only collect information\n            necessary to provide government services.\n          </p>\n          <h4>What we collect:</h4>\n          <ul>\n            <li>Name and contact information</li>\n            <li>Service usage data</li>\n            <li>Technical information for security</li>\n          </ul>\n        </div>\n      )\n    }\n  };\n  \n  const content = helpContent[topic] || helpContent['account-setup'];\n  \n  return (\n    <GoabModal \n      open={isOpen} \n      heading={content.title}\n      width=\"600px\"\n      onClose={onClose}\n      testId=\"help-modal\"\n    >\n      {content.content}\n      \n      <div slot=\"actions\">\n        <GoabButtonGroup alignment=\"end\">\n          <GoabButton type=\"primary\" onClick={onClose}>\n            Got it\n          </GoabButton>\n        </GoabButtonGroup>\n      </div>\n    </GoabModal>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Confirmation Dialog",
+          "description": "Simple confirmation modal with action buttons",
+          "code": "@Component({\n  selector: 'app-confirmation-dialog',\n  template: `\n    <goab-modal \n      [open]=\"isOpen\" \n      [heading]=\"title\"\n      (onClose)=\"onClose.emit()\"\n      testId=\"confirmation-dialog\">\n      \n      <p>{{ message }}</p>\n      \n      <div slot=\"actions\">\n        <goab-button-group alignment=\"end\">\n          <goab-button type=\"tertiary\" (onClick)=\"onClose.emit()\">\n            Cancel\n          </goab-button>\n          <goab-button \n            type=\"primary\" \n            variant=\"destructive\" \n            (onClick)=\"handleConfirm()\">\n            Delete\n          </goab-button>\n        </goab-button-group>\n      </div>\n    </goab-modal>\n  `\n})\nexport class ConfirmationDialogComponent {\n  @Input() isOpen = false;\n  @Input() title = '';\n  @Input() message = '';\n  @Output() onClose = new EventEmitter<void>();\n  @Output() onConfirm = new EventEmitter<void>();\n  \n  handleConfirm() {\n    this.onConfirm.emit();\n    this.onClose.emit();\n  }\n}\n\n// Usage in parent component\n@Component({\n  template: `\n    <goab-button \n      type=\"primary\" \n      variant=\"destructive\" \n      (onClick)=\"showConfirm = true\">\n      Delete Item\n    </goab-button>\n    \n    <app-confirmation-dialog\n      [isOpen]=\"showConfirm\"\n      [title]=\"'Delete Item'\"\n      [message]=\"'Are you sure you want to delete this item? This action cannot be undone.'\"\n      (onClose)=\"showConfirm = false\"\n      (onConfirm)=\"handleDelete()\">\n    </app-confirmation-dialog>\n  `\n})\nexport class MyComponent {\n  showConfirm = false;\n  \n  async handleDelete() {\n    try {\n      await this.itemService.deleteItem(this.itemId);\n      // Handle success\n    } catch (error) {\n      // Handle error\n    }\n  }\n}"
+        }
+      ],
+      "webComponent": [
+        {
+          "title": "Basic Modal",
+          "description": "Simple modal with web component implementation",
+          "code": "<button onclick=\"openModal()\">Open Modal</button>\n\n<goa-modal id=\"example-modal\" heading=\"Example Modal\">\n  <p>This is the modal content.</p>\n  \n  <div slot=\"actions\">\n    <goa-button-group alignment=\"end\">\n      <goa-button type=\"tertiary\" onclick=\"closeModal()\">Cancel</goa-button>\n      <goa-button type=\"primary\" onclick=\"handleAction()\">Confirm</goa-button>\n    </goa-button-group>\n  </div>\n</goa-modal>\n\n<script>\n  const modal = document.getElementById('example-modal');\n  \n  function openModal() {\n    modal.setAttribute('open', 'true');\n  }\n  \n  function closeModal() {\n    modal.setAttribute('open', 'false');\n  }\n  \n  function handleAction() {\n    console.log('Action confirmed');\n    closeModal();\n  }\n  \n  // Listen for close events\n  modal.addEventListener('_close', (event) => {\n    console.log('Modal closed via:', event.detail.trigger);\n  });\n</script>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Delete Confirmation",
+        "description": "Standard pattern for confirming destructive actions",
+        "code": "// React - Reusable delete confirmation hook\nfunction useDeleteConfirmation(onDelete) {\n  const [isOpen, setIsOpen] = useState(false);\n  const [isDeleting, setIsDeleting] = useState(false);\n  \n  const confirmDelete = async () => {\n    setIsDeleting(true);\n    try {\n      await onDelete();\n      setIsOpen(false);\n    } catch (error) {\n      console.error('Delete failed:', error);\n    } finally {\n      setIsDeleting(false);\n    }\n  };\n  \n  const DeleteConfirmationModal = ({ title, message }) => (\n    <GoabModal \n      open={isOpen} \n      heading={title}\n      onClose={() => setIsOpen(false)}\n      closable={!isDeleting}\n    >\n      <p>{message}</p>\n      <div slot=\"actions\">\n        <GoabButtonGroup alignment=\"end\">\n          <GoabButton \n            type=\"tertiary\" \n            onClick={() => setIsOpen(false)}\n            disabled={isDeleting}\n          >\n            Cancel\n          </GoabButton>\n          <GoabButton \n            type=\"primary\" \n            variant=\"destructive\" \n            onClick={confirmDelete}\n            disabled={isDeleting}\n          >\n            {isDeleting ? 'Deleting...' : 'Delete'}\n          </GoabButton>\n        </GoabButtonGroup>\n      </div>\n    </GoabModal>\n  );\n  \n  return {\n    showConfirmation: () => setIsOpen(true),\n    DeleteConfirmationModal,\n    isDeleting\n  };\n}"
+      },
+      {
+        "name": "Multi-step Form Modal",
+        "description": "Modal with stepped form progression",
+        "code": "// React - Multi-step modal pattern\nfunction MultiStepModal({ isOpen, onClose, onComplete }) {\n  const [currentStep, setCurrentStep] = useState(1);\n  const [formData, setFormData] = useState({});\n  const totalSteps = 3;\n  \n  const steps = [\n    { title: 'Personal Information', component: PersonalInfoStep },\n    { title: 'Contact Details', component: ContactStep },\n    { title: 'Review & Submit', component: ReviewStep }\n  ];\n  \n  const currentStepData = steps[currentStep - 1];\n  const CurrentStepComponent = currentStepData.component;\n  \n  const handleNext = (stepData) => {\n    setFormData(prev => ({ ...prev, ...stepData }));\n    if (currentStep < totalSteps) {\n      setCurrentStep(prev => prev + 1);\n    } else {\n      onComplete({ ...formData, ...stepData });\n    }\n  };\n  \n  const handleBack = () => {\n    if (currentStep > 1) {\n      setCurrentStep(prev => prev - 1);\n    }\n  };\n  \n  return (\n    <GoabModal \n      open={isOpen} \n      heading={`${currentStepData.title} (${currentStep}/${totalSteps})`}\n      width=\"600px\"\n      onClose={onClose}\n      closable={true}\n    >\n      <div className=\"step-progress\">\n        {steps.map((step, index) => (\n          <div \n            key={index} \n            className={`step ${index + 1 <= currentStep ? 'completed' : ''}`}\n          >\n            {step.title}\n          </div>\n        ))}\n      </div>\n      \n      <CurrentStepComponent \n        data={formData}\n        onNext={handleNext}\n        onBack={handleBack}\n        isFirstStep={currentStep === 1}\n        isLastStep={currentStep === totalSteps}\n      />\n    </GoabModal>\n  );\n}"
+      },
+      {
+        "name": "Error Modal with Recovery",
+        "description": "Modal for handling errors with recovery options",
+        "code": "// React - Error handling modal\nfunction ErrorModal({ error, isOpen, onClose, onRetry }) {\n  const getErrorConfig = (error) => {\n    switch (error?.type) {\n      case 'NETWORK_ERROR':\n        return {\n          title: 'Connection Problem',\n          message: 'Unable to connect to our servers. Please check your internet connection and try again.',\n          showRetry: true,\n          icon: 'wifi-off'\n        };\n      case 'VALIDATION_ERROR':\n        return {\n          title: 'Invalid Information',\n          message: error.message || 'Please check your information and try again.',\n          showRetry: false,\n          icon: 'warning'\n        };\n      case 'SERVER_ERROR':\n        return {\n          title: 'Server Error',\n          message: 'Something went wrong on our end. Please try again in a few moments.',\n          showRetry: true,\n          icon: 'alert-circle'\n        };\n      default:\n        return {\n          title: 'Error',\n          message: 'An unexpected error occurred.',\n          showRetry: false,\n          icon: 'close-circle'\n        };\n    }\n  };\n  \n  const config = getErrorConfig(error);\n  \n  return (\n    <GoabModal \n      open={isOpen} \n      heading={config.title}\n      onClose={onClose}\n      testId=\"error-modal\"\n    >\n      <div className=\"error-content\">\n        <GoabIcon \n          type={config.icon} \n          size=\"4\" \n          fillColor=\"var(--goa-color-status-error)\"\n          mb=\"m\"\n        />\n        <p>{config.message}</p>\n        {error?.details && (\n          <details className=\"error-details\">\n            <summary>Technical Details</summary>\n            <pre>{JSON.stringify(error.details, null, 2)}</pre>\n          </details>\n        )}\n      </div>\n      \n      <div slot=\"actions\">\n        <GoabButtonGroup alignment=\"end\">\n          <GoabButton type=\"tertiary\" onClick={onClose}>\n            Close\n          </GoabButton>\n          {config.showRetry && (\n            <GoabButton type=\"primary\" onClick={onRetry}>\n              Try Again\n            </GoabButton>\n          )}\n        </GoabButtonGroup>\n      </div>\n    </GoabModal>\n  );\n}"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "when": [
+      "Collect user input without losing page context",
+      "Confirm destructive or irreversible actions",
+      "Display detailed information that doesn't warrant a new page",
+      "Handle errors or provide help without disrupting workflow",
+      "Create focused interactions that require user attention"
+    ],
+    "sizing": {
+      "default": "Let modal size responsively based on content",
+      "forms": "Use width='500px' to '600px' for most forms",
+      "information": "Use width='600px' to '800px' for detailed content",
+      "confirmations": "Use default sizing for simple confirmations",
+      "mobile": "Modal automatically adapts to mobile screens"
+    },
+    "content": {
+      "heading": "Always provide clear, descriptive headings",
+      "body": "Keep content focused and scannable",
+      "actions": "Use clear action button labels (not 'OK' or 'Submit')",
+      "scrolling": "Modal content scrolls automatically when needed"
+    },
+    "interactions": {
+      "closing": "Always provide multiple ways to close (X button, backdrop, Cancel)",
+      "critical": "For critical actions, set closable=false to require explicit choice",
+      "loading": "Disable actions and show loading states during async operations",
+      "validation": "Validate form content before allowing submission"
+    }
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Escape - Close modal (when closable=true)",
+      "Tab - Navigate through modal content only (focus trapped)",
+      "Shift+Tab - Navigate backwards through modal content",
+      "Enter - Activate focused button or form submission"
+    ],
+    "screenReader": [
+      "Modal announced as dialog when opened",
+      "Heading provides context for modal purpose",
+      "Content outside modal hidden from screen readers while open",
+      "Focus returns to triggering element when modal closes"
+    ],
+    "focusManagement": [
+      "Focus automatically moves to modal when opened",
+      "Focus trapped within modal while open", 
+      "Focus returns to trigger element when closed",
+      "First focusable element receives initial focus"
+    ]
+  },
+
+  "troubleshooting": {
+    "modalNotOpening": {
+      "problem": "Modal doesn't appear when open prop is set to true",
+      "solutions": [
+        "Verify the open prop is actually being set to true",
+        "Check that modal is not being rendered conditionally elsewhere",
+        "Ensure z-index conflicts aren't hiding the modal",
+        "Verify no CSS is setting display: none on modal elements"
+      ]
+    },
+    "focusIssues": {
+      "problem": "Focus behavior doesn't work as expected",
+      "solutions": [
+        "Ensure modal content contains focusable elements",
+        "Check that no JavaScript is interfering with focus management",
+        "Verify modal is properly mounted in DOM when opened",
+        "Test with keyboard navigation to identify focus trap issues"
+      ]
+    },
+    "closingProblems": {
+      "problem": "Modal doesn't close when expected",
+      "solutions": [
+        "Verify onClose event handler is properly connected",
+        "Check that closable prop isn't set to false",
+        "Ensure backdrop click events aren't being prevented",
+        "Verify Escape key events aren't being blocked by other handlers"
+      ]
+    },
+    "contentOverflow": {
+      "problem": "Modal content overflows or doesn't scroll properly",
+      "solutions": [
+        "Remove fixed heights from modal content",
+        "Ensure long content can scroll within modal bounds",
+        "Check that custom CSS isn't interfering with modal layout",
+        "Use appropriate width settings for your content"
+      ]
+    },
+    "mobileIssues": {
+      "problem": "Modal doesn't work well on mobile devices",
+      "solutions": [
+        "Verify viewport meta tag is set correctly",
+        "Check that modal content fits mobile screen sizes",
+        "Ensure touch events work for backdrop closing",
+        "Test modal with virtual keyboard open"
+      ]
+    },
+    "frameworkIntegration": {
+      "problem": "Modal doesn't integrate properly with React/Angular",
+      "solutions": [
+        "Ensure proper event handler binding (onClick vs onClose)",
+        "Check that state management updates are triggering re-renders",
+        "Verify component lifecycle doesn't interfere with modal state",
+        "Use proper TypeScript types for event handlers"
+      ]
+    }
+  },
+
+  "relatedComponents": [
+    {
+      "name": "Button",
+      "relationship": "Trigger and actions",
+      "usage": "Buttons trigger modal opening and handle modal actions",
+      "example": "Delete button opens confirmation modal, modal contains Confirm/Cancel buttons"
+    },
+    {
+      "name": "ButtonGroup",
+      "relationship": "Action layout",
+      "usage": "ButtonGroup commonly used in modal action slots for consistent button spacing",
+      "example": "Cancel and Confirm buttons in ButtonGroup with end alignment"
+    },
+    {
+      "name": "FormItem",
+      "relationship": "Content organization",
+      "usage": "Forms within modals use FormItem for consistent field layout",
+      "example": "Edit profile modal with FormItem components for each field"
+    },
+    {
+      "name": "NotificationBanner",
+      "relationship": "Alternative for non-critical messages",
+      "usage": "Use NotificationBanner for page-level messages, Modal for focused interactions",
+      "example": "Success notifications vs confirmation dialogs"
+    }
+  ],
+
+  "performanceConsiderations": [
+    "Modal only renders in DOM when open=true",
+    "Backdrop and focus management add minimal performance overhead",
+    "Large modal content should use lazy loading when possible",
+    "Multiple modals should be avoided - use modal stacking patterns instead",
+    "Animation performance is optimized with CSS transforms"
+  ],
+
+  "tags": ["modal", "dialog", "overlay", "confirmation", "form", "focus", "interaction", "accessibility"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-07-02",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/modal.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

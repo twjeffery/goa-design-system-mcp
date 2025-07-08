@@ -1,0 +1,431 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Badge",
+  "customElement": {
+    "tagName": "goa-badge",
+    "className": "GoabBadge"
+  },
+  "summary": "Small status labels that provide contextual feedback and system states",
+  "purpose": "Display small amounts of information, system feedback, or states with clear visual hierarchy",
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system", "Icon system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabBadge } from '@abgov/react-components'",
+      "quickExample": "<GoabBadge type=\"success\" content=\"Complete\" />"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goa-badge type=\"success\" content=\"Complete\"></goa-badge>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-badge type=\"success\" content=\"Complete\"></goa-badge>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "type",
+        "type": "string",
+        "required": true,
+        "allowedValues": ["success", "important", "information", "emergency", "dark", "midtone", "light"],
+        "description": "Define the context and visual style of the badge",
+        "examples": {
+          "success": "Completed tasks, approved status",
+          "important": "Pending actions, warnings",
+          "information": "General information, neutral status",
+          "emergency": "Critical errors, urgent attention needed"
+        }
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "required": false,
+        "description": "Text label displayed in the badge",
+        "note": "Either content or icon (or both) must be provided"
+      },
+      {
+        "name": "icon",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Include a type-specific icon in the badge",
+        "note": "When true, displays contextual icon based on badge type"
+      },
+      {
+        "name": "ariaLabel",
+        "type": "string",
+        "required": false,
+        "description": "Accessible label for screen readers",
+        "note": "Required when using icon-only badges for accessibility"
+      },
+      {
+        "name": "testId",
+        "type": "string", 
+        "required": false,
+        "description": "Data attribute for testing automation"
+      },
+      {
+        "name": "mt",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the top of the component"
+      },
+      {
+        "name": "mr",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the right of the component"
+      },
+      {
+        "name": "mb",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the bottom of the component"
+      },
+      {
+        "name": "ml",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the left of the component"
+      }
+    ]
+  },
+
+  "usageExamples": {
+    "react": [
+      {
+        "title": "Status Indicators in Table",
+        "description": "Display status information in data tables with consistent labeling",
+        "code": "import React from 'react';\nimport { GoabBadge, GoabTable } from '@abgov/react-components';\n\nconst statusData = [\n  { id: 1, task: \"Process application\", status: \"success\", label: \"Complete\" },\n  { id: 2, task: \"Review documents\", status: \"important\", label: \"Pending\" },\n  { id: 3, task: \"Send notification\", status: \"emergency\", label: \"Failed\" },\n  { id: 4, task: \"Generate report\", status: \"information\", label: \"In progress\" }\n];\n\nfunction TaskTable() {\n  return (\n    <GoabTable width=\"100%\">\n      <thead>\n        <tr>\n          <th>Task</th>\n          <th>Status</th>\n        </tr>\n      </thead>\n      <tbody>\n        {statusData.map((item) => (\n          <tr key={item.id}>\n            <td>{item.task}</td>\n            <td>\n              <GoabBadge \n                type={item.status as \"success\" | \"important\" | \"emergency\" | \"information\"} \n                content={item.label}\n                testId={`status-${item.id}`}\n              />\n            </td>\n          </tr>\n        ))}\n      </tbody>\n    </GoabTable>\n  );\n}"
+      },
+      {
+        "title": "Multiple Badge Categories with Spacing",
+        "description": "Show multiple related badges with proper spacing using Block component",
+        "code": "import React from 'react';\nimport { GoabBadge, GoabBlock } from '@abgov/react-components';\n\nfunction ProjectCategories() {\n  return (\n    <GoabBlock gap=\"xs\" direction=\"row\">\n      <GoabBadge type=\"information\" content=\"Active\" />\n      <GoabBadge type=\"important\" content=\"High Priority\" />\n      <GoabBadge type=\"success\" content=\"On Track\" />\n      <GoabBadge type=\"midtone\" content=\"Q2 2025\" />\n    </GoabBlock>\n  );\n}"
+      },
+      {
+        "title": "Icon-Only Badges with Accessibility",
+        "description": "Use icon-only badges with proper accessibility labels",
+        "code": "import React from 'react';\nimport { GoabBadge, GoabBlock } from '@abgov/react-components';\n\nfunction StatusIcons() {\n  return (\n    <GoabBlock gap=\"s\" direction=\"row\">\n      <GoabBadge \n        type=\"success\" \n        icon={true}\n        ariaLabel=\"Task completed successfully\"\n        testId=\"success-icon\"\n      />\n      <GoabBadge \n        type=\"emergency\" \n        icon={true}\n        ariaLabel=\"Critical error requiring attention\"\n        testId=\"error-icon\"\n      />\n      <GoabBadge \n        type=\"important\" \n        icon={true}\n        ariaLabel=\"Warning - action required\"\n        testId=\"warning-icon\"\n      />\n    </GoabBlock>\n  );\n}"
+      }
+    ],
+    "angular": [
+      {
+        "title": "Status Indicators with Property Binding",
+        "description": "Use badges with dynamic status values from component state",
+        "typescript": "export class StatusListComponent {\n  statusItems = [\n    { name: 'Application Review', status: 'success', label: 'Approved' },\n    { name: 'Document Upload', status: 'important', label: 'Required' },\n    { name: 'Payment Processing', status: 'information', label: 'Pending' },\n    { name: 'Final Approval', status: 'emergency', label: 'Rejected' }\n  ];\n\n  getBadgeType(status: string): 'success' | 'important' | 'information' | 'emergency' {\n    return status as 'success' | 'important' | 'information' | 'emergency';\n  }\n}",
+        "template": "<div *ngFor=\"let item of statusItems; trackBy: trackByName\" class=\"status-item\">\n  <span class=\"item-name\">{{ item.name }}</span>\n  <goa-badge \n    [type]=\"getBadgeType(item.status)\"\n    [content]=\"item.label\"\n    [testId]=\"'status-' + item.name.toLowerCase().replace(/\\s+/g, '-')\"\n    ml=\"s\">\n  </goa-badge>\n</div>"
+      },
+      {
+        "title": "Card Headers with Badge Labels",
+        "description": "Add status badges to card headers for quick identification",
+        "typescript": "export class ProjectCardComponent {\n  @Input() project: {\n    title: string;\n    status: 'active' | 'completed' | 'on-hold' | 'cancelled';\n    priority: 'high' | 'medium' | 'low';\n  };\n\n  getStatusBadgeType(status: string) {\n    const mapping = {\n      'active': 'information',\n      'completed': 'success', \n      'on-hold': 'important',\n      'cancelled': 'emergency'\n    };\n    return mapping[status] || 'information';\n  }\n\n  getPriorityBadgeType(priority: string) {\n    const mapping = {\n      'high': 'emergency',\n      'medium': 'important',\n      'low': 'midtone'\n    };\n    return mapping[priority] || 'midtone';\n  }\n}",
+        "template": "<goa-container type=\"non-interactive\" accent=\"thin\">\n  <div class=\"card-header\">\n    <h3>{{ project.title }}</h3>\n    <goa-block gap=\"xs\" direction=\"row\">\n      <goa-badge \n        [type]=\"getStatusBadgeType(project.status)\"\n        [content]=\"project.status | titlecase\">\n      </goa-badge>\n      <goa-badge \n        [type]=\"getPriorityBadgeType(project.priority)\"\n        [content]=\"project.priority + ' priority'\">\n      </goa-badge>\n    </goa-block>\n  </div>\n  <ng-content></ng-content>\n</goa-container>"
+      }
+    ],
+    "webComponent": [
+      {
+        "title": "Simple Status Display", 
+        "description": "Basic badge usage for status indication",
+        "code": "<div class=\"status-section\">\n  <span>Application Status:</span>\n  <goa-badge type=\"success\" content=\"Approved\" testid=\"app-status\"></goa-badge>\n</div>\n\n<div class=\"priority-section\">\n  <span>Priority Level:</span>\n  <goa-badge type=\"important\" content=\"High\" testid=\"priority-level\"></goa-badge>\n</div>"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Display status information in tables, lists, or cards",
+      "Provide quick visual feedback about system states",
+      "Label categories, priorities, or types of content",
+      "Show progress states in workflows or processes"
+    ],
+    "whenNotToUse": [
+      "For interactive elements (use buttons instead)",
+      "For navigation (use links or navigation components)",
+      "For lengthy text content (use appropriate text components)",
+      "As the primary way to convey critical information (supplement with text)"
+    ],
+    "bestPractices": [
+      "Use consistent badge types across similar contexts",
+      "Provide adequate context - badges should supplement, not replace clear labeling",
+      "Use icon-only badges sparingly and always with proper aria-label",
+      "Group related badges with appropriate spacing using Block component",
+      "Choose badge types that match the semantic meaning of the content"
+    ],
+    "accessibility": [
+      "Always provide ariaLabel when using icon-only badges",
+      "Ensure badge text has sufficient color contrast (all types meet WCAG AA)",
+      "Don't rely solely on color to convey meaning - use text content",
+      "Badge content should be concise and descriptive"
+    ]
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "problem": "Badge text is too long and wraps to multiple lines",
+        "solution": "Keep badge content to 1-2 words max. For longer text, consider using other components like Callout or inline text.",
+        "example": "Instead of \"This application requires additional review\" use \"Review Required\""
+      },
+      {
+        "problem": "Icons not appearing in badges",
+        "solution": "Ensure icon prop is set to true (boolean, not string). Check framework-specific prop handling.",
+        "example": "React: icon={true}, not icon=\"true\""
+      },
+      {
+        "problem": "Badge colors don't match design specifications",
+        "solution": "Verify you're using the correct badge type. Each type has predefined colors that can't be customized.",
+        "example": "Use type=\"emergency\" for red badges, type=\"success\" for green badges"
+      },
+      {
+        "problem": "Spacing issues when using multiple badges",
+        "solution": "Use GoaBlock/goa-block component with appropriate gap setting to control spacing between badges.",
+        "example": "<GoabBlock gap=\"xs\"> for tight spacing, gap=\"s\" for standard spacing"
+      },
+      {
+        "problem": "Accessibility warnings about missing labels",
+        "solution": "When using icon-only badges, always provide an ariaLabel that describes the badge's meaning.",
+        "example": "ariaLabel=\"Task completed successfully\" for success icon badge"
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "Block",
+      "usage": "Spacing and layout for multiple badges",
+      "example": "Use Block component with gap prop to control spacing between badge groups"
+    },
+    {
+      "name": "Table", 
+      "usage": "Status columns in data tables",
+      "example": "Badge components work well in table cells for status indication"
+    },
+    {
+      "name": "Card",
+      "usage": "Status and category labels in card headers",
+      "example": "Add badges to card headers for quick visual identification"
+    },
+    {
+      "name": "Button",
+      "usage": "Interactive vs non-interactive distinction",
+      "example": "Use badges for status display, buttons for actions"
+    }
+  ],
+
+  "integrationPatterns": [
+    {
+      "name": "Status Table Pattern",
+      "description": "Use badges in table cells to show status information",
+      "components": ["Badge", "Table"],
+      "example": "Status column in application lists or task management"
+    },
+    {
+      "name": "Card Labeling Pattern", 
+      "description": "Add status and category badges to card components",
+      "components": ["Badge", "Card", "Block"],
+      "example": "Project cards with status, priority, and category badges"
+    },
+    {
+      "name": "Multi-Badge Display Pattern",
+      "description": "Group related badges with proper spacing",
+      "components": ["Badge", "Block"],
+      "example": "Multiple status indicators or category tags"
+    }
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Using badges for interactive elements",
+      "why": "Badges are display-only components and don't handle click events",
+      "instead": "Use buttons for interactive elements that trigger actions",
+      "example": "// ❌ Wrong\n<GoabBadge onClick={handleClick}>Click me</GoabBadge>\n// ✅ Correct\n<GoabButton type=\"tertiary\" size=\"compact\">Action</GoabButton>"
+    },
+    {
+      "mistake": "Not providing ariaLabel for icon-only badges",
+      "why": "Screen readers cannot understand what an icon-only badge represents",
+      "instead": "Always provide descriptive ariaLabel when using icon={true} without content",
+      "example": "// ❌ Wrong\n<GoabBadge type=\"success\" icon={true} />\n// ✅ Correct\n<GoabBadge type=\"success\" icon={true} ariaLabel=\"Task completed successfully\" />"
+    },
+    {
+      "mistake": "Using badges for lengthy text content",
+      "why": "Badges are designed for concise labels and will break layout with long text",
+      "instead": "Keep badge content to 1-2 words maximum, use other components for longer text",
+      "example": "// ❌ Wrong\n<GoabBadge content=\"This application requires additional review\" />\n// ✅ Correct\n<GoabBadge content=\"Review Required\" />"
+    },
+    {
+      "mistake": "Inconsistent badge type usage across similar contexts",
+      "why": "Users learn to associate colors with meanings, inconsistency confuses them",
+      "instead": "Establish and maintain consistent type-to-meaning mappings",
+      "example": "// ❌ Wrong - mixing types for same status\n<GoabBadge type=\"success\" content=\"Complete\" />\n<GoabBadge type=\"information\" content=\"Complete\" />\n// ✅ Correct - consistent mapping\n<GoabBadge type=\"success\" content=\"Complete\" />\n<GoabBadge type=\"success\" content=\"Finished\" />"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": "React uses camelCase (ariaLabel, testId) while web components use lowercase (arialabel, testid)",
+    "slotHandling": "Badge uses content prop in React/Angular, slot content in web components",
+    "constraints": "Icon prop accepts boolean in React/Angular but string 'true'/'false' in web components",
+    "responsiveBehavior": "Badges maintain fixed height (22px) and scale text appropriately across screen sizes"
+  },
+
+  "playgroundExamples": [
+    {
+      "title": "Badge Types Overview",
+      "description": "Explore all badge types with and without icons to understand visual hierarchy and semantic meaning",
+      "interactiveProps": [
+        {
+          "name": "type",
+          "control": "select",
+          "options": ["information", "important", "emergency", "success", "dark", "midtone", "light"],
+          "default": "information"
+        },
+        {
+          "name": "content",
+          "control": "text",
+          "default": "Badge Label"
+        },
+        {
+          "name": "icon",
+          "control": "boolean",
+          "default": false
+        }
+      ],
+      "code": "import React from 'react';\nimport { GoabBadge, GoabBlock } from '@abgov/react-components';\n\nfunction BadgeTypesDemo() {\n  const badgeTypes = ['information', 'important', 'emergency', 'success'];\n  const neutralTypes = ['dark', 'midtone', 'light'];\n  \n  return (\n    <>\n      {/* Semantic Badge Types */}\n      <GoabBlock gap=\"s\" direction=\"row\" mb=\"m\">\n        {badgeTypes.map(type => (\n          <GoabBadge\n            key={`${type}-with-text`}\n            type={type}\n            content={type.charAt(0).toUpperCase() + type.slice(1)}\n            icon={true}\n          />\n        ))}\n      </GoabBlock>\n      \n      <GoabBlock gap=\"s\" direction=\"row\" mb=\"m\">\n        {badgeTypes.map(type => (\n          <GoabBadge\n            key={`${type}-text-only`}\n            type={type}\n            content={type.charAt(0).toUpperCase() + type.slice(1)}\n            icon={false}\n          />\n        ))}\n      </GoabBlock>\n      \n      {/* Neutral Badge Types */}\n      <GoabBlock gap=\"s\" direction=\"row\">\n        {neutralTypes.map(type => (\n          <GoabBadge\n            key={type}\n            type={type}\n            content={type.charAt(0).toUpperCase() + type.slice(1)}\n            icon={true}\n          />\n        ))}\n      </GoabBlock>\n    </>\n  );\n}",
+      "notes": "This example demonstrates the complete range of badge types. Semantic types (information, important, emergency, success) provide contextual meaning while neutral types (dark, midtone, light) offer visual variety without semantic implications."
+    },
+    {
+      "title": "Icon-Only Badges",
+      "description": "Icon-only badges for compact status indicators with proper accessibility",
+      "interactiveProps": [
+        {
+          "name": "type",
+          "control": "select", 
+          "options": ["information", "important", "emergency", "success"],
+          "default": "success"
+        },
+        {
+          "name": "ariaLabel",
+          "control": "text",
+          "default": "Task completed successfully"
+        }
+      ],
+      "code": "import React from 'react';\nimport { GoabBadge, GoabBlock } from '@abgov/react-components';\n\nfunction IconOnlyBadges() {\n  const statusIcons = [\n    { type: 'information', label: 'General information available' },\n    { type: 'important', label: 'Warning - action required' },\n    { type: 'emergency', label: 'Critical error requiring attention' },\n    { type: 'success', label: 'Task completed successfully' }\n  ];\n  \n  return (\n    <GoabBlock gap=\"s\" direction=\"row\">\n      {statusIcons.map((status, index) => (\n        <GoabBadge\n          key={index}\n          type={status.type}\n          content=\"\"\n          icon={true}\n          ariaLabel={status.label}\n          testId={`${status.type}-icon`}\n        />\n      ))}\n    </GoabBlock>\n  );\n}",
+      "notes": "Icon-only badges are perfect for compact layouts. Always include descriptive ariaLabel attributes for accessibility. The empty content prop combined with icon={true} creates icon-only badges."
+    },
+    {
+      "title": "Table Status Indicators", 
+      "description": "Badge integration in data tables for status display with realistic data",
+      "interactiveProps": [
+        {
+          "name": "showIcons",
+          "control": "boolean",
+          "default": true
+        },
+        {
+          "name": "statusFilter",
+          "control": "select",
+          "options": ["all", "success", "important", "emergency", "information"],
+          "default": "all"
+        }
+      ],
+      "code": "import React, { useState } from 'react';\nimport { GoabBadge, GoabTable, GoabBlock } from '@abgov/react-components';\n\nfunction TableStatusDemo({ showIcons = true, statusFilter = 'all' }) {\n  const applications = [\n    { id: 'APP-001', applicant: 'Sarah Johnson', status: 'success', label: 'Approved' },\n    { id: 'APP-002', applicant: 'Mike Chen', status: 'important', label: 'Pending Review' },\n    { id: 'APP-003', applicant: 'Emily Davis', status: 'emergency', label: 'Rejected' },\n    { id: 'APP-004', applicant: 'David Wilson', status: 'information', label: 'In Progress' },\n    { id: 'APP-005', applicant: 'Lisa Brown', status: 'success', label: 'Complete' }\n  ];\n  \n  const filteredApps = statusFilter === 'all' \n    ? applications \n    : applications.filter(app => app.status === statusFilter);\n  \n  return (\n    <GoabTable width=\"100%\">\n      <thead>\n        <tr>\n          <th>Application ID</th>\n          <th>Applicant</th>\n          <th>Status</th>\n        </tr>\n      </thead>\n      <tbody>\n        {filteredApps.map((app) => (\n          <tr key={app.id}>\n            <td>{app.id}</td>\n            <td>{app.applicant}</td>\n            <td>\n              <GoabBadge\n                type={app.status}\n                content={app.label}\n                icon={showIcons}\n                testId={`status-${app.id}`}\n              />\n            </td>\n          </tr>\n        ))}\n      </tbody>\n    </GoabTable>\n  );\n}",
+      "notes": "This pattern is ideal for administrative interfaces and dashboards. The badge provides immediate visual feedback about record status. Use consistent type-to-meaning mappings across your application."
+    },
+    {
+      "title": "Project Card Labels",
+      "description": "Multiple related badges on cards showing status, priority, and categories",
+      "interactiveProps": [
+        {
+          "name": "spacing",
+          "control": "select",
+          "options": ["3xs", "2xs", "xs", "s", "m"],
+          "default": "xs"
+        },
+        {
+          "name": "showCategories",
+          "control": "boolean", 
+          "default": true
+        }
+      ],
+      "code": "import React from 'react';\nimport { GoabBadge, GoabBlock, GoabContainer } from '@abgov/react-components';\n\nfunction ProjectCards({ spacing = 'xs', showCategories = true }) {\n  const projects = [\n    {\n      title: 'Website Redesign',\n      status: { type: 'information', label: 'Active' },\n      priority: { type: 'emergency', label: 'High Priority' },\n      category: { type: 'midtone', label: 'Design' }\n    },\n    {\n      title: 'API Integration',\n      status: { type: 'success', label: 'Complete' },\n      priority: { type: 'important', label: 'Medium Priority' },\n      category: { type: 'dark', label: 'Development' }\n    },\n    {\n      title: 'User Testing',\n      status: { type: 'important', label: 'On Hold' },\n      priority: { type: 'midtone', label: 'Low Priority' },\n      category: { type: 'light', label: 'Research' }\n    }\n  ];\n  \n  return (\n    <GoabBlock gap=\"m\" direction=\"column\">\n      {projects.map((project, index) => (\n        <GoabContainer key={index} type=\"non-interactive\" accent=\"thin\">\n          <GoabBlock gap=\"s\" direction=\"column\">\n            <h3 style={{ margin: 0 }}>{project.title}</h3>\n            <GoabBlock gap={spacing} direction=\"row\">\n              <GoabBadge\n                type={project.status.type}\n                content={project.status.label}\n                icon={true}\n              />\n              <GoabBadge\n                type={project.priority.type}\n                content={project.priority.label}\n              />\n              {showCategories && (\n                <GoabBadge\n                  type={project.category.type}\n                  content={project.category.label}\n                />\n              )}\n            </GoabBlock>\n          </GoabBlock>\n        </GoabContainer>\n      ))}\n    </GoabBlock>\n  );\n}",
+      "notes": "Multi-badge layouts work well for card components and list items. Use Block component to control spacing between badges. Consider information hierarchy - status first, then priority, then categories."
+    },
+    {
+      "title": "Badge States and Variations",
+      "description": "Comprehensive display of all valid badge configurations - always with icon, text, or both",
+      "interactiveProps": [
+        {
+          "name": "layout",
+          "control": "select",
+          "options": ["grid", "rows", "compact"],
+          "default": "rows"
+        },
+        {
+          "name": "showInvalid",
+          "control": "boolean",
+          "default": false
+        }
+      ],
+      "code": "import React from 'react';\nimport { GoabBadge, GoabBlock } from '@abgov/react-components';\n\nfunction BadgeVariations({ layout = 'rows', showInvalid = false }) {\n  const types = ['information', 'important', 'emergency', 'success', 'dark', 'midtone', 'light'];\n  \n  const renderBadgeSet = (type) => (\n    <GoabBlock key={type} gap=\"xs\" direction=\"row\" mb=\"s\">\n      {/* Text + Icon */}\n      <GoabBadge\n        type={type}\n        content={type.charAt(0).toUpperCase() + type.slice(1)}\n        icon={true}\n      />\n      {/* Text Only */}\n      <GoabBadge\n        type={type}\n        content={type.charAt(0).toUpperCase() + type.slice(1)}\n        icon={false}\n      />\n      {/* Icon Only */}\n      <GoabBadge\n        type={type}\n        content=\"\"\n        icon={true}\n        ariaLabel={`${type} status indicator`}\n      />\n    </GoabBlock>\n  );\n  \n  const renderInvalidExample = () => (\n    <GoabBlock gap=\"s\" direction=\"column\" mt=\"m\">\n      <div style={{ color: '#d73e3e', fontWeight: 'bold', fontSize: '14px' }}>\n        ❌ Invalid Configuration (Never do this):\n      </div>\n      <div style={{ padding: '8px', border: '2px dashed #d73e3e', borderRadius: '4px' }}>\n        <GoabBadge\n          type=\"information\"\n          content=\"\"\n          icon={false}\n        />\n        <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>\n          Empty badge with no content and no icon - renders nothing useful\n        </div>\n      </div>\n    </GoabBlock>\n  );\n  \n  if (layout === 'compact') {\n    return (\n      <GoabBlock gap=\"2xs\" direction=\"row\">\n        {types.slice(0, 4).map(type => (\n          <GoabBadge key={type} type={type} content={type.slice(0, 4)} icon={true} />\n        ))}\n      </GoabBlock>\n    );\n  }\n  \n  return (\n    <GoabBlock gap=\"s\" direction=\"column\">\n      {types.map(renderBadgeSet)}\n      {showInvalid && renderInvalidExample()}\n    </GoabBlock>\n  );\n}",
+      "notes": "This example shows all valid badge configurations. Badges must always have either content (text), an icon, or both. Empty badges with neither content nor icon provide no value and should never be used."
+    },
+    {
+      "title": "Interactive Badge Configuration",
+      "description": "Real-time badge customization to understand prop interactions and validation rules",
+      "interactiveProps": [
+        {
+          "name": "type",
+          "control": "select",
+          "options": ["information", "important", "emergency", "success", "dark", "midtone", "light"],
+          "default": "information"
+        },
+        {
+          "name": "content",
+          "control": "text",
+          "default": "Custom Label",
+          "placeholder": "Enter badge text"
+        },
+        {
+          "name": "icon",
+          "control": "boolean",
+          "default": false
+        },
+        {
+          "name": "ariaLabel",
+          "control": "text",
+          "default": "",
+          "placeholder": "Accessibility label (required for icon-only)"
+        },
+        {
+          "name": "testId",
+          "control": "text",
+          "default": "custom-badge",
+          "placeholder": "Test identifier"
+        }
+      ],
+      "code": "import React from 'react';\nimport { GoabBadge, GoabBlock } from '@abgov/react-components';\n\nfunction CustomBadge({\n  type = 'information',\n  content = 'Custom Label',\n  icon = false,\n  ariaLabel = '',\n  testId = 'custom-badge'\n}) {\n  // Validation logic\n  const isIconOnly = !content && icon;\n  const isEmpty = !content && !icon;\n  const needsAriaLabel = isIconOnly && !ariaLabel;\n  \n  return (\n    <GoabBlock gap=\"m\" direction=\"column\">\n      {/* Only render badge if it's valid (has content or icon) */}\n      {!isEmpty && (\n        <GoabBadge\n          type={type}\n          content={content}\n          icon={icon}\n          ariaLabel={ariaLabel}\n          testId={testId}\n        />\n      )}\n      \n      {/* Configuration Summary */}\n      <div style={{ fontSize: '14px', color: '#666', marginTop: '12px' }}>\n        <strong>Configuration:</strong>\n        <ul style={{ margin: '4px 0', paddingLeft: '20px' }}>\n          <li>Type: {type}</li>\n          <li>Content: {content || '(empty)'}</li>\n          <li>Icon: {icon ? 'Yes' : 'No'}</li>\n          {ariaLabel && <li>Aria Label: {ariaLabel}</li>}\n          {testId && <li>Test ID: {testId}</li>}\n        </ul>\n        \n        {/* Validation Messages */}\n        {isEmpty && (\n          <div style={{ color: '#d73e3e', fontWeight: 'bold' }}>\n            ❌ Invalid: Badge must have either content (text) or icon (or both)\n          </div>\n        )}\n        {needsAriaLabel && (\n          <div style={{ color: '#d73e3e', fontWeight: 'bold' }}>\n            ⚠️ Icon-only badges require an ariaLabel for accessibility\n          </div>\n        )}\n        {!isEmpty && !needsAriaLabel && (\n          <div style={{ color: '#1f7a1f', fontWeight: 'bold' }}>\n            ✅ Valid badge configuration\n          </div>\n        )}\n      </div>\n    </GoabBlock>\n  );\n}",
+      "notes": "This interactive example demonstrates proper badge validation. Badges must always have either content (text), an icon, or both. Empty badges are invalid and will not render. Pay attention to the validation messages that guide proper usage."
+    }
+  ],
+
+  "tags": ["status", "label", "indicator", "feedback", "information", "visual"],
+  "category": "component", 
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/badge.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

@@ -1,0 +1,438 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Date Picker",
+  "customElement": {
+    "tagName": "goa-date-picker",
+    "className": "GoabDatePicker"
+  },
+  "summary": "Interactive date selection component with calendar interface for accurate date input",
+  "purpose": "Allow users to select dates through a visual calendar interface, reducing format confusion and improving data accuracy",
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system", "Form components", "Popover system"]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabDatePicker } from '@abgov/react-components'",
+      "quickExample": "<GoabDatePicker name=\"startDate\" onChange={(e) => setDate(e.value)} />"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goa-date-picker name=\"startDate\" (onChange)=\"handleDateChange($event)\"></goa-date-picker>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-date-picker name=\"startDate\" on:_change=\"{handleDateChange}\"></goa-date-picker>"
+    }
+  },
+
+  "playgroundExamples": {
+    "basic": {
+      "title": "Basic Date Selection",
+      "description": "Simple date picker with default value and change handling",
+      "interactiveProps": [
+        {
+          "name": "value",
+          "type": "Date",
+          "default": "new Date(2024, 11, 4)",
+          "description": "Currently selected date"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false,
+          "description": "Disable the date picker"
+        },
+        {
+          "name": "error",
+          "type": "boolean", 
+          "default": false,
+          "description": "Show error state styling"
+        }
+      ],
+      "code": "function BasicDatePickerExample() {\n  const [selectedDate, setSelectedDate] = useState(new Date(2024, 11, 4));\n  const [disabled, setDisabled] = useState(false);\n  const [error, setError] = useState(false);\n\n  const handleDateChange = (event) => {\n    setSelectedDate(event.value);\n    console.log('Date selected:', event.value?.toLocaleDateString());\n  };\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"l\">\n      <GoabFormItem label=\"Select a date\">\n        <GoabDatePicker\n          name=\"basicDate\"\n          value={selectedDate}\n          disabled={disabled}\n          error={error}\n          onChange={handleDateChange}\n          testId=\"basic-date-picker\"\n        />\n      </GoabFormItem>\n      \n      <GoabBlock direction=\"row\" gap=\"m\">\n        <GoabCheckbox \n          name=\"disabled\"\n          text=\"Disabled\"\n          checked={disabled}\n          onChange={(e) => setDisabled(e.checked)}\n        />\n        <GoabCheckbox \n          name=\"error\"\n          text=\"Error State\"\n          checked={error}\n          onChange={(e) => setError(e.checked)}\n        />\n      </GoabBlock>\n    </GoabBlock>\n  );\n}",
+      "usageNotes": [
+        "Always wrap date picker in GoabFormItem for proper labeling",
+        "Handle both Date objects and null values in onChange",
+        "Use testId for automation testing"
+      ]
+    },
+    
+    "dateRange": {
+      "title": "Date Range Selection",
+      "description": "Two connected date pickers for start and end date selection with validation",
+      "interactiveProps": [
+        {
+          "name": "startDate",
+          "type": "Date",
+          "default": "new Date(2024, 11, 4)",
+          "description": "Start date value"
+        },
+        {
+          "name": "endDate", 
+          "type": "Date",
+          "default": "new Date(2024, 11, 4)",
+          "description": "End date value (constrained by start date)"
+        }
+      ],
+      "code": "function DateRangeExample() {\n  const [startDate, setStartDate] = useState(new Date(2024, 11, 4));\n  const [endDate, setEndDate] = useState(new Date(2024, 11, 4));\n  const [endDateError, setEndDateError] = useState('');\n\n  const handleStartDateChange = (event) => {\n    const newStartDate = event.value;\n    setStartDate(newStartDate);\n    \n    // Clear end date if it's now before the new start date\n    if (newStartDate && endDate && endDate <= newStartDate) {\n      setEndDate(undefined);\n    }\n    setEndDateError('');\n  };\n\n  const handleEndDateChange = (event) => {\n    const newEndDate = event.value;\n    setEndDate(newEndDate);\n    \n    // Validate end date is after start date\n    if (startDate && newEndDate && newEndDate <= startDate) {\n      setEndDateError('End date must be after start date');\n    } else {\n      setEndDateError('');\n    }\n  };\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"l\">\n      <GoabBlock direction=\"row\" gap=\"m\">\n        <GoabFormItem label=\"Start date\">\n          <GoabDatePicker\n            name=\"startDate\"\n            value={startDate}\n            onChange={handleStartDateChange}\n            mr=\"m\"\n            testId=\"start-date\"\n          />\n        </GoabFormItem>\n\n        <GoabFormItem \n          label=\"End date\"\n          error={endDateError}\n        >\n          <GoabDatePicker\n            name=\"endDate\"\n            value={endDate}\n            min={startDate}\n            error={!!endDateError}\n            disabled={!startDate}\n            onChange={handleEndDateChange}\n            mr=\"m\"\n            testId=\"end-date\"\n          />\n        </GoabFormItem>\n      </GoabBlock>\n      \n      {startDate && endDate && !endDateError && (\n        <GoabCallout type=\"information\">\n          <strong>Selected Range:</strong> {startDate.toLocaleDateString()} to {endDate.toLocaleDateString()}\n        </GoabCallout>\n      )}\n    </GoabBlock>\n  );\n}",
+      "usageNotes": [
+        "Start date constrains the minimum value for end date",
+        "End date picker is disabled until start date is selected",
+        "Real-time validation prevents invalid date ranges",
+        "Use GoabBlock for proper spacing between date pickers"
+      ]
+    },
+
+    "constraintsAndValidation": {
+      "title": "Date Constraints and Validation",
+      "description": "Date picker with min/max constraints and custom validation logic",
+      "interactiveProps": [
+        {
+          "name": "min",
+          "type": "Date",
+          "default": "new Date()",
+          "description": "Minimum selectable date (today)"
+        },
+        {
+          "name": "max",
+          "type": "Date", 
+          "default": "new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)",
+          "description": "Maximum selectable date (90 days from now)"
+        },
+        {
+          "name": "excludeWeekends",
+          "type": "boolean",
+          "default": false,
+          "description": "Custom validation to exclude weekends"
+        }
+      ],
+      "code": "function ConstrainedDatePickerExample() {\n  const [selectedDate, setSelectedDate] = useState();\n  const [excludeWeekends, setExcludeWeekends] = useState(false);\n  const [validationError, setValidationError] = useState('');\n  \n  const today = new Date();\n  const maxDate = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000); // 90 days from now\n\n  const validateDate = (date) => {\n    if (!date) return '';\n    \n    if (excludeWeekends) {\n      const dayOfWeek = date.getDay();\n      if (dayOfWeek === 0 || dayOfWeek === 6) {\n        return 'Weekends are not available for appointments';\n      }\n    }\n    \n    return '';\n  };\n\n  const handleDateChange = (event) => {\n    const newDate = event.value;\n    setSelectedDate(newDate);\n    \n    const error = validateDate(newDate);\n    setValidationError(error);\n  };\n\n  const handleWeekendToggle = (event) => {\n    const exclude = event.checked;\n    setExcludeWeekends(exclude);\n    \n    // Re-validate current date with new rules\n    if (selectedDate) {\n      const error = validateDate(selectedDate);\n      setValidationError(error);\n    }\n  };\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"l\">\n      <GoabFormItem \n        label=\"Appointment Date\"\n        helpText=\"Select a date within the next 90 days\"\n        error={validationError}\n      >\n        <GoabDatePicker\n          name=\"appointmentDate\"\n          value={selectedDate}\n          min={today}\n          max={maxDate}\n          error={!!validationError}\n          onChange={handleDateChange}\n          testId=\"appointment-date\"\n        />\n      </GoabFormItem>\n      \n      <GoabCheckbox\n        name=\"excludeWeekends\"\n        text=\"Exclude weekends (business days only)\"\n        checked={excludeWeekends}\n        onChange={handleWeekendToggle}\n      />\n      \n      {selectedDate && !validationError && (\n        <GoabCallout type=\"success\">\n          Appointment scheduled for {selectedDate.toLocaleDateString()}\n        </GoabCallout>\n      )}\n    </GoabBlock>\n  );\n}",
+      "usageNotes": [
+        "Use min/max props to constrain selectable date range",
+        "Implement custom validation in onChange handler",
+        "Provide helpful error messages for validation failures",
+        "Use helpText to communicate date constraints to users"
+      ]
+    },
+
+    "formIntegration": {
+      "title": "Form Integration with State Management",
+      "description": "Date picker integrated in a complete form with validation and submission",
+      "interactiveProps": [
+        {
+          "name": "formData",
+          "type": "object",
+          "default": "{ eventName: '', eventDate: null, eventType: '' }",
+          "description": "Complete form state management"
+        }
+      ],
+      "code": "function FormIntegrationExample() {\n  const [formData, setFormData] = useState({\n    eventName: '',\n    eventDate: null,\n    eventType: ''\n  });\n  const [errors, setErrors] = useState({});\n  const [isSubmitted, setIsSubmitted] = useState(false);\n\n  const validateForm = () => {\n    const newErrors = {};\n    \n    if (!formData.eventName.trim()) {\n      newErrors.eventName = 'Event name is required';\n    }\n    \n    if (!formData.eventDate) {\n      newErrors.eventDate = 'Event date is required';\n    } else if (formData.eventDate < new Date()) {\n      newErrors.eventDate = 'Event date must be in the future';\n    }\n    \n    if (!formData.eventType) {\n      newErrors.eventType = 'Event type is required';\n    }\n    \n    setErrors(newErrors);\n    return Object.keys(newErrors).length === 0;\n  };\n\n  const handleDateChange = (event) => {\n    setFormData(prev => ({\n      ...prev,\n      eventDate: event.value\n    }));\n    \n    // Clear date error when user selects a valid date\n    if (event.value && errors.eventDate) {\n      setErrors(prev => ({\n        ...prev,\n        eventDate: ''\n      }));\n    }\n  };\n\n  const handleInputChange = (field, value) => {\n    setFormData(prev => ({\n      ...prev,\n      [field]: value\n    }));\n    \n    // Clear field error when user starts typing\n    if (errors[field]) {\n      setErrors(prev => ({\n        ...prev,\n        [field]: ''\n      }));\n    }\n  };\n\n  const handleSubmit = () => {\n    if (validateForm()) {\n      console.log('Form submitted:', formData);\n      setIsSubmitted(true);\n      // Reset form after successful submission\n      setTimeout(() => {\n        setFormData({ eventName: '', eventDate: null, eventType: '' });\n        setIsSubmitted(false);\n      }, 3000);\n    }\n  };\n\n  const handleReset = () => {\n    setFormData({ eventName: '', eventDate: null, eventType: '' });\n    setErrors({});\n    setIsSubmitted(false);\n  };\n\n  if (isSubmitted) {\n    return (\n      <GoabCallout type=\"success\">\n        <strong>Event Created Successfully!</strong><br/>\n        {formData.eventName} scheduled for {formData.eventDate?.toLocaleDateString()}\n      </GoabCallout>\n    );\n  }\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"l\">\n      <GoabFormItem \n        label=\"Event Name\"\n        error={errors.eventName}\n      >\n        <GoabInput\n          name=\"eventName\"\n          value={formData.eventName}\n          placeholder=\"Enter event name\"\n          error={!!errors.eventName}\n          onChange={(e) => handleInputChange('eventName', e.value)}\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem \n        label=\"Event Date\"\n        error={errors.eventDate}\n        helpText=\"Select a future date for your event\"\n      >\n        <GoabDatePicker\n          name=\"eventDate\"\n          value={formData.eventDate}\n          min={new Date()}\n          max={new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)}\n          error={!!errors.eventDate}\n          onChange={handleDateChange}\n          testId=\"event-date\"\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem \n        label=\"Event Type\"\n        error={errors.eventType}\n      >\n        <GoabDropdown\n          name=\"eventType\"\n          value={formData.eventType}\n          placeholder=\"Select event type\"\n          error={!!errors.eventType}\n          onChange={(e) => handleInputChange('eventType', e.value)}\n        >\n          <GoabDropdownItem value=\"meeting\">Meeting</GoabDropdownItem>\n          <GoabDropdownItem value=\"workshop\">Workshop</GoabDropdownItem>\n          <GoabDropdownItem value=\"conference\">Conference</GoabDropdownItem>\n        </GoabDropdown>\n      </GoabFormItem>\n      \n      <GoabBlock direction=\"row\" gap=\"m\" alignment=\"start\" mt=\"l\">\n        <GoabButton \n          type=\"primary\"\n          onClick={handleSubmit}\n        >\n          Create Event\n        </GoabButton>\n        <GoabButton \n          type=\"secondary\"\n          onClick={handleReset}\n        >\n          Reset Form\n        </GoabButton>\n      </GoabBlock>\n    </GoabBlock>\n  );\n}",
+      "usageNotes": [
+        "Integrate date picker with complete form state management",
+        "Implement real-time validation with clear error messages",
+        "Clear field errors when user corrects input",
+        "Use controlled components for predictable form behavior",
+        "Provide feedback after successful form submission"
+      ]
+    },
+
+    "marginSpacing": {
+      "title": "Margin and Spacing Examples",
+      "description": "Demonstrate margin props for layout control",
+      "interactiveProps": [
+        {
+          "name": "mt",
+          "type": "string",
+          "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+          "default": "none",
+          "description": "Margin top"
+        },
+        {
+          "name": "mr", 
+          "type": "string",
+          "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+          "default": "m",
+          "description": "Margin right"
+        },
+        {
+          "name": "mb",
+          "type": "string", 
+          "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+          "default": "none",
+          "description": "Margin bottom"
+        },
+        {
+          "name": "ml",
+          "type": "string",
+          "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"], 
+          "default": "none",
+          "description": "Margin left"
+        }
+      ],
+      "code": "function MarginSpacingExample() {\n  const [margins, setMargins] = useState({\n    mt: 'none',\n    mr: 'm', \n    mb: 'none',\n    ml: 'none'\n  });\n\n  const marginOptions = ['none', '3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl', '4xl'];\n\n  const handleMarginChange = (property, value) => {\n    setMargins(prev => ({\n      ...prev,\n      [property]: value\n    }));\n  };\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"l\">\n      <GoabBlock direction=\"row\" gap=\"m\" wrap>\n        {Object.entries(margins).map(([property, value]) => (\n          <GoabFormItem key={property} label={`${property.toUpperCase()} (${value})`}>\n            <GoabDropdown\n              name={property}\n              value={value}\n              onChange={(e) => handleMarginChange(property, e.value)}\n            >\n              {marginOptions.map(option => (\n                <GoabDropdownItem key={option} value={option}>\n                  {option}\n                </GoabDropdownItem>\n              ))}\n            </GoabDropdown>\n          </GoabFormItem>\n        ))}\n      </GoabBlock>\n      \n      <div style={{ padding: '1rem', border: '2px dashed #ccc', background: '#f9f9f9' }}>\n        <p>Container showing margin effects:</p>\n        <GoabFormItem label=\"Date with custom margins\">\n          <GoabDatePicker\n            name=\"marginDemo\"\n            value={new Date(2024, 11, 4)}\n            mt={margins.mt}\n            mr={margins.mr}\n            mb={margins.mb}\n            ml={margins.ml}\n            onChange={() => {}}\n          />\n        </GoabFormItem>\n        <p>Content after date picker to show margin effects.</p>\n      </div>\n    </GoabBlock>\n  );\n}",
+      "usageNotes": [
+        "Use margin props to control spacing around date picker",
+        "Margin values follow design system spacing scale",
+        "Use 'none' to remove default margins",
+        "Test margin effects in your specific layout context"
+      ]
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "description": "Name attribute for form field identification",
+        "example": "birthDate, startDate, endDate"
+      },
+      {
+        "name": "value",
+        "type": "Date | undefined",
+        "required": false,
+        "description": "Selected date value",
+        "note": "Pass Date objects for controlled components"
+      },
+      {
+        "name": "min",
+        "type": "Date | string",
+        "required": false,
+        "default": "5 years ago",
+        "description": "Earliest selectable date",
+        "example": "new Date('2020-01-01') or '2020-01-01'"
+      },
+      {
+        "name": "max",
+        "type": "Date | string",
+        "required": false,
+        "default": "5 years from now",
+        "description": "Latest selectable date",
+        "example": "new Date('2030-12-31') or '2030-12-31'"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Disable the date picker input and calendar"
+      },
+      {
+        "name": "error",
+        "type": "boolean",
+        "required": false,
+        "default": false,
+        "description": "Show error state with red styling"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "required": false,
+        "description": "Data attribute for testing automation"
+      },
+      {
+        "name": "mt",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the top of the component"
+      },
+      {
+        "name": "mr",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the right of the component"
+      },
+      {
+        "name": "mb",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the bottom of the component"
+      },
+      {
+        "name": "ml",
+        "type": "string",
+        "required": false,
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "description": "Apply margin to the left of the component"
+      }
+    ],
+    "events": [
+      {
+        "name": "onChange",
+        "description": "Triggered when date selection changes",
+        "detail": {
+          "name": "Field name",
+          "type": "Always 'date'",
+          "value": "Selected Date object or null"
+        },
+        "note": "Always handle both Date objects and null values"
+      }
+    ]
+  },
+
+  "usageExamples": {
+    "react": [
+      {
+        "title": "Basic Date Selection with State Management",
+        "description": "Simple date picker with controlled state and validation",
+        "code": "import React, { useState } from 'react';\nimport { GoabDatePicker, GoabFormItem, GoabButton, GoabBlock } from '@abgov/react-components';\n\ninterface DatePickerEvent {\n  name: string;\n  type: string;\n  value: Date | null;\n}\n\nfunction EventRegistrationForm() {\n  const [eventDate, setEventDate] = useState<Date | undefined>();\n  const [hasError, setHasError] = useState(false);\n\n  const handleDateChange = (event: DatePickerEvent) => {\n    const selectedDate = event.value;\n    setEventDate(selectedDate || undefined);\n    \n    // Validate date is in the future\n    if (selectedDate && selectedDate < new Date()) {\n      setHasError(true);\n    } else {\n      setHasError(false);\n    }\n  };\n\n  const handleSubmit = () => {\n    if (!eventDate) {\n      setHasError(true);\n      return;\n    }\n    console.log('Event scheduled for:', eventDate.toLocaleDateString());\n  };\n\n  const clearDate = () => {\n    setEventDate(undefined);\n    setHasError(false);\n  };\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"l\">\n      <GoabFormItem \n        label=\"Event Date\" \n        error={hasError ? \"Please select a future date\" : \"\"}\n      >\n        <GoabDatePicker\n          name=\"eventDate\"\n          value={eventDate}\n          min={new Date()}\n          max={new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)} // 1 year from now\n          error={hasError}\n          onChange={handleDateChange}\n          testId=\"event-date-picker\"\n        />\n      </GoabFormItem>\n      \n      <GoabBlock direction=\"row\" gap=\"m\" alignment=\"start\">\n        <GoabButton type=\"primary\" onClick={handleSubmit}>\n          Schedule Event\n        </GoabButton>\n        <GoabButton type=\"secondary\" onClick={clearDate}>\n          Clear Date\n        </GoabButton>\n      </GoabBlock>\n    </GoabBlock>\n  );\n}"
+      },
+      {
+        "title": "Date Range Selection Pattern",
+        "description": "Two date pickers for start and end date selection with validation",
+        "code": "import React, { useState, useEffect } from 'react';\nimport { GoabDatePicker, GoabFormItem, GoabBlock } from '@abgov/react-components';\n\nfunction DateRangeForm() {\n  const [startDate, setStartDate] = useState<Date | undefined>();\n  const [endDate, setEndDate] = useState<Date | undefined>();\n  const [endDateError, setEndDateError] = useState('');\n\n  // Validate that end date is after start date\n  useEffect(() => {\n    if (startDate && endDate && endDate <= startDate) {\n      setEndDateError('End date must be after start date');\n    } else {\n      setEndDateError('');\n    }\n  }, [startDate, endDate]);\n\n  const handleStartDateChange = (event: { value: Date | null }) => {\n    const newStartDate = event.value || undefined;\n    setStartDate(newStartDate);\n    \n    // Clear end date if it's now before the new start date\n    if (newStartDate && endDate && endDate <= newStartDate) {\n      setEndDate(undefined);\n    }\n  };\n\n  const handleEndDateChange = (event: { value: Date | null }) => {\n    setEndDate(event.value || undefined);\n  };\n\n  const today = new Date();\n  const oneYearFromNow = new Date();\n  oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);\n\n  return (\n    <GoabBlock direction=\"column\" gap=\"l\">\n      <GoabFormItem label=\"Start Date\">\n        <GoabDatePicker\n          name=\"startDate\"\n          value={startDate}\n          min={today}\n          max={oneYearFromNow}\n          onChange={handleStartDateChange}\n          testId=\"start-date\"\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem \n        label=\"End Date\"\n        error={endDateError}\n      >\n        <GoabDatePicker\n          name=\"endDate\"\n          value={endDate}\n          min={startDate || today}\n          max={oneYearFromNow}\n          error={!!endDateError}\n          disabled={!startDate}\n          onChange={handleEndDateChange}\n          testId=\"end-date\"\n        />\n      </GoabFormItem>\n      \n      {startDate && endDate && !endDateError && (\n        <div className=\"date-summary\">\n          <strong>Selected Range:</strong> {startDate.toLocaleDateString()} to {endDate.toLocaleDateString()}\n        </div>\n      )}\n    </GoabBlock>\n  );\n}"
+      }
+    ],
+    "angular": [
+      {
+        "title": "Form Integration with Reactive Forms",
+        "description": "Date picker integrated with Angular reactive forms",
+        "typescript": "import { Component, OnInit } from '@angular/core';\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\n\ninterface DateChangeEvent {\n  name: string;\n  type: string;\n  value: Date | null;\n}\n\n@Component({\n  selector: 'app-appointment-form',\n  templateUrl: './appointment-form.component.html'\n})\nexport class AppointmentFormComponent implements OnInit {\n  appointmentForm: FormGroup;\n  minDate: Date;\n  maxDate: Date;\n\n  constructor(private fb: FormBuilder) {\n    // Set date range to next 90 days\n    this.minDate = new Date();\n    this.maxDate = new Date();\n    this.maxDate.setDate(this.maxDate.getDate() + 90);\n  }\n\n  ngOnInit() {\n    this.appointmentForm = this.fb.group({\n      patientName: ['', Validators.required],\n      appointmentDate: [null, Validators.required],\n      appointmentType: ['', Validators.required]\n    });\n  }\n\n  onDateChange(event: DateChangeEvent) {\n    this.appointmentForm.patchValue({\n      appointmentDate: event.value\n    });\n  }\n\n  onSubmit() {\n    if (this.appointmentForm.valid) {\n      const formData = this.appointmentForm.value;\n      console.log('Appointment scheduled:', formData);\n    }\n  }\n\n  isFieldInvalid(fieldName: string): boolean {\n    const field = this.appointmentForm.get(fieldName);\n    return field ? field.invalid && (field.dirty || field.touched) : false;\n  }\n\n  getFieldError(fieldName: string): string {\n    const field = this.appointmentForm.get(fieldName);\n    if (field?.errors && field.invalid) {\n      if (field.errors['required']) {\n        return `${fieldName} is required`;\n      }\n    }\n    return '';\n  }\n}",
+        "template": "<form [formGroup]=\"appointmentForm\" (ngSubmit)=\"onSubmit()\">\n  <goa-block direction=\"column\" gap=\"l\">\n    <goa-form-item \n      label=\"Patient Name\"\n      [error]=\"getFieldError('patientName')\">\n      <goa-input \n        formControlName=\"patientName\"\n        placeholder=\"Enter patient name\">\n      </goa-input>\n    </goa-form-item>\n\n    <goa-form-item \n      label=\"Appointment Date\"\n      [error]=\"getFieldError('appointmentDate')\"\n      helpText=\"Select an available date within the next 90 days\">\n      <goa-date-picker\n        name=\"appointmentDate\"\n        [value]=\"appointmentForm.get('appointmentDate')?.value\"\n        [min]=\"minDate\"\n        [max]=\"maxDate\"\n        [error]=\"isFieldInvalid('appointmentDate')\"\n        (onChange)=\"onDateChange($event)\"\n        testId=\"appointment-date\">\n      </goa-date-picker>\n    </goa-form-item>\n\n    <goa-block direction=\"row\" gap=\"m\" alignment=\"start\" mt=\"l\">\n      <goa-button \n        type=\"primary\" \n        [disabled]=\"appointmentForm.invalid\"\n        (onClick)=\"onSubmit()\">\n        Schedule Appointment\n      </goa-button>\n      <goa-button \n        type=\"secondary\"\n        (onClick)=\"appointmentForm.reset()\">\n        Clear Form\n      </goa-button>\n    </goa-block>\n  </goa-block>\n</form>"
+      }
+    ],
+    "webComponent": [
+      {
+        "title": "Basic Date Selection",
+        "description": "Simple date picker with event handling",
+        "code": "<script>\n  function handleDateChange(event) {\n    const selectedDate = event.detail.value;\n    if (selectedDate) {\n      console.log('Selected date:', selectedDate.toLocaleDateString());\n      document.getElementById('selected-date').textContent = \n        `Selected: ${selectedDate.toLocaleDateString()}`;\n    } else {\n      document.getElementById('selected-date').textContent = 'No date selected';\n    }\n  }\n</script>\n\n<goa-form-item label=\"Event Date\">\n  <goa-date-picker \n    name=\"eventDate\"\n    on:_change=\"{handleDateChange}\"\n    testid=\"event-date\">\n  </goa-date-picker>\n</goa-form-item>\n\n<div id=\"selected-date\">No date selected</div>"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "When users need to select specific dates for forms or scheduling",
+      "For date inputs where visual calendar context is helpful",
+      "When you want to prevent date format errors and improve accuracy",
+      "For applications requiring date range validation (min/max constraints)"
+    ],
+    "whenNotToUse": [
+      "For well-known historical dates (like birth dates) - consider manual input",
+      "When dates are far in the past or future (calendar navigation becomes cumbersome)",
+      "For approximate dates where precision isn't required",
+      "In very tight layouts where calendar popup space is constrained"
+    ],
+    "bestPractices": [
+      "Always wrap in GoaFormItem/goa-form-item for proper labeling",
+      "Set appropriate min/max constraints to guide user selection",
+      "Handle both Date objects and null values in onChange handlers",
+      "Provide clear error messages for validation failures",
+      "Use descriptive names for form field identification",
+      "Test calendar popup behavior in modals and constrained spaces"
+    ],
+    "accessibility": [
+      "Calendar supports full keyboard navigation (Arrow keys, Enter, Escape)",
+      "Screen readers announce date selections and calendar navigation",
+      "Focus management between input field and calendar popup",
+      "All calendar states meet WCAG AA color contrast requirements",
+      "Disabled dates are properly announced to screen readers"
+    ]
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "problem": "Calendar popup gets cut off in modals",
+        "solution": "This is a known issue (#2680, #2655). Ensure sufficient space or consider alternative layouts. Test calendar positioning in your modal implementation.",
+        "workaround": "Use larger modal sizes or position date picker near the top of modal content"
+      },
+      {
+        "problem": "Date value not updating properly",
+        "solution": "Ensure you're handling both Date objects and null values in onChange. Check that value prop is properly controlled in React.",
+        "example": "const [date, setDate] = useState<Date | undefined>(); onChange={(e) => setDate(e.value || undefined)}"
+      },
+      {
+        "problem": "Keyboard navigation not working as expected",
+        "solution": "End and Home keys have known issues (#1570). Use Arrow keys for navigation. Report specific keyboard issues for tracking.",
+        "workaround": "Inform users to use Arrow keys for date navigation"
+      },
+      {
+        "problem": "Year dropdown not showing expected options",
+        "solution": "This occurs when only min date is set (#2750). Ensure both min and max dates are set for proper year range.",
+        "example": "Set both min={minDate} and max={maxDate} props"
+      },
+      {
+        "problem": "Date includes unexpected time/timezone information",
+        "solution": "This is a known limitation (#2290). Extract date components if you only need date information.",
+        "workaround": "Use date.toISOString().split('T')[0] for date-only strings"
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "FormItem",
+      "usage": "Always wrap date picker in FormItem for proper labeling",
+      "example": "Provides label, help text, and error message support"
+    },
+    {
+      "name": "Input",
+      "usage": "Alternative for manual date entry",
+      "example": "Use Input with type='date' for simple date fields"
+    },
+    {
+      "name": "Modal",
+      "usage": "Be aware of positioning constraints",
+      "example": "Test calendar popup behavior when used inside modals"
+    },
+    {
+      "name": "Block",
+      "usage": "Layout organization for date picker groups",
+      "example": "Use GoabBlock for spacing date range pickers"
+    }
+  ],
+
+  "integrationPatterns": [
+    {
+      "name": "Date Range Selection Pattern",
+      "description": "Two date pickers for start and end date selection",
+      "components": ["DatePicker", "FormItem", "Block"],
+      "example": "Start date picker constrains minimum value for end date picker"
+    },
+    {
+      "name": "Form Integration Pattern",
+      "description": "Date picker within form layouts with validation",
+      "components": ["DatePicker", "FormItem", "Button"],
+      "example": "Date picker with error states and form submission"
+    },
+    {
+      "name": "Appointment Scheduling Pattern",
+      "description": "Date picker with business logic constraints",
+      "components": ["DatePicker", "FormItem", "validation logic"],
+      "example": "Prevent past dates, weekends, or holidays from selection"
+    }
+  ],
+
+  "calendarBehavior": {
+    "navigation": {
+      "monthYear": "Use dropdown menus to quickly navigate to different months and years",
+      "keyboard": "Arrow keys move between dates, Enter selects, Escape closes",
+      "today": "Current date is highlighted with underline and bold text",
+      "selected": "Selected date has distinctive background highlighting"
+    },
+    "dateStates": {
+      "available": "Clickable dates within min/max range",
+      "disabled": "Grayed out dates outside allowed range",
+      "otherMonth": "Previous/next month dates shown in light gray",
+      "today": "Current date with special highlighting and underline"
+    }
+  },
+
+  "tags": ["interactive", "form", "input", "date", "calendar", "picker"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/date-picker.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

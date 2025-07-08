@@ -1,0 +1,418 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "goa-accordion",
+  "displayName": "GoA Accordion",
+  "summary": "Collapsible content panel that lets users reveal detailed information when needed. Perfect for FAQs, form sections, and progressive disclosure patterns.",
+
+  "customElement": {
+    "tagName": "goa-accordion",
+    "className": "goa-accordion"
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["GoA Icon component", "Design token system"]
+  },
+
+  "playgroundExamples": {
+    "note": "Playground configurations will be added in future versions for interactive component testing"
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabAccordion } from '@abgov/react-components'",
+      "quickExample": "<GoabAccordion heading=\"Details\">\n  <p>Hidden content revealed on click</p>\n</GoabAccordion>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-accordion heading=\"Details\">\n  <p>Hidden content revealed on click</p>\n</goab-accordion>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-accordion heading=\"Details\">\n  <p>Hidden content revealed on click</p>\n</goa-accordion>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "heading",
+        "type": "string",
+        "required": true,
+        "description": "The clickable header text that expands/collapses content",
+        "usage": "Use clear, descriptive headings that indicate what content will be revealed"
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Controls whether the accordion starts expanded or collapsed",
+        "usage": "Set to true for high-priority content that should be visible by default"
+      },
+      {
+        "name": "secondaryText",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Additional descriptive text displayed in the header",
+        "usage": "Use for context like 'Last updated', counts, or brief descriptions"
+      },
+      {
+        "name": "headingSize",
+        "type": "1 | 2 | 3 | 4",
+        "default": "3",
+        "required": false,
+        "description": "Visual size of the heading text",
+        "usage": "Match your page's heading hierarchy - larger numbers are smaller text"
+      },
+      {
+        "name": "headingLevel",
+        "type": "h1 | h2 | h3 | h4 | h5 | h6",
+        "default": "h3",
+        "required": false,
+        "description": "Semantic HTML heading level for accessibility",
+        "usage": "Must follow proper heading hierarchy for screen readers"
+      },
+      {
+        "name": "chevronPos",
+        "type": "left | right",
+        "default": "left",
+        "required": false,
+        "description": "Position of the expand/collapse arrow icon",
+        "usage": "Left is standard, right for special layouts or right-to-left languages"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Test identifier for automated testing",
+        "usage": "Use descriptive names like 'personal-info-accordion'"
+      },
+      {
+        "name": "mt",
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin top spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      },
+      {
+        "name": "mr", 
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin right spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      },
+      {
+        "name": "mb",
+        "type": "Spacing", 
+        "default": "m",
+        "required": false,
+        "description": "Margin bottom spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      },
+      {
+        "name": "ml",
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin left spacing",
+        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+      }
+    ],
+    "slots": [
+      {
+        "name": "children",
+        "description": "Main content that expands and collapses",
+        "required": true,
+        "usage": "Can contain any content - text, forms, lists, other components"
+      },
+      {
+        "name": "headingContent",
+        "description": "Additional elements in the header area (badges, icons, etc.)",
+        "required": false,
+        "usage": "Use for status indicators, counts, or secondary actions"
+      }
+    ],
+    "events": [
+      {
+        "name": "onChange",
+        "description": "Fired when accordion opens or closes",
+        "parameters": "boolean - true when opened, false when closed",
+        "usage": "Use to track user interaction or sync with other components"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Simple FAQ Item",
+          "description": "Basic accordion for frequently asked questions",
+          "code": "function FAQSection() {\n  return (\n    <GoabAccordion heading=\"How do I reset my password?\">\n      <p>Click the 'Forgot Password' link on the login page. You'll receive an email with instructions to create a new password.</p>\n    </GoabAccordion>\n  );\n}"
+        },
+        {
+          "title": "Form Section with Status",
+          "description": "Accordion with secondary text and status badge",
+          "code": "function FormSection() {\n  const [isComplete, setIsComplete] = useState(false);\n  \n  return (\n    <GoabAccordion \n      heading=\"Employment Information\"\n      secondaryText=\"Required for verification\"\n      headingLevel=\"h2\"\n    >\n      <div slot=\"headingContent\">\n        <GoabBadge \n          type={isComplete ? 'success' : 'information'} \n          content={isComplete ? 'Complete' : 'In Progress'} \n        />\n      </div>\n      \n      <GoabFormItem label=\"Current Employer\">\n        <GoabInput \n          name=\"employer\" \n          onChange={() => setIsComplete(true)}\n        />\n      </GoabFormItem>\n      <GoabFormItem label=\"Position\">\n        <GoabInput name=\"position\" />\n      </GoabFormItem>\n    </GoabAccordion>\n  );\n}"
+        },
+        {
+          "title": "Controlled Accordion",
+          "description": "Managing accordion state with external controls",
+          "code": "function ControlledAccordion() {\n  const [isOpen, setIsOpen] = useState(false);\n  \n  return (\n    <div>\n      <GoabButtonGroup alignment=\"start\" mb=\"m\">\n        <GoabButton \n          type=\"tertiary\" \n          onClick={() => setIsOpen(!isOpen)}\n        >\n          {isOpen ? 'Collapse' : 'Expand'} Details\n        </GoabButton>\n      </GoabButtonGroup>\n      \n      <GoabAccordion \n        heading=\"Application Details\"\n        open={isOpen}\n        onChange={setIsOpen}\n      >\n        <p>Detailed information about your application status and next steps.</p>\n        <GoabCallout type=\"information\">\n          Your application is currently under review by our team.\n        </GoabCallout>\n      </GoabAccordion>\n    </div>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Simple FAQ Item",
+          "description": "Basic accordion for frequently asked questions",
+          "code": "<goab-accordion heading=\"How do I reset my password?\">\n  <p>Click the 'Forgot Password' link on the login page. You'll receive an email with instructions to create a new password.</p>\n</goab-accordion>"
+        },
+        {
+          "title": "Form Section with Status",
+          "description": "Accordion with secondary text and status badge",
+          "code": "<goab-accordion \n  heading=\"Employment Information\"\n  secondaryText=\"Required for verification\"\n  headingLevel=\"h2\"\n  (onChange)=\"onSectionChange($event)\">\n  \n  <goab-badge \n    headingContent\n    [type]=\"isComplete ? 'success' : 'information'\"\n    [content]=\"isComplete ? 'Complete' : 'In Progress'\">\n  </goab-badge>\n  \n  <goab-form-item label=\"Current Employer\">\n    <goab-input name=\"employer\" (change)=\"markComplete()\"></goab-input>\n  </goab-form-item>\n  <goab-form-item label=\"Position\">\n    <goab-input name=\"position\"></goab-input>\n  </goab-form-item>\n</goab-accordion>"
+        }
+      ],
+      "webComponent": [
+        {
+          "title": "Simple FAQ Item",
+          "description": "Basic accordion for frequently asked questions",
+          "code": "<goa-accordion heading=\"How do I reset my password?\">\n  <p>Click the 'Forgot Password' link on the login page. You'll receive an email with instructions to create a new password.</p>\n</goa-accordion>"
+        },
+        {
+          "title": "With Header Badge",
+          "description": "Accordion with status indicator in header",
+          "code": "<goa-accordion heading=\"Application Status\">\n  <goa-badge slot=\"headingcontent\" type=\"success\" content=\"Complete\"></goa-badge>\n  <p>Your application has been submitted and is under review.</p>\n  <goa-callout type=\"information\">\n    You'll receive an email notification when review is complete.\n  </goa-callout>\n</goa-accordion>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "FAQ with Master Controls",
+        "description": "Multiple accordions with expand/collapse all functionality",
+        "code": "function FAQPage() {\n  const [allOpen, setAllOpen] = useState(false);\n  const [openStates, setOpenStates] = useState({});\n  \n  const toggleAll = () => {\n    const newState = !allOpen;\n    setAllOpen(newState);\n    setOpenStates(Object.fromEntries(\n      faqs.map(faq => [faq.id, newState])\n    ));\n  };\n  \n  return (\n    <div>\n      <GoabButtonGroup alignment=\"start\" mb=\"l\">\n        <GoabButton type=\"tertiary\" onClick={toggleAll}>\n          {allOpen ? 'Collapse All' : 'Expand All'}\n        </GoabButton>\n      </GoabButtonGroup>\n      \n      {faqs.map(faq => (\n        <GoabAccordion\n          key={faq.id}\n          heading={faq.question}\n          open={openStates[faq.id] || false}\n          onChange={isOpen => \n            setOpenStates(prev => ({...prev, [faq.id]: isOpen}))\n          }\n        >\n          {faq.answer}\n        </GoabAccordion>\n      ))}\n    </div>\n  );\n}"
+      },
+      {
+        "name": "Progressive Form Disclosure",
+        "description": "Breaking long forms into manageable sections",
+        "code": "function ApplicationForm() {\n  const [completedSections, setCompletedSections] = useState(new Set());\n  \n  const markSectionComplete = (sectionId) => {\n    setCompletedSections(prev => new Set([...prev, sectionId]));\n  };\n  \n  return (\n    <form>\n      <GoabAccordion \n        heading=\"Personal Information\"\n        secondaryText=\"Basic details\"\n        open={true}\n      >\n        <div slot=\"headingContent\">\n          <GoabBadge \n            type={completedSections.has('personal') ? 'success' : 'information'}\n            content={completedSections.has('personal') ? 'Complete' : 'Required'}\n          />\n        </div>\n        \n        <GoabFormItem label=\"Full Name\">\n          <GoabInput name=\"fullName\" required />\n        </GoabFormItem>\n        <GoabFormItem label=\"Email\">\n          <GoabInput name=\"email\" type=\"email\" required />\n        </GoabFormItem>\n        \n        <GoabButtonGroup alignment=\"end\" mt=\"m\">\n          <GoabButton \n            type=\"primary\"\n            onClick={() => markSectionComplete('personal')}\n          >\n            Continue\n          </GoabButton>\n        </GoabButtonGroup>\n      </GoabAccordion>\n      \n      <GoabAccordion \n        heading=\"Employment History\"\n        secondaryText=\"Last 5 years\"\n        open={completedSections.has('personal')}\n      >\n        <div slot=\"headingContent\">\n          <GoabBadge \n            type={completedSections.has('employment') ? 'success' : 'information'}\n            content={completedSections.has('employment') ? 'Complete' : 'Optional'}\n          />\n        </div>\n        \n        <GoabFormItem label=\"Current Employer\">\n          <GoabInput name=\"employer\" />\n        </GoabFormItem>\n        <GoabFormItem label=\"Position\">\n          <GoabInput name=\"position\" />\n        </GoabFormItem>\n      </GoabAccordion>\n    </form>\n  );\n}"
+      }
+    ],
+    "integrations": [
+      {
+        "component": "GoabFormItem",
+        "description": "Organize form fields within accordion sections",
+        "example": "Multi-step forms with progressive disclosure"
+      },
+      {
+        "component": "GoabBadge",
+        "description": "Show status indicators in accordion headers",
+        "example": "Form completion status, update notifications"
+      },
+      {
+        "component": "GoabCallout",
+        "description": "Highlight important information within expanded content",
+        "example": "Warnings, tips, or important notes in FAQ answers"
+      },
+      {
+        "component": "GoabButtonGroup",
+        "description": "Add action buttons within accordion content or for master controls",
+        "example": "Form navigation, expand/collapse all controls"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Creating FAQ sections where users can quickly scan questions",
+      "Breaking long forms into manageable, progressive sections", 
+      "Organizing dashboard content with optional details",
+      "Providing contextual help that doesn't interrupt main workflow",
+      "Creating scannable content with detailed information on demand"
+    ],
+    "whenNotToUse": [
+      "For primary navigation - use proper navigation components instead",
+      "When all content should be visible by default",
+      "For critical information that users must see",
+      "In tables or lists where accordions would create layout issues",
+      "When content is very short and doesn't benefit from being hidden"
+    ],
+    "bestPractices": [
+      "Use clear, descriptive headings that indicate what content will be revealed",
+      "Follow proper heading hierarchy (h1, h2, h3) for screen reader users",
+      "Keep content within 75 characters line length for readability",
+      "Use secondary text for helpful context like 'Optional' or 'Required'",
+      "Position master controls (expand/collapse all) at top left",
+      "Include status indicators in headers to show completion or importance",
+      "Ensure content is substantial enough to justify being hidden",
+      "Use consistent heading sizes within the same group of accordions"
+    ],
+    "contentGuidelines": [
+      "Write headings as questions for FAQ sections",
+      "Use action-oriented headings for form sections",
+      "Include helpful secondary text for context",
+      "Structure content with proper headings and lists inside accordions",
+      "Use callouts for important information within expanded content",
+      "Keep related content together within single accordion sections"
+    ],
+    "responsiveConsiderations": [
+      "Accordions automatically adapt to narrow screens",
+      "Badges and secondary text stack vertically on mobile",
+      "Chevron aligns properly when headings wrap to multiple lines",
+      "Content padding adjusts for optimal mobile readability",
+      "Touch targets are sized appropriately for mobile interaction"
+    ]
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab to navigate to accordion headers",
+      "Enter or Space to expand/collapse accordions",
+      "Arrow keys to move between accordion headers in a group",
+      "Tab through expanded content normally"
+    ],
+    "screenReader": [
+      "Headers announced with proper semantic level (h1, h2, etc.)",
+      "Expanded/collapsed state clearly announced",
+      "Secondary text and badges read as part of header context",
+      "Content structure preserved when expanded"
+    ],
+    "requirements": [
+      "Always set headingLevel to match your page's heading hierarchy",
+      "Use descriptive heading text that makes sense out of context",
+      "Ensure sufficient color contrast for all text and icons",
+      "Provide clear focus indicators on interactive elements",
+      "Test with screen readers to verify proper announcement"
+    ]
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "problem": "Accordion won't expand when clicked",
+        "solution": "Check that heading prop is provided - it's required for functionality",
+        "code": "// ❌ Missing required heading\n<GoAAccordion>\n  Content here\n</GoAAccordion>\n\n// ✅ Correct with heading\n<GoAAccordion heading=\"Section Title\">\n  Content here\n</GoAAccordion>"
+      },
+      {
+        "problem": "Content layout looks broken on mobile",
+        "solution": "Let the component handle responsive behavior automatically - avoid overriding responsive styles",
+        "code": "// ✅ Let component handle responsive behavior\n<GoAAccordion heading=\"Long heading that might wrap on mobile\">\n  <p>Content that automatically gets proper mobile padding</p>\n</GoAAccordion>"
+      },
+      {
+        "problem": "Multiple accordions don't maintain proper heading hierarchy",
+        "solution": "Set headingLevel prop to match your page structure for accessibility",
+        "code": "// ✅ Proper heading hierarchy\n<h1>Page Title</h1>\n<GoAAccordion heading=\"Section 1\" headingLevel=\"h2\">\n  <h3>Subsection</h3>\n  <p>Content</p>\n</GoAAccordion>\n<GoAAccordion heading=\"Section 2\" headingLevel=\"h2\">\n  <p>More content</p>\n</GoAAccordion>"
+      },
+      {
+        "problem": "Badges or secondary content not appearing in header",
+        "solution": "Use the headingContent slot/prop correctly for your framework",
+        "code": "// React ✅\n<GoAAccordion heading=\"Status\">\n  <div slot=\"headingContent\">\n    <GoABadge type=\"success\" content=\"Complete\" />\n  </div>\n  <p>Content</p>\n</GoAAccordion>\n\n// Angular ✅\n<goab-accordion heading=\"Status\">\n  <goab-badge headingContent type=\"success\" content=\"Complete\"></goab-badge>\n  <p>Content</p>\n</goab-accordion>"
+      },
+      {
+        "problem": "Controlled accordion state not updating",
+        "solution": "Ensure onChange handler updates parent state correctly",
+        "code": "// ✅ Proper state management\nconst [isOpen, setIsOpen] = useState(false);\n\n<GoAAccordion \n  heading=\"Controlled Section\"\n  open={isOpen}\n  onChange={setIsOpen} // Updates parent state\n>\n  Content\n</GoAAccordion>"
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabDetails",
+      "relationship": "Alternative for simpler show/hide content",
+      "usage": "Use Details for simple reveal/hide without the structured header styling of Accordion"
+    },
+    {
+      "name": "GoabFormItem",
+      "relationship": "Frequently used together",
+      "usage": "Organize form fields within accordion sections for progressive disclosure"
+    },
+    {
+      "name": "GoabBadge",
+      "relationship": "Content enhancement",
+      "usage": "Show status indicators, counts, or completion state in accordion headers"
+    },
+    {
+      "name": "GoabCallout",
+      "relationship": "Content enhancement",
+      "usage": "Highlight important information within expanded accordion content"
+    },
+    {
+      "name": "GoabButtonGroup",
+      "relationship": "Control pattern",
+      "usage": "Provide master controls for multiple accordions (expand/collapse all)"
+    },
+    {
+      "name": "GoabContainer",
+      "relationship": "Layout combination",
+      "usage": "Nest accordions within containers for visual grouping and organization"
+    }
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Using multiple accordions without master controls for FAQ sections",
+      "why": "Users can't efficiently scan through all questions or expand multiple answers",
+      "instead": "Provide expand/collapse all functionality for groups of related accordions",
+      "example": "// ❌ Wrong - no master controls\n{faqs.map(faq => <GoabAccordion heading={faq.question}>{faq.answer}</GoabAccordion>)}\n\n// ✅ Correct - with master controls\n<GoabButtonGroup><GoabButton onClick={toggleAll}>Expand All</GoabButton></GoabButtonGroup>\n{faqs.map(faq => <GoabAccordion heading={faq.question} open={allOpen}>{faq.answer}</GoabAccordion>)}"
+    },
+    {
+      "mistake": "Not using proper heading hierarchy with headingLevel prop",
+      "why": "Breaks screen reader navigation and document structure",
+      "instead": "Set headingLevel to match your page's heading structure",
+      "example": "// ❌ Wrong - no heading hierarchy\n<h1>Application Form</h1>\n<GoabAccordion heading=\"Personal Info\">...</GoabAccordion>\n\n// ✅ Correct - proper hierarchy\n<h1>Application Form</h1>\n<GoabAccordion heading=\"Personal Info\" headingLevel=\"h2\">...</GoabAccordion>"
+    },
+    {
+      "mistake": "Putting critical information inside accordions",
+      "why": "Important information may be missed if hidden by default",
+      "instead": "Use accordions for supplementary or optional information only",
+      "example": "// ❌ Wrong - critical info hidden\n<GoabAccordion heading=\"Important Legal Notice\">Required legal text...</GoabAccordion>\n\n// ✅ Correct - critical info visible\n<GoabCallout type=\"important\">Required legal text...</GoabCallout>\n<GoabAccordion heading=\"Additional Details\">Optional info...</GoabAccordion>"
+    },
+    {
+      "mistake": "Using accordions for navigation instead of proper navigation components",
+      "why": "Accordions are for content disclosure, not navigation structure",
+      "instead": "Use proper navigation components for site structure",
+      "example": "// ❌ Wrong - using for navigation\n<GoabAccordion heading=\"Services\">\n  <a href=\"/service1\">Service 1</a>\n  <a href=\"/service2\">Service 2</a>\n</GoabAccordion>\n\n// ✅ Correct - proper navigation\n<nav>\n  <details><summary>Services</summary>\n    <a href=\"/service1\">Service 1</a>\n  </details>\n</nav>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": {
+      "react": "Use camelCase: headingLevel, secondaryText, chevronPos, testId",
+      "webComponent": "Use lowercase with hyphens: headinglevel, secondarytext, chevronpos, testid",
+      "angular": "Use camelCase in template: headingLevel, but component accepts both formats"
+    },
+    "slotHandling": {
+      "react": "Use children prop for main content, headingContent prop for header badges/status",
+      "webComponent": "Use default slot for content, 'headingcontent' slot for header elements",
+      "angular": "Use ng-content for default, ng-template with headingContent directive for header",
+      "important": "headingContent slot only works when accordion is expanded - plan accordingly"
+    },
+    "constraints": {
+      "maxWidth": "Content automatically constrains to readable width - don't override without good reason",
+      "headingContent": "Status badges and secondary content stack vertically on mobile automatically",
+      "chevronAlignment": "Chevron auto-aligns with heading top when text wraps - no manual adjustment needed"
+    },
+    "responsiveBehavior": {
+      "automatic": "Uses CSS container queries for responsive behavior - no JavaScript breakpoints needed",
+      "badgeStacking": "Badges in headingContent automatically stack on narrow screens",
+      "contentPadding": "Padding adjusts automatically between mobile and desktop layouts",
+      "textWrapping": "Long headings wrap gracefully with proper chevron alignment"
+    }
+  },
+
+  "tags": ["interactive", "collapsible", "progressive-disclosure", "content-organization", "faq", "forms"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/accordion.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

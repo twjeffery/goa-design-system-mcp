@@ -1,0 +1,828 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Container",
+  "displayName": "GoA Container",
+  "summary": "Card-like container for grouping and highlighting specific related content with visual boundaries. NOT a general layout container - use only when content needs visual emphasis and grouping (like dashboard widgets, form sections, status cards).",
+
+  "visualIdentification": {
+    "appearanceMarkers": [
+      "Card-like container with subtle accent border",
+      "Content grouping appearance with organized layout",
+      "No built-in icons (icons must be added separately)",
+      "Designed for content organization and visual grouping"
+    ],
+    "purposeDefinition": "Content organization component - groups related information, form sections, and content areas",
+    "commonlyMistakenFor": {
+      "callout": {
+        "visualDifference": "Callout has prominent styling with built-in status icons and attention-grabbing design",
+        "semanticDifference": "Callout communicates status/notifications, Container organizes content",
+        "whenCalloutIsBetter": "Status messages, confirmations, alerts, notifications, process results",
+        "decisionRule": "Ask: Is this organizing content? → Container. Is this announcing status? → Callout",
+        "example": "// ❌ Wrong for status notification\n<GoabContainer type=\"success\" title=\"Success\">\n  <p>Your payment was processed successfully.</p>\n</GoabContainer>\n\n// ✅ Correct for status notification\n<GoabCallout type=\"success\" heading=\"Payment Successful\">\n  <p>Your payment was processed successfully.</p>\n</GoabCallout>"
+      }
+    }
+  },
+
+  "customElement": {
+    "tagName": "goa-container",
+    "className": "goa-container"
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": ["Design token system"]
+  },
+
+  "playgroundExamples": {
+    "overview": "Interactive examples demonstrating Container component configurations and common usage patterns",
+    "examples": [
+      {
+        "id": "basic-container",
+        "title": "Basic Container (Card-like Content)",
+        "description": "Container for specific content that needs visual emphasis - NOT for general layout",
+        "interactiveProps": [
+          {
+            "name": "type",
+            "type": "select",
+            "options": [
+              "interactive",
+              "info",
+              "error",
+              "success",
+              "important",
+              "non-interactive"
+            ],
+            "default": "interactive"
+          },
+          {
+            "name": "padding",
+            "type": "select",
+            "options": ["relaxed", "compact"],
+            "default": "relaxed"
+          }
+        ],
+        "code": "function BasicContainer() {\n  return (\n    <GoabContainer type=\"{type}\" padding=\"{padding}\">\n      <h3>Contact Information</h3>\n      <p>Phone: (555) 123-4567</p>\n      <p>Email: contact@example.com</p>\n      <p>Address: 123 Main St, City, Province</p>\n    </GoabContainer>\n  );\n}",
+        "usageNotes": "Use Container only when this specific content needs visual emphasis or card-like treatment. For general layout, use Grid, Block, or semantic HTML elements."
+      },
+      {
+        "id": "container-with-header",
+        "title": "Container with Header",
+        "description": "Container with title and action buttons using thick accent styling",
+        "interactiveProps": [
+          {
+            "name": "type",
+            "type": "select",
+            "options": [
+              "interactive",
+              "info",
+              "error",
+              "success",
+              "important",
+              "non-interactive"
+            ],
+            "default": "interactive"
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "default": "User Profile"
+          },
+          {
+            "name": "showActions",
+            "type": "boolean",
+            "default": true
+          }
+        ],
+        "code": "function HeaderContainer() {\n  const actions = {showActions} ? (\n    <GoabButtonGroup>\n      <GoabButton type=\"tertiary\" size=\"compact\">Edit</GoabButton>\n      <GoabButton type=\"tertiary\" size=\"compact\">View Details</GoabButton>\n    </GoabButtonGroup>\n  ) : null;\n\n  return (\n    <GoabContainer \n      accent=\"thick\" \n      type=\"{type}\"\n      title=\"{title}\"\n      actions={actions}\n    >\n      <GoabBadge type=\"success\" content=\"Active\" icon={true} />\n      <p><strong>Name:</strong> John Smith</p>\n      <p><strong>Role:</strong> Administrator</p>\n      <p><strong>Last Login:</strong> 2 hours ago</p>\n    </GoabContainer>\n  );\n}",
+        "usageNotes": "Title and actions props only work with accent='thick'. This creates a header section above the main content area."
+      },
+      {
+        "id": "accent-variations",
+        "title": "Accent Style Variations",
+        "description": "Demonstrates different accent styles and their visual impact",
+        "interactiveProps": [
+          {
+            "name": "accent",
+            "type": "select",
+            "options": ["filled", "thick", "thin"],
+            "default": "filled"
+          },
+          {
+            "name": "type",
+            "type": "select",
+            "options": [
+              "interactive",
+              "info",
+              "error",
+              "success",
+              "important",
+              "non-interactive"
+            ],
+            "default": "interactive"
+          },
+          {
+            "name": "withHeader",
+            "type": "boolean",
+            "default": false,
+            "note": "Only works with thick accent"
+          }
+        ],
+        "code": "function AccentVariations() {\n  const headerProps = {withHeader} && accent === 'thick' ? {\n    title: \"Section Title\",\n    actions: <GoabButton type=\"tertiary\" size=\"compact\">Action</GoabButton>\n  } : {};\n\n  return (\n    <GoabContainer \n      accent=\"{accent}\" \n      type=\"{type}\"\n      {...headerProps}\n    >\n      <h4>Content Section</h4>\n      <p>This container demonstrates the <strong>{accent}</strong> accent style with <strong>{type}</strong> semantic type.</p>\n      <GoabButton>Primary Action</GoabButton>\n    </GoabContainer>\n  );\n}",
+        "usageNotes": "filled = standard background, thick = prominent header bar, thin = subtle accent line. Header elements only appear with thick accent."
+      },
+      {
+        "id": "form-section-layout",
+        "title": "Form Section Organization",
+        "description": "Using containers to organize form fields into logical sections",
+        "interactiveProps": [
+          {
+            "name": "sectionType",
+            "type": "select",
+            "options": ["interactive", "info", "success"],
+            "default": "interactive"
+          },
+          {
+            "name": "showValidation",
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "code": "function FormSectionLayout() {\n  const [formData, setFormData] = useState({\n    name: '',\n    email: '',\n    phone: ''\n  });\n\n  const hasErrors = {showValidation} && (!formData.name || !formData.email);\n  const isComplete = formData.name && formData.email && formData.phone;\n  \n  const containerType = hasErrors ? 'error' : \n                      isComplete ? 'success' : '{sectionType}';\n\n  return (\n    <GoabContainer \n      accent=\"thick\" \n      type={containerType}\n      title=\"Personal Information\"\n      actions={\n        isComplete && (\n          <GoabBadge type=\"success\" content=\"Complete\" />\n        )\n      }\n    >\n      <GoabFormItem \n        label=\"Full Name\" \n        requirement=\"required\"\n        error={{showValidation} && !formData.name ? 'Name is required' : ''}\n      >\n        <GoabInput \n          name=\"name\"\n          value={formData.name}\n          onChange={(name, value) => setFormData(prev => ({...prev, name: value}))}\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem \n        label=\"Email Address\" \n        requirement=\"required\"\n        error={{showValidation} && !formData.email ? 'Email is required' : ''}\n      >\n        <GoabInput \n          name=\"email\"\n          type=\"email\"\n          value={formData.email}\n          onChange={(name, value) => setFormData(prev => ({...prev, email: value}))}\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem label=\"Phone Number\">\n        <GoabInput \n          name=\"phone\"\n          type=\"tel\"\n          value={formData.phone}\n          onChange={(name, value) => setFormData(prev => ({...prev, phone: value}))}\n        />\n      </GoabFormItem>\n    </GoabContainer>\n  );\n}",
+        "usageNotes": "Containers help organize complex forms into scannable sections. Type changes based on validation state to provide visual feedback."
+      },
+      {
+        "id": "status-communication",
+        "title": "Status Communication",
+        "description": "Using container types to communicate different states and meanings",
+        "interactiveProps": [
+          {
+            "name": "applicationStatus",
+            "type": "select",
+            "options": [
+              "submitted",
+              "under-review",
+              "approved",
+              "rejected",
+              "action-required"
+            ],
+            "default": "submitted"
+          },
+          {
+            "name": "showDetails",
+            "type": "boolean",
+            "default": true
+          }
+        ],
+        "code": "function StatusCommunication() {\n  const statusConfig = {\n    'submitted': { type: 'interactive', title: 'Application Submitted', message: 'Your application has been received and is in the queue for review.' },\n    'under-review': { type: 'info', title: 'Under Review', message: 'Your application is currently being reviewed by our team.' },\n    'approved': { type: 'success', title: 'Application Approved', message: 'Congratulations! Your application has been approved.' },\n    'rejected': { type: 'error', title: 'Application Rejected', message: 'Unfortunately, your application could not be approved at this time.' },\n    'action-required': { type: 'important', title: 'Action Required', message: 'Please provide additional information to complete your application.' }\n  };\n  \n  const config = statusConfig['{applicationStatus}'];\n  \n  return (\n    <GoabContainer \n      type={config.type}\n      accent=\"thick\"\n      title={config.title}\n      actions={\n        '{applicationStatus}' === 'action-required' && (\n          <GoabButton type=\"primary\" size=\"compact\">\n            Take Action\n          </GoabButton>\n        )\n      }\n    >\n      <p>{config.message}</p>\n      \n      {showDetails} && (\n        <div>\n          <p><strong>Application ID:</strong> APP-2024-001</p>\n          <p><strong>Submitted:</strong> March 15, 2024</p>\n          <p><strong>Last Updated:</strong> March 18, 2024</p>\n          \n          {'{applicationStatus}' === 'approved' && (\n            <GoabCallout type=\"success\">\n              Next steps will be sent to your email within 24 hours.\n            </GoabCallout>\n          )}\n          \n          {'{applicationStatus}' === 'action-required' && (\n            <GoabCallout type=\"important\">\n              Please upload your identification documents by March 25, 2024.\n            </GoabCallout>\n          )}\n        </div>\n      )\n    </GoabContainer>\n  );\n}",
+        "usageNotes": "Container types provide immediate visual context about content status. Match the type to the semantic meaning for clear communication."
+      },
+      {
+        "id": "dashboard-widget",
+        "title": "Dashboard Widget Layout",
+        "description": "Creating dashboard widgets with consistent styling and actions",
+        "interactiveProps": [
+          {
+            "name": "widgetType",
+            "type": "select",
+            "options": ["stats", "activity", "notifications"],
+            "default": "stats"
+          },
+          {
+            "name": "padding",
+            "type": "select",
+            "options": ["relaxed", "compact"],
+            "default": "relaxed"
+          },
+          {
+            "name": "showActions",
+            "type": "boolean",
+            "default": true
+          }
+        ],
+        "code": "function DashboardWidget() {\n  const widgetContent = {\n    'stats': {\n      title: 'Quick Statistics',\n      content: (\n        <div>\n          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>\n            <div><strong>25</strong><br/>Active</div>\n            <div><strong>12</strong><br/>Pending</div>\n            <div><strong>8</strong><br/>Complete</div>\n          </div>\n        </div>\n      )\n    },\n    'activity': {\n      title: 'Recent Activity',\n      content: (\n        <div>\n          <div>• Application submitted - 2 hours ago</div>\n          <div>• Document uploaded - 1 day ago</div>\n          <div>• Profile updated - 3 days ago</div>\n        </div>\n      )\n    },\n    'notifications': {\n      title: 'Notifications',\n      content: (\n        <div>\n          <GoabBadge type=\"important\" content=\"3\" /> You have 3 unread messages<br/>\n          <GoabBadge type=\"info\" content=\"1\" /> 1 system update available\n        </div>\n      )\n    }\n  };\n  \n  const widget = widgetContent['{widgetType}'];\n  \n  return (\n    <GoabContainer \n      accent=\"thick\"\n      type=\"interactive\"\n      title={widget.title}\n      padding=\"{padding}\"\n      maxWidth=\"400px\"\n      actions={{showActions} && (\n        <GoabButtonGroup>\n          <GoabButton type=\"tertiary\" size=\"compact\">View All</GoabButton>\n          <GoabButton type=\"tertiary\" size=\"compact\">Settings</GoabButton>\n        </GoabButtonGroup>\n      )}\n    >\n      {widget.content}\n    </GoabContainer>\n  );\n}",
+        "usageNotes": "Dashboard widgets benefit from thick accent headers with titles and actions. Consistent container styling creates visual harmony across widget grids."
+      },
+      {
+        "id": "responsive-card-grid",
+        "title": "Responsive Card Grid",
+        "description": "Container cards in responsive grid layouts for content lists",
+        "interactiveProps": [
+          {
+            "name": "cardPadding",
+            "type": "select",
+            "options": ["relaxed", "compact"],
+            "default": "compact"
+          },
+          {
+            "name": "cardAccent",
+            "type": "select",
+            "options": ["filled", "thin"],
+            "default": "thin"
+          },
+          {
+            "name": "cardCount",
+            "type": "select",
+            "options": ["2", "3", "4"],
+            "default": "3"
+          }
+        ],
+        "code": "function ResponsiveCardGrid() {\n  const applications = [\n    { id: 1, title: 'Health Services Application', status: 'approved', dueDate: 'Mar 20, 2024' },\n    { id: 2, title: 'Business License Renewal', status: 'pending', dueDate: 'Mar 25, 2024' },\n    { id: 3, title: 'Employment Insurance Claim', status: 'action-required', dueDate: 'Mar 30, 2024' },\n    { id: 4, title: 'Property Tax Assessment', status: 'submitted', dueDate: 'Apr 15, 2024' }\n  ].slice(0, parseInt('{cardCount}'));\n  \n  const getStatusType = (status) => {\n    switch (status) {\n      case 'approved': return 'success';\n      case 'pending': return 'info';\n      case 'action-required': return 'important';\n      default: return 'interactive';\n    }\n  };\n  \n  return (\n    <div style={{ \n      display: 'grid', \n      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', \n      gap: '1rem' \n    }}>\n      {applications.map(app => (\n        <GoabContainer \n          key={app.id}\n          type={getStatusType(app.status)}\n          accent=\"{cardAccent}\"\n          padding=\"{cardPadding}\"\n          maxWidth=\"350px\"\n        >\n          <h4>{app.title}</h4>\n          <p><strong>Status:</strong> {app.status}</p>\n          <p><strong>Due:</strong> {app.dueDate}</p>\n          \n          <GoabButtonGroup alignment=\"end\" mt=\"m\">\n            <GoabButton type=\"tertiary\" size=\"compact\">\n              View Details\n            </GoabButton>\n            {app.status !== 'approved' && (\n              <GoabButton type=\"primary\" size=\"compact\">\n                Continue\n              </GoabButton>\n            )}\n          </GoabButtonGroup>\n        </GoabContainer>\n      ))}\n    </div>\n  );\n}",
+        "usageNotes": "Card grids work well with compact padding and thin accents. Container types provide immediate status recognition across multiple items."
+      },
+      {
+        "id": "progressive-disclosure",
+        "title": "Progressive Disclosure Pattern",
+        "description": "Combining containers with other components for progressive information display",
+        "interactiveProps": [
+          {
+            "name": "currentStep",
+            "type": "select",
+            "options": ["1", "2", "3"],
+            "default": "1"
+          },
+          {
+            "name": "showDetails",
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "code": "function ProgressiveDisclosure() {\n  const steps = [\n    { id: 1, title: 'Basic Information', status: parseInt('{currentStep}') > 1 ? 'complete' : 'active' },\n    { id: 2, title: 'Documentation', status: parseInt('{currentStep}') > 2 ? 'complete' : parseInt('{currentStep}') === 2 ? 'active' : 'pending' },\n    { id: 3, title: 'Review & Submit', status: parseInt('{currentStep}') === 3 ? 'active' : 'pending' }\n  ];\n  \n  const getStepType = (status) => {\n    switch (status) {\n      case 'complete': return 'success';\n      case 'active': return 'interactive';\n      case 'pending': return 'non-interactive';\n      default: return 'interactive';\n    }\n  };\n  \n  return (\n    <div>\n      {steps.map(step => (\n        <GoabContainer \n          key={step.id}\n          type={getStepType(step.status)}\n          accent=\"thick\"\n          title={`Step ${step.id}: ${step.title}`}\n          padding={step.status === 'active' ? 'relaxed' : 'compact'}\n          actions={\n            step.status === 'complete' && (\n              <GoabBadge type=\"success\" content=\"Complete\" />\n            )\n          }\n          mb=\"m\"\n        >\n          {step.status === 'active' && (\n            <div>\n              <p>This section is currently active and ready for input.</p>\n              \n              {showDetails} && (\n                <GoabDetails heading=\"Additional Information\">\n                  <p>Detailed instructions and requirements for this step would appear here.</p>\n                  <ul>\n                    <li>Required documents list</li>\n                    <li>Formatting requirements</li>\n                    <li>Submission guidelines</li>\n                  </ul>\n                </GoabDetails>\n              )\n              \n              <GoabButtonGroup alignment=\"end\" mt=\"m\">\n                <GoabButton type=\"tertiary\">Save Draft</GoabButton>\n                <GoabButton type=\"primary\">Continue</GoabButton>\n              </GoabButtonGroup>\n            </div>\n          )}\n          \n          {step.status === 'complete' && (\n            <p>✓ This section has been completed successfully.</p>\n          )}\n          \n          {step.status === 'pending' && (\n            <p>Complete the previous steps to unlock this section.</p>\n          )}\n        </GoabContainer>\n      ))}\n    </div>\n  );\n}",
+        "usageNotes": "Progressive disclosure uses container types to show workflow state. Non-interactive containers prevent user interaction with incomplete sections."
+      }
+    ],
+    "integrationExamples": [
+      {
+        "title": "Container + FormItem + Input",
+        "description": "Complete form section with validation",
+        "components": [
+          "GoabContainer",
+          "GoabFormItem",
+          "GoabInput",
+          "GoabButton"
+        ]
+      },
+      {
+        "title": "Container + ButtonGroup + Badge",
+        "description": "Dashboard widget with status and actions",
+        "components": ["GoabContainer", "GoabButtonGroup", "GoabBadge"]
+      },
+      {
+        "title": "Container + Callout + Details",
+        "description": "Information section with progressive disclosure",
+        "components": ["GoabContainer", "GoabCallout", "GoabDetails"]
+      }
+    ]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabContainer } from '@abgov/react-components'",
+      "quickExample": "<GoabContainer>\n  <p>Content grouped in a visual container</p>\n</GoabContainer>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-container>\n  <p>Content grouped in a visual container</p>\n</goab-container>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-container>\n  <p>Content grouped in a visual container</p>\n</goa-container>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "type",
+        "type": "interactive | info | error | success | important | non-interactive",
+        "default": "interactive",
+        "required": false,
+        "description": "Visual style and semantic meaning of the container",
+        "usage": "Choose based on the content's purpose - success for completed items, error for issues, etc."
+      },
+      {
+        "name": "accent",
+        "type": "thick | thin | filled",
+        "default": "filled",
+        "required": false,
+        "description": "Style of the accent bar",
+        "usage": "thick for headers with titles/actions, thin for subtle emphasis, filled for standard containers"
+      },
+      {
+        "name": "padding",
+        "type": "relaxed | compact",
+        "default": "relaxed",
+        "required": false,
+        "description": "Amount of internal spacing",
+        "usage": "relaxed for comfortable reading, compact for dense layouts or sidebars"
+      },
+      {
+        "name": "width",
+        "type": "full | content",
+        "default": "full",
+        "required": false,
+        "description": "How the container sizes itself",
+        "usage": "full spans available width, content sizes to fit content"
+      },
+      {
+        "name": "maxWidth",
+        "type": "string",
+        "default": "none",
+        "required": false,
+        "description": "Maximum width constraint",
+        "usage": "Set specific max-width for readability (e.g., '700px' for text content)"
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "default": null,
+        "required": false,
+        "description": "Header title content (only with accent='thick')",
+        "usage": "Use for section headings, widget titles, or content labels"
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "default": null,
+        "required": false,
+        "description": "Header action buttons (only with accent='thick')",
+        "usage": "Common actions related to the container content like Edit, Delete, or View Details"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Test identifier for automated testing",
+        "usage": "Use descriptive names like 'user-profile-container'"
+      },
+      {
+        "name": "mt",
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin top spacing",
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ]
+      },
+      {
+        "name": "mr",
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin right spacing",
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ]
+      },
+      {
+        "name": "mb",
+        "type": "Spacing",
+        "default": "m",
+        "required": false,
+        "description": "Margin bottom spacing",
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ]
+      },
+      {
+        "name": "ml",
+        "type": "Spacing",
+        "default": null,
+        "required": false,
+        "description": "Margin left spacing",
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ]
+      }
+    ],
+    "slots": [
+      {
+        "name": "children",
+        "description": "Main content of the container",
+        "required": true,
+        "usage": "Any content that should be visually grouped together"
+      },
+      {
+        "name": "title",
+        "description": "Header title (only with accent='thick')",
+        "required": false,
+        "usage": "Section headings, widget titles, content labels"
+      },
+      {
+        "name": "actions",
+        "description": "Header actions (only with accent='thick')",
+        "required": false,
+        "usage": "Buttons or links related to the container content"
+      }
+    ]
+  },
+
+  "usage": {
+    "primaryPurpose": "Container is a card-like component for emphasizing and grouping specific content that needs visual boundaries. It should NOT be used as a general layout wrapper.",
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Simple Content Container",
+          "description": "Basic container for grouping related content",
+          "code": "function BasicInfo() {\n  return (\n    <GoabContainer>\n      <h3>Contact Information</h3>\n      <p>Phone: (555) 123-4567</p>\n      <p>Email: contact@example.com</p>\n      <p>Address: 123 Main St, City, Province</p>\n    </GoabContainer>\n  );\n}"
+        },
+        {
+          "title": "Dashboard Widget with Header",
+          "description": "Container with title and action buttons in header",
+          "code": "function UserProfile() {\n  return (\n    <GoabContainer \n      accent=\"thick\" \n      title=\"User Profile\"\n      actions={\n        <GoabButtonGroup>\n          <GoabButton type=\"tertiary\" size=\"compact\">Edit</GoabButton>\n          <GoabButton type=\"tertiary\" size=\"compact\">View Details</GoabButton>\n        </GoabButtonGroup>\n      }\n    >\n      <div>\n        <p><strong>Name:</strong> John Smith</p>\n        <p><strong>Role:</strong> Administrator</p>\n        <p><strong>Last Login:</strong> 2 hours ago</p>\n      </div>\n    </GoabContainer>\n  );\n}"
+        },
+        {
+          "title": "Form Section Container",
+          "description": "Organizing form fields into logical sections",
+          "code": "function ApplicationForm() {\n  return (\n    <div>\n      <GoabContainer \n        accent=\"thick\" \n        title=\"Personal Information\"\n        padding=\"relaxed\"\n      >\n        <GoabFormItem label=\"Full Name\">\n          <GoabInput name=\"fullName\" required />\n        </GoabFormItem>\n        <GoabFormItem label=\"Email Address\">\n          <GoabInput name=\"email\" type=\"email\" required />\n        </GoabFormItem>\n        <GoabFormItem label=\"Phone Number\">\n          <GoabInput name=\"phone\" type=\"tel\" />\n        </GoabFormItem>\n      </GoabContainer>\n      \n      <GoabContainer \n        accent=\"thick\" \n        title=\"Employment History\"\n        padding=\"relaxed\"\n      >\n        <GoabFormItem label=\"Current Employer\">\n          <GoabInput name=\"employer\" />\n        </GoabFormItem>\n        <GoabFormItem label=\"Position\">\n          <GoabInput name=\"position\" />\n        </GoabFormItem>\n      </GoabContainer>\n    </div>\n  );\n}"
+        },
+        {
+          "title": "Status-Based Containers",
+          "description": "Using container types to communicate status",
+          "code": "function ApplicationStatus({ application }) {\n  const getContainerType = (status) => {\n    switch (status) {\n      case 'approved': return 'success';\n      case 'rejected': return 'error';\n      case 'under-review': return 'info';\n      case 'action-required': return 'important';\n      default: return 'interactive';\n    }\n  };\n  \n  return (\n    <GoabContainer \n      type={getContainerType(application.status)}\n      accent=\"thin\"\n      padding=\"compact\"\n    >\n      <h4>Application #{application.id}</h4>\n      <p><strong>Status:</strong> {application.status}</p>\n      <p><strong>Submitted:</strong> {application.submissionDate}</p>\n      {application.nextSteps && (\n        <p><strong>Next Steps:</strong> {application.nextSteps}</p>\n      )}\n    </GoabContainer>\n  );\n}"
+        },
+        {
+          "title": "Compact Card Layout",
+          "description": "Dense container layout for lists or grids",
+          "code": "function ApplicationCard({ application }) {\n  return (\n    <GoabContainer \n      padding=\"compact\" \n      accent=\"thin\"\n      maxWidth=\"300px\"\n    >\n      <h4>{application.title}</h4>\n      <p>Due: {application.dueDate}</p>\n      <p>Status: {application.status}</p>\n      \n      <GoabButtonGroup alignment=\"end\" mt=\"s\">\n        <GoabButton type=\"tertiary\" size=\"compact\">\n          View\n        </GoabButton>\n        <GoabButton type=\"primary\" size=\"compact\">\n          Continue\n        </GoabButton>\n      </GoabButtonGroup>\n    </GoabContainer>\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Simple Content Container",
+          "description": "Basic container for grouping related content",
+          "code": "<goab-container>\n  <h3>Contact Information</h3>\n  <p>Phone: (555) 123-4567</p>\n  <p>Email: contact@example.com</p>\n  <p>Address: 123 Main St, City, Province</p>\n</goab-container>"
+        },
+        {
+          "title": "Dashboard Widget with Header",
+          "description": "Container with title and action buttons",
+          "code": "<goab-container \n  accent=\"thick\" \n  title=\"User Profile\">\n  \n  <goab-button-group actions>\n    <goab-button type=\"tertiary\" size=\"compact\">Edit</goab-button>\n    <goab-button type=\"tertiary\" size=\"compact\">View Details</goab-button>\n  </goab-button-group>\n  \n  <div>\n    <p><strong>Name:</strong> {{ user.name }}</p>\n    <p><strong>Role:</strong> {{ user.role }}</p>\n    <p><strong>Last Login:</strong> {{ user.lastLogin }}</p>\n  </div>\n</goab-container>"
+        },
+        {
+          "title": "Status-Based Container",
+          "description": "Dynamic container type based on status",
+          "code": "<goab-container \n  [type]=\"getContainerType(application.status)\"\n  accent=\"thin\"\n  padding=\"compact\">\n  \n  <h4>Application #{{ application.id }}</h4>\n  <p><strong>Status:</strong> {{ application.status }}</p>\n  <p><strong>Submitted:</strong> {{ application.submissionDate }}</p>\n</goab-container>"
+        }
+      ],
+      "webComponent": [
+        {
+          "title": "Simple Content Container",
+          "description": "Basic container for grouping related content",
+          "code": "<goa-container>\n  <h3>Contact Information</h3>\n  <p>Phone: (555) 123-4567</p>\n  <p>Email: contact@example.com</p>\n</goa-container>"
+        },
+        {
+          "title": "Container with Header",
+          "description": "Container with title and actions in slots",
+          "code": "<goa-container accent=\"thick\">\n  <span slot=\"title\">User Profile</span>\n  <goa-button slot=\"actions\" type=\"tertiary\" size=\"compact\">Edit</goa-button>\n  \n  <div>\n    <p><strong>Name:</strong> John Smith</p>\n    <p><strong>Role:</strong> Administrator</p>\n  </div>\n</goa-container>"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Dashboard Widget Layout",
+        "description": "Organizing dashboard content into scannable widgets",
+        "code": "function Dashboard() {\n  return (\n    <div className=\"dashboard-grid\">\n      <GoabContainer \n        accent=\"thick\" \n        title=\"Recent Activity\"\n        actions={<GoabButton type=\"tertiary\">View All</GoabButton>}\n      >\n        <ActivityList activities={recentActivities} />\n      </GoabContainer>\n      \n      <GoabContainer \n        accent=\"thick\" \n        title=\"Quick Stats\"\n      >\n        <StatsDisplay stats={dashboardStats} />\n      </GoabContainer>\n      \n      <GoabContainer \n        accent=\"thick\" \n        title=\"Notifications\"\n        actions={\n          <GoabButtonGroup>\n            <GoabButton type=\"tertiary\">Mark All Read</GoabButton>\n            <GoabButton type=\"tertiary\">Settings</GoabButton>\n          </GoabButtonGroup>\n        }\n      >\n        <NotificationList notifications={userNotifications} />\n      </GoabContainer>\n    </div>\n  );\n}"
+      },
+      {
+        "name": "Progressive Form Layout",
+        "description": "Breaking complex forms into manageable sections",
+        "code": "function MultiStepForm() {\n  const [currentStep, setCurrentStep] = useState(1);\n  const [completedSteps, setCompletedSteps] = useState(new Set());\n  \n  return (\n    <div>\n      <GoabContainer \n        accent=\"thick\" \n        title=\"Step 1: Personal Information\"\n        type={completedSteps.has(1) ? 'success' : 'interactive'}\n        actions={\n          completedSteps.has(1) && (\n            <GoabBadge type=\"success\" content=\"Complete\" />\n          )\n        }\n      >\n        <PersonalInfoForm \n          onComplete={() => {\n            setCompletedSteps(prev => new Set([...prev, 1]));\n            setCurrentStep(2);\n          }}\n        />\n      </GoabContainer>\n      \n      <GoabContainer \n        accent=\"thick\" \n        title=\"Step 2: Employment History\"\n        type={currentStep >= 2 ? 'interactive' : 'non-interactive'}\n        padding={currentStep >= 2 ? 'relaxed' : 'compact'}\n      >\n        {currentStep >= 2 ? (\n          <EmploymentForm \n            onComplete={() => {\n              setCompletedSteps(prev => new Set([...prev, 2]));\n              setCurrentStep(3);\n            }}\n          />\n        ) : (\n          <p>Complete Step 1 to continue</p>\n        )}\n      </GoabContainer>\n    </div>\n  );\n}"
+      },
+      {
+        "name": "Content Card Grid",
+        "description": "Creating scannable card layouts for lists of content",
+        "code": "function ApplicationList({ applications }) {\n  return (\n    <div className=\"card-grid\">\n      {applications.map(app => (\n        <GoabContainer \n          key={app.id}\n          padding=\"compact\"\n          accent=\"thin\"\n          type={getStatusType(app.status)}\n          maxWidth=\"320px\"\n        >\n          <h4>{app.title}</h4>\n          <p><strong>Due:</strong> {app.dueDate}</p>\n          <p><strong>Status:</strong> {app.status}</p>\n          \n          {app.status === 'action-required' && (\n            <GoabCallout type=\"important\" size=\"medium\">\n              Action required by {app.actionDeadline}\n            </GoabCallout>\n          )}\n          \n          <GoabButtonGroup alignment=\"end\" mt=\"m\">\n            <GoabButton type=\"tertiary\" size=\"compact\">\n              View Details\n            </GoabButton>\n            {app.canContinue && (\n              <GoabButton type=\"primary\" size=\"compact\">\n                Continue\n              </GoabButton>\n            )}\n          </GoabButtonGroup>\n        </GoabContainer>\n      ))}\n    </div>\n  );\n}"
+      },
+      {
+        "name": "Status Communication Layout",
+        "description": "Using container types to communicate different states",
+        "code": "function StatusDisplay({ userApplications }) {\n  const groupedApps = groupBy(userApplications, 'status');\n  \n  return (\n    <div>\n      {groupedApps.approved && (\n        <GoabContainer type=\"success\" accent=\"thin\" mb=\"l\">\n          <h3>Approved Applications</h3>\n          <p>{groupedApps.approved.length} applications have been approved.</p>\n          <ApplicationSummaryList applications={groupedApps.approved} />\n        </GoabContainer>\n      )}\n      \n      {groupedApps.pending && (\n        <GoabContainer type=\"info\" accent=\"thin\" mb=\"l\">\n          <h3>Under Review</h3>\n          <p>{groupedApps.pending.length} applications are currently being reviewed.</p>\n          <ApplicationSummaryList applications={groupedApps.pending} />\n        </GoabContainer>\n      )}\n      \n      {groupedApps.actionRequired && (\n        <GoabContainer type=\"important\" accent=\"thick\" title=\"Action Required\">\n          <p>{groupedApps.actionRequired.length} applications need your attention.</p>\n          <ApplicationSummaryList applications={groupedApps.actionRequired} />\n          <GoabButtonGroup alignment=\"start\" mt=\"m\">\n            <GoabButton type=\"primary\">Review Applications</GoabButton>\n          </GoabButtonGroup>\n        </GoabContainer>\n      )}\n    </div>\n  );\n}"
+      }
+    ],
+    "integrations": [
+      {
+        "component": "GoAFormItem",
+        "description": "Group form fields into logical sections",
+        "example": "Personal info container, employment history container"
+      },
+      {
+        "component": "GoAButtonGroup",
+        "description": "Add action buttons in container headers or content",
+        "example": "Edit/Delete actions in widget headers, form navigation buttons"
+      },
+      {
+        "component": "GoAAccordion",
+        "description": "Combine with accordions for progressive disclosure",
+        "example": "Container sections with expandable details"
+      },
+      {
+        "component": "GoACallout",
+        "description": "Include status messages within container content",
+        "example": "Important notices within application containers"
+      },
+      {
+        "component": "GoABadge",
+        "description": "Show status indicators in container headers",
+        "example": "Completion badges, status indicators in widget titles"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "typeGuidance": {
+      "interactive": {
+        "when": "Default containers for general content grouping",
+        "examples": ["User profiles", "Dashboard widgets", "Content sections"],
+        "appearance": "Neutral background with interactive accent color"
+      },
+      "info": {
+        "when": "Informational content that provides context or guidance",
+        "examples": ["Help sections", "Process explanations", "Status updates"],
+        "appearance": "Blue accent indicates informational nature"
+      },
+      "success": {
+        "when": "Completed items, approved applications, positive outcomes",
+        "examples": [
+          "Approved applications",
+          "Completed forms",
+          "Success confirmations"
+        ],
+        "appearance": "Green accent reinforces positive status"
+      },
+      "error": {
+        "when": "Error states, rejected items, issues requiring attention",
+        "examples": ["Rejected applications", "Form errors", "System issues"],
+        "appearance": "Red accent indicates problems or errors"
+      },
+      "important": {
+        "when": "Content requiring user attention or action",
+        "examples": [
+          "Action required items",
+          "Urgent notices",
+          "Priority content"
+        ],
+        "appearance": "Orange accent draws attention to importance"
+      },
+      "non-interactive": {
+        "when": "Display-only content that users cannot interact with",
+        "examples": [
+          "Historical data",
+          "Read-only information",
+          "Disabled sections"
+        ],
+        "appearance": "Muted accent indicates non-interactive state"
+      }
+    },
+    "accentGuidance": {
+      "filled": {
+        "when": "Standard container styling for most use cases",
+        "appearance": "Full background with subtle accent indication"
+      },
+      "thick": {
+        "when": "Containers that need headers with titles and actions",
+        "appearance": "Prominent accent bar that can contain title and action elements"
+      },
+      "thin": {
+        "when": "Subtle emphasis without heavy visual weight",
+        "appearance": "Thin accent line for minimal visual impact"
+      }
+    },
+    "whenToUse": [
+      "Content that needs visual emphasis and separation from surrounding elements",
+      "Dashboard widgets or cards that contain related information",
+      "Form sections that group related fields together",
+      "Status-based content that requires visual context (success, error, etc.)",
+      "Information that functions as a 'card' or discrete content block",
+      "Content that benefits from visual boundaries and emphasis"
+    ],
+    "whenNotToUse": [
+      "General page layout structure (use proper layout components like Grid, Block, or native HTML elements)",
+      "Wrapping entire page sections or main content areas",
+      "Simple content grouping that doesn't need visual emphasis",
+      "As a replacement for semantic HTML structure (header, main, section, etc.)",
+      "When content doesn't benefit from card-like visual treatment",
+      "For basic spacing between elements (use spacing utilities instead)"
+    ],
+    "bestPractices": [
+      "Use Container sparingly - only when content truly needs visual emphasis or card-like treatment",
+      "Think 'card' not 'wrapper' - Container is for discrete, emphasized content blocks",
+      "Use proper layout components (Grid, Block) or semantic HTML for general page structure",
+      "Container types should match the semantic meaning of your content",
+      "Keep container content focused and related",
+      "Use thick accent with title/actions for sections that need headers",
+      "Choose compact padding for dense layouts, relaxed for comfortable reading",
+      "Limit container nesting to maintain visual clarity",
+      "Use consistent container patterns for similar content types",
+      "Consider responsive behavior - containers adapt automatically",
+      "Set maxWidth for text-heavy containers to improve readability"
+    ],
+    "layoutConsiderations": [
+      "Containers work well in grid layouts for dashboard widgets",
+      "Stack containers vertically for form sections or content areas",
+      "Use consistent spacing between containers for visual rhythm",
+      "Consider container width in relation to their content and context",
+      "Plan container hierarchy to avoid excessive nesting"
+    ]
+  },
+
+  "accessibility": {
+    "screenReader": [
+      "Container structure is transparent to screen readers",
+      "Title content provides semantic headings when used",
+      "Content within containers maintains normal reading flow",
+      "Type-based styling doesn't affect screen reader experience"
+    ],
+    "keyboardNavigation": [
+      "Containers don't interfere with normal tab order",
+      "Interactive elements within containers remain keyboard accessible",
+      "Actions in container headers maintain proper focus behavior"
+    ],
+    "requirements": [
+      "Use semantic heading elements when title slot contains headings",
+      "Ensure interactive elements in action slots have proper accessibility",
+      "Don't rely solely on container type colors to convey meaning",
+      "Maintain logical content structure within containers"
+    ]
+  },
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "problem": "Title and actions slots not appearing",
+        "solution": "Title and actions only work with accent='thick' - change accent prop",
+        "code": "// ❌ Title won't show with default accent\n<GoabContainer title=\"Section Title\">\n  Content\n</GoabContainer>\n\n// ✅ Title appears with thick accent\n<GoabContainer accent=\"thick\" title=\"Section Title\">\n  Content\n</GoabContainer>"
+      },
+      {
+        "problem": "Container taking up too much or too little space",
+        "solution": "Adjust width and maxWidth props based on content needs",
+        "code": "// ✅ Content-sized container\n<GoabContainer width=\"content\" maxWidth=\"400px\">\n  Compact content that shouldn't stretch\n</GoabContainer>\n\n// ✅ Full-width with readable max width\n<GoabContainer maxWidth=\"700px\">\n  Text content that needs readability constraints\n</GoabContainer>"
+      },
+      {
+        "problem": "Inconsistent spacing between containers",
+        "solution": "Use margin props or rely on default mb='m' for consistent spacing",
+        "code": "// ✅ Consistent spacing with margin props\n<GoabContainer mb=\"l\">First section</GoabContainer>\n<GoabContainer mb=\"l\">Second section</GoabContainer>\n<GoabContainer mb=\"none\">Last section</GoabContainer>"
+      },
+      {
+        "problem": "Container content feels cramped or too spread out",
+        "solution": "Choose appropriate padding based on content density and context",
+        "code": "// ✅ Relaxed padding for comfortable reading\n<GoabContainer padding=\"relaxed\">\n  <h3>Article Title</h3>\n  <p>Long form content that benefits from comfortable spacing...</p>\n</GoabContainer>\n\n// ✅ Compact padding for dense layouts\n<GoabContainer padding=\"compact\">\n  <h4>Quick Stats</h4>\n  <p>25 Active | 12 Pending | 3 Complete</p>\n</GoabContainer>"
+      },
+      {
+        "problem": "Container type colors not conveying intended meaning",
+        "solution": "Match container types to content semantics and include text indicators",
+        "code": "// ✅ Clear semantic meaning with text context\n<GoabContainer type=\"success\">\n  <h3>Application Approved</h3>\n  <p>Your application has been approved and is ready for the next step.</p>\n</GoabContainer>\n\n// ✅ Important type with clear action context\n<GoabContainer type=\"important\" accent=\"thick\" title=\"Action Required\">\n  <p>Please update your payment information by March 15th.</p>\n  <GoabButton type=\"primary\">Update Payment</GoabButton>\n</GoabContainer>"
+      }
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabCallout",
+      "relationship": "Often visually similar with success type but different purpose",
+      "usage": "Use Callout for status communication, Container for content organization",
+      "decisionPoint": "Ask: Is this organizing content or announcing status?",
+      "example": "Content sections → Container, Status updates → Callout"
+    },
+    {
+      "name": "GoAAccordion",
+      "relationship": "Content organization",
+      "usage": "Use Accordion within containers for progressive disclosure of detailed content"
+    },
+    {
+      "name": "GoAFormItem",
+      "relationship": "Form layout",
+      "usage": "Group multiple FormItem components within containers to organize form sections"
+    },
+    {
+      "name": "GoAButtonGroup",
+      "relationship": "Header actions",
+      "usage": "Place ButtonGroups in container action slots for related action buttons"
+    },
+    {
+      "name": "GoABadge",
+      "relationship": "Status indicators",
+      "usage": "Use Badges in container titles to show status, counts, or completion indicators"
+    },
+    {
+      "name": "GoADetails",
+      "relationship": "Alternative organization",
+      "usage": "Use Details for simple show/hide content, Container for visual grouping and structure"
+    }
+  ],
+
+  "commonMistakes": [
+    {
+      "mistake": "Using div or Container as the root page wrapper",
+      "why": "GoA Design System requires OneColumnLayout for all government service pages",
+      "instead": "ALWAYS use GoabOneColumnLayout as the root component with proper header/footer slots",
+      "example": "// ❌ NEVER do this for page structure\n<div className=\"page\">\n  <GoabAppHeader />\n  <main>Content</main>\n  <GoabAppFooter />\n</div>\n\n// ✅ ALWAYS use this pattern\n<GoabOneColumnLayout>\n  <section slot=\"header\">\n    <GoabMicrositeHeader type=\"live\" />\n    <GoabAppHeader heading=\"Service\" />\n  </section>\n  <GoabPageBlock width=\"704px\">\n    Content here\n  </GoabPageBlock>\n  <section slot=\"footer\">\n    <GoabAppFooter />\n  </section>\n</GoabOneColumnLayout>"
+    },
+    {
+      "mistake": "Using Container as a general layout wrapper for page sections",
+      "why": "Container is a card-like component for specific content emphasis, not for general layout structure",
+      "instead": "Use proper layout components (Grid, Block, PageBlock) or semantic HTML elements (main, section, div) for page structure",
+      "example": "// ❌ Wrong - using Container for general layout\n<GoabContainer>\n  <header>Page Header</header>\n  <main>Main content area</main>\n  <footer>Footer content</footer>\n</GoabContainer>\n\n// ✅ Correct - using Container for specific content cards\n<main>\n  <GoabContainer accent=\"thick\" title=\"User Dashboard\">\n    <p>Welcome back! Here's your account summary.</p>\n  </GoabContainer>\n  <GoabContainer accent=\"thick\" title=\"Recent Applications\">\n    <ApplicationsList />\n  </GoabContainer>\n</main>"
+    },
+    {
+      "mistake": "Wrapping every content section in a Container",
+      "why": "Creates visual noise and dilutes the impact of truly important content",
+      "instead": "Use Container selectively for content that needs visual emphasis or card-like treatment",
+      "example": "// ❌ Wrong - everything in containers\n<div>\n  <GoabContainer><h1>Page Title</h1></GoabContainer>\n  <GoabContainer><p>Regular paragraph text</p></GoabContainer>\n  <GoabContainer><ul>List items</ul></GoabContainer>\n</div>\n\n// ✅ Correct - containers only for emphasized content\n<div>\n  <h1>Page Title</h1>\n  <p>Regular paragraph text</p>\n  <GoabContainer accent=\"thick\" title=\"Important Notice\">\n    <p>This information requires user attention.</p>\n  </GoabContainer>\n</div>"
+    },
+    {
+      "mistake": "Trying to use title and actions props without accent='thick'",
+      "why": "Title and actions slots only work with thick accent styling",
+      "instead": "Set accent='thick' when using title or actions",
+      "example": "// ❌ Wrong - title won't appear\n<GoabContainer title=\"Widget Title\">Content</GoabContainer>\n\n// ✅ Correct - thick accent enables header\n<GoabContainer accent=\"thick\" title=\"Widget Title\">Content</GoabContainer>"
+    },
+    {
+      "mistake": "Excessive container nesting creating visual clutter",
+      "why": "Too many nested containers reduce visual hierarchy and clarity",
+      "instead": "Limit nesting and use different accent styles to create hierarchy",
+      "example": "// ❌ Wrong - too much nesting\n<GoabContainer><GoabContainer><GoabContainer>Content</GoabContainer></GoabContainer></GoabContainer>\n\n// ✅ Correct - flat structure with hierarchy\n<GoabContainer accent=\"thick\" title=\"Section\">Main content</GoabContainer>\n<GoabContainer accent=\"thin\">Related content</GoabContainer>"
+    },
+    {
+      "mistake": "Using container types that don't match content semantics",
+      "why": "Confuses users about the actual content status or importance",
+      "instead": "Match container type to the semantic meaning of the content",
+      "example": "// ❌ Wrong - type doesn't match content\n<GoabContainer type=\"error\">Welcome message and getting started guide</GoabContainer>\n\n// ✅ Correct - type matches content meaning\n<GoabContainer type=\"success\">Application approved - next steps below</GoabContainer>\n<GoabContainer type=\"interactive\">Welcome message and getting started guide</GoabContainer>"
+    }
+  ],
+
+  "frameworkNotes": {
+    "propCasing": {
+      "react": "Use camelCase: maxWidth, testId",
+      "webComponent": "Use lowercase with hyphens: maxwidth, testid",
+      "angular": "Use camelCase in template: maxWidth, but accepts both formats"
+    },
+    "slotHandling": {
+      "react": "Use children for main content, title/actions props for header elements",
+      "webComponent": "Use default slot for content, 'title'/'actions' named slots for header",
+      "angular": "Use ng-content for content, title/actions attributes for header",
+      "constraint": "Title and actions only work with accent='thick' - they're ignored otherwise"
+    },
+    "constraints": {
+      "accentRequirement": "Title and actions props/slots only function with accent='thick'",
+      "widthBehavior": "width='content' sizes to content, width='full' spans available space",
+      "typeStyling": "Type prop affects accent color and semantic meaning - choose appropriately",
+      "paddingLevels": "Only 'relaxed' and 'compact' padding options available"
+    },
+    "responsiveBehavior": {
+      "automatic": "Containers automatically adapt spacing and layout for mobile devices",
+      "accentBar": "Thick accent headers stack appropriately on narrow screens",
+      "padding": "Responsive padding tokens adjust container spacing for different screen sizes",
+      "maxWidth": "Honors maxWidth prop across all screen sizes for content readability"
+    }
+  },
+
+  "tags": ["card", "grouping", "content-sections", "semantic", "interactive"],
+  "category": "component",
+  "status": "stable",
+  "lastUpdated": "2025-06-26",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/container.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

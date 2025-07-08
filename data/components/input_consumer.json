@@ -1,0 +1,437 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Input",
+  "customElement": "goa-input",
+  "summary": "Text input component for collecting user data across multiple input types with form integration and validation support",
+
+  "customElement": {
+    "tagName": "goa-input",
+    "className": "goa-input"
+  },
+
+  "playgroundExamples": {
+    "react": [
+      {
+        "title": "Basic Input Types",
+        "description": "Standard input types with appropriate widths and formatting",
+        "code": "<GoabFormItem label=\"Basic text input\">\n  <GoabInput\n    name=\"basicText\"\n    type=\"text\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Password input\">\n  <GoabInput\n    name=\"password\"\n    type=\"password\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Email input\">\n  <GoabInput\n    name=\"email\"\n    type=\"email\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n    trailingContent=\"@gov.ab.ca\"\n  />\n</GoabFormItem>",
+        "usage": "Use appropriate input types for data validation and mobile keyboard optimization"
+      },
+      {
+        "title": "Specialized Input Types",
+        "description": "Date, time, and communication-specific input types",
+        "code": "<GoabFormItem label=\"Date input\">\n  <GoabInput\n    name=\"date\"\n    type=\"date\"\n    value=\"\"\n    width=\"13ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Date time input\">\n  <GoabInput\n    name=\"datetime\"\n    type=\"datetime-local\"\n    value=\"\"\n    width=\"23ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Time input\">\n  <GoabInput\n    name=\"time\"\n    type=\"time\"\n    value=\"\"\n    width=\"14ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Tel input\">\n  <GoabInput\n    name=\"phone\"\n    type=\"tel\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>",
+        "usage": "Use specific input types to trigger appropriate mobile keyboards and browser validation"
+      },
+      {
+        "title": "Search and Interactive Inputs",
+        "description": "Search functionality and inputs with interactive icons",
+        "code": "<GoabFormItem label=\"Search input\">\n  <GoabInput\n    name=\"search\"\n    type=\"search\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Input with icon button\">\n  <GoabInput\n    name=\"clearable\"\n    type=\"text\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n    onTrailingIconClick={handleClear}\n    trailingIcon=\"close\"\n    trailingIconAriaLabel=\"Clear input\"\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Number input\">\n  <GoabInput\n    name=\"quantity\"\n    type=\"number\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>",
+        "usage": "Use search type for search fields and trailing icons for clear/toggle functionality"
+      },
+      {
+        "title": "Width Variations",
+        "description": "Different width options for various layout needs",
+        "code": "<GoabFormItem label=\"2ch width (very narrow)\">\n  <GoabInput\n    name=\"narrow\"\n    type=\"text\"\n    value=\"\"\n    width=\"2ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"20px fixed width\">\n  <GoabInput\n    name=\"fixed\"\n    type=\"text\"\n    value=\"\"\n    width=\"20px\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"50% responsive width\">\n  <GoabInput\n    name=\"halfWidth\"\n    type=\"text\"\n    value=\"\"\n    width=\"50%\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"100% full width\">\n  <GoabInput\n    name=\"fullWidth\"\n    type=\"text\"\n    value=\"\"\n    width=\"100%\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"No width defined (default)\">\n  <GoabInput\n    name=\"default\"\n    type=\"text\"\n    value=\"\"\n    onChange={handleChange}\n  />\n</GoabFormItem>",
+        "usage": "Use character-based (ch) for predictable content, percentage for responsive layouts"
+      },
+      {
+        "title": "Content Additions",
+        "description": "Leading and trailing content for enhanced input functionality",
+        "code": "<GoabFormItem label=\"Leading content\">\n  <GoabInput\n    name=\"leadingContent\"\n    type=\"text\"\n    value=\"\"\n    leadingContent=\"$\"\n    width=\"20ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Trailing content\">\n  <GoabInput\n    name=\"trailingContent\"\n    type=\"email\"\n    value=\"\"\n    width=\"100%\"\n    trailingContent=\"@gov.ab.ca\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Both leading and trailing content\">\n  <GoabInput\n    name=\"bothContent\"\n    type=\"text\"\n    value=\"\"\n    width=\"80ch\"\n    leadingContent=\"prefix\"\n    trailingContent=\"suffix\"\n    onChange={handleChange}\n  />\n</GoabFormItem>",
+        "usage": "Use leading/trailing content for currency symbols, domains, or unit labels"
+      },
+      {
+        "title": "Icon Integration",
+        "description": "Leading and trailing icons for visual context and functionality",
+        "code": "<GoabFormItem label=\"Leading icon\">\n  <GoabInput\n    leadingIcon=\"mail\"\n    name=\"emailIcon\"\n    value=\"\"\n    width=\"40ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Trailing icon\">\n  <GoabInput\n    trailingIcon=\"mail\"\n    name=\"trailingIconExample\"\n    value=\"\"\n    width=\"40ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Combined content and icons\">\n  <GoabInput\n    name=\"combined\"\n    type=\"text\"\n    value=\"\"\n    width=\"80ch\"\n    leadingContent=\"prefix\"\n    trailingContent=\"suffix\"\n    trailingIcon=\"arrow-back\"\n    leadingIcon=\"arrow-back\"\n    onChange={handleChange}\n  />\n</GoabFormItem>",
+        "usage": "Use icons to indicate input purpose or provide interactive functionality"
+      },
+      {
+        "title": "Form Requirements and Help",
+        "description": "Required/optional indicators and helper text",
+        "code": "<GoabFormItem label=\"Optional text input\" requirement=\"optional\">\n  <GoabInput\n    name=\"optional\"\n    type=\"text\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem \n  label=\"Input with helper text\" \n  helpText=\"This is some help text.\" \n  requirement=\"optional\"\n>\n  <GoabInput\n    name=\"withHelp\"\n    type=\"text\"\n    value=\"\"\n    width=\"30ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem \n  label=\"60ch width with help\" \n  helpText=\"This is some help text.\"\n>\n  <GoabInput\n    name=\"wide\"\n    type=\"text\"\n    value=\"\"\n    width=\"60ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>",
+        "usage": "Always use FormItem for proper labeling and provide helpful context"
+      },
+      {
+        "title": "Search Pattern with Button",
+        "description": "Common search input with adjacent search button",
+        "code": "<GoabBlock gap=\"xs\" mb=\"xl\" direction=\"row\">\n  <GoabInput\n    name=\"searchField\"\n    type=\"text\"\n    value=\"\"\n    width=\"30ch\"\n    leadingIcon=\"search\"\n    onChange={handleChange}\n  />\n  <GoabButton>Search</GoabButton>\n</GoabBlock>",
+        "usage": "Use for search interfaces where button submission is preferred"
+      },
+      {
+        "title": "Error States",
+        "description": "Input validation and error display patterns",
+        "code": "<GoabFormItem \n  label=\"Input with error\" \n  helpText=\"This is some help text.\" \n  error=\"There is an error\"\n>\n  <GoabInput\n    name=\"errorExample\"\n    type=\"text\"\n    value=\"\"\n    width=\"20ch\"\n    error={true}\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem \n  label=\"Error with leading content\" \n  error=\"There is an error\"\n>\n  <GoabInput\n    name=\"errorLeading\"\n    type=\"text\"\n    value=\"\"\n    width=\"20ch\"\n    leadingContent=\"prefix\"\n    error={true}\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem \n  label=\"Error with trailing content\" \n  helpText=\"This is some help text.\" \n  error=\"There is an error\"\n>\n  <GoabInput\n    name=\"errorTrailing\"\n    type=\"text\"\n    value=\"\"\n    width=\"20ch\"\n    trailingContent=\"suffix\"\n    error={true}\n    onChange={handleChange}\n  />\n</GoabFormItem>",
+        "usage": "Show validation errors clearly with both visual indicators and descriptive messages"
+      },
+      {
+        "title": "Disabled and Read-only States",
+        "description": "Non-interactive input states for different scenarios",
+        "code": "<GoabFormItem \n  label=\"Disabled input\" \n  helpText=\"Here is some helper text\"\n>\n  <GoabInput\n    disabled={true}\n    name=\"disabled\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Disabled with leading icon\">\n  <GoabInput\n    leadingIcon=\"accessibility\"\n    disabled={true}\n    name=\"disabledIcon\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem label=\"Read-only input\">\n  <GoabInput\n    name=\"readonly\"\n    value=\"\"\n    width=\"20ch\"\n    readonly={true}\n    onChange={handleChange}\n  />\n</GoabFormItem>",
+        "usage": "Use disabled for unavailable fields, readonly for display-only data that can be selected"
+      },
+      {
+        "title": "Placeholder and Multiple Fields",
+        "description": "Placeholder text usage and grouped field layouts",
+        "code": "<GoabFormItem label=\"Field with placeholder text\">\n  <GoabInput\n    name=\"placeholder\"\n    placeholder=\"Placeholder text\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n  />\n</GoabFormItem>\n\n<GoabFormItem \n  label=\"Two text fields?\" \n  helpText=\"Helper text that is wrapping both fields at once\"\n>\n  <GoabInput\n    name=\"first\"\n    placeholder=\"First field\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n  />\n  <GoabInput\n    name=\"second\"\n    placeholder=\"Second field\"\n    value=\"\"\n    width=\"20ch\"\n    onChange={handleChange}\n    ml=\"m\"\n  />\n</GoabFormItem>",
+        "usage": "Use placeholder sparingly for formatting examples, prefer labels and help text for essential information"
+      }
+    ]
+  },
+
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "dependencies": [
+      "FormItem component (recommended)",
+      "Design token system",
+      "Ionicons (for leading/trailing icons)"
+    ]
+  },
+
+  "installation": {
+    "react": {
+      "import": "import { GoabInput, GoabFormItem } from '@abgov/react-components'",
+      "quickExample": "<GoabFormItem label=\"Email Address\">\n  <GoabInput \n    name=\"email\" \n    type=\"email\" \n    value={email} \n    onChange={setEmail} \n  />\n</GoabFormItem>"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-form-item label=\"Email Address\">\n  <goab-input \n    name=\"email\" \n    type=\"email\" \n    formControlName=\"email\">\n  </goab-input>\n</goab-form-item>"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-form-item label=\"Email Address\">\n  <goa-input \n    name=\"email\" \n    type=\"email\" \n    value=\"\">\n  </goa-input>\n</goa-form-item>"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "description": "Unique identifier for the input field",
+        "usage": "Used for form submission and must be unique within the form"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "default": "''",
+        "required": false,
+        "description": "Current value of the input",
+        "usage": "For controlled components - bind to state in React or form controls in Angular"
+      },
+      {
+        "name": "type",
+        "type": "text | number | password | email | search | tel | date | datetime-local | time | url | week",
+        "default": "text",
+        "required": false,
+        "description": "Type of input field",
+        "usage": "Choose appropriate type for data validation and mobile keyboard optimization"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "description": "Placeholder text shown when input is empty",
+        "usage": "Use sparingly - prefer helper text in FormItem for better accessibility"
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Disables the input field",
+        "usage": "Use when input is not available due to permissions or application state"
+      },
+      {
+        "name": "readonly",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Makes the input read-only",
+        "usage": "Use for displaying data that shouldn't be edited but can be selected/copied"
+      },
+      {
+        "name": "error",
+        "type": "boolean",
+        "default": false,
+        "required": false,
+        "description": "Shows error state styling",
+        "usage": "Typically controlled by form validation state"
+      },
+      {
+        "name": "leadingIcon",
+        "type": "string (ionicon name)",
+        "required": false,
+        "description": "Icon displayed on the left side of the input",
+        "usage": "Use to indicate input type (mail, call, calendar) or provide visual context"
+      },
+      {
+        "name": "trailingIcon",
+        "type": "string (ionicon name)",
+        "required": false,
+        "description": "Icon displayed on the right side of the input",
+        "usage": "Use for actions like show/hide password, clear field, or search"
+      },
+      {
+        "name": "trailingIconAriaLabel",
+        "type": "string",
+        "required": false,
+        "description": "Accessible label for clickable trailing icon",
+        "usage": "Required when trailing icon is clickable - describes what the icon does"
+      },
+      {
+        "name": "leadingContent",
+        "type": "string",
+        "required": false,
+        "description": "Text content displayed on the left side of the input",
+        "usage": "Use for currency symbols, prefixes, or domain indicators"
+      },
+      {
+        "name": "trailingContent",
+        "type": "string",
+        "required": false,
+        "description": "Text content displayed on the right side of the input",
+        "usage": "Use for suffixes, units, or domain extensions like '@gov.ab.ca'"
+      },
+      {
+        "name": "width",
+        "type": "string",
+        "required": false,
+        "description": "Sets the width of the input field",
+        "usage": "Use character-based units (ch) for predictable content, percentage for responsive layouts"
+      },
+      {
+        "name": "maxLength",
+        "type": "number",
+        "required": false,
+        "description": "Maximum number of characters allowed",
+        "usage": "Enforce character limits for fields like names, titles, or short descriptions"
+      },
+      {
+        "name": "min",
+        "type": "string",
+        "required": false,
+        "description": "Minimum value for number/date inputs",
+        "usage": "Set validation constraints for numeric and date fields"
+      },
+      {
+        "name": "max",
+        "type": "string",
+        "required": false,
+        "description": "Maximum value for number/date inputs",
+        "usage": "Set validation constraints for numeric and date fields"
+      },
+      {
+        "name": "testId",
+        "type": "string",
+        "default": "",
+        "required": false,
+        "description": "Data attribute for testing and automation",
+        "usage": "Set unique identifier for testing specific input fields"
+      }
+    ],
+    "events": [
+      {
+        "name": "onChange",
+        "framework": "React",
+        "description": "Fired when input value changes",
+        "signature": "(name: string, value: string) => void"
+      },
+      {
+        "name": "onFocus",
+        "framework": "React",
+        "description": "Fired when input receives focus",
+        "signature": "(name: string, value: string) => void"
+      },
+      {
+        "name": "onBlur",
+        "framework": "React",
+        "description": "Fired when input loses focus",
+        "signature": "(name: string, value: string) => void"
+      },
+      {
+        "name": "onTrailingIconClick",
+        "framework": "React",
+        "description": "Fired when trailing icon is clicked",
+        "signature": "() => void"
+      },
+      {
+        "name": "changeEvent",
+        "framework": "Angular",
+        "description": "Fired when input value changes",
+        "signature": "$event: { name: string, value: string }"
+      },
+      {
+        "name": "_change",
+        "framework": "Web Component",
+        "description": "Custom event fired when input value changes",
+        "signature": "detail: { name: string, value: string }"
+      }
+    ]
+  },
+
+  "inputWidthStrategy": {
+    "widthByDataType": {
+      "fixedWidths": {
+        "postalCode": "7ch (Canadian: A1A 1A1)",
+        "suiteUnit": "10ch (Apt 123, Unit 5B)",
+        "year": "4ch (2024)",
+        "age": "3ch (25)",
+        "areaCode": "3ch (403)",
+        "sin": "11ch (123-456-789)",
+        "cvc": "3ch (123)"
+      },
+      "fullWidth": {
+        "rule": "Use width='100%' for unknown/variable length content",
+        "applies": [
+          "Street addresses",
+          "City/town names",
+          "Names (first, last, business)",
+          "Email addresses",
+          "Any text where length is unpredictable"
+        ],
+        "important": "Text inputs do NOT default to 100% width - must be explicitly set"
+      },
+      "textAreaThreshold": "Use TextArea instead of Input for content longer than 45-75 characters"
+    },
+    "aiImplementationRules": [
+      "Analyze expected input length to determine appropriate width",
+      "Use character lengths (ch) for predictable data",
+      "Use width='100%' for variable length data",
+      "Consider mobile experience when choosing widths"
+    ]
+  },
+
+  "usage": {
+    "playgroundNotes": {
+      "handleChange": "const handleChange = (name, value) => { /* Handle input change */ };",
+      "handleClear": "const handleClear = () => { /* Clear input value */ };",
+      "noop": "const noop = () => {}; // Placeholder function for examples"
+    },
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Contact Form",
+          "description": "Complete contact form with validation and different input types",
+          "code": "function ContactForm() {\n  const [formData, setFormData] = useState({\n    firstName: '',\n    lastName: '',\n    email: '',\n    phone: '',\n    company: '',\n    website: ''\n  });\n  \n  const [errors, setErrors] = useState({});\n\n  const handleInputChange = (name, value) => {\n    setFormData(prev => ({ ...prev, [name]: value }));\n    // Clear error when user starts typing\n    if (errors[name]) {\n      setErrors(prev => ({ ...prev, [name]: false }));\n    }\n  };\n\n  const validateEmail = (email) => {\n    return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);\n  };\n\n  const handleSubmit = (e) => {\n    e.preventDefault();\n    const newErrors = {};\n    \n    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';\n    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';\n    if (!formData.email.trim()) {\n      newErrors.email = 'Email is required';\n    } else if (!validateEmail(formData.email)) {\n      newErrors.email = 'Please enter a valid email address';\n    }\n    \n    setErrors(newErrors);\n    \n    if (Object.keys(newErrors).length === 0) {\n      console.log('Form submitted:', formData);\n    }\n  };\n\n  return (\n    <form onSubmit={handleSubmit}>\n      <GoabFormItem \n        label=\"First Name\" \n        error={errors.firstName} \n        errorMessage={errors.firstName}\n      >\n        <GoabInput\n          name=\"firstName\"\n          value={formData.firstName}\n          onChange={handleInputChange}\n          error={!!errors.firstName}\n          placeholder=\"Enter your first name\"\n          maxLength={50}\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem \n        label=\"Last Name\" \n        error={errors.lastName} \n        errorMessage={errors.lastName}\n      >\n        <GoabInput\n          name=\"lastName\"\n          value={formData.lastName}\n          onChange={handleInputChange}\n          error={!!errors.lastName}\n          placeholder=\"Enter your last name\"\n          maxLength={50}\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem \n        label=\"Email Address\" \n        error={errors.email} \n        errorMessage={errors.email}\n      >\n        <GoabInput\n          name=\"email\"\n          type=\"email\"\n          value={formData.email}\n          onChange={handleInputChange}\n          error={!!errors.email}\n          leadingIcon=\"mail\"\n          placeholder=\"your.email@example.com\"\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem label=\"Phone Number\" helpText=\"Optional - include area code\">\n        <GoabInput\n          name=\"phone\"\n          type=\"tel\"\n          value={formData.phone}\n          onChange={handleInputChange}\n          leadingIcon=\"call\"\n          placeholder=\"(555) 123-4567\"\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem label=\"Company\">\n        <GoabInput\n          name=\"company\"\n          value={formData.company}\n          onChange={handleInputChange}\n          leadingIcon=\"business\"\n          placeholder=\"Your company name\"\n        />\n      </GoabFormItem>\n      \n      <GoabFormItem label=\"Website\" helpText=\"Include http:// or https://\">\n        <GoabInput\n          name=\"website\"\n          type=\"url\"\n          value={formData.website}\n          onChange={handleInputChange}\n          leadingIcon=\"link\"\n          placeholder=\"https://yourwebsite.com\"\n        />\n      </GoabFormItem>\n      \n      <GoabButtonGroup alignment=\"end\">\n        <GoabButton type=\"secondary\" onClick={() => setFormData({})}>Reset</GoabButton>\n        <GoabButton type=\"primary\" onClick={handleSubmit}>Submit</GoabButton>\n      </GoabButtonGroup>\n    </form>\n  );\n}"
+        },
+        {
+          "title": "Password Input with Visibility Toggle",
+          "description": "Secure password input with show/hide functionality",
+          "code": "function PasswordField({ value, onChange, error }) {\n  const [showPassword, setShowPassword] = useState(false);\n\n  const togglePasswordVisibility = () => {\n    setShowPassword(!showPassword);\n  };\n\n  return (\n    <GoabFormItem \n      label=\"Password\" \n      error={error} \n      errorMessage={error ? 'Password must be at least 8 characters' : ''}\n      helpText=\"Must be at least 8 characters with uppercase, lowercase, and numbers\"\n    >\n      <GoabInput\n        name=\"password\"\n        type={showPassword ? 'text' : 'password'}\n        value={value}\n        onChange={onChange}\n        error={!!error}\n        leadingIcon=\"lock-closed\"\n        trailingIcon={showPassword ? 'eye-off' : 'eye'}\n        trailingIconAriaLabel={showPassword ? 'Hide password' : 'Show password'}\n        onTrailingIconClick={togglePasswordVisibility}\n        placeholder=\"Enter your password\"\n        minLength={8}\n      />\n    </GoabFormItem>\n  );\n}"
+        },
+        {
+          "title": "Search Input with Clear Function",
+          "description": "Search field with clear button functionality",
+          "code": "function SearchField({ onSearch, placeholder = \"Search...\" }) {\n  const [searchTerm, setSearchTerm] = useState('');\n\n  const handleSearch = (name, value) => {\n    setSearchTerm(value);\n    onSearch(value);\n  };\n\n  const clearSearch = () => {\n    setSearchTerm('');\n    onSearch('');\n  };\n\n  return (\n    <GoabInput\n      name=\"search\"\n      type=\"search\"\n      value={searchTerm}\n      onChange={handleSearch}\n      leadingIcon=\"search\"\n      trailingIcon={searchTerm ? \"close\" : undefined}\n      trailingIconAriaLabel=\"Clear search\"\n      onTrailingIconClick={searchTerm ? clearSearch : undefined}\n      placeholder={placeholder}\n      width=\"100%\"\n    />\n  );\n}"
+        }
+      ],
+      "angular": [
+        {
+          "title": "Reactive Form with Validation",
+          "description": "Angular reactive form with comprehensive validation",
+          "code": "export class UserRegistrationForm {\n  registrationForm = this.fb.group({\n    username: ['', [Validators.required, Validators.minLength(3)]],\n    email: ['', [Validators.required, Validators.email]],\n    password: ['', [Validators.required, Validators.minLength(8)]],\n    confirmPassword: ['', [Validators.required]],\n    birthDate: ['', [Validators.required]],\n    phone: [''],\n    website: ['', [Validators.pattern(/^https?:\\/\\/.+/)]]\n  }, { validators: this.passwordMatchValidator });\n\n  showPassword = false;\n  showConfirmPassword = false;\n\n  constructor(private fb: FormBuilder) {}\n\n  passwordMatchValidator(form: AbstractControl) {\n    const password = form.get('password');\n    const confirmPassword = form.get('confirmPassword');\n    \n    if (password?.value !== confirmPassword?.value) {\n      confirmPassword?.setErrors({ passwordMismatch: true });\n    } else {\n      confirmPassword?.setErrors(null);\n    }\n    return null;\n  }\n\n  getErrorMessage(fieldName: string): string {\n    const field = this.registrationForm.get(fieldName);\n    if (field?.hasError('required')) return `${this.getFieldLabel(fieldName)} is required`;\n    if (field?.hasError('email')) return 'Please enter a valid email address';\n    if (field?.hasError('minlength')) return `Minimum ${field.errors?.['minlength']?.requiredLength} characters required`;\n    if (field?.hasError('passwordMismatch')) return 'Passwords do not match';\n    if (field?.hasError('pattern')) return 'Please enter a valid URL starting with http:// or https://';\n    return '';\n  }\n\n  getFieldLabel(fieldName: string): string {\n    const labels: { [key: string]: string } = {\n      username: 'Username',\n      email: 'Email',\n      password: 'Password',\n      confirmPassword: 'Confirm Password',\n      birthDate: 'Birth Date',\n      phone: 'Phone Number',\n      website: 'Website'\n    };\n    return labels[fieldName] || fieldName;\n  }\n\n  onSubmit() {\n    if (this.registrationForm.valid) {\n      console.log('Registration submitted:', this.registrationForm.value);\n    } else {\n      // Mark all fields as touched to show validation errors\n      Object.keys(this.registrationForm.controls).forEach(key => {\n        this.registrationForm.get(key)?.markAsTouched();\n      });\n    }\n  }\n}\n\n<!-- Template -->\n<form [formGroup]=\"registrationForm\" (ngSubmit)=\"onSubmit()\">\n  <goab-form-item \n    label=\"Username\" \n    [error]=\"registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched\"\n    [errorMessage]=\"getErrorMessage('username')\">\n    <goab-input \n      formControlName=\"username\"\n      leadingIcon=\"person\"\n      placeholder=\"Choose a username\">\n    </goab-input></goab-form-item>\n\n  <goab-form-item \n    label=\"Email\" \n    [error]=\"registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched\"\n    [errorMessage]=\"getErrorMessage('email')\">\n    <goab-input \n      formControlName=\"email\"\n      type=\"email\"\n      leadingIcon=\"mail\"\n      placeholder=\"your.email@example.com\">\n    </goab-input>\n  </goab-form-item>\n\n  <goab-form-item \n    label=\"Password\" \n    [error]=\"registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched\"\n    [errorMessage]=\"getErrorMessage('password')\">\n    <goab-input \n      formControlName=\"password\"\n      [type]=\"showPassword ? 'text' : 'password'\"\n      leadingIcon=\"lock-closed\"\n      [trailingIcon]=\"showPassword ? 'eye-off' : 'eye'\"\n      [trailingIconAriaLabel]=\"showPassword ? 'Hide password' : 'Show password'\"\n      (onTrailingIconClick)=\"showPassword = !showPassword\"\n      placeholder=\"Enter your password\">\n    </goab-input>\n  </goab-form-item>\n\n  <goab-button-group alignment=\"end\">\n    <goab-button type=\"secondary\" (click)=\"registrationForm.reset()\">Reset</goab-button>\n    <goab-button type=\"primary\" (click)=\"onSubmit()\">Register</goab-button>\n  </goab-button-group>\n</form>"
+        }
+      ]
+    }
+  },
+
+  "designGuidance": {
+    "when": [
+      "Collecting any text-based user input",
+      "Building forms for data entry",
+      "Creating search interfaces",
+      "Capturing user credentials (username, password)",
+      "Gathering contact information (email, phone, address)"
+    ],
+    "inputTypeGuidance": {
+      "text": "Default for general text input - names, descriptions, comments",
+      "email": "Email addresses - triggers email keyboard on mobile and built-in validation",
+      "password": "Sensitive data - masks input and prevents autocomplete",
+      "tel": "Phone numbers - triggers numeric keyboard on mobile",
+      "search": "Search queries - may show search suggestions and clear button",
+      "url": "Website URLs - triggers URL keyboard and validation",
+      "number": "Numeric input with increment/decrement controls",
+      "date": "Date picker - shows calendar interface",
+      "time": "Time picker - shows time selection interface",
+      "datetime-local": "Date and time picker combined"
+    },
+    "widthStrategy": {
+      "predictableContent": "Use character-based widths (ch) for content with known length",
+      "variableContent": "Use width='100%' for unpredictable length content",
+      "examples": {
+        "postalCode": "7ch",
+        "year": "4ch",
+        "names": "100%",
+        "addresses": "100%",
+        "email": "100%"
+      }
+    }
+  },
+
+  "accessibility": {
+    "keyboardNavigation": [
+      "Tab - Move to next input field",
+      "Shift+Tab - Move to previous input field",
+      "Enter - Submit form (if in form context)",
+      "Arrow keys - Move cursor within input text",
+      "Home/End - Move to beginning/end of input text"
+    ],
+    "screenReader": [
+      "Input label is announced when field receives focus",
+      "Input type affects how screen readers interact with field",
+      "Error states are announced along with error messages",
+      "Helper text is associated and announced",
+      "Leading/trailing content is announced as part of input context"
+    ],
+    "requirements": [
+      "Always use FormItem wrapper for proper labeling",
+      "Provide clear, descriptive labels",
+      "Use helper text for formatting requirements",
+      "Ensure error messages are descriptive and actionable",
+      "Test with screen readers and keyboard-only navigation"
+    ]
+  },
+
+  "relatedComponents": [
+    {
+      "name": "FormItem",
+      "relationship": "Required wrapper",
+      "usage": "Always wrap Input with FormItem for proper labeling, help text, and error handling"
+    },
+    {
+      "name": "TextArea",
+      "relationship": "Alternative for longer text",
+      "usage": "Use TextArea instead of Input for multi-line text or content longer than 45-75 characters"
+    },
+    {
+      "name": "Dropdown",
+      "relationship": "Alternative for selection",
+      "usage": "Use Dropdown when user needs to select from predefined options instead of free text"
+    },
+    {
+      "name": "DatePicker",
+      "relationship": "Specialized date input",
+      "usage": "Use DatePicker for complex date selection instead of basic date input type"
+    },
+    {
+      "name": "Button",
+      "relationship": "Common pairing",
+      "usage": "Often paired with inputs in search interfaces or form submissions"
+    }
+  ],
+
+  "source": {
+    "figmaUrl": "https://www.figma.com/design/component-library",
+    "designTokens": {
+      "spacing": "Uses standard GoA spacing tokens for padding and margins",
+      "colors": "Uses semantic color tokens for text, background, border, and focus states",
+      "typography": "Uses GoA font family and size tokens"
+    },
+    "lastUpdated": "2025-07-07",
+    "updatedBy": "design-system-team"
+  }
+}
