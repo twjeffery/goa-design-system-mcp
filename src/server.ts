@@ -126,13 +126,53 @@ export class GoADesignSystemServer {
     }
   }
 
-  // NEW: Add the project_knowledge_search function
+  // UPDATED: Enhanced project_knowledge_search function
   async projectKnowledgeSearch(args: any) {
     const { query, max_text_results = 8, max_image_results = 2 } = args;
     const results = [];
     const queryLower = query.toLowerCase();
 
-    // Check if this is a Figma/design conversion query
+    // Enhanced detection for build/code requests
+    const buildKeywords = [
+      "build",
+      "create",
+      "make",
+      "generate",
+      "code",
+      "implement",
+      "develop",
+      "convert",
+      "design",
+      "page",
+      "component",
+      "build this",
+    ];
+
+    const frameworkKeywords = ["react", "angular"];
+
+    const isBuildRequest = buildKeywords.some((keyword) =>
+      queryLower.includes(keyword)
+    );
+
+    const hasFramework = frameworkKeywords.some((keyword) =>
+      queryLower.includes(keyword)
+    );
+
+    // If this is ANY build request, ALWAYS include system setup with mandatory principles
+    if (isBuildRequest || hasFramework) {
+      const systemSetup = this.systemFiles.get("system-setup");
+      if (systemSetup) {
+        results.push({
+          type: "system",
+          name: "mandatory-principles",
+          content: systemSetup,
+          score: 150, // HIGHEST priority - mandatory principles
+          reason: "Mandatory GoA development principles for all build requests",
+        });
+      }
+    }
+
+    // Enhanced Figma/design conversion detection
     const figmaKeywords = [
       "figma",
       "design",
@@ -146,6 +186,10 @@ export class GoADesignSystemServer {
       "wireframe",
       "turn this into",
       "code this design",
+      "build this page",
+      "create this",
+      "make this",
+      "implement this",
     ];
 
     const isFigmaQuery = figmaKeywords.some((keyword) =>
@@ -155,16 +199,19 @@ export class GoADesignSystemServer {
     // If it's a Figma query, prioritize workflow documentation
     if (isFigmaQuery) {
       for (const [name, workflow] of this.workflows) {
+        // More flexible trigger matching
         if (
           workflow.triggers?.some((trigger: string) =>
             queryLower.includes(trigger.toLowerCase())
-          )
+          ) ||
+          // Also match if it's clearly a build request with framework
+          (isBuildRequest && hasFramework)
         ) {
           results.push({
             type: "workflow",
             name,
             content: workflow,
-            score: 100, // High priority for workflow matches
+            score: 120, // Very high priority for workflow matches
             reason: "Figma conversion workflow detected",
           });
         }
@@ -314,6 +361,7 @@ export class GoADesignSystemServer {
                 workflows: this.workflows.size,
               },
               figmaWorkflowDetected: isFigmaQuery,
+              buildRequestDetected: isBuildRequest,
               results: sortedResults.map((result) => ({
                 type: result.type,
                 name: result.name,
@@ -323,8 +371,9 @@ export class GoADesignSystemServer {
                   result.content.summary ||
                   result.content.methodologyName ||
                   "No summary available",
-                // Include full content for workflows, partial for others
-                ...(result.type === "workflow"
+                // Include full content for workflows and mandatory principles
+                ...(result.type === "workflow" ||
+                result.name === "mandatory-principles"
                   ? { fullContent: result.content }
                   : {}),
                 ...(result.type === "component"
