@@ -18,48 +18,199 @@
   },
 
   "mandatoryDevelopmentPrinciples": {
-    "description": "CRITICAL: These principles apply to ALL GoA component usage and code generation",
-    "principles": {
-      "realComponentsOnly": {
-        "rule": "NEVER create mock components or placeholders",
-        "always": "Use actual imports: import { GoabButton, GoabText } from '@abgov/react-components'",
+    "description": "CRITICAL: These principles apply to ALL GoA component usage and code generation, regardless of how the request is made",
+    "priority": "HIGHEST - Must be included in every build/code request",
+    "triggerWords": [
+      "build",
+      "create",
+      "make",
+      "generate",
+      "code",
+      "implement",
+      "develop",
+      "convert",
+      "design",
+      "page",
+      "component"
+    ],
+
+    "realComponentsOnly": {
+      "rule": "NEVER create mock components or placeholders - ALWAYS use real imports",
+      "priority": "CRITICAL - This is the #1 rule",
+      "always": "Use actual imports: import { GoabButton, GoabText, GoabContainer } from '@abgov/react-components'",
+      "never": [
+        "const GoabButton = ({ ... }) => (",
+        "Mock imports for GoA Design System",
+        "Custom component definitions",
+        "// Mock imports for GoA Design System components",
+        "Inline styles instead of component props",
+        "Creating custom styled components"
+      ],
+      "reasoning": "All styling and behavior comes from the official design system",
+      "examples": {
+        "correct": "import { GoabButton, GoabText, GoabOneColumnLayout, GoabPageBlock } from '@abgov/react-components';\nimport '@abgov/web-components';",
+        "incorrect": "const GoabButton = ({ children, ...props }) => <button style={{...}}>{children}</button>",
+        "alsoIncorrect": "// Mock imports for GoA Design System components"
+      }
+    },
+
+    "mandatoryPageStructure": {
+      "rule": "ALWAYS use GoabOneColumnLayout as root component for government pages",
+      "priority": "CRITICAL - Required for government compliance",
+      "requiredPattern": "GoabOneColumnLayout > section[slot=header] + GoabPageBlock + section[slot=footer]",
+      "never": [
+        "div as page root",
+        "Container as page wrapper",
+        "custom layout structures",
+        "direct header/footer without slots"
+      ],
+      "reasoning": "Required for government compliance, accessibility, and design system consistency",
+      "codeExample": {
+        "react": "import { GoabOneColumnLayout, GoabPageBlock, GoabMicrositeHeader, GoabAppHeader, GoabAppFooter } from '@abgov/react-components';\n\nfunction Page() {\n  return (\n    <GoabOneColumnLayout>\n      <section slot=\"header\">\n        <GoabMicrositeHeader type=\"live\" />\n        <GoabAppHeader heading=\"Service Name\" />\n      </section>\n      <GoabPageBlock width=\"704px\">\n        {/* All content goes here */}\n      </GoabPageBlock>\n      <section slot=\"footer\">\n        <GoabAppFooter />\n      </section>\n    </GoabOneColumnLayout>\n  );\n}",
+        "angular": "<goab-one-column-layout>\n  <section slot=\"header\">\n    <goab-microsite-header type=\"live\"></goab-microsite-header>\n    <goab-app-header heading=\"Service Name\"></goab-app-header>\n  </section>\n  <goab-page-block width=\"704px\">\n    <!-- All content goes here -->\n  </goab-page-block>\n  <section slot=\"footer\">\n    <goab-app-footer></goab-app-footer>\n  </section>\n</goab-one-column-layout>"
+      }
+    },
+
+    "componentFirstApproach": {
+      "rule": "ALWAYS assume a GoA component exists first - search before creating custom code",
+      "priority": "HIGH - Prevents unnecessary custom implementations",
+      "process": [
+        "Use project_knowledge_search to find GoA components before coding",
+        "Search with multiple terms (e.g., 'button', 'action', 'submit')",
+        "If no exact match found: Search for related/similar components",
+        "Only if no component found: Explicitly tell user: 'I cannot find a GoA component for [describe element]. How should I implement this?'",
+        "Never default to custom implementation without explicit user guidance"
+      ],
+      "searchStrategy": [
+        "Check component categories and tags",
+        "Look for similar patterns in usage examples",
+        "Consider alternative component combinations"
+      ]
+    },
+
+    "properImports": {
+      "react": {
+        "webComponentsImport": "import '@abgov/web-components';",
+        "componentImports": "import { GoabButton, GoabText, GoabContainer, GoabOneColumnLayout, GoabPageBlock } from '@abgov/react-components';",
+        "naming": "PascalCase with Goab prefix (GoabButton, GoabInput, GoabFormItem)",
         "never": [
-          "const GoabButton = ({ ... }) => (",
-          "Mock imports for GoA Design System",
-          "Custom component definitions"
-        ],
-        "reasoning": "All styling and behavior comes from the official design system"
-      },
-      "mandatoryPageStructure": {
-        "rule": "ALWAYS use GoabOneColumnLayout as root component for government pages",
-        "requiredPattern": "GoabOneColumnLayout > section[slot=header] + GoabPageBlock + section[slot=footer]",
-        "never": [
-          "div as page root",
-          "Container as page wrapper",
-          "custom layout structures"
-        ],
-        "reasoning": "Required for government compliance, accessibility, and design system consistency"
-      },
-      "componentFirstApproach": {
-        "rule": "ALWAYS assume a GoA component exists first",
-        "process": [
-          "Search project knowledge for the component before coding",
-          "Only if no component found: Ask user how to proceed",
-          "Never default to custom implementation without explicit guidance"
+          "Mock component definitions",
+          "Placeholder components",
+          "Custom styled components",
+          "Components without real imports"
         ]
       },
-      "properImports": {
-        "react": {
-          "webComponentsImport": "import '@abgov/web-components';",
-          "componentImports": "import { GoabButton, GoabText, GoabContainer } from '@abgov/react-components';",
-          "never": "Mock component definitions or placeholder components"
+      "angular": {
+        "webComponentsImport": "import '@abgov/web-components';",
+        "componentUsage": "<goab-button>, <goab-text>, <goab-container>, <goab-one-column-layout>",
+        "naming": "kebab-case with goab- prefix",
+        "never": [
+          "Custom component definitions",
+          "Components without proper imports"
+        ]
+      }
+    },
+
+    "pageStructure": {
+      "rule": "ALWAYS use GoabOneColumnLayout as root component for government pages",
+      "requiredPattern": "GoabOneColumnLayout > section[slot=header] + GoabPageBlock + section[slot=footer]",
+      "never": [
+        "div as page root",
+        "Container as page wrapper",
+        "custom layout structures",
+        "direct header/footer without slots"
+      ],
+      "reasoning": "Required for government compliance, accessibility, and design system consistency",
+      "codeExample": {
+        "react": "<GoabOneColumnLayout>\n  <section slot=\"header\">\n    <GoabMicrositeHeader type=\"live\" />\n    <GoabAppHeader heading=\"Service Name\" />\n  </section>\n  <GoabPageBlock width=\"704px\">\n    {/* All content goes here */}\n  </GoabPageBlock>\n  <section slot=\"footer\">\n    <GoabAppFooter />\n  </section>\n</GoabOneColumnLayout>",
+        "angular": "<goab-one-column-layout>\n  <section slot=\"header\">\n    <goab-microsite-header type=\"live\"></goab-microsite-header>\n    <goab-app-header heading=\"Service Name\"></goab-app-header>\n  </section>\n  <goab-page-block width=\"704px\">\n    <!-- All content goes here -->\n  </goab-page-block>\n  <section slot=\"footer\">\n    <goab-app-footer></goab-app-footer>\n  </section>\n</goab-one-column-layout>"
+      }
+    },
+
+    "layoutPatterns": "Always use OneColumnLayout for page structure",
+    "visualPatternMappings": {
+      "governmentElements": {
+        "governmentNoticeBanner": {
+          "component": "GoabMicrositeHeader",
+          "usage": "For 'This is an official website of the Alberta Government' messaging"
         },
-        "angular": {
-          "webComponentsImport": "import '@abgov/web-components';",
-          "componentUsage": "<goab-button>, <goab-text>, <goab-container>",
-          "never": "Custom component definitions"
+        "serviceHeaders": {
+          "component": "GoabAppHeader",
+          "usage": "Main service/page title and navigation"
+        },
+        "footerAreas": {
+          "component": "GoabAppFooter",
+          "usage": "Government footer with navigation and utility links"
+        }
+      },
+      "formElements": {
+        "textInputs": {
+          "components": ["GoabInput", "GoabFormItem"],
+          "pattern": "Always wrap inputs in FormItem for proper labels"
+        },
+        "dropdowns": {
+          "component": "GoabDropdown",
+          "usage": "For selection lists and option menus"
+        },
+        "buttons": {
+          "components": ["GoabButton", "GoabIconButton"],
+          "types": ["primary", "secondary", "tertiary"]
+        },
+        "checkboxRadio": {
+          "components": ["GoabCheckbox", "GoabRadio"],
+          "usage": "For boolean selections and option groups"
+        }
+      },
+      "contentElements": {
+        "dataDisplay": {
+          "components": ["GoabTable", "GoabContainer", "GoabBlock"],
+          "usage": "For organized data presentation"
+        },
+        "statusMessages": {
+          "components": ["GoabCallout", "GoabNotificationBanner"],
+          "types": ["success", "error", "warning", "information"]
+        },
+        "navigation": {
+          "components": ["GoabLink", "GoabSideMenu"],
+          "usage": "For internal and external navigation"
+        },
+        "successMessages": {
+          "component": "GoabCallout",
+          "type": "success",
+          "usage": "For 'Application submitted', confirmation messages, success states"
+        },
+        "buttons": {
+          "components": ["GoabButton", "GoabIconButton"],
+          "types": ["primary", "secondary", "tertiary"]
+        },
+        "textContent": {
+          "component": "GoabText",
+          "usage": "ALL text content should use GoabText with appropriate size prop",
+          "sizes": ["heading-l", "heading-m", "body-l", "body-m"]
+        },
+        "contentGrouping": {
+          "component": "GoabContainer",
+          "usage": "For organizing related content sections"
         }
       }
+    },
+
+    "codeQualityStandards": {
+      "description": "Standards that apply to all generated GoA component code",
+      "requirements": [
+        "Working event handlers and state management",
+        "Proper component hierarchy and layout structure",
+        "Framework-specific best practices (React hooks, Angular reactive forms)",
+        "Accessibility features built into GoA components",
+        "Responsive behavior using GoA component props"
+      ],
+      "never": [
+        "Custom CSS styling - use component props instead",
+        "Wrapper divs with custom classes",
+        "Inline styles except for specific positioning",
+        "Non-GoA components for standard UI elements",
+        "Mock or placeholder component definitions"
+      ]
     }
   },
 

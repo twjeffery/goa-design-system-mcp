@@ -70,44 +70,6 @@
     }
   },
 
-  "mandatoryPatterns": {
-    "pageStructure": {
-      "rule": "ALWAYS use GoabOneColumnLayout as root component for government pages",
-      "requiredPattern": "GoabOneColumnLayout > section[slot=header] + GoabPageBlock + section[slot=footer]",
-      "never": [
-        "div as page root",
-        "Container as page wrapper",
-        "custom layout structures",
-        "direct header/footer without slots"
-      ],
-      "reasoning": "Required for government compliance, accessibility, and design system consistency",
-      "codeExample": {
-        "react": "<GoabOneColumnLayout>\n  <section slot=\"header\">\n    <GoabMicrositeHeader type=\"live\" />\n    <GoabAppHeader heading=\"Service Name\" />\n  </section>\n  <GoabPageBlock width=\"704px\">\n    {/* All content goes here */}\n  </GoabPageBlock>\n  <section slot=\"footer\">\n    <GoabAppFooter />\n  </section>\n</GoabOneColumnLayout>",
-        "angular": "<goab-one-column-layout>\n  <section slot=\"header\">\n    <goab-microsite-header type=\"live\"></goab-microsite-header>\n    <goab-app-header heading=\"Service Name\"></goab-app-header>\n  </section>\n  <goab-page-block width=\"704px\">\n    <!-- All content goes here -->\n  </goab-page-block>\n  <section slot=\"footer\">\n    <goab-app-footer></goab-app-footer>\n  </section>\n</goab-one-column-layout>"
-      }
-    },
-    "componentFirst": {
-      "rule": "ALWAYS assume a GoA component exists first",
-      "process": [
-        "If JSON provided: Parse component list and configurations first",
-        "If image only: Identify visual element and search project knowledge",
-        "Search thoroughly with multiple search terms",
-        "If no exact match found: Search for related/similar components",
-        "If still no component found: Explicitly tell user: 'I cannot find a GoA component for [describe element]. How should I implement this?'"
-      ],
-      "never": "Default to custom implementation without explicit user guidance"
-    },
-    "realComponents": {
-      "rule": "NEVER create mock components or placeholders",
-      "always": "Use actual @abgov/react-components or @abgov/angular-components",
-      "reasoning": "All styling and behavior comes from the official design system",
-      "imports": {
-        "react": "import { GoabButton, GoabInput, GoabFormItem } from '@abgov/react-components';",
-        "angular": "Components available as <goab-button>, <goab-input>, <goab-form-item>"
-      }
-    }
-  },
-
   "analysisProcess": {
     "withJSONExport": [
       "1. Parse JSON export first to identify exact GoA components used",
