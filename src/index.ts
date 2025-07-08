@@ -29,6 +29,32 @@ async function main() {
     return {
       tools: [
         {
+          name: "project_knowledge_search",
+          description:
+            "Search the GoA Design System project knowledge including components, workflows, and system documentation",
+          inputSchema: {
+            type: "object",
+            properties: {
+              query: {
+                type: "string",
+                description:
+                  "Search query for components, workflows, or system information",
+              },
+              max_text_results: {
+                type: "number",
+                description: "Maximum number of text results to return",
+                default: 8,
+              },
+              max_image_results: {
+                type: "number",
+                description: "Maximum number of image results to return",
+                default: 2,
+              },
+            },
+            required: ["query"],
+          },
+        },
+        {
           name: "search_components",
           description:
             "Search GoA Design System components by name, use case, or functionality",
@@ -153,6 +179,9 @@ async function main() {
 
     try {
       switch (name) {
+        case "project_knowledge_search":
+          return await goaServer.projectKnowledgeSearch(args);
+
         case "search_components":
           return await goaServer.searchComponents(args);
 
