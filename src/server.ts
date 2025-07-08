@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export class GoADesignSystemServer {
   private components: Map<string, any> = new Map();
   private systemFiles: Map<string, any> = new Map();
+  private workflows: Map<string, any> = new Map(); // NEW: Add workflows storage
   private masterIndex: any = null;
   private initialized = false;
 
@@ -18,7 +19,7 @@ export class GoADesignSystemServer {
       this.initialized = true;
       console.error("✅ GoA Design System data loaded successfully");
       console.error(
-        `📊 Loaded ${this.components.size} components and ${this.systemFiles.size} system files`
+        `📊 Loaded ${this.components.size} components, ${this.systemFiles.size} system files, and ${this.workflows.size} workflows`
       );
     } catch (error) {
       console.error("❌ Failed to load component data:", error);
@@ -28,6 +29,7 @@ export class GoADesignSystemServer {
 
   private async loadAllData() {
     const dataDir = join(__dirname, "../data");
+    const docsDir = join(__dirname, "../docs"); // NEW: Add docs directory
 
     // Load master index
     try {
@@ -51,6 +53,32 @@ export class GoADesignSystemServer {
       } catch (error) {
         console.error(`⚠️  Could not load ${fileName}:`, error.message);
       }
+    }
+
+    // NEW: Load workflow files from docs directory
+    try {
+      const files = await readdir(docsDir);
+
+      for (const file of files) {
+        if (file.endsWith(".json")) {
+          try {
+            const filePath = join(docsDir, file);
+            const data = await readFile(filePath, "utf8");
+            const workflowData = JSON.parse(data);
+
+            const workflowName = file.replace(".json", "");
+            this.workflows.set(workflowName, workflowData);
+            console.error(`📄 Loaded workflow: ${file}`);
+          } catch (error) {
+            console.error(
+              `⚠️  Could not load workflow file ${file}:`,
+              error.message
+            );
+          }
+        }
+      }
+    } catch (error) {
+      console.error("⚠️  Could not read docs directory:", error.message);
     }
 
     // Load all component files from components subdirectory
@@ -82,6 +110,233 @@ export class GoADesignSystemServer {
     } catch (error) {
       console.error("⚠️  Could not read components directory:", error.message);
     }
+  }
+
+  // NEW: Add the project_knowledge_search function
+  async projectKnowledgeSearch(args: any) {
+    const { query, max_text_results = 8, max_image_results = 2 } = args;
+    const results = [];
+    const queryLower = query.toLowerCase();
+
+    // Check if this is a Figma/design conversion query
+    const figmaKeywords = [
+      "figma",
+      "design",
+      "convert",
+      "build this",
+      "build in",
+      "react",
+      "angular",
+      "prototype",
+      "mockup",
+      "wireframe",
+      "turn this into",
+      "code this design",
+    ];
+
+    const isFigmaQuery = figmaKeywords.some((keyword) =>
+      queryLower.includes(keyword)
+    );
+
+    // If it's a Figma query, prioritize workflow documentation
+    if (isFigmaQuery) {
+      for (const [name, workflow] of this.workflows) {
+        if (
+          workflow.triggers?.some((trigger: string) =>
+            queryLower.includes(trigger.toLowerCase())
+          )
+        ) {
+          results.push({
+            type: "workflow",
+            name,
+            content: workflow,
+            score: 100, // High priority for workflow matches
+            reason: "Figma conversion workflow detected",
+          });
+        }
+      }
+    }
+
+    // Search through components
+    for (const [name, component] of this.components) {
+      let score = 0;
+
+      // Search in component name
+      if (name.toLowerCase().includes(queryLower)) {
+        score += 10;
+      }
+
+      // Search in summary
+      if (component.summary?.toLowerCase().includes(queryLower)) {
+        score += 8;
+      }
+
+      // Search in tags
+      if (
+        component.tags?.some((tag: string) =>
+          tag.toLowerCase().includes(queryLower)
+        )
+      ) {
+        score += 6;
+      }
+
+      // Search in AI tags
+      if (
+        component.aiTags?.some((tag: string) =>
+          tag.toLowerCase().includes(queryLower)
+        )
+      ) {
+        score += 5;
+      }
+
+      // Search in description and purpose
+      if (
+        component.description?.toLowerCase().includes(queryLower) ||
+        component.purpose?.toLowerCase().includes(queryLower)
+      ) {
+        score += 4;
+      }
+
+      // Search in usage examples and installation
+      if (component.installation) {
+        const installationText = JSON.stringify(
+          component.installation
+        ).toLowerCase();
+        if (installationText.includes(queryLower)) {
+          score += 3;
+        }
+      }
+
+      if (score > 0) {
+        results.push({
+          type: "component",
+          name,
+          content: component,
+          score,
+          reason: "Component match",
+        });
+      }
+    }
+
+    // Search through system files
+    for (const [name, systemFile] of this.systemFiles) {
+      let score = 0;
+
+      if (
+        name.toLowerCase().includes(queryLower) ||
+        systemFile.summary?.toLowerCase().includes(queryLower) ||
+        systemFile.purpose?.toLowerCase().includes(queryLower)
+      ) {
+        score += 7;
+      }
+
+      // Search in system file content
+      const systemContent = JSON.stringify(systemFile).toLowerCase();
+      if (systemContent.includes(queryLower)) {
+        score += 3;
+      }
+
+      if (score > 0) {
+        results.push({
+          type: "system",
+          name,
+          content: systemFile,
+          score,
+          reason: "System file match",
+        });
+      }
+    }
+
+    // Search through workflows (if not already included from Figma detection)
+    if (!isFigmaQuery) {
+      for (const [name, workflow] of this.workflows) {
+        let score = 0;
+
+        if (
+          name.toLowerCase().includes(queryLower) ||
+          workflow.summary?.toLowerCase().includes(queryLower) ||
+          workflow.methodologyName?.toLowerCase().includes(queryLower)
+        ) {
+          score += 6;
+        }
+
+        // Search in workflow triggers and keywords
+        if (
+          workflow.triggers?.some((trigger: string) =>
+            trigger.toLowerCase().includes(queryLower)
+          )
+        ) {
+          score += 8;
+        }
+
+        if (score > 0) {
+          results.push({
+            type: "workflow",
+            name,
+            content: workflow,
+            score,
+            reason: "Workflow match",
+          });
+        }
+      }
+    }
+
+    // Sort by score and limit results
+    const sortedResults = results
+      .sort((a, b) => b.score - a.score)
+      .slice(0, max_text_results);
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(
+            {
+              query,
+              resultsCount: sortedResults.length,
+              totalSearched: {
+                components: this.components.size,
+                systemFiles: this.systemFiles.size,
+                workflows: this.workflows.size,
+              },
+              figmaWorkflowDetected: isFigmaQuery,
+              results: sortedResults.map((result) => ({
+                type: result.type,
+                name: result.name,
+                score: result.score,
+                reason: result.reason,
+                summary:
+                  result.content.summary ||
+                  result.content.methodologyName ||
+                  "No summary available",
+                // Include full content for workflows, partial for others
+                ...(result.type === "workflow"
+                  ? { fullContent: result.content }
+                  : {}),
+                ...(result.type === "component"
+                  ? {
+                      category: result.content.category,
+                      tags: result.content.tags,
+                      commonUse: result.content.commonUse,
+                    }
+                  : {}),
+                ...(result.type === "system"
+                  ? {
+                      purpose: result.content.purpose,
+                    }
+                  : {}),
+              })),
+              searchTip:
+                sortedResults.length === 0
+                  ? `No matches found for "${query}". Try terms like "form", "layout", "button", "figma", or "design conversion".`
+                  : undefined,
+            },
+            null,
+            2
+          ),
+        },
+      ],
+    };
   }
 
   async searchComponents(args: any) {
