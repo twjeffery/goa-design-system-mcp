@@ -5,9 +5,9 @@
   "updatedBy": "design-system-team",
   "documentType": "master-index",
   "audience": "ai-systems-helping-consumer-developers",
-  
+
   "overview": {
-    "purpose": "Master index of all consumer-facing documentation for AI-driven development assistance", 
+    "purpose": "Master index of all consumer-facing documentation for AI-driven development assistance",
     "totalComponents": 34,
     "totalSystemDocs": 2,
     "coverage": "Complete component library with system setup, layout guidance, usage examples, API documentation, and integration patterns",
@@ -22,7 +22,13 @@
       "4. Reference individual component JSON files for detailed implementation",
       "5. Use installation examples and integration patterns for rapid development"
     ],
-    "recommendedComponents": ["Button", "Input", "FormItem", "Container", "Block"],
+    "recommendedComponents": [
+      "Button",
+      "Input",
+      "FormItem",
+      "Container",
+      "Block"
+    ],
     "commonPatterns": [
       "Form building: FormItem + Input/Dropdown/Checkbox + Button",
       "Content layout: Container + Block + Text",
@@ -40,14 +46,26 @@
         "summary": "Complete setup and integration guide for React, Angular, and Web Component frameworks",
         "file": "system_setup.json",
         "commonUse": "Framework installation, dependency setup, troubleshooting",
-        "aiTags": ["setup", "installation", "configuration", "getting-started", "framework-integration"],
+        "aiTags": [
+          "setup",
+          "installation",
+          "configuration",
+          "getting-started",
+          "framework-integration"
+        ],
         "priority": "Essential - required for all implementations"
       },
       "layout": {
         "summary": "Flexible column-based layout system with header, sidebar, content, and footer",
         "file": "layout.json",
         "commonUse": "Page structure, responsive design, government application layouts",
-        "aiTags": ["layout", "page-structure", "responsive", "government", "column-layout"],
+        "aiTags": [
+          "layout",
+          "page-structure",
+          "responsive",
+          "government",
+          "column-layout"
+        ],
         "priority": "High - fundamental for page organization"
       }
     }
@@ -66,7 +84,7 @@
         },
         "button-group": {
           "summary": "Layout component for organizing related buttons",
-          "file": "button-group_consumer.json", 
+          "file": "button-group_consumer.json",
           "commonUse": "Modal actions, form controls, toolbars",
           "aiTags": ["layout", "grouping", "actions"]
         },
@@ -254,13 +272,25 @@
           "summary": "Government application header with branding and primary navigation",
           "file": "header_consumer.json",
           "commonUse": "Page headers, application branding, primary navigation",
-          "aiTags": ["navigation", "header", "branding", "primary-nav", "government"]
+          "aiTags": [
+            "navigation",
+            "header",
+            "branding",
+            "primary-nav",
+            "government"
+          ]
         },
         "footer": {
           "summary": "Government application footer with navigation links and branding",
           "file": "footer_consumer.json",
           "commonUse": "Page footers, utility navigation, government branding",
-          "aiTags": ["navigation", "footer", "branding", "utility-nav", "government"]
+          "aiTags": [
+            "navigation",
+            "footer",
+            "branding",
+            "utility-nav",
+            "government"
+          ]
         }
       }
     },
@@ -300,7 +330,15 @@
       },
       {
         "name": "Complex Form",
-        "components": ["FormItem", "Input", "Dropdown", "Checkbox", "Radio", "DatePicker", "ButtonGroup"],
+        "components": [
+          "FormItem",
+          "Input",
+          "Dropdown",
+          "Checkbox",
+          "Radio",
+          "DatePicker",
+          "ButtonGroup"
+        ],
         "description": "Multi-field form with various input types",
         "useCase": "Applications, surveys, detailed data entry"
       },
@@ -311,7 +349,7 @@
         "useCase": "Admin interfaces, user dashboards, content management"
       },
       {
-        "name": "Data Interface", 
+        "name": "Data Interface",
         "components": ["Table", "Pagination", "Badge", "IconButton", "Input"],
         "description": "Data display with search, navigation, and actions",
         "useCase": "User management, content listings, reporting"
@@ -324,7 +362,14 @@
       },
       {
         "name": "Complete Page Layout",
-        "components": ["ColumnLayout", "Header", "PageBlock", "Container", "Block", "Footer"],
+        "components": [
+          "ColumnLayout",
+          "Header",
+          "PageBlock",
+          "Container",
+          "Block",
+          "Footer"
+        ],
         "description": "Full page structure with government branding and responsive layout",
         "useCase": "Government service pages, applications, portals"
       },
@@ -386,7 +431,19 @@
       "Lazy load Modal and Drawer content when possible",
       "Optimize file upload sizes and provide progress feedback",
       "Use appropriate image sizing in Grid layouts"
-    ]
+    ],
+    "textComponentRule": {
+      "rule": "ALWAYS use GoabText component instead of HTML text tags",
+      "critical": "Never use <p>, <h1>-<h6>, <span>, or <div> for text content",
+      "replaceWith": {
+        "<p>": "GoabText tag='p'",
+        "<h1>": "GoabText size='heading-xl' tag='h1'",
+        "<h2>": "GoabText size='heading-l' tag='h2'",
+        "<h3>": "GoabText size='heading-m' tag='h3'",
+        "<span>": "GoabText tag='span'"
+      },
+      "enforcement": "GoabText provides built-in design system typography, optimal readability width, and consistent spacing"
+    }
   },
 
   "systemIntegration": {
@@ -492,11 +549,7 @@
 
     "designSystemIcons": {
       "rule": "NEVER use emojis as icons - ALWAYS use component icon properties",
-      "violations": [
-        "❌ ✏️ Change",
-        "❌ 📝 Edit",
-        "❌ ⚠️ Warning"
-      ],
+      "violations": ["❌ ✏️ Change", "❌ 📝 Edit", "❌ ⚠️ Warning"],
       "correct": [
         "✅ <GoabLink leadingIcon='pencil'><a>Change</a></GoabLink>",
         "✅ <GoabButton leadingIcon='warning'>Alert</GoabButton>"
@@ -621,12 +674,12 @@
 
   "enhancedVisualPatternMapping": {
     "description": "Comprehensive mapping from Figma visual elements to GoA components with decision trees",
-    
+
     "pageLayoutPatterns": {
       "governmentServicePage": {
         "visualCues": [
           "Gray banner at top with 'This is an official website'",
-          "Service name as main heading", 
+          "Service name as main heading",
           "Single column content area",
           "Footer with utility links"
         ],
@@ -666,7 +719,7 @@
 
     "aiDecisionTree": {
       "step1": "Identify page type (service landing, form, dashboard)",
-      "step2": "Map visual hierarchy to typography sizes using text_consumer.json patterns", 
+      "step2": "Map visual hierarchy to typography sizes using text_consumer.json patterns",
       "step3": "Search appropriate component files for action patterns (button_consumer.json, link_consumer.json)",
       "step4": "Apply standard spacing patterns from layout.json unless design shows otherwise",
       "step5": "Choose footer variant based on link groupings using footer_consumer.json guidance"
@@ -704,16 +757,38 @@
     "componentDecisionRules": [
       {
         "rule": "If the element communicates status/result → Callout",
-        "examples": ["Application submitted", "Payment successful", "Error occurred", "Process completed"]
+        "examples": [
+          "Application submitted",
+          "Payment successful",
+          "Error occurred",
+          "Process completed"
+        ]
       },
       {
         "rule": "If the element groups related content → Container",
-        "examples": ["Personal info section", "Dashboard widget", "Form fieldset", "Content cards"]
+        "examples": [
+          "Personal info section",
+          "Dashboard widget",
+          "Form fieldset",
+          "Content cards"
+        ]
       }
     ],
     "purposeBasedSearchTerms": {
-      "statusNotification": ["confirmation", "success message", "application submitted", "status update", "callout"],
-      "contentGrouping": ["form section", "content card", "widget", "dashboard panel", "container"]
+      "statusNotification": [
+        "confirmation",
+        "success message",
+        "application submitted",
+        "status update",
+        "callout"
+      ],
+      "contentGrouping": [
+        "form section",
+        "content card",
+        "widget",
+        "dashboard panel",
+        "container"
+      ]
     },
     "aiValidationRules": {
       "beforeGeneratingCode": [

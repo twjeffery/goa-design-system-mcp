@@ -18,7 +18,7 @@
         "visualDifference": "Container has subtle accent border, no built-in icons, card-like appearance",
         "semanticDifference": "Container groups content, Callout communicates status/notifications",
         "decisionRule": "Ask: Is this telling the user about a status/result? → Callout. Is this organizing content? → Container",
-        "example": "// ❌ Wrong for status message\n<GoabContainer type=\"success\" title=\"Application Submitted\">\n  <p>Your application has been received...</p>\n</GoabContainer>\n\n// ✅ Correct for status message\n<GoabCallout type=\"success\" heading=\"Application submitted\">\n  <p>Your application has been received...</p>\n</GoabCallout>"
+        "example": "// ❌ Wrong for status message\n<GoabContainer type=\"success\" title=\"Application Submitted\">\n  <GoabText>Your application has been received...</GoabText>\n</GoabContainer>\n\n// ✅ Correct for status message\n<GoabCallout type=\"success\" heading=\"Application submitted\">\n  <GoabText>Your application has been received...</GoabText>\n</GoabCallout>"
       }
     }
   },
@@ -38,7 +38,7 @@
     "calloutVsContainer": {
       "title": "Callout vs Container: When to Use Which",
       "description": "Shows the critical difference between status communication (Callout) and content organization (Container)",
-      "code": "// ✅ Status communication - use Callout\n<GoabCallout type=\"success\" heading=\"Application Submitted\" size=\"large\">\n  <GoabText size=\"body-m\">Your application has been received and is being processed.</GoabText>\n  <GoabText size=\"body-m\">Reference number: <strong>ABC123</strong></GoabText>\n</GoabCallout>\n\n// ✅ Content grouping - use Container\n<GoabContainer type=\"success\" title=\"Approved Applications\" accent=\"thick\">\n  <p>These applications have been approved and are ready for processing.</p>\n  <ul>\n    <li>Application #001 - John Smith</li>\n    <li>Application #002 - Jane Doe</li>\n  </ul>\n</GoabContainer>",
+      "code": "// ✅ Status communication - use Callout\n<GoabCallout type=\"success\" heading=\"Application Submitted\" size=\"large\">\n  <GoabText size=\"body-m\">Your application has been received and is being processed.</GoabText>\n  <GoabText size=\"body-m\">Reference number: <strong>ABC123</strong></GoabText>\n</GoabCallout>\n\n// ✅ Content grouping - use Container\n<GoabContainer type=\"success\" title=\"Approved Applications\" accent=\"thick\">\n  <GoabText>These applications have been approved and are ready for processing.</GoabText>\n  <ul>\n    <li>Application #001 - John Smith</li>\n    <li>Application #002 - Jane Doe</li>\n  </ul>\n</GoabContainer>",
       "decisionRule": "Choose based on PURPOSE: announcing status vs organizing content"
     }
   },
@@ -105,7 +105,19 @@
         "default": null,
         "required": false,
         "description": "Margin top spacing",
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ]
       },
       {
         "name": "mr",
@@ -113,7 +125,19 @@
         "default": null,
         "required": false,
         "description": "Margin right spacing",
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ]
       },
       {
         "name": "mb",
@@ -121,7 +145,19 @@
         "default": "l",
         "required": false,
         "description": "Margin bottom spacing",
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ]
       },
       {
         "name": "ml",
@@ -129,7 +165,19 @@
         "default": null,
         "required": false,
         "description": "Margin left spacing",
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"]
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ]
       }
     ],
     "slots": [
@@ -148,56 +196,56 @@
         {
           "title": "Success Confirmation",
           "description": "Positive feedback after successful actions",
-          "code": "function SuccessMessage() {\n  return (\n    <GoabCallout type=\"success\">\n      <p>Your application has been submitted successfully. You'll receive a confirmation email within 24 hours.</p>\n    </GoabCallout>\n  );\n}"
+          "code": "function SuccessMessage() {\n  return (\n    <GoabCallout type=\"success\">\n      <GoabText>Your application has been submitted successfully. You'll receive a confirmation email within 24 hours.</GoabText>\n    </GoabCallout>\n  );\n}"
         },
         {
           "title": "Important Notice with Heading",
           "description": "Critical information that needs attention",
-          "code": "function ImportantNotice() {\n  return (\n    <GoabCallout \n      type=\"important\" \n      heading=\"Application Deadline Extended\"\n    >\n      <p>The deadline for applications has been extended to March 31st. \n         <a href=\"/apply\">Complete your application</a> before the new deadline.</p>\n    </GoabCallout>\n  );\n}"
+          "code": "function ImportantNotice() {\n  return (\n    <GoabCallout \n      type=\"important\" \n      heading=\"Application Deadline Extended\"\n    >\n      <GoabText>The deadline for applications has been extended to March 31st. \n         <a href=\"/apply\">Complete your application</a> before the new deadline.</GoabText>\n    </GoabCallout>\n  );\n}"
         },
         {
           "title": "Emergency Alert",
           "description": "Urgent messages requiring immediate attention",
-          "code": "function EmergencyAlert() {\n  return (\n    <GoabCallout \n      type=\"emergency\" \n      heading=\"System Maintenance\"\n      ariaLive=\"assertive\"\n    >\n      <p>Our services will be unavailable tonight from 11 PM to 1 AM for scheduled maintenance. \n         Please save your work before this time.</p>\n    </GoabCallout>\n  );\n}"
+          "code": "function EmergencyAlert() {\n  return (\n    <GoabCallout \n      type=\"emergency\" \n      heading=\"System Maintenance\"\n      ariaLive=\"assertive\"\n    >\n      <GoabText>Our services will be unavailable tonight from 11 PM to 1 AM for scheduled maintenance. \n         Please save your work before this time.</GoabText>\n    </GoabCallout>\n  );\n}"
         },
         {
           "title": "Informational Notice",
           "description": "Helpful information and guidance",
-          "code": "function InfoNotice() {\n  return (\n    <GoabCallout type=\"information\">\n      <p>Before submitting your application, make sure you have all required documents. \n         Visit our <a href=\"/documents\">document checklist</a> for details.</p>\n    </GoabCallout>\n  );\n}"
+          "code": "function InfoNotice() {\n  return (\n    <GoabCallout type=\"information\">\n      <GoabText>Before submitting your application, make sure you have all required documents. \n         Visit our <a href=\"/documents\">document checklist</a> for details.</GoabText>\n    </GoabCallout>\n  );\n}"
         },
         {
           "title": "Event Announcement",
           "description": "Upcoming events or scheduled items",
-          "code": "function EventNotice() {\n  return (\n    <GoabCallout \n      type=\"event\" \n      heading=\"Upcoming Town Hall\"\n      size=\"medium\"\n    >\n      <p>Join us for a virtual town hall on January 15th at 7 PM. \n         <a href=\"/register\">Register here</a> to attend.</p>\n    </GoabCallout>\n  );\n}"
+          "code": "function EventNotice() {\n  return (\n    <GoabCallout \n      type=\"event\" \n      heading=\"Upcoming Town Hall\"\n      size=\"medium\"\n    >\n      <GoabText>Join us for a virtual town hall on January 15th at 7 PM. \n         <a href=\"/register\">Register here</a> to attend.</GoabText>\n    </GoabCallout>\n  );\n}"
         }
       ],
       "angular": [
         {
           "title": "Success Confirmation",
           "description": "Positive feedback after successful actions",
-          "code": "<goab-callout type=\"success\">\n  <p>Your application has been submitted successfully. You'll receive a confirmation email within 24 hours.</p>\n</goab-callout>"
+          "code": "<goab-callout type=\"success\">\n  <GoabText>Your application has been submitted successfully. You'll receive a confirmation email within 24 hours.</GoabText>\n</goab-callout>"
         },
         {
           "title": "Important Notice with Heading",
           "description": "Critical information that needs attention",
-          "code": "<goab-callout \n  type=\"important\" \n  heading=\"Application Deadline Extended\">\n  <p>The deadline for applications has been extended to March 31st. \n     <a href=\"/apply\">Complete your application</a> before the new deadline.</p>\n</goab-callout>"
+          "code": "<goab-callout \n  type=\"important\" \n  heading=\"Application Deadline Extended\">\n  <GoabText>The deadline for applications has been extended to March 31st. \n     <a href=\"/apply\">Complete your application</a> before the new deadline.</GoabText>\n</goab-callout>"
         },
         {
           "title": "Dynamic Content",
           "description": "Callout with dynamic content updates",
-          "code": "<goab-callout \n  type=\"information\" \n  [ariaLive]=\"isUrgent ? 'assertive' : 'polite'\">\n  <p>{{ statusMessage }}</p>\n</goab-callout>"
+          "code": "<goab-callout \n  type=\"information\" \n  [ariaLive]=\"isUrgent ? 'assertive' : 'polite'\">\n  <GoabText>{{ statusMessage }}</GoabText>\n</goab-callout>"
         }
       ],
       "webComponent": [
         {
           "title": "Success Confirmation",
           "description": "Positive feedback after successful actions",
-          "code": "<goa-callout type=\"success\">\n  <p>Your application has been submitted successfully. You'll receive a confirmation email within 24 hours.</p>\n</goa-callout>"
+          "code": "<goa-callout type=\"success\">\n  <GoabText>Your application has been submitted successfully. You'll receive a confirmation email within 24 hours.</GoabText>\n</goa-callout>"
         },
         {
           "title": "Emergency Alert",
           "description": "Urgent messages requiring immediate attention",
-          "code": "<goa-callout \n  type=\"emergency\" \n  heading=\"System Maintenance\" \n  arialive=\"assertive\">\n  <p>Our services will be unavailable tonight from 11 PM to 1 AM for scheduled maintenance.</p>\n</goa-callout>"
+          "code": "<goa-callout \n  type=\"emergency\" \n  heading=\"System Maintenance\" \n  arialive=\"assertive\">\n  <GoabText>Our services will be unavailable tonight from 11 PM to 1 AM for scheduled maintenance.</GoabText>\n</goa-callout>"
         }
       ]
     },
@@ -205,17 +253,17 @@
       {
         "name": "Post-Action Confirmation",
         "description": "Confirming successful completion with next steps",
-        "code": "function SubmissionComplete() {\n  const navigate = useNavigate();\n  \n  return (\n    <div>\n      <GoabCallout type=\"success\" heading=\"Application Submitted\">\n        <p>Your application has been received and is being reviewed. \n           Reference number: <strong>APP-2024-0123</strong></p>\n        <p>You'll receive email updates about your application status.</p>\n      </GoabCallout>\n      \n      <GoabButtonGroup alignment=\"start\" mt=\"l\">\n        <GoabButton \n          type=\"primary\" \n          onClick={() => navigate('/dashboard')}\n        >\n          View Dashboard\n        </GoabButton>\n        <GoabButton \n          type=\"tertiary\" \n          onClick={() => navigate('/applications')}\n        >\n          Submit Another Application\n        </GoabButton>\n      </GoabButtonGroup>\n    </div>\n  );\n}"
+        "code": "function SubmissionComplete() {\n  const navigate = useNavigate();\n  \n  return (\n    <div>\n      <GoabCallout type=\"success\" heading=\"Application Submitted\">\n        <GoabText>Your application has been received and is being reviewed. \n           Reference number: <strong>APP-2024-0123</strong></GoabText>\n        <GoabText>You'll receive email updates about your application status.</GoabText>\n      </GoabCallout>\n      \n      <GoabButtonGroup alignment=\"start\" mt=\"l\">\n        <GoabButton \n          type=\"primary\" \n          onClick={() => navigate('/dashboard')}\n        >\n          View Dashboard\n        </GoabButton>\n        <GoabButton \n          type=\"tertiary\" \n          onClick={() => navigate('/applications')}\n        >\n          Submit Another Application\n        </GoabButton>\n      </GoabButtonGroup>\n    </div>\n  );\n}"
       },
       {
         "name": "Page-Level Status Updates",
         "description": "Important information affecting the entire page or process",
-        "code": "function PageWithStatus({ maintenanceMode, urgentNotice }) {\n  return (\n    <div>\n      {maintenanceMode && (\n        <GoabCallout \n          type=\"emergency\" \n          heading=\"Limited Service\"\n          ariaLive=\"assertive\"\n        >\n          <p>Some features are temporarily unavailable due to maintenance. \n             Expected completion: 2 PM today.</p>\n        </GoabCallout>\n      )}\n      \n      {urgentNotice && (\n        <GoabCallout \n          type=\"important\" \n          heading=\"Policy Update\"\n        >\n          <p>New eligibility requirements take effect March 1st. \n             <a href=\"/policy-changes\">Review the changes</a> to see how they affect you.</p>\n        </GoabCallout>\n      )}\n      \n      <main>\n        {/* Page content */}\n      </main>\n    </div>\n  );\n}"
+        "code": "function PageWithStatus({ maintenanceMode, urgentNotice }) {\n  return (\n    <div>\n      {maintenanceMode && (\n        <GoabCallout \n          type=\"emergency\" \n          heading=\"Limited Service\"\n          ariaLive=\"assertive\"\n        >\n          <GoabText>Some features are temporarily unavailable due to maintenance. \n             Expected completion: 2 PM today.</GoabText>\n        </GoabCallout>\n      )}\n      \n      {urgentNotice && (\n        <GoabCallout \n          type=\"important\" \n          heading=\"Policy Update\"\n        >\n          <GoabText>New eligibility requirements take effect March 1st. \n             <a href=\"/policy-changes\">Review the changes</a> to see how they affect you.</GoabText>\n        </GoabCallout>\n      )}\n      \n      <main>\n        {/* Page content */}\n      </main>\n    </div>\n  );\n}"
       },
       {
         "name": "Form Context Information",
         "description": "Providing helpful context before or after forms",
-        "code": "function ApplicationForm() {\n  const [submitted, setSubmitted] = useState(false);\n  \n  if (submitted) {\n    return (\n      <GoabCallout type=\"success\">\n        <p>Thank you for your application. We'll contact you within 5 business days.</p>\n      </GoabCallout>\n    );\n  }\n  \n  return (\n    <div>\n      <GoabCallout type=\"information\">\n        <p>This application will take approximately 10 minutes to complete. \n           Make sure you have your identification and supporting documents ready.</p>\n      </GoabCallout>\n      \n      <form onSubmit={handleSubmit}>\n        {/* Form fields */}\n        <GoabButtonGroup alignment=\"end\" mt=\"l\">\n          <GoabButton type=\"primary\" onClick={() => setSubmitted(true)}>\n            Submit Application\n          </GoabButton>\n        </GoabButtonGroup>\n      </form>\n    </div>\n  );\n}"
+        "code": "function ApplicationForm() {\n  const [submitted, setSubmitted] = useState(false);\n  \n  if (submitted) {\n    return (\n      <GoabCallout type=\"success\">\n        <GoabText>Thank you for your application. We'll contact you within 5 business days.</GoabText>\n      </GoabCallout>\n    );\n  }\n  \n  return (\n    <div>\n      <GoabCallout type=\"information\">\n        <GoabText>This application will take approximately 10 minutes to complete. \n           Make sure you have your identification and supporting documents ready.</GoabText>\n      </GoabCallout>\n      \n      <form onSubmit={handleSubmit}>\n        {/* Form fields */}\n        <GoabButtonGroup alignment=\"end\" mt=\"l\">\n          <GoabButton type=\"primary\" onClick={() => setSubmitted(true)}>\n            Submit Application\n          </GoabButton>\n        </GoabButtonGroup>\n      </form>\n    </div>\n  );\n}"
       }
     ],
     "integrations": [
@@ -251,7 +299,11 @@
       },
       "important": {
         "when": "Drawing attention to significant information that affects user actions",
-        "examples": ["Policy changes", "Deadline reminders", "Required actions"],
+        "examples": [
+          "Policy changes",
+          "Deadline reminders",
+          "Required actions"
+        ],
         "tone": "Attention-grabbing but not alarming"
       },
       "emergency": {
@@ -261,7 +313,11 @@
       },
       "event": {
         "when": "Announcing upcoming events, schedules, or time-sensitive items",
-        "examples": ["Upcoming meetings", "Scheduled maintenance", "Event announcements"],
+        "examples": [
+          "Upcoming meetings",
+          "Scheduled maintenance",
+          "Event announcements"
+        ],
         "tone": "Informative with time relevance"
       }
     },
@@ -439,7 +495,14 @@
     }
   },
 
-  "tags": ["notification", "alert", "information", "status", "feedback", "emphasis"],
+  "tags": [
+    "notification",
+    "alert",
+    "information",
+    "status",
+    "feedback",
+    "emphasis"
+  ],
   "category": "component",
   "status": "stable",
   "lastUpdated": "2025-06-26",
