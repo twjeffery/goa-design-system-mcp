@@ -4,6 +4,11 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+// Helper function to safely get error messages
+const getErrorMessage = (error: unknown): string => {
+  return error instanceof Error ? error.message : String(error);
+};
+
 export class GoADesignSystemServer {
   private components: Map<string, any> = new Map();
   private systemFiles: Map<string, any> = new Map();
@@ -51,7 +56,10 @@ export class GoADesignSystemServer {
         this.systemFiles.set(fileName.replace(".json", ""), parsed);
         console.error(`📄 Loaded ${fileName}`);
       } catch (error) {
-        console.error(`⚠️  Could not load ${fileName}:`, error.message);
+        console.error(
+          `⚠️  Could not load ${fileName}:`,
+          getErrorMessage(error)
+        );
       }
     }
 
@@ -72,13 +80,16 @@ export class GoADesignSystemServer {
           } catch (error) {
             console.error(
               `⚠️  Could not load workflow file ${file}:`,
-              error.message
+              getErrorMessage(error)
             );
           }
         }
       }
     } catch (error) {
-      console.error("⚠️  Could not read docs directory:", error.message);
+      console.error(
+        "⚠️  Could not read docs directory:",
+        getErrorMessage(error)
+      );
     }
 
     // Load all component files from components subdirectory
@@ -102,13 +113,16 @@ export class GoADesignSystemServer {
           } catch (error) {
             console.error(
               `⚠️  Could not load component file ${file}:`,
-              error.message
+              getErrorMessage(error)
             );
           }
         }
       }
     } catch (error) {
-      console.error("⚠️  Could not read components directory:", error.message);
+      console.error(
+        "⚠️  Could not read components directory:",
+        getErrorMessage(error)
+      );
     }
   }
 
