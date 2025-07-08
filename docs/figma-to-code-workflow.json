@@ -1,0 +1,391 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "documentType": "conversion-methodology",
+  "methodologyName": "Figma to GoA Components Workflow",
+  "summary": "Complete workflow for converting Figma designs to coded prototypes using GoA Design System components",
+
+  "triggers": [
+    "figma design",
+    "convert design",
+    "build this design",
+    "figma to code",
+    "design to code",
+    "build in react",
+    "build in angular",
+    "figma screenshot",
+    "design image",
+    "wireframe to code",
+    "mockup to code",
+    "turn this into code",
+    "prototype this design"
+  ],
+
+  "requiredFrameworkSelection": {
+    "required": true,
+    "prompt": "REQUIRED: Choose Your Framework - Before we start, tell me: 'I want this built in [React/Angular]'",
+    "frameworks": ["React", "Angular"],
+    "reasoning": "Framework choice determines import statements, component syntax, and event handling patterns"
+  },
+
+  "enhancedAnalysisWithJSON": {
+    "description": "Integration with Figma Component Export JSON for precision mapping",
+    "benefits": [
+      "Instantly identify which GoA components are used",
+      "Extract exact configurations (size, type, state, etc.)",
+      "Preserve text content from the design",
+      "Map component relationships and layout structure",
+      "Generate more accurate code with precise component props"
+    ],
+    "jsonStructureExample": {
+      "componentUsage": {
+        "componentsFound": [
+          "goa-App-Header",
+          "goa-Input-Label",
+          "goa-Button 1"
+        ],
+        "components": {
+          "goa-App-Header": {
+            "instances": [{ "properties": { "Small screen": "False" } }]
+          },
+          "goa-Input-Label": {
+            "instances": [
+              {
+                "properties": { "Size": "Large/Heading" },
+                "text": "Input label"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+
+  "mandatoryPatterns": {
+    "pageStructure": {
+      "rule": "ALWAYS use GoabOneColumnLayout as root component for government pages",
+      "requiredPattern": "GoabOneColumnLayout > section[slot=header] + GoabPageBlock + section[slot=footer]",
+      "never": [
+        "div as page root",
+        "Container as page wrapper",
+        "custom layout structures",
+        "direct header/footer without slots"
+      ],
+      "reasoning": "Required for government compliance, accessibility, and design system consistency",
+      "codeExample": {
+        "react": "<GoabOneColumnLayout>\n  <section slot=\"header\">\n    <GoabMicrositeHeader type=\"live\" />\n    <GoabAppHeader heading=\"Service Name\" />\n  </section>\n  <GoabPageBlock width=\"704px\">\n    {/* All content goes here */}\n  </GoabPageBlock>\n  <section slot=\"footer\">\n    <GoabAppFooter />\n  </section>\n</GoabOneColumnLayout>",
+        "angular": "<goab-one-column-layout>\n  <section slot=\"header\">\n    <goab-microsite-header type=\"live\"></goab-microsite-header>\n    <goab-app-header heading=\"Service Name\"></goab-app-header>\n  </section>\n  <goab-page-block width=\"704px\">\n    <!-- All content goes here -->\n  </goab-page-block>\n  <section slot=\"footer\">\n    <goab-app-footer></goab-app-footer>\n  </section>\n</goab-one-column-layout>"
+      }
+    },
+    "componentFirst": {
+      "rule": "ALWAYS assume a GoA component exists first",
+      "process": [
+        "If JSON provided: Parse component list and configurations first",
+        "If image only: Identify visual element and search project knowledge",
+        "Search thoroughly with multiple search terms",
+        "If no exact match found: Search for related/similar components",
+        "If still no component found: Explicitly tell user: 'I cannot find a GoA component for [describe element]. How should I implement this?'"
+      ],
+      "never": "Default to custom implementation without explicit user guidance"
+    },
+    "realComponents": {
+      "rule": "NEVER create mock components or placeholders",
+      "always": "Use actual @abgov/react-components or @abgov/angular-components",
+      "reasoning": "All styling and behavior comes from the official design system",
+      "imports": {
+        "react": "import { GoabButton, GoabInput, GoabFormItem } from '@abgov/react-components';",
+        "angular": "Components available as <goab-button>, <goab-input>, <goab-form-item>"
+      }
+    }
+  },
+
+  "analysisProcess": {
+    "withJSONExport": [
+      "1. Parse JSON export first to identify exact GoA components used",
+      "2. Map component names to their React/Angular equivalents",
+      "3. Extract configurations from component properties",
+      "4. Preserve text content from the JSON",
+      "5. Apply proper GoA layout patterns (always use OneColumnLayout)"
+    ],
+    "imageOnly": [
+      "1. First assumption: 'There must be a GoA component for this pattern'",
+      "2. Search thoroughly in project knowledge for the component",
+      "3. If no exact match: Search for related components",
+      "4. Only if no component found: Flag with user and ask how to proceed",
+      "5. Never default to custom implementation without explicit user guidance"
+    ]
+  },
+
+  "visualPatternMappings": {
+    "governmentElements": {
+      "governmentNoticeBanner": {
+        "component": "GoabMicrositeHeader",
+        "usage": "For 'This is an official website of the Alberta Government' messaging"
+      },
+      "serviceHeaders": {
+        "component": "GoabAppHeader",
+        "usage": "Main service/page title and navigation"
+      },
+      "footerAreas": {
+        "component": "GoabAppFooter",
+        "usage": "Government footer with navigation and utility links"
+      }
+    },
+    "formElements": {
+      "textInputs": {
+        "components": ["GoabInput", "GoabFormItem"],
+        "pattern": "Always wrap inputs in FormItem for proper labels"
+      },
+      "dropdowns": {
+        "component": "GoabDropdown",
+        "usage": "For selection lists and option menus"
+      },
+      "buttons": {
+        "components": ["GoabButton", "GoabIconButton"],
+        "types": ["primary", "secondary", "tertiary"]
+      },
+      "checkboxRadio": {
+        "components": ["GoabCheckbox", "GoabRadio"],
+        "usage": "For boolean selections and option groups"
+      }
+    },
+    "contentElements": {
+      "dataDisplay": {
+        "components": ["GoabTable", "GoabContainer", "GoabBlock"],
+        "usage": "For organized data presentation"
+      },
+      "statusMessages": {
+        "components": ["GoabCallout", "GoabNotificationBanner"],
+        "types": ["success", "error", "warning", "information"]
+      },
+      "navigation": {
+        "components": ["GoabLink", "GoabSideMenu"],
+        "usage": "For internal and external navigation"
+      }
+    }
+  },
+
+  "frameworkImplementations": {
+    "react": {
+      "packageName": "@abgov/react-components",
+      "webComponentsImport": "import '@abgov/web-components';",
+      "naming": "PascalCase with Goab prefix (GoabButton, GoabInput, GoabFormItem)",
+      "eventHandling": "event.detail.value for GoA-specific events",
+      "stateManagement": "useState for form state and interactions",
+      "setupRequirements": [
+        "npm install @abgov/react-components @abgov/web-components",
+        "Import '@abgov/web-components' in index.js/tsx",
+        "Add ionicons scripts to HTML head",
+        "Import CSS: @import '@abgov/web-components/index.css';"
+      ],
+      "exampleCode": "const [value, setValue] = useState('');\nconst handleChange = (event) => {\n  setValue(event.detail.value);\n};\nreturn (\n  <GoabFormItem label=\"Your Label\">\n    <GoabInput value={value} onChange={handleChange} />\n  </GoabFormItem>\n);"
+    },
+    "angular": {
+      "packageName": "@abgov/angular-components",
+      "webComponentsImport": "import '@abgov/web-components';",
+      "naming": "kebab-case with goab- prefix (<goab-button>, <goab-input>, <goab-form-item>)",
+      "forms": "FormBuilder and reactive forms integration with formControlName",
+      "moduleSetup": "CUSTOM_ELEMENTS_SCHEMA required in module",
+      "setupRequirements": [
+        "npm install @abgov/angular-components @abgov/web-components",
+        "Import '@abgov/web-components' in app.module.ts",
+        "Add CUSTOM_ELEMENTS_SCHEMA to module schemas",
+        "Add ionicons scripts to index.html head",
+        "Import CSS in src/styles.css"
+      ],
+      "exampleCode": "myForm = this.fb.group({\n  field: ['']\n});\n\n<form [formGroup]=\"myForm\">\n  <goab-form-item label=\"Your Label\">\n    <goab-input formControlName=\"field\"></goab-input>\n  </goab-form-item>\n</form>"
+    }
+  },
+
+  "outputDeliverables": {
+    "always": [
+      "Complete component code using real GoA components (never placeholders)",
+      "Component explanation - why each GoA component was chosen for the design",
+      "Setup instructions - exact dependencies and configuration needed",
+      "Accessibility notes - built-in GoA accessibility features",
+      "Responsive behavior - how components adapt to different screen sizes"
+    ],
+    "codeQuality": [
+      "Working event handlers and state management",
+      "Form validation with proper error handling",
+      "Proper component hierarchy and layout structure",
+      "Framework-specific best practices (React hooks, Angular reactive forms)"
+    ]
+  },
+
+  "supportedComponents": {
+    "total": 34,
+    "categories": {
+      "formsInputs": {
+        "count": 11,
+        "components": [
+          "Button",
+          "ButtonGroup",
+          "Checkbox",
+          "DatePicker",
+          "Dropdown",
+          "FileUploader",
+          "FormItem",
+          "IconButton",
+          "Input",
+          "Radio",
+          "TextArea"
+        ]
+      },
+      "layoutContent": {
+        "count": 11,
+        "components": [
+          "Accordion",
+          "Block",
+          "Callout",
+          "Container",
+          "Details",
+          "Grid",
+          "HeroBanner",
+          "List",
+          "Modal",
+          "Tabs",
+          "Text"
+        ]
+      },
+      "dataDisplayFeedback": {
+        "count": 5,
+        "components": [
+          "Badge",
+          "NotificationBanner",
+          "Pagination",
+          "Spinner",
+          "Table"
+        ]
+      },
+      "navigationStructure": {
+        "count": 4,
+        "components": ["AppHeader", "AppFooter", "Link", "SideMenu"]
+      },
+      "specialized": {
+        "count": 3,
+        "components": ["Drawer", "Icons", "MicrositeHeader"]
+      }
+    }
+  },
+
+  "commonImplementationPatterns": [
+    {
+      "name": "Contact Forms",
+      "components": ["GoabFormItem", "GoabInput", "GoabButton"],
+      "description": "Forms with validation using FormItem wrapper pattern"
+    },
+    {
+      "name": "Multi-step Registration",
+      "components": [
+        "GoabContainer",
+        "GoabPageBlock",
+        "GoabButton",
+        "GoabCallout"
+      ],
+      "description": "Progressive flows with containers and success/error messaging"
+    },
+    {
+      "name": "Dashboard Widgets",
+      "components": ["GoabContainer", "GoabBlock", "GoabBadge"],
+      "description": "Organized content sections with status indicators"
+    },
+    {
+      "name": "Data Tables",
+      "components": ["GoabTable", "GoabPagination", "GoabInput"],
+      "description": "Data display with search and navigation"
+    },
+    {
+      "name": "Page Headers",
+      "components": ["GoabAppHeader", "GoabMicrositeHeader"],
+      "description": "Government page structure with proper branding"
+    },
+    {
+      "name": "User Feedback",
+      "components": ["GoabNotificationBanner", "GoabCallout", "GoabModal"],
+      "description": "Success, error, and informational messaging"
+    }
+  ],
+
+  "requiredSetup": {
+    "dependencies": {
+      "react": ["@abgov/react-components", "@abgov/web-components"],
+      "angular": ["@abgov/angular-components", "@abgov/web-components"]
+    },
+    "ionicons": {
+      "required": "For most components (icons, buttons, etc.)",
+      "location": "Add to HTML head element",
+      "scripts": [
+        "<script type=\"module\" src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js\"></script>",
+        "<script nomodule src=\"https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js\"></script>"
+      ]
+    },
+    "css": {
+      "import": "@import \"@abgov/web-components/index.css\";",
+      "location": {
+        "react": "src/index.css or main CSS entry point",
+        "angular": "src/styles.css"
+      }
+    },
+    "webComponents": {
+      "react": "import '@abgov/web-components'; in src/index.js/tsx",
+      "angular": "import '@abgov/web-components'; in app.module.ts"
+    }
+  },
+
+  "workflowSteps": {
+    "enhancedAnalysis": [
+      "1. User specifies framework: 'I want this built in [React/Angular]'",
+      "2. User uploads Figma design image",
+      "3. User uploads Figma component export JSON (optional but recommended)",
+      "4. Parse JSON first to identify exact GoA components and configurations",
+      "5. Map visual elements to GoA component equivalents",
+      "6. Generate complete, functional code using real GoA components",
+      "7. Provide setup instructions and component explanations"
+    ],
+    "standardAnalysis": [
+      "1. User specifies framework: 'I want this built in [React/Angular]'",
+      "2. User uploads Figma design image",
+      "3. Identify visual patterns and search for corresponding GoA components",
+      "4. Map layout structure to GoA layout patterns (OneColumnLayout)",
+      "5. Generate complete, functional code using real GoA components",
+      "6. Provide setup instructions and component explanations"
+    ]
+  },
+
+  "aiHints": {
+    "keywords": [
+      "figma",
+      "design",
+      "convert",
+      "build",
+      "react",
+      "angular",
+      "prototype",
+      "component export",
+      "json",
+      "wireframe",
+      "mockup",
+      "turn this into",
+      "build this",
+      "code this design"
+    ],
+    "autoTrigger": "When user mentions building/converting designs or shares design images",
+    "frameworkRequired": "Always require framework selection before starting any conversion",
+    "thoroughComponentSearch": "Always search project knowledge extensively before declaring component doesn't exist",
+    "mandatoryPatterns": "Always use OneColumnLayout for page structure, always use real GoA components",
+    "qualityStandards": "Generate working, interactive prototypes suitable for user testing and stakeholder demos"
+  },
+
+  "tags": [
+    "figma-conversion",
+    "design-to-code",
+    "prototyping",
+    "methodology",
+    "framework-specific",
+    "government-compliance"
+  ],
+  "category": "methodology",
+  "status": "stable",
+  "lastUpdated": "2025-07-08"
+}
