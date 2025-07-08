@@ -321,6 +321,20 @@
   },
 
   "usagePatterns": {
+    "codeOutputRules": {
+      "alwaysProduction": "ALWAYS provide production-ready code using real GoA Design System components",
+      "neverMock": "NEVER create mock, placeholder, or demo versions of ANY GoA components",
+      "environment": "Assume user has GoA Design System properly installed and configured in their development environment",
+      "purpose": "Code is for copy-paste into real development projects, not for browser demonstration or sandbox environments",
+      "frameworkImports": {
+        "react": "import { [ComponentNames] } from '@abgov/react-components' - Import all needed GoA components",
+        "angular": "All GoA components available through AngularComponentsModule import - use <goab-component-name> syntax",
+        "webComponent": "All components available after importing '@abgov/web-components' - use <goa-component-name> syntax"
+      },
+      "componentAvailability": "ALL 32+ GoA components are available: Button, Input, FormItem, Container, Text, Table, Pagination, Modal, etc.",
+      "criticalRule": "User wants REAL GoA component code that works immediately in their properly configured development environment",
+      "noEnvironmentAdaptation": "NEVER adapt code for browser/sandbox limitations - always assume full GoA component library access"
+    },
     "common-combinations": [
       {
         "name": "Basic Form",
