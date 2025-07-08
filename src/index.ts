@@ -31,14 +31,14 @@ async function main() {
         {
           name: "project_knowledge_search",
           description:
-            "Search the GoA Design System project knowledge including components, workflows, and system documentation",
+            "PRIMARY SEARCH: Search all GoA Design System knowledge including components, workflows (like Figma-to-code), layout patterns, system setup, and implementation methodologies. Use this for any GoA Design System question.",
           inputSchema: {
             type: "object",
             properties: {
               query: {
                 type: "string",
                 description:
-                  "Search query for components, workflows, or system information",
+                  "Search query for any GoA Design System information: components, workflows, figma conversion, layout patterns, setup guides, etc.",
               },
               max_text_results: {
                 type: "number",
@@ -57,19 +57,17 @@ async function main() {
         {
           name: "search_components",
           description:
-            "Search GoA Design System components by name, use case, or functionality",
+            "SPECIALIZED: Search only GoA components by name or functionality. Use project_knowledge_search for broader queries.",
           inputSchema: {
             type: "object",
             properties: {
               query: {
                 type: "string",
-                description:
-                  "Search query (component name, use case, or functionality)",
+                description: "Component-specific search query",
               },
               category: {
                 type: "string",
-                description:
-                  "Filter by category (forms, navigation, layout, etc.)",
+                description: "Filter by category",
                 enum: [
                   "forms",
                   "navigation",
@@ -97,14 +95,15 @@ async function main() {
         },
         {
           name: "get_component_details",
-          description: "Get complete details for a specific GoA component",
+          description:
+            "SPECIALIZED: Get complete details for a specific GoA component after you know its exact name",
           inputSchema: {
             type: "object",
             properties: {
               componentName: {
                 type: "string",
                 description:
-                  'Name of the component (e.g., "button", "input", "modal")',
+                  'Exact component name (e.g., "button", "input", "modal")',
               },
               framework: {
                 type: "string",
@@ -117,14 +116,15 @@ async function main() {
         },
         {
           name: "get_usage_patterns",
-          description: "Get common usage patterns and component combinations",
+          description:
+            "SPECIALIZED: Get usage patterns for specific scenarios. Use project_knowledge_search for workflow information.",
           inputSchema: {
             type: "object",
             properties: {
               scenario: {
                 type: "string",
                 description:
-                  'Usage scenario (e.g., "form layout", "data table", "user profile")',
+                  'Specific implementation scenario (e.g., "form layout", "data table")',
               },
               components: {
                 type: "array",
