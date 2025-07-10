@@ -186,10 +186,10 @@ async function main() {
     // Start the server
     const transport = new StdioServerTransport();
     await server.connect(transport);
-    console.error("🚀 Optimized GoA Design System MCP Server running on stdio");
+    process.stderr.write(`Optimized GoA Design System MCP Server running on stdio\n`);
 }
 main().catch((error) => {
-    console.error("❌ Server failed to start:", error);
+    process.stderr.write(`Server failed to start: ${error}\n`);
     process.exit(1);
 });
 //# sourceMappingURL=index.js.map

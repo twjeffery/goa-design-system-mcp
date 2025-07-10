@@ -13,12 +13,13 @@ export class OptimizedGoADesignSystemServer {
             await this.dataManager.initialize();
             this.initialized = true;
             const stats = this.dataManager.getPerformanceStats();
-            console.error("✅ Optimized GoA Design System server initialized");
-            console.error(`🚀 Performance: ${stats.indexingTime.toFixed(2)}ms indexing, ${stats.memoryUsage.estimated} memory usage`);
-            console.error(`📈 Optimization: ${stats.memoryUsage.comparison}`);
+            // Log to stderr for debugging (not JSON output)
+            process.stderr.write(`Optimized GoA Design System server initialized\n`);
+            process.stderr.write(`Performance: ${stats.indexingTime.toFixed(2)}ms indexing, ${stats.memoryUsage.estimated} memory usage\n`);
+            process.stderr.write(`Optimization: ${stats.memoryUsage.comparison}\n`);
         }
         catch (error) {
-            console.error("❌ Failed to initialize optimized server:", error);
+            process.stderr.write(`Failed to initialize optimized server: ${error}\n`);
             throw error;
         }
     }
@@ -144,7 +145,7 @@ export class OptimizedGoADesignSystemServer {
             };
         }
         catch (error) {
-            console.error("❌ Optimized search error:", error);
+            process.stderr.write(`Optimized search error: ${error}\n`);
             return {
                 content: [
                     {
@@ -206,7 +207,7 @@ export class OptimizedGoADesignSystemServer {
             };
         }
         catch (error) {
-            console.error("❌ Component search error:", error);
+            process.stderr.write(`Component search error: ${error}\n`);
             throw new Error(`Component search failed: ${getErrorMessage(error)}`);
         }
     }
@@ -262,7 +263,7 @@ export class OptimizedGoADesignSystemServer {
             };
         }
         catch (error) {
-            console.error("❌ Component details error:", error);
+            process.stderr.write(`Component details error: ${error}\n`);
             throw error;
         }
     }
@@ -319,7 +320,7 @@ export class OptimizedGoADesignSystemServer {
             };
         }
         catch (error) {
-            console.error("❌ Usage patterns error:", error);
+            process.stderr.write(`Usage patterns error: ${error}\n`);
             throw new Error(`Usage patterns search failed: ${getErrorMessage(error)}`);
         }
     }
@@ -341,7 +342,7 @@ export class OptimizedGoADesignSystemServer {
             },
         };
         // Log feedback (in production, this would go to a database/file)
-        console.error("📝 Feedback collected:", JSON.stringify(feedback, null, 2));
+        process.stderr.write(`Feedback collected: ${JSON.stringify(feedback, null, 2)}\n`);
         return {
             content: [
                 {

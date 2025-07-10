@@ -22,19 +22,19 @@ export class OptimizedDataManager {
         if (this.initialized)
             return;
         const startTime = performance.now();
-        console.log("🚀 Starting optimized data loading with inverted index...");
+        process.stderr.write(`Starting optimized data loading with inverted index...\n`);
         try {
             await this.loadAllData();
             this.initialized = true;
             const totalTime = performance.now() - startTime;
             this.performanceStats.indexingTime = totalTime;
             const stats = this.index.getStats();
-            console.log("✅ Optimized data manager initialized successfully");
-            console.log(`📊 Indexed ${stats.totalItems} items with ${stats.totalTerms} unique terms in ${totalTime.toFixed(2)}ms`);
-            console.log(`📈 Average terms per item: ${stats.averageTermsPerItem.toFixed(1)}`);
+            process.stderr.write(`Optimized data manager initialized successfully\n`);
+            process.stderr.write(`Indexed ${stats.totalItems} items with ${stats.totalTerms} unique terms in ${totalTime.toFixed(2)}ms\n`);
+            process.stderr.write(`Average terms per item: ${stats.averageTermsPerItem.toFixed(1)}\n`);
         }
         catch (error) {
-            console.error("❌ Failed to initialize optimized data manager:", error);
+            process.stderr.write(`Failed to initialize optimized data manager: ${error}\n`);
             throw error;
         }
     }
@@ -65,11 +65,11 @@ export class OptimizedDataManager {
             const results = filteredCandidates.map(candidate => this.candidateToSearchResult(candidate, query));
             const searchTime = performance.now() - startTime;
             this.updatePerformanceStats(searchTime);
-            console.log(`🔍 Fast search completed in ${searchTime.toFixed(2)}ms, found ${results.length} results`);
+            process.stderr.write(`Fast search completed in ${searchTime.toFixed(2)}ms, found ${results.length} results\n`);
             return results;
         }
         catch (error) {
-            console.error("❌ Search error:", error);
+            process.stderr.write(`Search error: ${error}\n`);
             return [];
         }
     }
@@ -104,10 +104,10 @@ export class OptimizedDataManager {
             const indexPath = join(dataDir, "index.json");
             const indexData = await readFile(indexPath, "utf8");
             this.masterIndex = JSON.parse(indexData);
-            console.log("📋 Master index loaded");
+            process.stderr.write(`Master index loaded\n`);
         }
         catch (error) {
-            console.error("⚠️  Master index not found or invalid");
+            process.stderr.write(`Master index not found or invalid\n`);
         }
         // Load and index system files
         const systemFiles = ["layout.json", "system-setup.json"];
@@ -125,10 +125,10 @@ export class OptimizedDataManager {
                     category: parsed.category
                 };
                 this.index.addItem(indexedItem);
-                console.log(`📄 Indexed system file: ${fileName}`);
+                process.stderr.write(`Indexed system file: ${fileName}\n`);
             }
             catch (error) {
-                console.error(`⚠️  Could not load ${fileName}:`, getErrorMessage(error));
+                process.stderr.write(`Could not load ${fileName}: ${getErrorMessage(error)}\n`);
             }
         }
         // Load and index workflow files from docs directory
@@ -149,16 +149,16 @@ export class OptimizedDataManager {
                             category: workflowData.category
                         };
                         this.index.addItem(indexedItem);
-                        console.log(`📄 Indexed workflow: ${file}`);
+                        process.stderr.write(`Indexed workflow: ${file}\n`);
                     }
                     catch (error) {
-                        console.error(`⚠️  Could not load workflow file ${file}:`, getErrorMessage(error));
+                        process.stderr.write(`Could not load workflow file ${file}: ${getErrorMessage(error)}\n`);
                     }
                 }
             }
         }
         catch (error) {
-            console.error("⚠️  Could not read docs directory:", getErrorMessage(error));
+            process.stderr.write(`Could not read docs directory: ${getErrorMessage(error)}\n`);
         }
         // Load and index all component files
         try {
@@ -184,14 +184,14 @@ export class OptimizedDataManager {
                         this.index.addItem(indexedItem);
                     }
                     catch (error) {
-                        console.error(`⚠️  Could not load component file ${file}:`, getErrorMessage(error));
+                        process.stderr.write(`Could not load component file ${file}: ${getErrorMessage(error)}\n`);
                     }
                 }
             }
-            console.log(`📦 Indexed ${files.filter(f => f.endsWith('.json')).length} component files`);
+            process.stderr.write(`Indexed ${files.filter(f => f.endsWith('.json')).length} component files\n`);
         }
         catch (error) {
-            console.error("⚠️  Could not read components directory:", getErrorMessage(error));
+            process.stderr.write(`Could not read components directory: ${getErrorMessage(error)}\n`);
         }
     }
     candidateToSearchResult(candidate, query) {

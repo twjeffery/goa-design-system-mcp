@@ -22,12 +22,12 @@ export class GoADesignSystemServer {
     try {
       await this.loadAllData();
       this.initialized = true;
-      console.error("✅ GoA Design System data loaded successfully");
-      console.error(
-        `📊 Loaded ${this.components.size} components, ${this.systemFiles.size} system files, and ${this.workflows.size} workflows`
+      process.stderr.write(`GoA Design System data loaded successfully\n`);
+      process.stderr.write(
+        `Loaded ${this.components.size} components, ${this.systemFiles.size} system files, and ${this.workflows.size} workflows\n`
       );
     } catch (error) {
-      console.error("❌ Failed to load component data:", error);
+      process.stderr.write(`Failed to load component data: ${error}\n`);
       throw error;
     }
   }
@@ -41,9 +41,9 @@ export class GoADesignSystemServer {
       const indexPath = join(dataDir, "index.json");
       const indexData = await readFile(indexPath, "utf8");
       this.masterIndex = JSON.parse(indexData);
-      console.error("📋 Master index loaded");
+      process.stderr.write(`Master index loaded\n`);
     } catch (error) {
-      console.error("⚠️  Master index not found or invalid");
+      process.stderr.write(`Master index not found or invalid\n`);
     }
 
     // Load system files (layout.json, system-setup.json, etc.)
@@ -54,11 +54,10 @@ export class GoADesignSystemServer {
         const fileData = await readFile(filePath, "utf8");
         const parsed = JSON.parse(fileData);
         this.systemFiles.set(fileName.replace(".json", ""), parsed);
-        console.error(`📄 Loaded ${fileName}`);
+        process.stderr.write(`Loaded ${fileName}\n`);
       } catch (error) {
-        console.error(
-          `⚠️  Could not load ${fileName}:`,
-          getErrorMessage(error)
+        process.stderr.write(
+          `Could not load ${fileName}: ${getErrorMessage(error)}\n`
         );
       }
     }
@@ -76,19 +75,17 @@ export class GoADesignSystemServer {
 
             const workflowName = file.replace(".json", "");
             this.workflows.set(workflowName, workflowData);
-            console.error(`📄 Loaded workflow: ${file}`);
+            process.stderr.write(`Loaded workflow: ${file}\n`);
           } catch (error) {
-            console.error(
-              `⚠️  Could not load workflow file ${file}:`,
-              getErrorMessage(error)
+            process.stderr.write(
+              `Could not load workflow file ${file}: ${getErrorMessage(error)}\n`
             );
           }
         }
       }
     } catch (error) {
-      console.error(
-        "⚠️  Could not read docs directory:",
-        getErrorMessage(error)
+      process.stderr.write(
+        `Could not read docs directory: ${getErrorMessage(error)}\n`
       );
     }
 
@@ -111,17 +108,15 @@ export class GoADesignSystemServer {
 
             this.components.set(componentName, componentData);
           } catch (error) {
-            console.error(
-              `⚠️  Could not load component file ${file}:`,
-              getErrorMessage(error)
+            process.stderr.write(
+              `Could not load component file ${file}: ${getErrorMessage(error)}\n`
             );
           }
         }
       }
     } catch (error) {
-      console.error(
-        "⚠️  Could not read components directory:",
-        getErrorMessage(error)
+      process.stderr.write(
+        `Could not read components directory: ${getErrorMessage(error)}\n`
       );
     }
   }
@@ -639,7 +634,7 @@ export class GoADesignSystemServer {
     };
 
     // Log feedback (in production, this would go to a database/file)
-    console.error("📝 Feedback collected:", JSON.stringify(feedback, null, 2));
+    process.stderr.write(`Feedback collected: ${JSON.stringify(feedback, null, 2)}\n`);
 
     return {
       content: [

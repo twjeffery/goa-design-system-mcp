@@ -2,9 +2,14 @@ import { readFile, readdir } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
+// Helper function to safely get error messages
+const getErrorMessage = (error) => {
+    return error instanceof Error ? error.message : String(error);
+};
 export class GoADesignSystemServer {
     components = new Map();
     systemFiles = new Map();
+    workflows = new Map(); // NEW: Add workflows storage
     masterIndex = null;
     initialized = false;
     async initialize() {
@@ -13,25 +18,26 @@ export class GoADesignSystemServer {
         try {
             await this.loadAllData();
             this.initialized = true;
-            console.error("✅ GoA Design System data loaded successfully");
-            console.error(`📊 Loaded ${this.components.size} components and ${this.systemFiles.size} system files`);
+            process.stderr.write(`GoA Design System data loaded successfully\n`);
+            process.stderr.write(`Loaded ${this.components.size} components, ${this.systemFiles.size} system files, and ${this.workflows.size} workflows\n`);
         }
         catch (error) {
-            console.error("❌ Failed to load component data:", error);
+            process.stderr.write(`Failed to load component data: ${error}\n`);
             throw error;
         }
     }
     async loadAllData() {
         const dataDir = join(__dirname, "../data");
+        const docsDir = join(__dirname, "../docs"); // NEW: Add docs directory
         // Load master index
         try {
             const indexPath = join(dataDir, "index.json");
             const indexData = await readFile(indexPath, "utf8");
             this.masterIndex = JSON.parse(indexData);
-            console.error("📋 Master index loaded");
+            process.stderr.write(`Master index loaded\n`);
         }
         catch (error) {
-            console.error("⚠️  Master index not found or invalid");
+            process.stderr.write(`Master index not found or invalid\n`);
         }
         // Load system files (layout.json, system-setup.json, etc.)
         const systemFiles = ["layout.json", "system-setup.json"];
@@ -41,11 +47,33 @@ export class GoADesignSystemServer {
                 const fileData = await readFile(filePath, "utf8");
                 const parsed = JSON.parse(fileData);
                 this.systemFiles.set(fileName.replace(".json", ""), parsed);
-                console.error(`📄 Loaded ${fileName}`);
+                process.stderr.write(`Loaded ${fileName}\n`);
             }
             catch (error) {
-                console.error(`⚠️  Could not load ${fileName}:`, error.message);
+                process.stderr.write(`Could not load ${fileName}: ${getErrorMessage(error)}\n`);
             }
+        }
+        // NEW: Load workflow files from docs directory
+        try {
+            const files = await readdir(docsDir);
+            for (const file of files) {
+                if (file.endsWith(".json")) {
+                    try {
+                        const filePath = join(docsDir, file);
+                        const data = await readFile(filePath, "utf8");
+                        const workflowData = JSON.parse(data);
+                        const workflowName = file.replace(".json", "");
+                        this.workflows.set(workflowName, workflowData);
+                        process.stderr.write(`Loaded workflow: ${file}\n`);
+                    }
+                    catch (error) {
+                        process.stderr.write(`Could not load workflow file ${file}: ${getErrorMessage(error)}\n`);
+                    }
+                }
+            }
+        }
+        catch (error) {
+            process.stderr.write(`Could not read docs directory: ${getErrorMessage(error)}\n`);
         }
         // Load all component files from components subdirectory
         try {
@@ -63,14 +91,227 @@ export class GoADesignSystemServer {
                         this.components.set(componentName, componentData);
                     }
                     catch (error) {
-                        console.error(`⚠️  Could not load component file ${file}:`, error.message);
+                        process.stderr.write(`Could not load component file ${file}: ${getErrorMessage(error)}\n`);
                     }
                 }
             }
         }
         catch (error) {
-            console.error("⚠️  Could not read components directory:", error.message);
+            process.stderr.write(`Could not read components directory: ${getErrorMessage(error)}\n`);
         }
+    }
+    // UPDATED: Enhanced project_knowledge_search function
+    async projectKnowledgeSearch(args) {
+        const { query, max_text_results = 8, max_image_results = 2 } = args;
+        const results = [];
+        const queryLower = query.toLowerCase();
+        // Enhanced detection for build/code requests
+        const buildKeywords = [
+            "build",
+            "create",
+            "make",
+            "generate",
+            "code",
+            "implement",
+            "develop",
+            "convert",
+            "design",
+            "page",
+            "component",
+            "build this",
+        ];
+        const frameworkKeywords = ["react", "angular"];
+        const isBuildRequest = buildKeywords.some((keyword) => queryLower.includes(keyword));
+        const hasFramework = frameworkKeywords.some((keyword) => queryLower.includes(keyword));
+        // If this is ANY build request, ALWAYS include system setup with mandatory principles
+        if (isBuildRequest || hasFramework) {
+            const systemSetup = this.systemFiles.get("system-setup");
+            if (systemSetup) {
+                results.push({
+                    type: "system",
+                    name: "mandatory-principles",
+                    content: systemSetup,
+                    score: 150, // HIGHEST priority - mandatory principles
+                    reason: "Mandatory GoA development principles for all build requests",
+                });
+            }
+        }
+        // Enhanced Figma/design conversion detection
+        const figmaKeywords = [
+            "figma",
+            "design",
+            "convert",
+            "build this",
+            "build in",
+            "react",
+            "angular",
+            "prototype",
+            "mockup",
+            "wireframe",
+            "turn this into",
+            "code this design",
+            "build this page",
+            "create this",
+            "make this",
+            "implement this",
+        ];
+        const isFigmaQuery = figmaKeywords.some((keyword) => queryLower.includes(keyword));
+        // If it's a Figma query, prioritize workflow documentation
+        if (isFigmaQuery) {
+            for (const [name, workflow] of this.workflows) {
+                // More flexible trigger matching
+                if (workflow.triggers?.some((trigger) => queryLower.includes(trigger.toLowerCase())) ||
+                    // Also match if it's clearly a build request with framework
+                    (isBuildRequest && hasFramework)) {
+                    results.push({
+                        type: "workflow",
+                        name,
+                        content: workflow,
+                        score: 120, // Very high priority for workflow matches
+                        reason: "Figma conversion workflow detected",
+                    });
+                }
+            }
+        }
+        // Search through components
+        for (const [name, component] of this.components) {
+            let score = 0;
+            // Search in component name
+            if (name.toLowerCase().includes(queryLower)) {
+                score += 10;
+            }
+            // Search in summary
+            if (component.summary?.toLowerCase().includes(queryLower)) {
+                score += 8;
+            }
+            // Search in tags
+            if (component.tags?.some((tag) => tag.toLowerCase().includes(queryLower))) {
+                score += 6;
+            }
+            // Search in AI tags
+            if (component.aiTags?.some((tag) => tag.toLowerCase().includes(queryLower))) {
+                score += 5;
+            }
+            // Search in description and purpose
+            if (component.description?.toLowerCase().includes(queryLower) ||
+                component.purpose?.toLowerCase().includes(queryLower)) {
+                score += 4;
+            }
+            // Search in usage examples and installation
+            if (component.installation) {
+                const installationText = JSON.stringify(component.installation).toLowerCase();
+                if (installationText.includes(queryLower)) {
+                    score += 3;
+                }
+            }
+            if (score > 0) {
+                results.push({
+                    type: "component",
+                    name,
+                    content: component,
+                    score,
+                    reason: "Component match",
+                });
+            }
+        }
+        // Search through system files
+        for (const [name, systemFile] of this.systemFiles) {
+            let score = 0;
+            if (name.toLowerCase().includes(queryLower) ||
+                systemFile.summary?.toLowerCase().includes(queryLower) ||
+                systemFile.purpose?.toLowerCase().includes(queryLower)) {
+                score += 7;
+            }
+            // Search in system file content
+            const systemContent = JSON.stringify(systemFile).toLowerCase();
+            if (systemContent.includes(queryLower)) {
+                score += 3;
+            }
+            if (score > 0) {
+                results.push({
+                    type: "system",
+                    name,
+                    content: systemFile,
+                    score,
+                    reason: "System file match",
+                });
+            }
+        }
+        // Search through workflows (if not already included from Figma detection)
+        if (!isFigmaQuery) {
+            for (const [name, workflow] of this.workflows) {
+                let score = 0;
+                if (name.toLowerCase().includes(queryLower) ||
+                    workflow.summary?.toLowerCase().includes(queryLower) ||
+                    workflow.methodologyName?.toLowerCase().includes(queryLower)) {
+                    score += 6;
+                }
+                // Search in workflow triggers and keywords
+                if (workflow.triggers?.some((trigger) => trigger.toLowerCase().includes(queryLower))) {
+                    score += 8;
+                }
+                if (score > 0) {
+                    results.push({
+                        type: "workflow",
+                        name,
+                        content: workflow,
+                        score,
+                        reason: "Workflow match",
+                    });
+                }
+            }
+        }
+        // Sort by score and limit results
+        const sortedResults = results
+            .sort((a, b) => b.score - a.score)
+            .slice(0, max_text_results);
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: JSON.stringify({
+                        query,
+                        resultsCount: sortedResults.length,
+                        totalSearched: {
+                            components: this.components.size,
+                            systemFiles: this.systemFiles.size,
+                            workflows: this.workflows.size,
+                        },
+                        figmaWorkflowDetected: isFigmaQuery,
+                        buildRequestDetected: isBuildRequest,
+                        results: sortedResults.map((result) => ({
+                            type: result.type,
+                            name: result.name,
+                            score: result.score,
+                            reason: result.reason,
+                            summary: result.content.summary ||
+                                result.content.methodologyName ||
+                                "No summary available",
+                            // Include full content for workflows and mandatory principles
+                            ...(result.type === "workflow" ||
+                                result.name === "mandatory-principles"
+                                ? { fullContent: result.content }
+                                : {}),
+                            ...(result.type === "component"
+                                ? {
+                                    category: result.content.category,
+                                    tags: result.content.tags,
+                                    commonUse: result.content.commonUse,
+                                }
+                                : {}),
+                            ...(result.type === "system"
+                                ? {
+                                    purpose: result.content.purpose,
+                                }
+                                : {}),
+                        })),
+                        searchTip: sortedResults.length === 0
+                            ? `No matches found for "${query}". Try terms like "form", "layout", "button", "figma", or "design conversion".`
+                            : undefined,
+                    }, null, 2),
+                },
+            ],
+        };
     }
     async searchComponents(args) {
         const { query, category, tags, limit = 10 } = args;
@@ -252,7 +493,7 @@ export class GoADesignSystemServer {
             },
         };
         // Log feedback (in production, this would go to a database/file)
-        console.error("📝 Feedback collected:", JSON.stringify(feedback, null, 2));
+        process.stderr.write(`Feedback collected: ${JSON.stringify(feedback, null, 2)}\n`);
         return {
             content: [
                 {
