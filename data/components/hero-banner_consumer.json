@@ -1,0 +1,208 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "HeroBanner",
+  "customElement": {
+    "tagName": "goa-hero-banner",
+    "className": "GoabHeroBanner"
+  },
+  "summary": "Prominent page headers with call-to-action support for landing pages and service introductions",
+  
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "ionicons": "optional (for CTA icons)",
+    "webComponentStyles": "required",
+    "packages": ["@abgov/react-components", "@abgov/angular-components", "@abgov/web-components"]
+  },
+  
+  "installation": {
+    "react": {
+      "import": "import { GoabHeroBanner } from '@abgov/react-components'",
+      "quickExample": "<GoabHeroBanner \n  heading=\"Service Portal\" \n  content=\"Access government services online\" \n  backgroundImage=\"/hero-bg.jpg\" \n/>",
+      "dependencies": "Requires @abgov/react-components and @abgov/web-components packages"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-hero-banner \n  heading=\"Service Portal\" \n  content=\"Access government services online\" \n  backgroundImage=\"/hero-bg.jpg\">\n</goab-hero-banner>",
+      "module": "Add AngularComponentsModule to your module imports",
+      "dependencies": "Requires @abgov/angular-components and @abgov/web-components packages"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-hero-banner \n  heading=\"Service Portal\" \n  content=\"Access government services online\" \n  background-image=\"/hero-bg.jpg\">\n</goa-hero-banner>",
+      "dependencies": "Requires @abgov/web-components package"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "heading",
+        "type": "string",
+        "required": true,
+        "description": "Main heading text for the hero banner",
+        "usage": "Clear, concise service or page title"
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "required": false,
+        "description": "Supporting content text below the heading",
+        "usage": "Brief description of the service or page purpose"
+      },
+      {
+        "name": "backgroundImage",
+        "type": "string (URL)",
+        "required": false,
+        "description": "Background image URL for the hero banner",
+        "usage": "High-quality, accessible images that support the content"
+      },
+      {
+        "name": "ctaText",
+        "type": "string",
+        "required": false,
+        "description": "Call-to-action button text",
+        "usage": "Action-oriented text like 'Get Started' or 'Apply Now'"
+      },
+      {
+        "name": "ctaUrl",
+        "type": "string (URL)",
+        "required": false,
+        "description": "Call-to-action button destination",
+        "usage": "URL or route for the primary action"
+      },
+      {
+        "name": "size",
+        "type": "large | medium | small",
+        "default": "large",
+        "required": false,
+        "description": "Size variant of the hero banner",
+        "usage": "large for landing pages, medium for section headers, small for compact layouts"
+      },
+      {
+        "name": "alignment",
+        "type": "left | center | right",
+        "default": "left",
+        "required": false,
+        "description": "Text alignment within the hero banner",
+        "usage": "Typically left for government services, center for marketing"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Service Landing Page",
+          "description": "Full hero banner for a government service landing page",
+          "code": "function ServiceLanding() {\n  return (\n    <GoabOneColumnLayout>\n      <section slot=\"header\">\n        <GoabMicrositeHeader type=\"live\" />\n        <GoabAppHeader heading=\"Online Services\" />\n      </section>\n      \n      <GoabHeroBanner\n        heading=\"Apply for Benefits Online\"\n        content=\"Get the support you need with our streamlined online application process. Complete your application in minutes and track your status.\"\n        backgroundImage=\"/images/benefits-hero.jpg\"\n        ctaText=\"Start Application\"\n        ctaUrl=\"/apply\"\n        size=\"large\"\n        alignment=\"left\"\n      />\n      \n      <GoabPageBlock width=\"960px\">\n        {/* Additional page content */}\n      </GoabPageBlock>\n      \n      <section slot=\"footer\">\n        <GoabAppFooter />\n      </section>\n    </GoabOneColumnLayout>\n  );\n}"
+        },
+        {
+          "title": "Section Header",
+          "description": "Medium-sized hero banner for page sections",
+          "code": "function ProgramSection() {\n  return (\n    <GoabPageBlock width=\"960px\">\n      <GoabHeroBanner\n        heading=\"Housing Assistance Programs\"\n        content=\"Find programs to help with rent, utilities, and home ownership.\"\n        size=\"medium\"\n        alignment=\"center\"\n      />\n      \n      <GoabGrid minChildWidth=\"300px\" gap=\"l\" mt=\"xl\">\n        {/* Program cards */}\n      </GoabGrid>\n    </GoabPageBlock>\n  );\n}"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Landing Page Hero",
+        "description": "Primary hero for service landing pages",
+        "usage": "Use large size with compelling heading and clear CTA",
+        "code": "<GoabHeroBanner \n  heading=\"Service Name\" \n  content=\"Brief service description\" \n  ctaText=\"Get Started\" \n  ctaUrl=\"/apply\" \n  size=\"large\" \n/>"
+      },
+      {
+        "name": "Section Introduction",
+        "description": "Introduce major page sections",
+        "usage": "Use medium size without CTA for content organization",
+        "code": "<GoabHeroBanner \n  heading=\"Section Title\" \n  content=\"Section description\" \n  size=\"medium\" \n  alignment=\"center\" \n/>"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Landing pages for government services",
+      "Program or initiative introductions",
+      "Major section headers requiring prominence",
+      "Marketing-style introductions with calls-to-action",
+      "Pages that need immediate visual impact"
+    ],
+    "whenNotToUse": [
+      "Standard content pages (use regular headings)",
+      "Form pages (focus should be on the form)",
+      "Data-heavy interfaces (prioritize content over visuals)",
+      "Every page header (reserve for important pages only)"
+    ],
+    "bestPractices": [
+      "Keep heading text concise and action-oriented",
+      "Ensure background images don't interfere with text readability",
+      "Use high-contrast text over images",
+      "Include meaningful calls-to-action for service pages",
+      "Test text readability across different screen sizes",
+      "Ensure images are accessible with proper alt text"
+    ],
+    "accessibility": [
+      "Provide adequate contrast between text and background",
+      "Ensure CTA buttons meet minimum touch target requirements",
+      "Use semantic heading hierarchy (typically h1 for main heading)",
+      "Include alt text for background images when meaningful",
+      "Test with screen readers for proper content flow"
+    ]
+  },
+
+  "playgroundExamples": {
+    "note": "Playground configurations will be added in future versions"
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabAppHeader",
+      "relationship": "Standard page header alternative",
+      "usage": "Use AppHeader for consistent service headers, HeroBanner for prominent introductions",
+      "example": "Service pages typically use both - AppHeader for navigation and HeroBanner for content introduction"
+    },
+    {
+      "name": "GoabPageBlock",
+      "relationship": "Content container following hero",
+      "usage": "HeroBanner typically precedes PageBlock content areas",
+      "example": "Hero introduces the page, PageBlock contains the main content"
+    },
+    {
+      "name": "GoabButton",
+      "relationship": "Call-to-action implementation",
+      "usage": "HeroBanner CTA properties render as Button components",
+      "example": "CTA becomes primary button for main action"
+    }
+  ],
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "issue": "Text not readable over background image",
+        "cause": "Insufficient contrast between text and image",
+        "solution": "Use darker overlay on image or choose high-contrast background images"
+      },
+      {
+        "issue": "Hero banner too prominent for content pages",
+        "cause": "Using large size inappropriately",
+        "solution": "Use medium or small size, or consider AppHeader instead"
+      },
+      {
+        "issue": "CTA button not functioning",
+        "cause": "Missing ctaUrl or incorrect URL format",
+        "solution": "Ensure ctaUrl is provided and properly formatted"
+      }
+    ]
+  },
+
+  "tags": ["header", "prominent", "landing", "introduction", "cta", "marketing"],
+  "category": "layout-and-content",
+  "status": "stable",
+  "lastUpdated": "2025-01-10",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/hero-banner.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

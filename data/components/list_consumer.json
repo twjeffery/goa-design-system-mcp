@@ -1,0 +1,209 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "List",
+  "customElement": {
+    "tagName": "goa-list",
+    "className": "GoabList"
+  },
+  "summary": "Structured lists with customizable styling for displaying sequential or organized content",
+  
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "ionicons": "optional (for list item icons)",
+    "webComponentStyles": "required",
+    "packages": ["@abgov/react-components", "@abgov/angular-components", "@abgov/web-components"]
+  },
+  
+  "installation": {
+    "react": {
+      "import": "import { GoabList, GoabListItem } from '@abgov/react-components'",
+      "quickExample": "<GoabList type=\"unordered\">\n  <GoabListItem>First item</GoabListItem>\n  <GoabListItem>Second item</GoabListItem>\n</GoabList>",
+      "dependencies": "Requires @abgov/react-components and @abgov/web-components packages"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-list type=\"unordered\">\n  <goab-list-item>First item</goab-list-item>\n  <goab-list-item>Second item</goab-list-item>\n</goab-list>",
+      "module": "Add AngularComponentsModule to your module imports",
+      "dependencies": "Requires @abgov/angular-components and @abgov/web-components packages"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-list type=\"unordered\">\n  <goa-list-item>First item</goa-list-item>\n  <goa-list-item>Second item</goa-list-item>\n</goa-list>",
+      "dependencies": "Requires @abgov/web-components package"
+    }
+  },
+
+  "api": {
+    "listProps": [
+      {
+        "name": "type",
+        "type": "ordered | unordered | unstyled",
+        "default": "unordered",
+        "required": false,
+        "description": "Type of list to render",
+        "usage": "ordered for numbered steps, unordered for bullet points, unstyled for custom styling"
+      },
+      {
+        "name": "variant",
+        "type": "default | compact | spaced",
+        "default": "default",
+        "required": false,
+        "description": "Spacing variant for list items",
+        "usage": "compact for dense layouts, spaced for improved readability"
+      },
+      {
+        "name": "icon",
+        "type": "string (ionicon name)",
+        "required": false,
+        "description": "Icon to use for unordered list bullets",
+        "usage": "Replace default bullets with custom icons like 'checkmark' or 'arrow-forward'"
+      }
+    ],
+    "listItemProps": [
+      {
+        "name": "icon",
+        "type": "string (ionicon name)",
+        "required": false,
+        "description": "Icon for this specific list item (overrides list icon)",
+        "usage": "Use for mixed icon lists or special emphasis"
+      },
+      {
+        "name": "variant",
+        "type": "default | highlighted | muted",
+        "default": "default",
+        "required": false,
+        "description": "Visual emphasis for this list item",
+        "usage": "highlighted for important items, muted for less important content"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Process Steps",
+          "description": "Ordered list for step-by-step instructions",
+          "code": "function ApplicationProcess() {\n  return (\n    <GoabContainer title=\"Application Process\">\n      <GoabText size=\"body-l\" mb=\"m\">\n        Follow these steps to complete your application:\n      </GoabText>\n      \n      <GoabList type=\"ordered\" variant=\"spaced\">\n        <GoabListItem>\n          <GoabText>Gather required documents (ID, proof of income)</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Complete the online application form</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Upload supporting documents</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Submit application and wait for confirmation</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Check application status online or by phone</GoabText>\n        </GoabListItem>\n      </GoabList>\n    </GoabContainer>\n  );\n}"
+        },
+        {
+          "title": "Feature List with Icons",
+          "description": "Unordered list with custom icons for features",
+          "code": "function ServiceFeatures() {\n  return (\n    <GoabContainer title=\"Service Features\">\n      <GoabList type=\"unordered\" icon=\"checkmark\" variant=\"spaced\">\n        <GoabListItem>\n          <GoabText>24/7 online access to your account</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Secure document upload and storage</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Real-time application status updates</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Email and SMS notifications</GoabText>\n        </GoabListItem>\n        <GoabListItem icon=\"star\" variant=\"highlighted\">\n          <GoabText>Priority processing for urgent cases</GoabText>\n        </GoabListItem>\n      </GoabList>\n    </GoabContainer>\n  );\n}"
+        },
+        {
+          "title": "Navigation Menu",
+          "description": "Unstyled list for custom navigation",
+          "code": "function SideNavigation() {\n  return (\n    <GoabContainer>\n      <GoabText tag=\"h3\" size=\"heading-m\" mb=\"m\">Quick Links</GoabText>\n      \n      <GoabList type=\"unstyled\" variant=\"compact\">\n        <GoabListItem>\n          <GoabLink>\n            <a href=\"/dashboard\">Dashboard</a>\n          </GoabLink>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabLink>\n            <a href=\"/applications\">My Applications</a>\n          </GoabLink>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabLink>\n            <a href=\"/documents\">Documents</a>\n          </GoabLink>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabLink>\n            <a href=\"/profile\">Profile Settings</a>\n          </GoabLink>\n        </GoabListItem>\n      </GoabList>\n    </GoabContainer>\n  );\n}"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Process Steps",
+        "description": "Sequential instructions or procedures",
+        "usage": "Use ordered type with spaced variant for clarity",
+        "code": "<GoabList type=\"ordered\" variant=\"spaced\">\n  <GoabListItem>Step one description</GoabListItem>\n  <GoabListItem>Step two description</GoabListItem>\n</GoabList>"
+      },
+      {
+        "name": "Feature Benefits",
+        "description": "Highlighting service features or benefits",
+        "usage": "Use unordered with checkmark icon for positive reinforcement",
+        "code": "<GoabList type=\"unordered\" icon=\"checkmark\">\n  <GoabListItem>Feature one</GoabListItem>\n  <GoabListItem>Feature two</GoabListItem>\n</GoabList>"
+      },
+      {
+        "name": "Requirements List",
+        "description": "Document or eligibility requirements",
+        "usage": "Use default unordered list for clear readability",
+        "code": "<GoabList type=\"unordered\" variant=\"default\">\n  <GoabListItem>Required document one</GoabListItem>\n  <GoabListItem>Required document two</GoabListItem>\n</GoabList>"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Sequential steps or procedures",
+      "Feature lists and benefits",
+      "Requirements or eligibility criteria",
+      "Navigation menus (with unstyled type)",
+      "Content that benefits from visual organization",
+      "Related items that should be grouped together"
+    ],
+    "whenNotToUse": [
+      "Single items (use Text component instead)",
+      "Complex data (use Table component)",
+      "Long paragraphs (use Text component)",
+      "Interactive content lists (consider other components)"
+    ],
+    "bestPractices": [
+      "Keep list items concise and scannable",
+      "Use parallel structure for list item text",
+      "Choose appropriate list type (ordered vs unordered)",
+      "Use consistent icon choices within a list",
+      "Consider spacing variant based on content length",
+      "Wrap list items in Text components for proper typography"
+    ],
+    "accessibility": [
+      "Screen readers announce list type and item count",
+      "Use semantic list markup for proper navigation",
+      "Ensure adequate color contrast for icons",
+      "Provide meaningful text content in each list item",
+      "Test keyboard navigation through list items"
+    ]
+  },
+
+  "playgroundExamples": {
+    "note": "Playground configurations will be added in future versions"
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabText",
+      "relationship": "Content wrapper for list items",
+      "usage": "Wrap list item content in Text components for consistent typography",
+      "example": "List items should contain Text components for proper styling"
+    },
+    {
+      "name": "GoabContainer",
+      "relationship": "Common grouping container",
+      "usage": "Lists often appear within Container components for visual organization",
+      "example": "Container with title and List for feature sections"
+    },
+    {
+      "name": "GoabAccordion",
+      "relationship": "Alternative for collapsible lists",
+      "usage": "Use Accordion when list content needs to be collapsible",
+      "example": "FAQ sections might use Accordion instead of List"
+    }
+  ],
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "issue": "List items not displaying properly",
+        "cause": "Missing ListItem wrapper components",
+        "solution": "Ensure all list content is wrapped in GoabListItem components"
+      },
+      {
+        "issue": "Icons not showing in list items",
+        "cause": "Invalid icon name or ionicons not loaded",
+        "solution": "Verify icon name exists in ionicons library and ionicons is properly imported"
+      },
+      {
+        "issue": "List spacing looks inconsistent",
+        "cause": "Mixing Text components with different spacing",
+        "solution": "Use consistent Text component spacing within list items"
+      }
+    ]
+  },
+
+  "tags": ["list", "structured", "content", "enumeration", "organization"],
+  "category": "layout-and-content",
+  "status": "stable",
+  "lastUpdated": "2025-01-10",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/list.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

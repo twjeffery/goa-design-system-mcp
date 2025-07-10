@@ -1,0 +1,232 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "Popover",
+  "customElement": {
+    "tagName": "goa-popover",
+    "className": "GoabPopover"
+  },
+  "summary": "Contextual information overlay with intelligent positioning for help text, tooltips, and additional details",
+  
+  "systemRequirements": {
+    "setupReference": "See system-setup.json for complete installation instructions",
+    "ionicons": "optional (for trigger icons)",
+    "webComponentStyles": "required",
+    "packages": ["@abgov/react-components", "@abgov/angular-components", "@abgov/web-components"]
+  },
+  
+  "installation": {
+    "react": {
+      "import": "import { GoabPopover } from '@abgov/react-components'",
+      "quickExample": "<GoabPopover \n  trigger={<GoabIconButton icon=\"help\" ariaLabel=\"Help\" />} \n  content=\"This field requires your full legal name\" \n  position=\"top\" \n/>",
+      "dependencies": "Requires @abgov/react-components and @abgov/web-components packages"
+    },
+    "angular": {
+      "import": "import { AngularComponentsModule } from '@abgov/angular-components'",
+      "quickExample": "<goab-popover \n  content=\"This field requires your full legal name\" \n  position=\"top\">\n  <goab-icon-button icon=\"help\" ariaLabel=\"Help\"></goab-icon-button>\n</goab-popover>",
+      "module": "Add AngularComponentsModule to your module imports",
+      "dependencies": "Requires @abgov/angular-components and @abgov/web-components packages"
+    },
+    "webComponent": {
+      "import": "import '@abgov/web-components'",
+      "quickExample": "<goa-popover \n  content=\"This field requires your full legal name\" \n  position=\"top\">\n  <goa-icon-button icon=\"help\" aria-label=\"Help\"></goa-icon-button>\n</goa-popover>",
+      "dependencies": "Requires @abgov/web-components package"
+    }
+  },
+
+  "api": {
+    "props": [
+      {
+        "name": "content",
+        "type": "string",
+        "required": true,
+        "description": "The content to display in the popover",
+        "usage": "Keep concise - use for short explanatory text or help information"
+      },
+      {
+        "name": "position",
+        "type": "top | bottom | left | right | auto",
+        "default": "auto",
+        "required": false,
+        "description": "Preferred position of the popover relative to trigger",
+        "usage": "auto adjusts based on available space, specific positions for consistent placement"
+      },
+      {
+        "name": "trigger",
+        "type": "hover | click | focus",
+        "default": "hover",
+        "required": false,
+        "description": "How the popover is triggered",
+        "usage": "hover for help text, click for more persistent content, focus for form help"
+      },
+      {
+        "name": "maxWidth",
+        "type": "string (CSS length)",
+        "default": "300px",
+        "required": false,
+        "description": "Maximum width of the popover content",
+        "usage": "Adjust based on content length and available space"
+      },
+      {
+        "name": "offset",
+        "type": "number",
+        "default": 8,
+        "required": false,
+        "description": "Distance in pixels between popover and trigger",
+        "usage": "Increase for better visual separation, decrease for tighter layouts"
+      },
+      {
+        "name": "arrow",
+        "type": "boolean",
+        "default": true,
+        "required": false,
+        "description": "Whether to show pointing arrow to trigger element",
+        "usage": "Helps visually connect popover to its trigger"
+      },
+      {
+        "name": "delay",
+        "type": "number",
+        "default": 200,
+        "required": false,
+        "description": "Delay in milliseconds before showing popover on hover",
+        "usage": "Prevents accidental triggers during mouse movement"
+      }
+    ]
+  },
+
+  "usage": {
+    "basicExamples": {
+      "react": [
+        {
+          "title": "Form Field Help",
+          "description": "Contextual help for form inputs",
+          "code": "function RegistrationForm() {\n  return (\n    <GoabContainer title=\"User Registration\">\n      <GoabFormItem label=\"Social Insurance Number\">\n        <GoabBlock direction=\"row\" gap=\"s\" alignment=\"center\">\n          <GoabInput \n            name=\"sin\" \n            placeholder=\"000-000-000\" \n            width=\"200px\" \n          />\n          <GoabPopover\n            content=\"Your SIN is used to verify your identity and eligibility for services. It will be kept confidential and secure.\"\n            position=\"right\"\n            trigger=\"hover\"\n            maxWidth=\"250px\"\n          >\n            <GoabIconButton \n              icon=\"help-circle\" \n              variant=\"tertiary\" \n              size=\"small\"\n              ariaLabel=\"Help for SIN field\" \n            />\n          </GoabPopover>\n        </GoabBlock>\n      </GoabFormItem>\n      \n      <GoabFormItem label=\"Income Range\">\n        <GoabBlock direction=\"row\" gap=\"s\" alignment=\"center\">\n          <GoabDropdown name=\"income\" width=\"200px\">\n            <option value=\"\">Select range</option>\n            <option value=\"0-25000\">$0 - $25,000</option>\n            <option value=\"25000-50000\">$25,000 - $50,000</option>\n            <option value=\"50000+\">$50,000+</option>\n          </GoabDropdown>\n          <GoabPopover\n            content=\"Select your household's total annual income before taxes. This helps determine your eligibility for programs.\"\n            position=\"right\"\n            trigger=\"click\"\n          >\n            <GoabIconButton \n              icon=\"information-circle\" \n              variant=\"tertiary\" \n              size=\"small\"\n              ariaLabel=\"Income range help\" \n            />\n          </GoabPopover>\n        </GoabBlock>\n      </GoabFormItem>\n    </GoabContainer>\n  );\n}"
+        },
+        {
+          "title": "Status Indicators",
+          "description": "Explaining status badges and indicators",
+          "code": "function ApplicationStatus() {\n  return (\n    <GoabContainer title=\"Application Status\">\n      <GoabTable>\n        <thead>\n          <tr>\n            <th>Application</th>\n            <th>Status</th>\n            <th>Actions</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr>\n            <td>Benefits Application #12345</td>\n            <td>\n              <GoabBlock direction=\"row\" gap=\"s\" alignment=\"center\">\n                <GoabBadge type=\"warning\">Under Review</GoabBadge>\n                <GoabPopover\n                  content=\"Your application is being reviewed by our team. You may be contacted for additional information. Average processing time is 5-10 business days.\"\n                  position=\"top\"\n                  trigger=\"hover\"\n                  maxWidth=\"300px\"\n                >\n                  <GoabIconButton \n                    icon=\"information-circle\" \n                    variant=\"tertiary\" \n                    size=\"small\"\n                    ariaLabel=\"Status explanation\" \n                  />\n                </GoabPopover>\n              </GoabBlock>\n            </td>\n            <td>\n              <GoabButton type=\"tertiary\" size=\"compact\">\n                View Details\n              </GoabButton>\n            </td>\n          </tr>\n        </tbody>\n      </GoabTable>\n    </GoabContainer>\n  );\n}"
+        },
+        {
+          "title": "Feature Explanations",
+          "description": "Explaining complex features or terms",
+          "code": "function ServiceFeatures() {\n  return (\n    <GoabContainer title=\"Available Services\">\n      <GoabList type=\"unordered\" variant=\"spaced\">\n        <GoabListItem>\n          <GoabBlock direction=\"row\" gap=\"s\" alignment=\"center\">\n            <GoabText>Priority Processing</GoabText>\n            <GoabPopover\n              content=\"Priority processing reduces wait times for urgent cases such as medical emergencies or imminent eviction notices.\"\n              position=\"right\"\n              trigger=\"hover\"\n            >\n              <GoabIconButton \n                icon=\"help\" \n                variant=\"tertiary\" \n                size=\"small\"\n                ariaLabel=\"Priority processing explanation\" \n              />\n            </GoabPopover>\n          </GoabBlock>\n        </GoabListItem>\n        \n        <GoabListItem>\n          <GoabBlock direction=\"row\" gap=\"s\" alignment=\"center\">\n            <GoabText>Digital Document Vault</GoabText>\n            <GoabPopover\n              content=\"Securely store and access your important documents online. Documents are encrypted and backed up for your security.\"\n              position=\"right\"\n              trigger=\"click\"\n              maxWidth=\"280px\"\n            >\n              <GoabIconButton \n                icon=\"help\" \n                variant=\"tertiary\" \n                size=\"small\"\n                ariaLabel=\"Document vault explanation\" \n              />\n            </GoabPopover>\n          </GoabBlock>\n        </GoabListItem>\n      </GoabList>\n    </GoabContainer>\n  );\n}"
+        }
+      ]
+    },
+    "commonPatterns": [
+      {
+        "name": "Form Field Help",
+        "description": "Contextual help for form inputs",
+        "usage": "Use hover trigger with help icon next to input fields",
+        "code": "<GoabPopover \n  content=\"Help text for this field\" \n  trigger=\"hover\" \n  position=\"right\"\n>\n  <GoabIconButton icon=\"help\" size=\"small\" />\n</GoabPopover>"
+      },
+      {
+        "name": "Status Explanation",
+        "description": "Explaining status badges or complex states",
+        "usage": "Use information icon with click trigger for persistent viewing",
+        "code": "<GoabPopover \n  content=\"Status explanation\" \n  trigger=\"click\" \n  position=\"top\"\n>\n  <GoabIconButton icon=\"information-circle\" size=\"small\" />\n</GoabPopover>"
+      },
+      {
+        "name": "Feature Tooltip",
+        "description": "Brief explanations of features or terms",
+        "usage": "Use hover trigger for quick contextual information",
+        "code": "<GoabPopover \n  content=\"Feature description\" \n  trigger=\"hover\" \n  position=\"auto\"\n>\n  <span>Feature Name</span>\n</GoabPopover>"
+      }
+    ]
+  },
+
+  "designGuidance": {
+    "whenToUse": [
+      "Providing contextual help for form fields",
+      "Explaining status indicators or badges",
+      "Defining technical terms or jargon",
+      "Offering additional details without cluttering the interface",
+      "Progressive disclosure of information",
+      "Help text that doesn't warrant a full help section"
+    ],
+    "whenNotToUse": [
+      "Essential information that users must see (use main content instead)",
+      "Long explanations (use Details component or separate help pages)",
+      "Navigation elements (use proper navigation components)",
+      "Critical error messages (use inline validation)",
+      "Mobile-primary interfaces (consider inline help instead)"
+    ],
+    "bestPractices": [
+      "Keep content concise - aim for 1-2 sentences maximum",
+      "Use clear, plain language avoiding technical jargon",
+      "Position popovers to avoid blocking important content",
+      "Use consistent trigger types within the same context",
+      "Ensure popover triggers are clearly identifiable",
+      "Test positioning across different screen sizes",
+      "Provide adequate color contrast for readability"
+    ],
+    "accessibility": [
+      "Ensure popover triggers are keyboard accessible",
+      "Use proper ARIA labels on trigger elements",
+      "Test with screen readers for proper announcement",
+      "Provide alternative access to popover content when needed",
+      "Ensure focus management when using click triggers",
+      "Use adequate color contrast for popover content"
+    ]
+  },
+
+  "playgroundExamples": {
+    "note": "Playground configurations will be added in future versions"
+  },
+
+  "relatedComponents": [
+    {
+      "name": "GoabIconButton",
+      "relationship": "Common trigger element",
+      "usage": "IconButton often serves as the trigger for popovers, especially help icons",
+      "example": "Help and information icons trigger explanatory popovers"
+    },
+    {
+      "name": "GoabDetails",
+      "relationship": "Alternative for longer content",
+      "usage": "Use Details component when content is too long for popover",
+      "example": "Complex help information works better in Details component"
+    },
+    {
+      "name": "GoabTooltip",
+      "relationship": "Alternative for simple tooltips",
+      "usage": "Use Tooltip for very brief labels, Popover for explanatory content",
+      "example": "Button labels use Tooltip, field help uses Popover"
+    }
+  ],
+
+  "troubleshooting": {
+    "commonIssues": [
+      {
+        "issue": "Popover not appearing",
+        "cause": "Missing trigger element or invalid positioning",
+        "solution": "Ensure popover wraps a valid trigger element and check position constraints"
+      },
+      {
+        "issue": "Popover appears in wrong position",
+        "cause": "Position conflicts with viewport boundaries",
+        "solution": "Use position='auto' or adjust maxWidth to fit available space"
+      },
+      {
+        "issue": "Popover covers important content",
+        "cause": "Poor positioning or excessive content",
+        "solution": "Adjust position prop or reduce content length"
+      },
+      {
+        "issue": "Touch devices not showing hover popover",
+        "cause": "Hover events don't work consistently on touch devices",
+        "solution": "Use click trigger for mobile-friendly interactions"
+      }
+    ]
+  },
+
+  "tags": ["overlay", "contextual", "tooltip", "help", "information", "progressive-disclosure"],
+  "category": "data-display-and-feedback",
+  "status": "stable",
+  "lastUpdated": "2025-01-10",
+  "derivedFrom": {
+    "maintainerVersion": "../maintainer/popover.json",
+    "note": "See maintainer version for implementation details and development information"
+  }
+}

@@ -8,7 +8,7 @@
 
   "overview": {
     "purpose": "Master index of all consumer-facing documentation for AI-driven development assistance",
-    "totalComponents": 32,
+    "totalComponents": 35,
     "totalSystemDocs": 2,
     "coverage": "Complete component library with system setup, layout guidance, usage examples, API documentation, and integration patterns",
     "aiOptimization": "Structured for AI code generation, component discovery, implementation guidance, and system understanding"
@@ -385,7 +385,7 @@
         },
         "date-picker": {
           "summary": "Interactive date selection component with calendar interface for accurate date input",
-          "file": "date_picker_consumer.json",
+          "file": "date-picker_consumer.json",
           "commonUse": "Scheduling, birth dates, event planning",
           "aiTags": ["interactive", "form", "input", "date", "calendar", "picker"]
         },
@@ -403,7 +403,7 @@
         },
         "form-item": {
           "summary": "Essential wrapper for form fields with labels and validation",
-          "file": "form_item_consumer.json",
+          "file": "form-item_consumer.json",
           "commonUse": "Wrapping all form inputs for consistency",
           "aiTags": ["form", "wrapper", "label", "validation", "accessibility"]
         },
@@ -427,7 +427,7 @@
         },
         "text-area": {
           "summary": "Multi-line text input component for collecting extended user input with optional character/word counting and form validation support",
-          "file": "text_area_consumer.json",
+          "file": "text-area_consumer.json",
           "commonUse": "Comments, descriptions, long-form text entry",
           "aiTags": ["form", "input", "text", "multiline", "counter"]
         }
@@ -435,7 +435,7 @@
     },
     "layout-and-content": {
       "description": "Components for organizing and structuring content",
-      "count": 11,
+      "count": 13,
       "components": {
         "accordion": {
           "summary": "Collapsible content panel that lets users reveal detailed information when needed. Perfect for FAQs, form sections, and progressive disclosure patterns.",
@@ -475,7 +475,7 @@
         },
         "hero-banner": {
           "summary": "Prominent page headers with call-to-action support",
-          "file": "hero_banner_consumer.json",
+          "file": "hero-banner_consumer.json",
           "commonUse": "Landing pages, service introductions, page headers",
           "aiTags": ["header", "prominent", "landing", "introduction"]
         },
@@ -507,7 +507,7 @@
     },
     "data-display-and-feedback": {
       "description": "Components for displaying data and providing user feedback",
-      "count": 5,
+      "count": 6,
       "components": {
         "badge": {
           "summary": "Small status labels that provide contextual feedback and system states",
@@ -517,7 +517,7 @@
         },
         "notification-banner": {
           "summary": "Display important page-level information or notifications at the top of your application",
-          "file": "notification_banner_consumer.json",
+          "file": "notification-banner_consumer.json",
           "commonUse": "System announcements, maintenance notices, alerts",
           "aiTags": ["notification", "banner", "alert", "page-level", "dismissible"]
         },
@@ -553,7 +553,7 @@
         },
         "side-menu": {
           "summary": "Hierarchical navigation component for organizing content into collapsible groups with automatic active state detection",
-          "file": "side_menu_consumer.json",
+          "file": "side-menu_consumer.json",
           "commonUse": "Sidebar navigation, documentation menus, admin panels",
           "aiTags": ["navigation", "menu", "sidebar", "hierarchical", "secondary-navigation"]
         },
@@ -589,7 +589,7 @@
         },
         "microsite-header": {
           "summary": "Branded header component for government microsites with service status badges and feedback collection capabilities",
-          "file": "microsite_header_consumer.json",
+          "file": "microsite-header_consumer.json",
           "commonUse": "Service-specific headers, branding, status display",
           "aiTags": ["header", "branding", "microsite", "status", "badge", "feedback", "government", "responsive", "service"]
         },
