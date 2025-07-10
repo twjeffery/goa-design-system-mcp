@@ -92,6 +92,48 @@
       }
     ]
   },
+
+  "designGuidance": {
+    "when": [
+      "When you need precise spacing control beyond component gap/margin props",
+      "To create consistent vertical sections in layouts",
+      "For fine-tuned form spacing between elements",
+      "When building responsive layouts that require specific spacing tokens"
+    ],
+    "avoid": [
+      "Don't use spacer for spacing that can be achieved with component props",
+      "Avoid excessive use - prefer semantic layout components first",
+      "Don't use arbitrary values - stick to design system tokens"
+    ]
+  },
+
+  "commonMistakes": [
+    {
+      "mistake": "Using incorrect prop names",
+      "wrong": "<GoabSpacer space=\"2xl\" direction=\"vertical\" />",
+      "correct": "<GoabSpacer vSpacing=\"2xl\" />",
+      "explanation": "GoabSpacer uses 'vSpacing' and 'hSpacing' props, not 'space' and 'direction'"
+    },
+    {
+      "mistake": "Using 'fill' value for vertical spacing",
+      "wrong": "<GoabSpacer vSpacing=\"fill\" />",
+      "correct": "<GoabSpacer vSpacing=\"2xl\" />",
+      "explanation": "The 'fill' value is only available for hSpacing, not vSpacing"
+    },
+    {
+      "mistake": "Not using design system tokens",
+      "wrong": "<GoabSpacer vSpacing=\"50px\" />",
+      "correct": "<GoabSpacer vSpacing=\"xl\" />",
+      "explanation": "Always use design system spacing tokens (xs, s, m, l, xl, etc.) instead of arbitrary values"
+    },
+    {
+      "mistake": "Using spacer when component props suffice",
+      "wrong": "<GoabFormItem><GoabInput /></GoabFormItem><GoabSpacer vSpacing=\"m\" /><GoabFormItem><GoabInput /></GoabFormItem>",
+      "correct": "<GoabBlock direction=\"column\" gap=\"m\"><GoabFormItem><GoabInput /></GoabFormItem><GoabFormItem><GoabInput /></GoabFormItem></GoabBlock>",
+      "explanation": "Use GoabBlock gap prop instead of spacers between form items when possible"
+    }
+  ],
+
   "usage": {
     "react": [
       {
