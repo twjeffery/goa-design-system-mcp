@@ -1,14 +1,14 @@
 {
   "metadataSchemaVersion": "2.1.0-ai-context",
   "systemName": "GoA Design System",
-  "lastUpdated": "2025-07-02",
+  "lastUpdated": "2025-01-10",
   "updatedBy": "design-system-team",
   "documentType": "master-index",
   "audience": "ai-systems-helping-consumer-developers",
 
   "overview": {
     "purpose": "Master index of all consumer-facing documentation for AI-driven development assistance",
-    "totalComponents": 34,
+    "totalComponents": 32,
     "totalSystemDocs": 2,
     "coverage": "Complete component library with system setup, layout guidance, usage examples, API documentation, and integration patterns",
     "aiOptimization": "Structured for AI code generation, component discovery, implementation guidance, and system understanding"
@@ -22,481 +22,13 @@
       "4. Reference individual component JSON files for detailed implementation",
       "5. Use installation examples and integration patterns for rapid development"
     ],
-    "recommendedComponents": [
-      "Button",
-      "Input",
-      "FormItem",
-      "Container",
-      "Block"
-    ],
+    "recommendedComponents": ["Button", "Input", "FormItem", "Container", "Block"],
     "commonPatterns": [
       "Form building: FormItem + Input/Dropdown/Checkbox + Button",
       "Content layout: Container + Block + Text",
       "Data display: Table + Pagination + Badge",
       "Navigation: Link + SideMenu",
-      "Complete pages: Layout + Header + Footer + PageBlock"
-    ]
-  },
-
-  "systemDocumentation": {
-    "description": "Foundational documentation for setup, configuration, and layout patterns",
-    "count": 2,
-    "documents": {
-      "system-setup": {
-        "summary": "Complete setup and integration guide for React, Angular, and Web Component frameworks",
-        "file": "system_setup.json",
-        "commonUse": "Framework installation, dependency setup, troubleshooting",
-        "aiTags": [
-          "setup",
-          "installation",
-          "configuration",
-          "getting-started",
-          "framework-integration"
-        ],
-        "priority": "Essential - required for all implementations"
-      },
-      "layout": {
-        "summary": "Flexible column-based layout system with header, sidebar, content, and footer",
-        "file": "layout.json",
-        "commonUse": "Page structure, responsive design, government application layouts",
-        "aiTags": [
-          "layout",
-          "page-structure",
-          "responsive",
-          "government",
-          "column-layout"
-        ],
-        "priority": "High - fundamental for page organization"
-      }
-    }
-  },
-
-  "categories": {
-    "inputs-and-actions": {
-      "description": "Interactive components for user input and triggering actions",
-      "count": 11,
-      "components": {
-        "button": {
-          "summary": "Primary/secondary action buttons with multiple variants",
-          "file": "button_consumer.json",
-          "commonUse": "Form submission, CTAs, navigation actions",
-          "aiTags": ["interactive", "action", "form", "cta"]
-        },
-        "button-group": {
-          "summary": "Layout component for organizing related buttons",
-          "file": "button-group_consumer.json",
-          "commonUse": "Modal actions, form controls, toolbars",
-          "aiTags": ["layout", "grouping", "actions"]
-        },
-        "checkbox": {
-          "summary": "Multi-selection checkboxes with conditional reveal content",
-          "file": "checkbox_consumer.json",
-          "commonUse": "Preferences, multi-select lists, terms acceptance",
-          "aiTags": ["form", "multi-select", "interactive"]
-        },
-        "date-picker": {
-          "summary": "Calendar-based date selection with validation",
-          "file": "date_picker_consumer.json",
-          "commonUse": "Scheduling, birth dates, event planning",
-          "aiTags": ["form", "date", "calendar", "validation"]
-        },
-        "dropdown": {
-          "summary": "Select from predefined options with search capability",
-          "file": "dropdown_consumer.json",
-          "commonUse": "Country selection, status choices, categorization",
-          "aiTags": ["form", "selection", "search"]
-        },
-        "file-uploader": {
-          "summary": "File upload with drag-drop, progress tracking, and validation",
-          "file": "file_uploader_consumer.json",
-          "commonUse": "Document submission, image uploads, attachments",
-          "aiTags": ["form", "upload", "file", "drag-drop"]
-        },
-        "form-item": {
-          "summary": "Essential wrapper for form fields with labels and validation",
-          "file": "form_item_consumer.json",
-          "commonUse": "Wrapping all form inputs for consistency",
-          "aiTags": ["form", "wrapper", "validation", "accessibility"]
-        },
-        "icon-button": {
-          "summary": "Space-efficient buttons with icon-only interface",
-          "file": "icon-button_consumer.json",
-          "commonUse": "Edit/delete actions, toolbars, compact interfaces",
-          "aiTags": ["interactive", "compact", "icon", "space-saving"]
-        },
-        "input": {
-          "summary": "Text input fields with validation and icon support",
-          "file": "input_consumer.json",
-          "commonUse": "Name fields, email, search, general text entry",
-          "aiTags": ["form", "text", "validation", "data-entry"]
-        },
-        "radio": {
-          "summary": "Single selection from multiple options with conditional content",
-          "file": "radio_consumer.json",
-          "commonUse": "Yes/no questions, single choice from list",
-          "aiTags": ["form", "single-select", "exclusive-choice"]
-        },
-        "text-area": {
-          "summary": "Multi-line text input with character counting",
-          "file": "text_area_consumer.json",
-          "commonUse": "Comments, descriptions, long-form text entry",
-          "aiTags": ["form", "multi-line", "text", "comments"]
-        }
-      }
-    },
-    "layout-and-content": {
-      "description": "Components for organizing and structuring content",
-      "count": 11,
-      "components": {
-        "accordion": {
-          "summary": "Collapsible sections for progressive disclosure",
-          "file": "accordion_consumer.json",
-          "commonUse": "FAQs, form sections, content organization",
-          "aiTags": ["collapsible", "progressive-disclosure", "organization"]
-        },
-        "block": {
-          "summary": "Flexible layout container with design system spacing",
-          "file": "block_consumer.json",
-          "commonUse": "Component grouping, form layouts, spacing control",
-          "aiTags": ["layout", "spacing", "container", "flexbox"]
-        },
-        "callout": {
-          "summary": "Emphasized content boxes for important information",
-          "file": "callout_consumer.json",
-          "commonUse": "Success messages, warnings, important notices",
-          "aiTags": ["emphasis", "notification", "information", "status"]
-        },
-        "container": {
-          "summary": "Card-like containers for visual content grouping",
-          "file": "container_consumer.json",
-          "commonUse": "Dashboard widgets, form sections, content cards",
-          "aiTags": ["card", "grouping", "visual-boundary", "widget"]
-        },
-        "details": {
-          "summary": "Progressive disclosure for additional information",
-          "file": "details_consumer.json",
-          "commonUse": "Help text, additional context, optional content",
-          "aiTags": ["progressive-disclosure", "help", "contextual"]
-        },
-        "grid": {
-          "summary": "Responsive grid system for multi-column layouts",
-          "file": "grid_consumer.json",
-          "commonUse": "Service cards, product listings, dashboard layouts",
-          "aiTags": ["layout", "responsive", "grid", "multi-column"]
-        },
-        "hero-banner": {
-          "summary": "Prominent page headers with call-to-action support",
-          "file": "hero_banner_consumer.json",
-          "commonUse": "Landing pages, service introductions, page headers",
-          "aiTags": ["header", "prominent", "landing", "introduction"]
-        },
-        "list": {
-          "summary": "Structured lists with customizable styling",
-          "file": "list_consumer.json",
-          "commonUse": "Feature lists, step-by-step instructions, content lists",
-          "aiTags": ["list", "structured", "content", "enumeration"]
-        },
-        "modal": {
-          "summary": "Overlay dialogs for focused interactions",
-          "file": "modal_consumer.json",
-          "commonUse": "Confirmations, forms, detailed views",
-          "aiTags": ["overlay", "dialog", "focused", "interaction"]
-        },
-        "tabs": {
-          "summary": "Tabbed interface for organizing related content",
-          "file": "tabs_consumer.json",
-          "commonUse": "Settings panels, data views, content organization",
-          "aiTags": ["navigation", "organization", "content-switching"]
-        },
-        "text": {
-          "summary": "Typography component with semantic structure and styling",
-          "file": "text_consumer.json",
-          "commonUse": "Headings, paragraphs, semantic content structure",
-          "aiTags": ["typography", "semantic", "content", "text"]
-        }
-      }
-    },
-    "data-display-and-feedback": {
-      "description": "Components for displaying data and providing user feedback",
-      "count": 5,
-      "components": {
-        "badge": {
-          "summary": "Status indicators and category labels",
-          "file": "badge_consumer.json",
-          "commonUse": "Status display, categories, counts, labels",
-          "aiTags": ["status", "indicator", "label", "categorization"]
-        },
-        "notification-banner": {
-          "summary": "Page-level notifications and system messages",
-          "file": "notification_banner_consumer.json",
-          "commonUse": "System announcements, maintenance notices, alerts",
-          "aiTags": ["notification", "system-message", "page-level", "alert"]
-        },
-        "pagination": {
-          "summary": "Navigation controls for large data sets",
-          "file": "pagination_consumer.json",
-          "commonUse": "Table navigation, search results, content listing",
-          "aiTags": ["navigation", "data", "paging", "large-datasets"]
-        },
-        "popover": {
-          "summary": "Contextual information overlay with positioning",
-          "file": "popover_consumer.json",
-          "commonUse": "Help text, tooltips, contextual information",
-          "aiTags": ["overlay", "contextual", "tooltip", "help"]
-        },
-        "table": {
-          "summary": "Data table with sorting and formatting capabilities",
-          "file": "table_consumer.json",
-          "commonUse": "Data display, user lists, reporting interfaces",
-          "aiTags": ["data", "tabular", "sorting", "structured-data"]
-        }
-      }
-    },
-    "navigation": {
-      "description": "Components for site and content navigation",
-      "count": 4,
-      "components": {
-        "link": {
-          "summary": "Enhanced anchor links with icon and spacing support",
-          "file": "link_consumer.json",
-          "commonUse": "Navigation, external links, content references",
-          "aiTags": ["navigation", "anchor", "linking", "reference"]
-        },
-        "side-menu": {
-          "summary": "Hierarchical navigation with collapsible sections",
-          "file": "side_menu_consumer.json",
-          "commonUse": "Sidebar navigation, documentation menus, admin panels",
-          "aiTags": ["navigation", "hierarchical", "sidebar", "menu"]
-        },
-        "header": {
-          "summary": "Government application header with branding and primary navigation",
-          "file": "header_consumer.json",
-          "commonUse": "Page headers, application branding, primary navigation",
-          "aiTags": [
-            "navigation",
-            "header",
-            "branding",
-            "primary-nav",
-            "government"
-          ]
-        },
-        "footer": {
-          "summary": "Government application footer with navigation links and branding",
-          "file": "footer_consumer.json",
-          "commonUse": "Page footers, utility navigation, government branding",
-          "aiTags": [
-            "navigation",
-            "footer",
-            "branding",
-            "utility-nav",
-            "government"
-          ]
-        }
-      }
-    },
-    "specialized-components": {
-      "description": "Purpose-built components for specific use cases",
-      "count": 3,
-      "components": {
-        "drawer": {
-          "summary": "Side panel for forms, filters, and detailed views",
-          "file": "drawer_consumer.json",
-          "commonUse": "Settings panels, filters, form workflows",
-          "aiTags": ["panel", "overlay", "workflow", "detailed-view"]
-        },
-        "icons": {
-          "summary": "Icon display component with 1300+ available icons",
-          "file": "icons_consumer.json",
-          "commonUse": "Visual indicators, button enhancement, content illustration",
-          "aiTags": ["icon", "visual", "indicator", "enhancement"]
-        },
-        "microsite-header": {
-          "summary": "Specialized header for government microsite applications",
-          "file": "microsite_header_consumer.json",
-          "commonUse": "Service-specific headers, branding, status display",
-          "aiTags": ["header", "branding", "microsite", "government"]
-        }
-      }
-    }
-  },
-
-  "usagePatterns": {
-    "codeOutputRules": {
-      "alwaysProduction": "ALWAYS provide production-ready code using real GoA Design System components",
-      "neverMock": "NEVER create mock, placeholder, or demo versions of ANY GoA components",
-      "environment": "Assume user has GoA Design System properly installed and configured in their development environment",
-      "purpose": "Code is for copy-paste into real development projects, not for browser demonstration or sandbox environments",
-      "frameworkImports": {
-        "react": "import { [ComponentNames] } from '@abgov/react-components' - Import all needed GoA components",
-        "angular": "All GoA components available through AngularComponentsModule import - use <goab-component-name> syntax",
-        "webComponent": "All components available after importing '@abgov/web-components' - use <goa-component-name> syntax"
-      },
-      "componentAvailability": "ALL 32+ GoA components are available: Button, Input, FormItem, Container, Text, Table, Pagination, Modal, etc.",
-      "criticalRule": "User wants REAL GoA component code that works immediately in their properly configured development environment",
-      "noEnvironmentAdaptation": "NEVER adapt code for browser/sandbox limitations - always assume full GoA component library access"
-    },
-    "common-combinations": [
-      {
-        "name": "Basic Form",
-        "components": ["FormItem", "Input", "Button"],
-        "description": "Standard form with text inputs and submission",
-        "useCase": "Contact forms, login, registration"
-      },
-      {
-        "name": "Complex Form",
-        "components": [
-          "FormItem",
-          "Input",
-          "Dropdown",
-          "Checkbox",
-          "Radio",
-          "DatePicker",
-          "ButtonGroup"
-        ],
-        "description": "Multi-field form with various input types",
-        "useCase": "Applications, surveys, detailed data entry"
-      },
-      {
-        "name": "Content Dashboard",
-        "components": ["Container", "Block", "Text", "Badge", "Button"],
-        "description": "Dashboard layout with organized content sections",
-        "useCase": "Admin interfaces, user dashboards, content management"
-      },
-      {
-        "name": "Data Interface",
-        "components": ["Table", "Pagination", "Badge", "IconButton", "Input"],
-        "description": "Data display with search, navigation, and actions",
-        "useCase": "User management, content listings, reporting"
-      },
-      {
-        "name": "Content Navigation",
-        "components": ["SideMenu", "Link", "Accordion", "Badge"],
-        "description": "Hierarchical content navigation with status indicators",
-        "useCase": "Documentation sites, content portals, admin navigation"
-      },
-      {
-        "name": "Complete Page Layout",
-        "components": [
-          "ColumnLayout",
-          "Header",
-          "PageBlock",
-          "Container",
-          "Block",
-          "Footer"
-        ],
-        "description": "Full page structure with government branding and responsive layout",
-        "useCase": "Government service pages, applications, portals"
-      },
-      {
-        "name": "Modal Workflow",
-        "components": ["Modal", "FormItem", "Input", "ButtonGroup"],
-        "description": "Focused task completion in overlay interface",
-        "useCase": "Edit forms, confirmations, focused workflows"
-      },
-      {
-        "name": "Progressive Disclosure",
-        "components": ["Accordion", "Details", "Callout", "Button"],
-        "description": "Organized content with reveal/hide functionality",
-        "useCase": "FAQs, help systems, complex forms"
-      }
-    ],
-    "responsive-considerations": [
-      "ColumnLayout automatically adapts to mobile layouts with sidebar stacking",
-      "Grid automatically adapts to mobile layouts",
-      "Block components stack vertically on small screens",
-      "Button groups adjust spacing and alignment responsively",
-      "Tables may require horizontal scrolling on mobile",
-      "Modal and drawer components handle mobile constraints automatically",
-      "Most components maintain 44px minimum touch targets on mobile"
-    ]
-  },
-
-  "aiGuidance": {
-    "setupAndGettingStarted": {
-      "systemSetup": "Always start with system-setup.json for installation and configuration guidance",
-      "pageStructure": "Use layout.json to understand ColumnLayout, PageBlock, and responsive behavior",
-      "firstSteps": "Begin with Button, Input, FormItem, and Container for basic functionality"
-    },
-    "componentSelection": {
-      "forForms": "Always use FormItem as wrapper, choose appropriate input types (Input, DatePicker, Dropdown, etc.), end with Button or ButtonGroup",
-      "forLayouts": "Start with ColumnLayout for page structure, use Block for spacing, Container for visual grouping, Grid for multi-column layouts",
-      "forData": "Use Table with Pagination for large datasets, Badge for status display, IconButton for row actions",
-      "forNavigation": "Use Link for simple navigation, SideMenu for hierarchical content, Tabs for related content switching"
-    },
-    "spacingPrinciples": {
-      "fundamental": "Components manage spacing TO subsequent elements, not FROM previous elements",
-      "use": ["mb (margin bottom)", "mr (margin right)"],
-      "avoid": ["mt (margin top)", "ml (margin left)"],
-      "pattern": "Each component owns its relationship with what follows it",
-      "example": "GoabFormItem mb='l' creates space to next element, not GoabButton mt='l'",
-      "antiPattern": "Never use className='mb-8' or similar CSS classes - use component spacing props instead",
-      "alternative": "Use GoabSpacer component for explicit spacing between elements when component props aren't sufficient"
-    },
-    "accessibilityPriorities": [
-      "Always provide labels through FormItem component",
-      "Use semantic heading levels with Text component",
-      "Ensure IconButton components have descriptive ariaLabel props",
-      "Test keyboard navigation through all interactive components",
-      "Verify screen reader compatibility with proper markup"
-    ],
-    "performanceConsiderations": [
-      "Use Pagination with large datasets to avoid performance issues",
-      "Consider virtualization for very long lists or tables",
-      "Lazy load Modal and Drawer content when possible",
-      "Optimize file upload sizes and provide progress feedback",
-      "Use appropriate image sizing in Grid layouts"
-    ],
-    "textComponentRule": {
-      "rule": "ALWAYS use GoabText component instead of HTML text tags",
-      "critical": "Never use <p>, <h1>-<h6>, <span>, or <div> for text content",
-      "replaceWith": {
-        "<p>": "GoabText tag='p'",
-        "<h1>": "GoabText size='heading-xl' tag='h1'",
-        "<h2>": "GoabText size='heading-l' tag='h2'",
-        "<h3>": "GoabText size='heading-m' tag='h3'",
-        "<span>": "GoabText tag='span'"
-      },
-      "enforcement": "GoabText provides built-in design system typography, optimal readability width, and consistent spacing"
-    }
-  },
-
-  "systemIntegration": {
-    "designTokens": "All components use centralized design tokens for consistent spacing, colors, and typography",
-    "frameworks": {
-      "react": "Full TypeScript support with proper prop types and event handling",
-      "angular": "Reactive forms integration with proper validation and error handling",
-      "webComponents": "Standards-based implementation compatible with any framework"
-    },
-    "testing": "All components include testId props for reliable automated testing",
-    "accessibility": "WCAG AA compliance built into all components with proper ARIA support"
-  },
-
-  "relatedDocumentation": {
-    "systemSetup": "system_setup.json - Framework installation and configuration (Essential)",
-    "layout": "layout.json - Page layout patterns and responsive design guidance (High Priority)",
-    "maintainerDocs": "maintainer/ folder - Technical implementation details for system maintenance",
-    "designTokens": "Design token documentation for customization and theming"
-  },
-
-  "aiCodeGenerationRules": {
-    "mandatoryComponents": {
-      "pageRoot": {
-        "component": "GoabOneColumnLayout",
-        "rule": "MUST be the root component for any government service page",
-        "import": "import { GoabOneColumnLayout, GoabPageBlock } from '@abgov/react-components'"
-      },
-      "contentWrapper": {
-        "component": "GoabPageBlock",
-        "rule": "MUST wrap all main content within OneColumnLayout",
-        "defaultWidth": "704px",
-        "widthGuidance": "704px for forms/articles, 960px for wider content, full for dashboards"
-      }
-    },
-    "enforcePatterns": [
-      "Never generate code with div/Container as page root",
-      "Always include proper header/footer slots",
-      "Always import OneColumnLayout and PageBlock together",
-      "Always use section elements with slot attributes"
+      "Complete pages: OneColumnLayout + Header + Footer + PageBlock"
     ]
   },
 
@@ -563,7 +95,11 @@
 
     "designSystemIcons": {
       "rule": "NEVER use emojis as icons - ALWAYS use component icon properties",
-      "violations": ["❌ ✏️ Change", "❌ 📝 Edit", "❌ ⚠️ Warning"],
+      "violations": [
+        "❌ ✏️ Change",
+        "❌ 📝 Edit",
+        "❌ ⚠️ Warning"
+      ],
       "correct": [
         "✅ <GoabLink leadingIcon='pencil'><a>Change</a></GoabLink>",
         "✅ <GoabButton leadingIcon='warning'>Alert</GoabButton>"
@@ -771,38 +307,16 @@
     "componentDecisionRules": [
       {
         "rule": "If the element communicates status/result → Callout",
-        "examples": [
-          "Application submitted",
-          "Payment successful",
-          "Error occurred",
-          "Process completed"
-        ]
+        "examples": ["Application submitted", "Payment successful", "Error occurred", "Process completed"]
       },
       {
         "rule": "If the element groups related content → Container",
-        "examples": [
-          "Personal info section",
-          "Dashboard widget",
-          "Form fieldset",
-          "Content cards"
-        ]
+        "examples": ["Personal info section", "Dashboard widget", "Form fieldset", "Content cards"]
       }
     ],
     "purposeBasedSearchTerms": {
-      "statusNotification": [
-        "confirmation",
-        "success message",
-        "application submitted",
-        "status update",
-        "callout"
-      ],
-      "contentGrouping": [
-        "form section",
-        "content card",
-        "widget",
-        "dashboard panel",
-        "container"
-      ]
+      "statusNotification": ["confirmation", "success message", "application submitted", "status update", "callout"],
+      "contentGrouping": ["form section", "content card", "widget", "dashboard panel", "container"]
     },
     "aiValidationRules": {
       "beforeGeneratingCode": [
@@ -825,8 +339,389 @@
     }
   },
 
+  "systemDocumentation": {
+    "description": "Foundational documentation for setup, configuration, and layout patterns",
+    "count": 2,
+    "documents": {
+      "system-setup": {
+        "summary": "Complete setup and integration guide for React, Angular, and Web Component frameworks",
+        "file": "system-setup.json",
+        "commonUse": "Framework installation, dependency setup, troubleshooting",
+        "aiTags": ["setup", "installation", "configuration", "getting-started", "framework-integration"],
+        "priority": "Essential - required for all implementations"
+      },
+      "layout": {
+        "summary": "Flexible column-based layout system with header, sidebar, content, and footer",
+        "file": "layout.json",
+        "commonUse": "Page structure, responsive design, government application layouts",
+        "aiTags": ["layout", "page-structure", "responsive", "government", "column-layout"],
+        "priority": "High - fundamental for page organization"
+      }
+    }
+  },
+
+  "categories": {
+    "inputs-and-actions": {
+      "description": "Interactive components for user input and triggering actions",
+      "count": 11,
+      "components": {
+        "button": {
+          "summary": "Interactive button component for user actions with multiple visual styles and states",
+          "file": "button_consumer.json",
+          "commonUse": "Form submission, CTAs, navigation actions",
+          "aiTags": ["interactive", "action", "form", "cta", "primary", "secondary"]
+        },
+        "button-group": {
+          "summary": "Container component for organizing related buttons with consistent spacing and alignment",
+          "file": "button-group_consumer.json",
+          "commonUse": "Modal actions, form controls, toolbars",
+          "aiTags": ["layout", "container", "button", "action", "group", "spacing"]
+        },
+        "checkbox": {
+          "summary": "Interactive checkbox component for multi-selection scenarios with support for conditional reveal content",
+          "file": "checkbox_consumer.json",
+          "commonUse": "Preferences, multi-select lists, terms acceptance",
+          "aiTags": ["form", "input", "interactive", "multi-select", "accessible"]
+        },
+        "date-picker": {
+          "summary": "Interactive date selection component with calendar interface for accurate date input",
+          "file": "date_picker_consumer.json",
+          "commonUse": "Scheduling, birth dates, event planning",
+          "aiTags": ["interactive", "form", "input", "date", "calendar", "picker"]
+        },
+        "dropdown": {
+          "summary": "Selection component that allows users to choose from a list of predefined options with search capabilities",
+          "file": "dropdown_consumer.json",
+          "commonUse": "Country selection, status choices, categorization",
+          "aiTags": ["form", "selection", "interactive", "filterable", "validation"]
+        },
+        "file-uploader": {
+          "summary": "File upload with drag-drop, progress tracking, and validation",
+          "file": "file-uploader_consumer.json",
+          "commonUse": "Document submission, image uploads, attachments",
+          "aiTags": ["form", "upload", "file", "drag-drop", "validation", "progress"]
+        },
+        "form-item": {
+          "summary": "Essential wrapper for form fields with labels and validation",
+          "file": "form_item_consumer.json",
+          "commonUse": "Wrapping all form inputs for consistency",
+          "aiTags": ["form", "wrapper", "label", "validation", "accessibility"]
+        },
+        "icon-button": {
+          "summary": "Compact interactive button displaying only an icon, perfect for universal actions and space-constrained interfaces",
+          "file": "icon-button_consumer.json",
+          "commonUse": "Edit/delete actions, toolbars, compact interfaces",
+          "aiTags": ["interactive", "button", "icon", "compact", "action", "space-saving", "accessible"]
+        },
+        "input": {
+          "summary": "Text input component for collecting user data across multiple input types with form integration and validation support",
+          "file": "input_consumer.json",
+          "commonUse": "Name fields, email, search, general text entry",
+          "aiTags": ["form", "text", "validation", "data-entry"]
+        },
+        "radio": {
+          "summary": "Interactive radio button system for single selection from multiple options with support for conditional reveal content",
+          "file": "radio_consumer.json",
+          "commonUse": "Yes/no questions, single choice from list",
+          "aiTags": ["form", "single-select", "exclusive-choice"]
+        },
+        "text-area": {
+          "summary": "Multi-line text input component for collecting extended user input with optional character/word counting and form validation support",
+          "file": "text_area_consumer.json",
+          "commonUse": "Comments, descriptions, long-form text entry",
+          "aiTags": ["form", "input", "text", "multiline", "counter"]
+        }
+      }
+    },
+    "layout-and-content": {
+      "description": "Components for organizing and structuring content",
+      "count": 11,
+      "components": {
+        "accordion": {
+          "summary": "Collapsible content panel that lets users reveal detailed information when needed. Perfect for FAQs, form sections, and progressive disclosure patterns.",
+          "file": "accordion_consumer.json",
+          "commonUse": "FAQs, form sections, content organization",
+          "aiTags": ["interactive", "collapsible", "progressive-disclosure", "content-organization", "faq", "forms"]
+        },
+        "block": {
+          "summary": "Flexible layout container for grouping components with consistent spacing and alignment",
+          "file": "block_consumer.json",
+          "commonUse": "Component grouping, form layouts, spacing control",
+          "aiTags": ["layout", "container", "spacing", "flexbox", "grouping", "utility"]
+        },
+        "callout": {
+          "summary": "Communicate important information through strong visual emphasis with contextual icons and styling. Perfect for success messages, important notices, and status updates.",
+          "file": "callout_consumer.json",
+          "commonUse": "Success messages, warnings, important notices",
+          "aiTags": ["notification", "alert", "information", "status", "feedback", "emphasis"]
+        },
+        "container": {
+          "summary": "Card-like container for grouping and highlighting specific related content with visual boundaries. NOT a general layout container - use only when content needs visual emphasis and grouping (like dashboard widgets, form sections, status cards).",
+          "file": "container_consumer.json",
+          "commonUse": "Dashboard widgets, form sections, content cards",
+          "aiTags": ["card", "grouping", "content-sections", "semantic", "interactive"]
+        },
+        "details": {
+          "summary": "Let users reveal more detailed information when they need it. Perfect for contextual help, additional explanations, and progressive disclosure of optional content.",
+          "file": "details_consumer.json",
+          "commonUse": "Help text, additional context, optional content",
+          "aiTags": ["disclosure", "progressive-disclosure", "contextual-help", "expandable", "interactive", "form-helper", "accessibility"]
+        },
+        "grid": {
+          "summary": "Responsive grid system for multi-column layouts",
+          "file": "grid_consumer.json",
+          "commonUse": "Service cards, product listings, dashboard layouts",
+          "aiTags": ["layout", "grid", "responsive", "container"]
+        },
+        "hero-banner": {
+          "summary": "Prominent page headers with call-to-action support",
+          "file": "hero_banner_consumer.json",
+          "commonUse": "Landing pages, service introductions, page headers",
+          "aiTags": ["header", "prominent", "landing", "introduction"]
+        },
+        "list": {
+          "summary": "Structured lists with customizable styling",
+          "file": "list_consumer.json",
+          "commonUse": "Feature lists, step-by-step instructions, content lists",
+          "aiTags": ["list", "structured", "content", "enumeration"]
+        },
+        "modal": {
+          "summary": "Modal dialog component for focused interactions, confirmations, and content overlays with automatic focus management",
+          "file": "modal_consumer.json",
+          "commonUse": "Confirmations, forms, detailed views",
+          "aiTags": ["modal", "dialog", "overlay", "confirmation", "form", "focus", "interaction", "accessibility"]
+        },
+        "tabs": {
+          "summary": "Navigation component that organizes related content into separate sections, allowing users to switch between different views while maintaining context",
+          "file": "tabs_consumer.json",
+          "commonUse": "Settings panels, data views, content organization",
+          "aiTags": ["navigation", "content-organization", "interactive", "responsive", "accessibility"]
+        },
+        "text": {
+          "summary": "Flexible text component for displaying content with consistent typography, proper semantic structure, and design system styling",
+          "file": "text_consumer.json",
+          "commonUse": "Headings, paragraphs, semantic content structure",
+          "aiTags": ["typography", "content", "heading", "body", "text", "semantic", "spacing"]
+        }
+      }
+    },
+    "data-display-and-feedback": {
+      "description": "Components for displaying data and providing user feedback",
+      "count": 5,
+      "components": {
+        "badge": {
+          "summary": "Small status labels that provide contextual feedback and system states",
+          "file": "badge_consumer.json",
+          "commonUse": "Status display, categories, counts, labels",
+          "aiTags": ["status", "label", "indicator", "feedback", "information", "visual"]
+        },
+        "notification-banner": {
+          "summary": "Display important page-level information or notifications at the top of your application",
+          "file": "notification_banner_consumer.json",
+          "commonUse": "System announcements, maintenance notices, alerts",
+          "aiTags": ["notification", "banner", "alert", "page-level", "dismissible"]
+        },
+        "pagination": {
+          "summary": "Navigation component for moving between multiple pages of data with configurable page size and navigation controls",
+          "file": "pagination_consumer.json",
+          "commonUse": "Table navigation, search results, content listing",
+          "aiTags": ["navigation", "pagination", "table", "data"]
+        },
+        "popover": {
+          "summary": "Contextual information overlay with positioning",
+          "file": "popover_consumer.json",
+          "commonUse": "Help text, tooltips, contextual information",
+          "aiTags": ["overlay", "contextual", "tooltip", "help"]
+        },
+        "table": {
+          "summary": "Interactive data table component with sorting support for displaying structured information in rows and columns",
+          "file": "table_consumer.json",
+          "commonUse": "Data display, user lists, reporting interfaces",
+          "aiTags": ["data-display", "interactive", "sortable", "table", "grid", "responsive"]
+        }
+      }
+    },
+    "navigation": {
+      "description": "Components for site and content navigation",
+      "count": 4,
+      "components": {
+        "link": {
+          "summary": "Enhancement wrapper that adds icons and consistent spacing to anchor elements while preserving native link semantics",
+          "file": "link_consumer.json",
+          "commonUse": "Navigation, external links, content references",
+          "aiTags": ["navigation", "link", "anchor", "icon", "spacing", "external", "download", "enhancement", "back-navigation"]
+        },
+        "side-menu": {
+          "summary": "Hierarchical navigation component for organizing content into collapsible groups with automatic active state detection",
+          "file": "side_menu_consumer.json",
+          "commonUse": "Sidebar navigation, documentation menus, admin panels",
+          "aiTags": ["navigation", "menu", "sidebar", "hierarchical", "secondary-navigation"]
+        },
+        "header": {
+          "summary": "Government application header with branding and primary navigation",
+          "file": "header_consumer.json",
+          "commonUse": "Page headers, application branding, primary navigation",
+          "aiTags": ["layout", "navigation", "government", "branding", "responsive", "dropdown", "authentication"]
+        },
+        "footer": {
+          "summary": "Government application footer with navigation links and branding",
+          "file": "footer_consumer.json",
+          "commonUse": "Page footers, utility navigation, government branding",
+          "aiTags": ["layout", "navigation", "government", "branding", "responsive"]
+        }
+      }
+    },
+    "specialized-components": {
+      "description": "Purpose-built components for specific use cases",
+      "count": 4,
+      "components": {
+        "drawer": {
+          "summary": "Slide-in panel for displaying contextual content and actions without losing main page context",
+          "file": "drawer_consumer.json",
+          "commonUse": "Settings panels, filters, form workflows",
+          "aiTags": ["panel", "overlay", "modal", "form", "filter", "navigation", "sidebar"]
+        },
+        "icons": {
+          "summary": "Display component providing access to 1300+ Ionic Framework icons with consistent sizing and theming",
+          "file": "icons_consumer.json",
+          "commonUse": "Visual indicators, button enhancement, content illustration",
+          "aiTags": ["icon", "visual", "symbol", "status", "navigation", "enhancement", "accessible"]
+        },
+        "microsite-header": {
+          "summary": "Branded header component for government microsites with service status badges and feedback collection capabilities",
+          "file": "microsite_header_consumer.json",
+          "commonUse": "Service-specific headers, branding, status display",
+          "aiTags": ["header", "branding", "microsite", "status", "badge", "feedback", "government", "responsive", "service"]
+        },
+        "spacer": {
+          "summary": "Layout utility for creating consistent negative space between elements using design system spacing tokens",
+          "file": "spacer_consumer.json",
+          "commonUse": "Explicit spacing control between components",
+          "aiTags": ["spacing", "layout", "utility", "negative-space"]
+        }
+      }
+    }
+  },
+
+  "usagePatterns": {
+    "common-combinations": [
+      {
+        "name": "Basic Form",
+        "components": ["FormItem", "Input", "Button"],
+        "description": "Standard form with text inputs and submission",
+        "useCase": "Contact forms, login, registration"
+      },
+      {
+        "name": "Complex Form",
+        "components": ["FormItem", "Input", "Dropdown", "Checkbox", "Radio", "DatePicker", "ButtonGroup"],
+        "description": "Multi-field form with various input types",
+        "useCase": "Applications, surveys, detailed data entry"
+      },
+      {
+        "name": "Content Dashboard",
+        "components": ["Container", "Block", "Text", "Badge", "Button"],
+        "description": "Dashboard layout with organized content sections",
+        "useCase": "Admin interfaces, user dashboards, content management"
+      },
+      {
+        "name": "Data Interface",
+        "components": ["Table", "Pagination", "Badge", "IconButton", "Input"],
+        "description": "Data display with search, navigation, and actions",
+        "useCase": "User management, content listings, reporting"
+      },
+      {
+        "name": "Content Navigation",
+        "components": ["SideMenu", "Link", "Accordion", "Badge"],
+        "description": "Hierarchical content navigation with status indicators",
+        "useCase": "Documentation sites, content portals, admin navigation"
+      },
+      {
+        "name": "Complete Page Layout",
+        "components": ["OneColumnLayout", "MicrositeHeader", "AppHeader", "PageBlock", "Container", "Block", "AppFooter"],
+        "description": "Full page structure with government branding and responsive layout",
+        "useCase": "Government service pages, applications, portals"
+      },
+      {
+        "name": "Modal Workflow",
+        "components": ["Modal", "FormItem", "Input", "ButtonGroup"],
+        "description": "Focused task completion in overlay interface",
+        "useCase": "Edit forms, confirmations, focused workflows"
+      },
+      {
+        "name": "Progressive Disclosure",
+        "components": ["Accordion", "Details", "Callout", "Button"],
+        "description": "Organized content with reveal/hide functionality",
+        "useCase": "FAQs, help systems, complex forms"
+      }
+    ],
+    "responsive-considerations": [
+      "OneColumnLayout automatically adapts to mobile layouts with sidebar stacking",
+      "Grid automatically adapts to mobile layouts",
+      "Block components stack vertically on small screens",
+      "Button groups adjust spacing and alignment responsively",
+      "Tables may require horizontal scrolling on mobile",
+      "Modal and drawer components handle mobile constraints automatically",
+      "Most components maintain 44px minimum touch targets on mobile"
+    ]
+  },
+
+  "aiGuidance": {
+    "setupAndGettingStarted": {
+      "systemSetup": "Always start with system-setup.json for installation and configuration guidance",
+      "pageStructure": "Use layout.json to understand OneColumnLayout, PageBlock, and responsive behavior",
+      "firstSteps": "Begin with Button, Input, FormItem, and Container for basic functionality"
+    },
+    "componentSelection": {
+      "forForms": "Always use FormItem as wrapper, choose appropriate input types (Input, DatePicker, Dropdown, etc.), end with Button or ButtonGroup",
+      "forLayouts": "Start with OneColumnLayout for page structure, use Block for spacing, Container for visual grouping, Grid for multi-column layouts",
+      "forData": "Use Table with Pagination for large datasets, Badge for status display, IconButton for row actions",
+      "forNavigation": "Use Link for simple navigation, SideMenu for hierarchical content, Tabs for related content switching"
+    },
+    "spacingPrinciples": {
+      "fundamental": "Components manage spacing TO subsequent elements, not FROM previous elements",
+      "use": ["mb (margin bottom)", "mr (margin right)"],
+      "avoid": ["mt (margin top)", "ml (margin left)"],
+      "pattern": "Each component owns its relationship with what follows it",
+      "example": "GoabFormItem mb='l' creates space to next element, not GoabButton mt='l'",
+      "antiPattern": "Never use className='mb-8' or similar CSS classes - use component spacing props instead",
+      "alternative": "Use GoabSpacer component for explicit spacing between elements when component props aren't sufficient"
+    },
+    "accessibilityPriorities": [
+      "Always provide labels through FormItem component",
+      "Use semantic heading levels with Text component",
+      "Ensure IconButton components have descriptive ariaLabel props",
+      "Test keyboard navigation through all interactive components",
+      "Verify screen reader compatibility with proper markup"
+    ],
+    "performanceConsiderations": [
+      "Use Pagination with large datasets to avoid performance issues",
+      "Consider virtualization for very long lists or tables",
+      "Lazy load Modal and Drawer content when possible",
+      "Optimize file upload sizes and provide progress feedback",
+      "Use appropriate image sizing in Grid layouts"
+    ]
+  },
+
+  "systemIntegration": {
+    "designTokens": "All components use centralized design tokens for consistent spacing, colors, and typography",
+    "frameworks": {
+      "react": "Full TypeScript support with proper prop types and event handling",
+      "angular": "Reactive forms integration with proper validation and error handling",
+      "webComponents": "Standards-based implementation compatible with any framework"
+    },
+    "testing": "All components include testId props for reliable automated testing",
+    "accessibility": "WCAG AA compliance built into all components with proper ARIA support"
+  },
+
+  "relatedDocumentation": {
+    "systemSetup": "system-setup.json - Framework installation and configuration (Essential)",
+    "layout": "layout.json - Page layout patterns and responsive design guidance (High Priority)",
+    "maintainerDocs": "maintainer/ folder - Technical implementation details for system maintenance",
+    "designTokens": "Design token documentation for customization and theming"
+  },
+
   "versionInfo": {
-    "lastSchemaUpdate": "2025-07-02",
+    "lastSchemaUpdate": "2025-01-10",
     "componentVersions": "Individual components versioned independently - see component files for specific versions",
     "compatibilityNotes": "All consumer components compatible with current design token system and framework wrappers"
   }

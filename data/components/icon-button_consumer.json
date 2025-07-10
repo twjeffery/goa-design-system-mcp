@@ -2,7 +2,6 @@
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "IconButton",
-  "customElement": "goa-icon-button",
   "summary": "Compact interactive button displaying only an icon, perfect for universal actions and space-constrained interfaces",
   
   "customElement": {
