@@ -6,7 +6,7 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
-import { GoADesignSystemServer } from "./server.js";
+import { OptimizedGoADesignSystemServer } from "./optimized-server.js";
 
 async function main() {
   const server = new Server(
@@ -21,7 +21,7 @@ async function main() {
     }
   );
 
-  const goaServer = new GoADesignSystemServer();
+  const goaServer = new OptimizedGoADesignSystemServer();
   await goaServer.initialize();
 
   // Handle tool listing
@@ -214,7 +214,7 @@ async function main() {
   // Start the server
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("🚀 GoA Design System MCP Server running on stdio");
+  console.error("🚀 Optimized GoA Design System MCP Server running on stdio");
 }
 
 main().catch((error) => {

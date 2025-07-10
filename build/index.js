@@ -2,7 +2,7 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { CallToolRequestSchema, ListToolsRequestSchema, } from "@modelcontextprotocol/sdk/types.js";
-import { GoADesignSystemServer } from "./server.js";
+import { OptimizedGoADesignSystemServer } from "./optimized-server.js";
 async function main() {
     const server = new Server({
         name: "goa-design-system-mcp",
@@ -12,25 +12,49 @@ async function main() {
             tools: {},
         },
     });
-    const goaServer = new GoADesignSystemServer();
+    const goaServer = new OptimizedGoADesignSystemServer();
     await goaServer.initialize();
     // Handle tool listing
     server.setRequestHandler(ListToolsRequestSchema, async () => {
         return {
             tools: [
                 {
-                    name: "search_components",
-                    description: "Search GoA Design System components by name, use case, or functionality",
+                    name: "project_knowledge_search",
+                    description: "PRIMARY SEARCH: Search all GoA Design System knowledge including components, workflows (like Figma-to-code), layout patterns, system setup, and implementation methodologies. Use this for any GoA Design System question.",
                     inputSchema: {
                         type: "object",
                         properties: {
                             query: {
                                 type: "string",
-                                description: "Search query (component name, use case, or functionality)",
+                                description: "Search query for any GoA Design System information: components, workflows, figma conversion, layout patterns, setup guides, etc.",
+                            },
+                            max_text_results: {
+                                type: "number",
+                                description: "Maximum number of text results to return",
+                                default: 8,
+                            },
+                            max_image_results: {
+                                type: "number",
+                                description: "Maximum number of image results to return",
+                                default: 2,
+                            },
+                        },
+                        required: ["query"],
+                    },
+                },
+                {
+                    name: "search_components",
+                    description: "SPECIALIZED: Search only GoA components by name or functionality. Use project_knowledge_search for broader queries.",
+                    inputSchema: {
+                        type: "object",
+                        properties: {
+                            query: {
+                                type: "string",
+                                description: "Component-specific search query",
                             },
                             category: {
                                 type: "string",
-                                description: "Filter by category (forms, navigation, layout, etc.)",
+                                description: "Filter by category",
                                 enum: [
                                     "forms",
                                     "navigation",
@@ -57,13 +81,13 @@ async function main() {
                 },
                 {
                     name: "get_component_details",
-                    description: "Get complete details for a specific GoA component",
+                    description: "SPECIALIZED: Get complete details for a specific GoA component after you know its exact name",
                     inputSchema: {
                         type: "object",
                         properties: {
                             componentName: {
                                 type: "string",
-                                description: 'Name of the component (e.g., "button", "input", "modal")',
+                                description: 'Exact component name (e.g., "button", "input", "modal")',
                             },
                             framework: {
                                 type: "string",
@@ -76,13 +100,13 @@ async function main() {
                 },
                 {
                     name: "get_usage_patterns",
-                    description: "Get common usage patterns and component combinations",
+                    description: "SPECIALIZED: Get usage patterns for specific scenarios. Use project_knowledge_search for workflow information.",
                     inputSchema: {
                         type: "object",
                         properties: {
                             scenario: {
                                 type: "string",
-                                description: 'Usage scenario (e.g., "form layout", "data table", "user profile")',
+                                description: 'Specific implementation scenario (e.g., "form layout", "data table")',
                             },
                             components: {
                                 type: "array",
@@ -134,6 +158,8 @@ async function main() {
         const { name, arguments: args } = request.params;
         try {
             switch (name) {
+                case "project_knowledge_search":
+                    return await goaServer.projectKnowledgeSearch(args);
                 case "search_components":
                     return await goaServer.searchComponents(args);
                 case "get_component_details":
@@ -160,7 +186,7 @@ async function main() {
     // Start the server
     const transport = new StdioServerTransport();
     await server.connect(transport);
-    console.error("🚀 GoA Design System MCP Server running on stdio");
+    console.error("🚀 Optimized GoA Design System MCP Server running on stdio");
 }
 main().catch((error) => {
     console.error("❌ Server failed to start:", error);
