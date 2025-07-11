@@ -352,6 +352,74 @@ export class YourComponent {
 - **Actions**: Button groups for related actions
 - **Validation**: Error states and helpful user feedback
 - **Navigation**: Semantic HTML structure for screen readers
+- **Spacing**: Use component margin properties (mb, mr, mt, ml) instead of GoabSpacer when possible
+
+## CRITICAL: Spacing Strategy - Margin First Approach
+
+### 🎯 **Primary Rule: Use Component Margins Over GoabSpacer**
+
+**ALWAYS prefer component margin properties when possible:**
+
+```jsx
+// ✅ PREFERRED - Using component margins
+<GoabFormItem label="Name" mb="l">
+  <GoabInput name="name" />
+</GoabFormItem>
+
+<GoabButton type="primary" mb="xl">Submit</GoabButton>
+
+// ❌ AVOID - Using spacers when margins work
+<GoabFormItem label="Name">
+  <GoabInput name="name" />
+</GoabFormItem>
+<GoabSpacer vSpacing="l" />
+
+<GoabButton type="primary">Submit</GoabButton>
+<GoabSpacer vSpacing="xl" />
+```
+
+### 🏗️ **Why Margin-First Strategy?**
+
+1. **Performance**: Fewer DOM elements to render
+2. **Maintainability**: Spacing relationship is clearer
+3. **Responsive**: Component margins handle responsive behavior better
+4. **Design System Principle**: Components should manage their spacing
+
+### 📏 **Margin Properties Available on ALL GoA Components**
+
+```jsx
+// All GoA components support these margin properties:
+mt="xl"  // margin-top
+mr="m"   // margin-right  
+mb="l"   // margin-bottom
+ml="s"   // margin-left
+
+// Valid spacing tokens:
+// none | 3xs | 2xs | xs | s | m | l | xl | 2xl | 3xl | 4xl
+```
+
+### 🎯 **When to Use GoabSpacer vs Component Margins**
+
+**Use Component Margins When:**
+- Any GoA component that supports margin properties
+- Standard spacing between components
+- Creating spacing flow in page layouts
+
+**Use GoabSpacer When:**
+- Components don't support margin properties
+- Explicit spacing in layout containers  
+- Creating gaps in flex/grid layouts where margin isn't appropriate
+- Spacing between components from different libraries
+
+### ⚠️ **Critical GoabSpacer Property Names**
+
+```jsx
+// ✅ CORRECT - Use vSpacing and hSpacing
+<GoabSpacer vSpacing="xl" hSpacing="m" />
+
+// ❌ WRONG - Don't use vSpace or hSpace  
+<GoabSpacer vSpace="xl" hSpace="m" />
+```
 
 ## Required Setup
 

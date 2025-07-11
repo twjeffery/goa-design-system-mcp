@@ -98,13 +98,37 @@
       "When you need precise spacing control beyond component gap/margin props",
       "To create consistent vertical sections in layouts",
       "For fine-tuned form spacing between elements",
-      "When building responsive layouts that require specific spacing tokens"
+      "When building responsive layouts that require specific spacing tokens",
+      "When component margin properties are not available or insufficient"
     ],
     "avoid": [
       "Don't use spacer for spacing that can be achieved with component props",
       "Avoid excessive use - prefer semantic layout components first",
-      "Don't use arbitrary values - stick to design system tokens"
-    ]
+      "Don't use arbitrary values - stick to design system tokens",
+      "Don't use spacers when component margin properties (mb, mt, mr, ml) can achieve the same result"
+    ],
+    "preferredApproach": {
+      "strategy": "Margin-First Strategy: Use component margin properties instead of spacers when possible",
+      "reasoning": [
+        "Components should manage their own spacing to subsequent elements",
+        "Fewer DOM elements to render (better performance)",
+        "Spacing relationship is clearer and more maintainable",
+        "Responsive behavior handles better with component margins",
+        "Design system principle: components control their spacing"
+      ],
+      "whenToUseMargins": [
+        "All GoA components support margin properties: mt, mr, mb, ml",
+        "Use mb (margin-bottom) on components to control space to following elements",
+        "Use mr (margin-right) on components to control space to adjacent elements",
+        "Margin properties use the same spacing tokens as GoabSpacer"
+      ],
+      "whenToUseSpacer": [
+        "When components don't support margin properties",
+        "For explicit spacing in layout containers",
+        "Creating gaps in flex/grid layouts where margin isn't appropriate",
+        "When you need spacing between components from different libraries"
+      ]
+    }
   },
 
   "commonMistakes": [
@@ -129,8 +153,20 @@
     {
       "mistake": "Using spacer when component props suffice",
       "wrong": "<GoabFormItem><GoabInput /></GoabFormItem><GoabSpacer vSpacing=\"m\" /><GoabFormItem><GoabInput /></GoabFormItem>",
-      "correct": "<GoabBlock direction=\"column\" gap=\"m\"><GoabFormItem><GoabInput /></GoabFormItem><GoabFormItem><GoabInput /></GoabFormItem></GoabBlock>",
-      "explanation": "Use GoabBlock gap prop instead of spacers between form items when possible"
+      "correct": "<GoabFormItem mb=\"m\"><GoabInput /></GoabFormItem><GoabFormItem><GoabInput /></GoabFormItem>",
+      "explanation": "Use component margin properties (mb) instead of spacers when possible - it's cleaner and more performant"
+    },
+    {
+      "mistake": "Using vSpace or hSpace instead of vSpacing/hSpacing",
+      "wrong": "<GoabSpacer vSpace=\"2xl\" hSpace=\"m\" />",
+      "correct": "<GoabSpacer vSpacing=\"2xl\" hSpacing=\"m\" />",
+      "explanation": "GoabSpacer uses 'vSpacing' and 'hSpacing' props, not 'vSpace' and 'hSpace'"
+    },
+    {
+      "mistake": "Overusing spacers when margin properties work better",
+      "wrong": "<GoabButton type=\"primary\">Submit</GoabButton><GoabSpacer vSpacing=\"xl\" /><GoabLink>Cancel</GoabLink>",
+      "correct": "<GoabButton type=\"primary\" mb=\"xl\">Submit</GoabButton><GoabLink>Cancel</GoabLink>",
+      "explanation": "Component margin properties create cleaner, more maintainable spacing relationships"
     }
   ],
 

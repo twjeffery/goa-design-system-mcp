@@ -392,7 +392,29 @@
     "spacingStrategy": {
       "primaryRule": "Use mb (margin-bottom) instead of mt (margin-top) for consistent spacing flow",
       "rationale": "Each component controls space it creates, preventing spacing conflicts",
-      "exceptions": "Only use mt for first element positioning from header or special layout needs"
+      "exceptions": "Only use mt for first element positioning from header or special layout needs",
+      "marginFirstStrategy": {
+        "principle": "ALWAYS prefer component margin properties over GoabSpacer when possible",
+        "reasoning": [
+          "Components should manage their own spacing to subsequent elements",
+          "Better performance - fewer DOM elements to render",
+          "Clearer spacing relationships and easier maintenance",
+          "More responsive behavior with component margins",
+          "Follows design system principle of component-controlled spacing"
+        ],
+        "implementation": [
+          "Use mb (margin-bottom) on components to control space to following elements",
+          "Use mr (margin-right) on components to control space to adjacent elements",
+          "All GoA components support margin properties: mt, mr, mb, ml",
+          "Use same spacing tokens as GoabSpacer: none|3xs|2xs|xs|s|m|l|xl|2xl|3xl|4xl"
+        ],
+        "whenToUseSpacer": [
+          "When components don't support margin properties",
+          "For explicit spacing in layout containers",
+          "Creating gaps in flex/grid layouts where margin isn't appropriate",
+          "When spacing between components from different libraries"
+        ]
+      }
     },
     "commonPatterns": {
       "withBackButton": {
@@ -589,13 +611,16 @@
       "Not considering that this is the DEFAULT layout choice for most pages",
       "Adding style={{}} or className with custom CSS to components",
       "Using mt instead of mb for general spacing flow",
-      "Bypassing GoabOneColumnLayout structure for government pages"
+      "Bypassing GoabOneColumnLayout structure for government pages",
+      "Using GoabSpacer when component margin properties would work better",
+      "Using incorrect GoabSpacer props: vSpace/hSpace instead of vSpacing/hSpacing",
+      "Overusing spacers instead of following margin-first strategy"
     ],
     "suggestedAlternatives": [
       "For complex layouts with sidebars, consider other layout components",
       "For highly custom layouts, build custom layout structure (non-government pages only)",
       "For simple content without header/footer, use container components directly",
-      "Use GoabSpacer component for explicit spacing between elements",
+      "Use component margin properties (mb, mr, mt, ml) before considering GoabSpacer",
       "Contact design system team if component props don't meet styling needs"
     ],
     "implementationTips": [
@@ -606,7 +631,9 @@
       "Consider including GoabMicrositeHeader for government microsites",
       "ALWAYS add mt='2xl' to first content element after any header",
       "Use only component props for styling - never add custom CSS",
-      "Follow mb-first spacing strategy for consistent flow"
+      "Follow mb-first spacing strategy for consistent flow",
+      "ALWAYS prefer component margin properties over GoabSpacer when possible",
+      "Use GoabSpacer vSpacing/hSpacing props (not vSpace/hSpace)"
     ],
     "combinationPatterns": [
       "Layout + Container: Use GoabContainer within GoabPageBlock for organized content sections",
