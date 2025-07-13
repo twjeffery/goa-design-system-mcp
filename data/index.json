@@ -6,6 +6,35 @@
   "documentType": "master-index",
   "audience": "ai-systems-helping-consumer-developers",
 
+  "IMMEDIATE_AI_PRIORITIES": {
+    "priority": "CRITICAL - READ FIRST before any component implementation",
+    "spacingStrategy": {
+      "rule": "ALWAYS use component margin props (mb, mr, mt, ml) instead of GoabSpacer",
+      "principle": "Components control spacing to subsequent elements",
+      "enforcement": "Only use GoabSpacer when component margin props are unavailable",
+      "commonMistake": "Using GoabSpacer between components instead of margin props"
+    },
+    "mandatoryPageStructure": {
+      "pattern": "GoabOneColumnLayout > section[slot=header] + GoabPageBlock + section[slot=footer]",
+      "never": ["div as page root", "Container as page wrapper", "custom layout containers"],
+      "government": "Required for compliance and accessibility"
+    },
+    "realComponentsOnly": {
+      "rule": "NEVER create mock components or placeholders",
+      "always": "Use actual imports from @abgov/react-components",
+      "never": ["const GoabButton = ({ ... }) =>", "// Mock imports", "placeholder components"]
+    },
+    "componentMarginStrategy": {
+      "rule": "Every component that can have margin props MUST use them for spacing",
+      "order": "1. Try component mb/mr/mt/ml props first, 2. Only use GoabSpacer if unavailable",
+      "examples": [
+        "✅ <GoabFormItem mb='2xl'>",
+        "✅ <GoabButton mb='3xl'>", 
+        "❌ <GoabFormItem> + <GoabSpacer vSpacing='2xl'>"
+      ]
+    }
+  },
+
   "overview": {
     "purpose": "Master index of all consumer-facing documentation for AI-driven development assistance",
     "totalComponents": 35,
@@ -68,6 +97,18 @@
   "universalConstraints": {
     "appliesTo": "ALL GoA components across the entire design system",
     "severity": "CRITICAL - These rules must NEVER be violated",
+
+    "spacingPriority": {
+      "rule": "PREFER component margin props (mb, mr, mt, ml) over GoabSpacer for spacing between components",
+      "principle": "Most of the time, use component margin props first",
+      "reasoning": "Better performance, cleaner DOM, clearer spacing relationships",
+      "exceptions": "GoabSpacer may make more sense for responsive layouts or specific spacing requirements",
+      "commonMistakes": [
+        "❌ <GoabFormItem> + <GoabSpacer vSpacing='2xl'> (usually better: mb='2xl')",
+        "❌ <GoabButton> + <GoabSpacer vSpacing='3xl'> (usually better: mb='3xl')"
+      ],
+      "preferredPattern": "Try component margin props first, use GoabSpacer when margin props don't meet layout needs"
+    },
 
     "noCustomStyling": {
       "rule": "NEVER add custom styling to any GoA component or child elements",

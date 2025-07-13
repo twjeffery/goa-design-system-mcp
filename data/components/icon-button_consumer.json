@@ -1,4 +1,15 @@
 {
+  "criticalImplementationNotes": {
+    "ariaLabel": "ALWAYS provide ariaLabel prop for accessibility - screen readers need descriptive text",
+    "spacing": "Use mb prop to control space to next element, not GoabSpacer after IconButton",
+    "iconValidation": "Use only documented icon values - invalid icons break functionality",
+    "commonMistakes": [
+      "❌ Missing ariaLabel (accessibility violation)",
+      "❌ <GoabIconButton> + <GoabSpacer> (use mb prop instead)",
+      "❌ Using invalid icon names"
+    ],
+    "correctPattern": "<GoabIconButton icon='pencil' ariaLabel='Edit item' mb='m' />"
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "IconButton",

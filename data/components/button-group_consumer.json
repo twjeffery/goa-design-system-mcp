@@ -1,4 +1,15 @@
 {
+  "criticalImplementationNotes": {
+    "semanticGrouping": "Use ButtonGroup for related action buttons with semantic relationship, not general layout",
+    "spacing": "Use mb prop to control space to next element, not GoabSpacer after ButtonGroup",
+    "vsBlock": "ButtonGroup = related actions, Block = general component grouping",
+    "commonMistakes": [
+      "❌ Using ButtonGroup for unrelated buttons",
+      "❌ <GoabButtonGroup> + <GoabSpacer> (use mb prop instead)",
+      "❌ Using Block when ButtonGroup is more semantic"
+    ],
+    "whenToUse": "Modal actions (Cancel/Save), form actions (Back/Continue), related page actions"
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "ButtonGroup",

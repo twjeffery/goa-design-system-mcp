@@ -1,4 +1,15 @@
 {
+  "criticalImplementationNotes": {
+    "preferComponentMargins": "Use individual component margin props instead of Block when possible",
+    "spacing": "Use mb prop to control space to next element, not GoabSpacer after Block",
+    "whenToUse": "Only when grouping multiple components that need collective spacing/alignment",
+    "commonMistakes": [
+      "❌ Using Block for single component spacing (use component mb prop instead)",
+      "❌ <GoabBlock> + <GoabSpacer> (use mb prop instead)",
+      "❌ Overusing Block when component margins suffice"
+    ],
+    "betterAlternatives": "Single components: use mb prop. Multiple related actions: use ButtonGroup"
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "Block",

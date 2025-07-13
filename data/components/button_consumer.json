@@ -1,4 +1,14 @@
 {
+  "criticalImplementationNotes": {
+    "spacing": "Use mb prop to control space to next element, not GoabSpacer after Button",
+    "buttonVsLink": "Use Button for actions (submit, save, next), Link for external references",
+    "commonMistakes": [
+      "❌ <GoabButton> + <GoabSpacer vSpacing='3xl'> (use mb='3xl' instead)",
+      "❌ Using Button for external links (use GoabLink instead)",
+      "❌ Missing type prop (default is 'primary' but be explicit)"
+    ],
+    "actionSpacing": "Last page action should use mb='3xl' for footer spacing"
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "Button",

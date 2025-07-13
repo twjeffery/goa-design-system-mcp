@@ -1,4 +1,18 @@
 {
+  "criticalImplementationNotes": {
+    "formItemWrapper": "Usually wrap Dropdown in GoabFormItem for proper labeling and validation, but not always required",
+    "widthHandling": "Avoid setting width on dropdowns unless design specifically requires it",
+    "spacing": "Use FormItem mb prop when wrapped, or Dropdown mb prop when standalone",
+    "commonMistakes": [
+      "❌ Missing GoabFormItem wrapper when label/validation needed",
+      "❌ Setting unnecessary width constraints",
+      "❌ Using GoabSpacer for spacing instead of mb props"
+    ],
+    "patterns": {
+      "withLabel": "<GoabFormItem mb='l'><GoabDropdown name='...' /></GoabFormItem>",
+      "standalone": "<GoabDropdown name='...' mb='l' />"
+    }
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "Dropdown",

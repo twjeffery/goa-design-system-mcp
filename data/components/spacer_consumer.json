@@ -1,4 +1,27 @@
 {
+  "criticalImplementationNotes": {
+    "whenNOTToUse": {
+      "rule": "DO NOT use GoabSpacer when component margin props can achieve the same result",
+      "priority": "CRITICAL - Most common mistake",
+      "examples": [
+        "❌ <GoabFormItem> + <GoabSpacer vSpacing='2xl'>",
+        "✅ <GoabFormItem mb='2xl'>",
+        "❌ <GoabButton> + <GoabSpacer vSpacing='3xl'>", 
+        "✅ <GoabButton mb='3xl'>"
+      ]
+    },
+    "marginFirstStrategy": {
+      "rule": "PREFER component margin props first, but GoabSpacer can be better for some layouts",
+      "reasoning": "Better performance, cleaner DOM, clearer spacing relationships",
+      "exceptions": "Responsive layouts or specific spacing requirements may benefit from GoabSpacer"
+    },
+    "validUseCases": [
+      "Spacing between elements that don't have margin props",
+      "Complex responsive spacing patterns",
+      "When component margins don't meet specific layout needs",
+      "Explicit spacing documentation in design specs"
+    ]
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "componentName": "spacer",
   "audience": "ai-systems-helping-consumer-developers",

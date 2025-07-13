@@ -1,4 +1,15 @@
 {
+  "criticalImplementationNotes": {
+    "formItemWrapper": "ALWAYS wrap Input in GoabFormItem for proper labeling and validation",
+    "widthRequired": "Must explicitly set width prop for variable length content (width='100%')",
+    "spacing": "Use FormItem mb prop, not GoabSpacer after Input",
+    "commonMistakes": [
+      "❌ <GoabInput> without <GoabFormItem> wrapper",
+      "❌ Missing width prop on text inputs",
+      "❌ <GoabFormItem><GoabInput></GoabFormItem> + <GoabSpacer> (use FormItem mb instead)"
+    ],
+    "correctPattern": "<GoabFormItem mb='l'><GoabInput width='100%' /></GoabFormItem>"
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "Input",

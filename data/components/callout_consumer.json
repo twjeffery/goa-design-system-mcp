@@ -1,4 +1,15 @@
 {
+  "criticalImplementationNotes": {
+    "semanticPurpose": "Use Callout for status announcements, NOT for content grouping (use Container instead)",
+    "spacing": "Use mb prop to control space to next element, not GoabSpacer after Callout",
+    "vsContainer": "Callout = status announcement with built-in icons, Container = content organization",
+    "commonMistakes": [
+      "❌ Using Container for success messages (use Callout type='success' instead)",
+      "❌ Adding manual icons (Callout includes icons automatically)",
+      "❌ <GoabCallout> + <GoabSpacer> (use mb prop instead)"
+    ],
+    "whenToUse": "Application submitted, payment successful, error occurred, process completed"
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "callout",

@@ -1,4 +1,17 @@
 {
+  "criticalImplementationNotes": {
+    "anchorWrapping": "GoabLink already provides anchor functionality - do NOT wrap in additional <a> tags",
+    "iconValidation": "Use only documented icon values - invalid icons break functionality",
+    "commonMistakes": [
+      "❌ <GoabLink><a href='...'>Link text</a></GoabLink> (double anchor)",
+      "❌ leadingIcon='edit' (should be 'pencil')",
+      "❌ leadingIcon='back' (should be 'chevron-back')"
+    ],
+    "correctPatterns": [
+      "✅ <GoabLink onClick={handleClick} leadingIcon='chevron-back'>Back</GoabLink>",
+      "✅ <GoabLink href='...' trailingIcon='external-link'>External Link</GoabLink>"
+    ]
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "Link",

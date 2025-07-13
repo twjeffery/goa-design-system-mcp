@@ -1,4 +1,18 @@
 {
+  "criticalImplementationNotes": {
+    "spacing": "Use mb prop to control space to next element, not GoabSpacer after FormItem",
+    "labelSize": "Use labelSize='large' when there's one question on a page, 'medium' when there are multiple questions on a page",
+    "requirement": "Set requirement='none' to hide required indicator when not needed",
+    "commonMistakes": [
+      "❌ <GoabFormItem> + <GoabSpacer vSpacing='2xl'> (use mb='2xl' instead)",
+      "❌ Using labelSize='medium' for single question pages (should be 'large')",
+      "❌ Using labelSize='large' for multi-question forms (should be 'medium')"
+    ],
+    "quickDecisionMatrix": {
+      "singleQuestionPage": "labelSize='large' mb='2xl' requirement='none'",
+      "multiQuestionForm": "labelSize='medium' mb='l'"
+    }
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "lastUpdated": "2025-07-02",

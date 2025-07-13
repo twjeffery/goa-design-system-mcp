@@ -1,4 +1,20 @@
 {
+  "criticalImplementationNotes": {
+    "headerSpacing": "Add appropriate mt to first content element after headers - typically mt='2xl', but mt='m' for back buttons",
+    "spacing": "Use mb prop to control space to next element, not GoabSpacer after Text",
+    "universalUsage": "Use GoabText for ALL text content - replace <h1>, <p>, <span> etc.",
+    "commonMistakes": [
+      "❌ Using <h1> instead of <GoabText tag='h1' size='heading-xl'>",
+      "❌ Missing mt spacing on first content after headers",
+      "❌ <GoabText> + <GoabSpacer> (use mb prop instead)"
+    ],
+    "contextualSpacing": {
+      "backButton": "mt='m' for back buttons at start of page content",
+      "mainContent": "mt='2xl' for primary content after headers",
+      "subContent": "mt='l' for secondary content sections"
+    },
+    "semanticStructure": "Always use tag prop for proper HTML semantics (h1-h6, p)"
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "Text",

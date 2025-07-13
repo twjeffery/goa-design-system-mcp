@@ -1,4 +1,15 @@
 {
+  "criticalImplementationNotes": {
+    "semanticPurpose": "Use Container for content grouping, NOT for status messages (use Callout instead)",
+    "spacing": "Use mb prop to control space to next element, not GoabSpacer after Container",
+    "vsCallout": "Container = content organization, Callout = status announcement",
+    "commonMistakes": [
+      "❌ Using Container for success messages (use Callout type='success' instead)",
+      "❌ Using Container as general layout wrapper (use Block instead)",
+      "❌ <GoabContainer> + <GoabSpacer> (use mb prop instead)"
+    ],
+    "whenToUse": "Dashboard widgets, form sections, content cards that need visual grouping"
+  },
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "Container",
