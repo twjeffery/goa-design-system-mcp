@@ -61,6 +61,13 @@ export class OptimizedDataManager {
             if (options.tags && options.tags.length > 0) {
                 filteredCandidates = filteredCandidates.filter(c => options.tags.some(tag => c.item.tags.some(itemTag => itemTag.toLowerCase().includes(tag.toLowerCase()))));
             }
+            if (options.userType && options.type === 'recipe') {
+                filteredCandidates = filteredCandidates.filter(c => {
+                    const recipe = c.item.data;
+                    return recipe.serviceContext?.userType === options.userType ||
+                        recipe.serviceContext?.userType === 'both';
+                });
+            }
             // Convert to SearchResult format with enhanced scoring
             const results = filteredCandidates.map(candidate => this.candidateToSearchResult(candidate, query));
             const searchTime = performance.now() - startTime;
@@ -85,6 +92,37 @@ export class OptimizedDataManager {
      */
     getItemsByType(type) {
         return this.index.getItemsByType(type).map(item => item.data);
+    }
+    /**
+     * Get recipes by user type
+     */
+    getRecipesByUserType(userType) {
+        return this.index.getItemsByType('recipe')
+            .filter(item => {
+            const recipe = item.data;
+            return recipe.serviceContext?.userType === userType ||
+                recipe.serviceContext?.userType === 'both';
+        })
+            .map(item => item.data);
+    }
+    /**
+     * Get recipes by category
+     */
+    getRecipesByCategory(category) {
+        return this.index.getItemsByType('recipe')
+            .filter(item => item.data.category === category)
+            .map(item => item.data);
+    }
+    /**
+     * Get recipes that use a specific component
+     */
+    getRecipesUsingComponent(componentName) {
+        return this.index.getItemsByType('recipe')
+            .filter(item => {
+            const recipe = item.data;
+            return recipe.components?.some((comp) => comp.name === componentName || comp.name === `Goab${componentName}`);
+        })
+            .map(item => item.data);
     }
     /**
      * Get performance and indexing statistics
@@ -192,6 +230,38 @@ export class OptimizedDataManager {
         }
         catch (error) {
             process.stderr.write(`Could not read components directory: ${getErrorMessage(error)}\n`);
+        }
+        // Load and index all recipe files
+        try {
+            const recipesDir = join(dataDir, "recipes");
+            const files = await readdir(recipesDir);
+            for (const file of files) {
+                if (file.endsWith(".json")) {
+                    try {
+                        const filePath = join(recipesDir, file);
+                        const data = await readFile(filePath, "utf8");
+                        const recipeData = JSON.parse(data);
+                        // Use the recipeId from the JSON, or derive from filename
+                        const recipeId = recipeData.recipeId || file.replace(".json", "");
+                        const indexedItem = {
+                            id: recipeId,
+                            type: 'recipe',
+                            data: recipeData,
+                            searchableText: createSearchableText(recipeData),
+                            tags: extractTags(recipeData),
+                            category: recipeData.category
+                        };
+                        this.index.addItem(indexedItem);
+                    }
+                    catch (error) {
+                        process.stderr.write(`Could not load recipe file ${file}: ${getErrorMessage(error)}\n`);
+                    }
+                }
+            }
+            process.stderr.write(`Indexed ${files.filter(f => f.endsWith('.json')).length} recipe files\n`);
+        }
+        catch (error) {
+            process.stderr.write(`Could not read recipes directory: ${getErrorMessage(error)}\n`);
         }
     }
     candidateToSearchResult(candidate, query) {

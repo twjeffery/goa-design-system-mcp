@@ -1,5 +1,5 @@
 export interface SearchResult {
-    type: 'component' | 'system' | 'workflow';
+    type: 'component' | 'system' | 'workflow' | 'recipe';
     name: string;
     content: any;
     score: number;
@@ -10,7 +10,8 @@ export interface SearchOptions {
     maxResults?: number;
     category?: string;
     tags?: string[];
-    type?: 'component' | 'system' | 'workflow';
+    type?: 'component' | 'system' | 'workflow' | 'recipe';
+    userType?: 'citizen' | 'worker' | 'both';
 }
 export declare class OptimizedDataManager {
     private index;
@@ -29,7 +30,19 @@ export declare class OptimizedDataManager {
     /**
      * Get all items of a specific type
      */
-    getItemsByType(type: 'component' | 'system' | 'workflow'): any[];
+    getItemsByType(type: 'component' | 'system' | 'workflow' | 'recipe'): any[];
+    /**
+     * Get recipes by user type
+     */
+    getRecipesByUserType(userType: 'citizen' | 'worker' | 'both'): any[];
+    /**
+     * Get recipes by category
+     */
+    getRecipesByCategory(category: string): any[];
+    /**
+     * Get recipes that use a specific component
+     */
+    getRecipesUsingComponent(componentName: string): any[];
     /**
      * Get performance and indexing statistics
      */

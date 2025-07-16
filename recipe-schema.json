@@ -1,0 +1,428 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GoA Design System Recipe Schema",
+  "description": "Schema for Government of Alberta Design System recipes - reusable service patterns that combine multiple components for citizen-facing and worker-facing government services",
+  "type": "object",
+  "required": [
+    "metadataSchemaVersion",
+    "audience", 
+    "recipeId",
+    "recipeName",
+    "category",
+    "summary",
+    "serviceContext",
+    "components",
+    "codeReference",
+    "implementation",
+    "status",
+    "lastUpdated"
+  ],
+  "properties": {
+    "metadataSchemaVersion": {
+      "type": "string",
+      "const": "2.1.0-ai-context",
+      "description": "Schema version for compatibility with existing component structure"
+    },
+    "audience": {
+      "type": "string", 
+      "const": "ai-systems-helping-consumer-developers",
+      "description": "Target audience for this recipe data"
+    },
+    "recipeId": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique identifier matching the example filename (without .tsx)"
+    },
+    "recipeName": {
+      "type": "string",
+      "description": "Human-readable name for the recipe"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["citizen-facing", "worker-facing", "layout-pattern", "form-pattern", "interaction-pattern"],
+      "description": "Primary category indicating the user type and pattern type"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief description of what this recipe accomplishes in government service context"
+    },
+    
+    "serviceContext": {
+      "type": "object",
+      "required": ["useCases", "governmentFlows", "userType", "designApproach"],
+      "properties": {
+        "useCases": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Real-world government service scenarios where this recipe is used"
+        },
+        "governmentFlows": {
+          "type": "array", 
+          "items": {"type": "string"},
+          "description": "Government service processes this recipe supports (e.g., application submission, case management)"
+        },
+        "userType": {
+          "type": "string",
+          "enum": ["citizen", "worker", "both"],
+          "description": "Primary user type for this recipe"
+        },
+        "designApproach": {
+          "type": "object",
+          "properties": {
+            "citizenCharacteristics": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["simplified-ui", "one-idea-per-page", "accessibility-first", "mobile-optimized", "self-service", "clear-guidance", "low-frequency-use"]
+              },
+              "description": "Applied when userType is citizen or both"
+            },
+            "workerCharacteristics": {
+              "type": "array", 
+              "items": {
+                "type": "string",
+                "enum": ["information-dense", "efficiency-focused", "desktop-optimized", "role-based", "decision-support", "high-frequency-use", "bulk-operations"]
+              },
+              "description": "Applied when userType is worker or both"
+            }
+          }
+        }
+      }
+    },
+    
+    "githubIntegration": {
+      "type": "object",
+      "properties": {
+        "issueNumber": {"type": "integer"},
+        "issueUrl": {"type": "string", "format": "uri"},
+        "status": {
+          "type": "string",
+          "enum": ["planned", "in-progress", "published", "deprecated"]
+        },
+        "labels": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "projectBoardStatus": {
+          "type": "string",
+          "description": "Status in the GitHub project board used for example discovery"
+        }
+      }
+    },
+    
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "role", "purpose"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^Goab[A-Z][a-zA-Z]*$",
+            "description": "Component name (e.g., GoabFormItem, GoabInput, GoabGrid)"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["primary", "layout", "input", "action", "display", "navigation", "container", "responsive"],
+            "description": "Role this component plays in the recipe"
+          },
+          "purpose": {
+            "type": "string",
+            "description": "What this component accomplishes in the recipe"
+          },
+          "props": {
+            "type": "object",
+            "description": "Key props used in this recipe context"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Special considerations for this component in this recipe"
+          },
+          "responsiveBehavior": {
+            "type": "string",
+            "description": "How this component adapts in responsive contexts (desktop table → mobile card, etc.)"
+          }
+        }
+      }
+    },
+    
+    "codeReference": {
+      "type": "object", 
+      "required": ["filePath", "lastModified"],
+      "properties": {
+        "filePath": {
+          "type": "string",
+          "pattern": "^src/examples/[a-z0-9-]+\\.tsx$",
+          "description": "Path to the example TSX file in ui-components-docs"
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the code was last modified"
+        },
+        "linesOfCode": {
+          "type": "integer",
+          "description": "Approximate lines of code in the example"
+        },
+        "sandboxFlags": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Flags used in the Sandbox component (e.g., 'reactive', 'fullWidth')"
+        }
+      }
+    },
+    
+    "implementation": {
+      "type": "object",
+      "required": ["react"],
+      "properties": {
+        "react": {
+          "type": "object",
+          "required": ["dependencies"],
+          "properties": {
+            "dependencies": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "stateManagement": {
+              "type": "object",
+              "properties": {
+                "required": {"type": "boolean"},
+                "variables": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                },
+                "pattern": {
+                  "type": "string",
+                  "enum": ["useState", "useReducer", "context", "external"]
+                }
+              }
+            },
+            "codeSnippet": {
+              "type": "string",
+              "description": "Key implementation pattern or setup code"
+            },
+            "responsivePattern": {
+              "type": "object",
+              "properties": {
+                "hasResponsiveLogic": {"type": "boolean"},
+                "breakpointHandling": {
+                  "type": "string",
+                  "enum": ["useEffect-resize", "css-media-queries", "goab-grid", "none"]
+                },
+                "desktopLayout": {"type": "string"},
+                "mobileLayout": {"type": "string"}
+              }
+            }
+          }
+        },
+        "angular": {
+          "type": "object",
+          "properties": {
+            "dependencies": {
+              "type": "array", 
+              "items": {"type": "string"}
+            },
+            "formPattern": {
+              "type": "string",
+              "enum": ["reactive", "template-driven", "none"]
+            },
+            "codeSnippet": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+
+    "codeExamples": {
+      "type": "object",
+      "required": ["react"],
+      "properties": {
+        "react": {
+          "type": "object",
+          "required": ["complete"],
+          "properties": {
+            "complete": {
+              "type": "string",
+              "description": "Complete working React implementation of the recipe"
+            },
+            "stateSetup": {
+              "type": "string",
+              "description": "State management setup code"
+            },
+            "keyFunctions": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Important functions used in the implementation"
+            }
+          }
+        },
+        "angular": {
+          "type": "object",
+          "properties": {
+            "complete": {
+              "type": "string",
+              "description": "Complete working Angular implementation"
+            },
+            "componentClass": {
+              "type": "string",
+              "description": "Angular component class code"
+            },
+            "template": {
+              "type": "string",
+              "description": "Angular template code"
+            }
+          }
+        }
+      }
+    },
+    
+    "designPatterns": {
+      "type": "object",
+      "properties": {
+        "accessibilityConsiderations": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "usabilityPrinciples": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "responsiveStrategy": {
+          "type": "object",
+          "properties": {
+            "approach": {
+              "type": "string",
+              "enum": ["desktop-table-to-mobile-card", "goab-grid-responsive", "single-layout", "conditional-rendering"]
+            },
+            "breakpoints": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "keyComponents": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Components that drive the responsive behavior"
+            }
+          }
+        },
+        "spacingPatterns": {
+          "type": "object",
+          "properties": {
+            "tokensUsed": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "avoidedPatterns": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Anti-patterns avoided (e.g., custom spacing, GoabSpacer overuse)"
+            }
+          }
+        }
+      }
+    },
+    
+    "workerSpecificPatterns": {
+      "type": "object",
+      "description": "Patterns specific to worker-facing interfaces",
+      "properties": {
+        "dashboardElements": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["worker-context-header", "alert-style-metrics", "priority-data-display", "bulk-operations"]
+          }
+        },
+        "bulkOperations": {
+          "type": "object",
+          "properties": {
+            "hasSelection": {"type": "boolean"},
+            "selectionPattern": {"type": "string"},
+            "actionTypes": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          }
+        },
+        "statusIndicators": {
+          "type": "object",
+          "properties": {
+            "badgeTypes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["emergency", "important", "information", "success", "midtone"]
+              }
+            },
+            "overdueHandling": {
+              "type": "string",
+              "enum": ["goab-callout", "background-color", "badge-indicator", "none"]
+            }
+          }
+        }
+      }
+    },
+    
+    "variations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "additionalComponents": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "modifications": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "userTypeVariation": {
+            "type": "string",
+            "enum": ["citizen", "worker", "both"]
+          }
+        }
+      }
+    },
+    
+    "relatedRecipes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "description": "Other recipe IDs that are commonly used together in government service flows"
+    },
+    
+    "tags": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Searchable tags for discovery (e.g., 'form', 'dashboard', 'responsive', 'bulk-operations')"
+    },
+    
+    "status": {
+      "type": "string",
+      "enum": ["draft", "published", "deprecated"],
+      "description": "Current status of the recipe"
+    },
+    
+    "lastUpdated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this recipe was last updated"
+    },
+    
+    "derivedFrom": {
+      "type": "object",
+      "properties": {
+        "exampleFile": {"type": "string"},
+        "note": {"type": "string"}
+      }
+    }
+  },
+  "additionalProperties": false
+}

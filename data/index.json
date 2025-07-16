@@ -39,8 +39,9 @@
     "purpose": "Master index of all consumer-facing documentation for AI-driven development assistance",
     "totalComponents": 35,
     "totalSystemDocs": 2,
-    "coverage": "Complete component library with system setup, layout guidance, usage examples, API documentation, and integration patterns",
-    "aiOptimization": "Structured for AI code generation, component discovery, implementation guidance, and system understanding"
+    "totalRecipes": 3,
+    "coverage": "Complete component library with system setup, layout guidance, usage examples, API documentation, integration patterns, and reusable service patterns",
+    "aiOptimization": "Structured for AI code generation, component discovery, implementation guidance, system understanding, and government service pattern reuse"
   },
 
   "quickStart": {
@@ -49,7 +50,8 @@
       "2. Use layout.json to understand page structure and responsive behavior",
       "3. Choose components from categories below based on your use case",
       "4. Reference individual component JSON files for detailed implementation",
-      "5. Use installation examples and integration patterns for rapid development"
+      "5. Use installation examples and integration patterns for rapid development",
+      "6. Check recipes/ directory for complete service patterns and government workflows"
     ],
     "recommendedComponents": ["Button", "Input", "FormItem", "Container", "Block"],
     "commonPatterns": [
@@ -399,6 +401,38 @@
         "priority": "High - fundamental for page organization"
       }
     }
+  },
+
+  "recipes": {
+    "description": "Reusable service patterns combining multiple components for common government workflows",
+    "count": 0,
+    "location": "recipes/ directory",
+    "categories": {
+      "citizen-facing": {
+        "description": "Patterns for citizens accessing government services",
+        "characteristics": ["simplified-ui", "one-idea-per-page", "accessibility-first", "mobile-optimized"],
+        "examples": ["Form submission flows", "Service applications", "Information collection"]
+      },
+      "worker-facing": {
+        "description": "Patterns for government workers providing services",
+        "characteristics": ["information-dense", "efficiency-focused", "desktop-optimized", "bulk-operations"],
+        "examples": ["Dashboard overviews", "Case management", "Data processing", "Approval workflows"]
+      },
+      "layout-pattern": {
+        "description": "Structural patterns for organizing content and components",
+        "examples": ["Page layouts", "Responsive patterns", "Content organization"]
+      },
+      "form-pattern": {
+        "description": "Patterns for data collection and form workflows",
+        "examples": ["Multi-step forms", "Validation patterns", "Data input flows"]
+      },
+      "interaction-pattern": {
+        "description": "Patterns for user interactions and workflows",
+        "examples": ["Modal workflows", "Progressive disclosure", "Bulk operations"]
+      }
+    },
+    "aiTags": ["recipe", "pattern", "workflow", "service", "government", "citizen", "worker"],
+    "priority": "High - provides context for component combinations and government service patterns"
   },
 
   "categories": {
