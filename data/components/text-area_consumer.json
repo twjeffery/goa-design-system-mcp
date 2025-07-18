@@ -416,5 +416,40 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/text_area.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "ask-a-question-and-give-more-information",
+        "title": "Ask a question and give more information",
+        "description": "Use text areas to collect detailed responses from users while providing context and additional information to help them provide complete answers",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "text-area",
+          "question",
+          "context"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "ask-a-long-answer-question-with-a-maximum-word-count",
+        "title": "Ask a long answer question with a maximum word count",
+        "description": "Implement text areas with word or character limits to guide users in providing appropriately sized responses",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "text-area",
+          "word-count",
+          "validation"
+        ],
+        "category": "form-pattern"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for text-area in realistic scenarios"
+    }
   }
 }

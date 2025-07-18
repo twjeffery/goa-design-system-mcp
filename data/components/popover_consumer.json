@@ -228,5 +228,53 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/popover.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "close-a-popover-with-a-button",
+        "title": "Close a Popover with a Button",
+        "description": "Provide users with a clear button control to dismiss popover content, ensuring accessible and predictable interaction patterns",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "basic",
+        "tags": [
+          "popover",
+          "close-button",
+          "user-control"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "close-a-popover-with-a-link",
+        "title": "Close a Popover with a Link",
+        "description": "Use link elements to close popovers while potentially navigating to related content or actions",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "basic",
+        "tags": [
+          "popover",
+          "close-link",
+          "navigation"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "close-a-popover-with-an-icon-button",
+        "title": "Close a Popover with an Icon Button",
+        "description": "Implement compact close controls for popovers using icon buttons, providing space-efficient dismissal options",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "basic",
+        "tags": [
+          "popover",
+          "icon-button",
+          "close-control"
+        ],
+        "category": "interaction-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for popover in realistic scenarios"
+    }
   }
 }

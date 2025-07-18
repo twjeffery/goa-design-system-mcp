@@ -19,12 +19,12 @@
   },
   "summary": "Flexible layout container for grouping components with consistent spacing and alignment",
   "purpose": "Create organized layouts by grouping related components with design system spacing",
-
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
-    "dependencies": ["Design token system"]
+    "dependencies": [
+      "Design token system"
+    ]
   },
-
   "installation": {
     "react": {
       "import": "import { GoabBlock } from '@abgov/react-components'",
@@ -39,7 +39,6 @@
       "quickExample": "<goa-block gap=\"m\"><div>Item 1</div><div>Item 2</div></goa-block>"
     }
   },
-
   "api": {
     "props": [
       {
@@ -47,7 +46,19 @@
         "type": "string",
         "required": false,
         "default": "m",
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
         "description": "Spacing between items using design system tokens",
         "examples": {
           "none": "No spacing - use with Spacer for manual control",
@@ -61,7 +72,10 @@
         "type": "string",
         "required": false,
         "default": "row",
-        "allowedValues": ["row", "column"],
+        "allowedValues": [
+          "row",
+          "column"
+        ],
         "description": "Layout direction for arranging child components",
         "examples": {
           "row": "Horizontal layout (side by side)",
@@ -73,7 +87,12 @@
         "type": "string",
         "required": false,
         "default": "normal",
-        "allowedValues": ["center", "start", "end", "normal"],
+        "allowedValues": [
+          "center",
+          "start",
+          "end",
+          "normal"
+        ],
         "description": "How items align along the main axis",
         "examples": {
           "start": "Items aligned to the beginning",
@@ -92,33 +111,80 @@
         "name": "mt",
         "type": "string",
         "required": false,
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
         "description": "Apply margin to the top of the component"
       },
       {
         "name": "mr",
         "type": "string",
         "required": false,
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
         "description": "Apply margin to the right of the component"
       },
       {
         "name": "mb",
         "type": "string",
         "required": false,
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
         "description": "Apply margin to the bottom of the component"
       },
       {
         "name": "ml",
         "type": "string",
         "required": false,
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
         "description": "Apply margin to the left of the component"
       }
     ]
   },
-
   "usageExamples": {
     "react": [
       {
@@ -159,11 +225,10 @@
       }
     ]
   },
-
   "designGuidance": {
     "whenToUse": [
       "Group related components with consistent spacing",
-      "Create form layouts with proper vertical/horizontal rhythm", 
+      "Create form layouts with proper vertical/horizontal rhythm",
       "Organize dashboard sections and content areas",
       "Build button groups and action clusters",
       "Structure card content with internal spacing"
@@ -189,7 +254,6 @@
       "Test nested Block layouts across different screen sizes"
     ]
   },
-
   "troubleshooting": {
     "commonIssues": [
       {
@@ -219,7 +283,6 @@
       }
     ]
   },
-
   "relatedComponents": [
     {
       "name": "Spacer",
@@ -227,7 +290,7 @@
       "example": "Use Spacer for precise spacing between specific items"
     },
     {
-      "name": "ButtonGroup", 
+      "name": "ButtonGroup",
       "usage": "Specialized Block for button layouts",
       "example": "ButtonGroup is optimized for button spacing and alignment"
     },
@@ -242,34 +305,49 @@
       "example": "Use Block inside Cards for internal content organization"
     }
   ],
-
   "integrationPatterns": [
     {
       "name": "Form Layout Pattern",
       "description": "Organize form elements with consistent vertical spacing",
-      "components": ["Block", "FormItem", "Input", "Button"],
+      "components": [
+        "Block",
+        "FormItem",
+        "Input",
+        "Button"
+      ],
       "example": "Column direction with large gap for form sections"
     },
     {
       "name": "Dashboard Section Pattern",
       "description": "Structure dashboard content with clear hierarchy",
-      "components": ["Block", "Card", "Badge", "Button"],
+      "components": [
+        "Block",
+        "Card",
+        "Badge",
+        "Button"
+      ],
       "example": "Nested Blocks for complex dashboard layouts"
     },
     {
       "name": "Action Group Pattern",
       "description": "Group related buttons and actions",
-      "components": ["Block", "Button"],
+      "components": [
+        "Block",
+        "Button"
+      ],
       "example": "Row direction with medium gap for button groups"
     },
     {
       "name": "Content Organization Pattern",
       "description": "Structure page content with proper spacing",
-      "components": ["Block", "Card", "various content components"],
+      "components": [
+        "Block",
+        "Card",
+        "various content components"
+      ],
       "example": "Column direction with extra-large gap for major sections"
     }
   ],
-
   "spacingReference": {
     "gapValues": {
       "none": "0px - No spacing, use with Spacer for manual control",
@@ -290,13 +368,53 @@
       "spaciousLayouts": "Use xl, 2xl, 3xl, 4xl for major sections"
     }
   },
-
-  "tags": ["layout", "container", "spacing", "flexbox", "grouping", "utility"],
-  "category": "component", 
+  "tags": [
+    "layout",
+    "container",
+    "spacing",
+    "flexbox",
+    "grouping",
+    "utility"
+  ],
+  "category": "component",
   "status": "stable",
   "lastUpdated": "2025-06-26",
   "derivedFrom": {
     "maintainerVersion": "../maintainer/block.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "show-number-of-results-per-page",
+        "title": "Show number of results per page",
+        "description": "Implement pagination controls with configurable results per page, allowing users to adjust how many items are displayed at once while maintaining their position in the dataset.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "pagination",
+          "data-display",
+          "results-per-page"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "worker-dashboard-overview",
+        "title": "Worker dashboard overview",
+        "description": "Create comprehensive operational dashboards for government workers with case management, statistics overview, priority queues, and bulk action capabilities for efficient workflow management.",
+        "useCase": "layout-patterns pattern for worker workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "dashboard",
+          "case-management",
+          "worker-productivity"
+        ],
+        "category": "layout-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for block in realistic scenarios"
+    }
   }
 }

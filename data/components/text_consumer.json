@@ -23,33 +23,45 @@
     "className": "GoabText"
   },
   "summary": "Flexible text component for displaying content with consistent typography, proper semantic structure, and design system styling",
-  
   "universalTextPrinciple": {
     "criticalRule": "GoabText is the universal component for ALL text content in GoA applications",
     "replaces": {
-      "htmlElements": ["<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>", "<p>", "custom text spans"],
-      "customStyling": ["className text styling", "custom CSS for typography", "wrapper divs for text width"]
+      "htmlElements": [
+        "<h1>",
+        "<h2>",
+        "<h3>",
+        "<h4>",
+        "<h5>",
+        "<h6>",
+        "<p>",
+        "custom text spans"
+      ],
+      "customStyling": [
+        "className text styling",
+        "custom CSS for typography",
+        "wrapper divs for text width"
+      ]
     },
     "benefits": [
-      "Built-in 65ch max-width for optimal readability", 
+      "Built-in 65ch max-width for optimal readability",
       "Automatic design system typography and spacing",
       "Consistent margin management with mb/mt props",
       "Semantic HTML with visual override capability"
     ],
     "examples": {
       "pageHeading": "<GoabText size=\"heading-xl\" tag=\"h1\" mb=\"l\">Page Title</GoabText>",
-      "sectionHeading": "<GoabText size=\"heading-l\" tag=\"h2\" mb=\"m\">Section Title</GoabText>", 
+      "sectionHeading": "<GoabText size=\"heading-l\" tag=\"h2\" mb=\"m\">Section Title</GoabText>",
       "bodyText": "<GoabText tag=\"p\" mb=\"m\">Body content paragraph</GoabText>",
       "wrongUsage": "❌ <h1 className=\"text-2xl font-bold mb-8\">Title</h1>",
       "correctUsage": "✅ <GoabText size=\"heading-xl\" tag=\"h1\" mb=\"l\">Title</GoabText>"
     }
   },
-
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
-    "dependencies": ["Design token system"]
+    "dependencies": [
+      "Design token system"
+    ]
   },
-
   "installation": {
     "react": {
       "import": "import { GoabText } from '@abgov/react-components'",
@@ -64,7 +76,6 @@
       "quickExample": "<goa-text tag=\"h1\" color=\"primary\">\n  Welcome to Our Service\n</goa-text>"
     }
   },
-
   "api": {
     "validProperties": {
       "supported": [
@@ -97,8 +108,27 @@
     },
     "strictPropertyEnforcement": {
       "size": {
-        "validValues": ["heading-xl", "heading-l", "heading-m", "heading-s", "heading-xs", "body-l", "body-m", "body-s", "body-xs"],
-        "commonMistakes": ["xl", "l", "m", "s", "xs", "large", "medium", "small"],
+        "validValues": [
+          "heading-xl",
+          "heading-l",
+          "heading-m",
+          "heading-s",
+          "heading-xs",
+          "body-l",
+          "body-m",
+          "body-s",
+          "body-xs"
+        ],
+        "commonMistakes": [
+          "xl",
+          "l",
+          "m",
+          "s",
+          "xs",
+          "large",
+          "medium",
+          "small"
+        ],
         "correctionMap": {
           "xl": "heading-xl",
           "l": "heading-l",
@@ -113,8 +143,16 @@
         ]
       },
       "color": {
-        "validValues": ["primary", "secondary"],
-        "commonMistakes": ["text-primary", "text-secondary", "default", "muted"],
+        "validValues": [
+          "primary",
+          "secondary"
+        ],
+        "commonMistakes": [
+          "text-primary",
+          "text-secondary",
+          "default",
+          "muted"
+        ],
         "correctionMap": {
           "text-primary": "primary",
           "text-secondary": "secondary",
@@ -216,7 +254,6 @@
       }
     ]
   },
-
   "usage": {
     "basicExamples": {
       "react": [
@@ -249,7 +286,6 @@
         }
       ]
     },
-
     "advancedExamples": {
       "react": [
         {
@@ -260,7 +296,6 @@
       ]
     }
   },
-
   "playgroundExamples": {
     "basic": [
       {
@@ -295,7 +330,6 @@
       }
     ]
   },
-
   "governmentServiceTypographyPatterns": {
     "description": "Standard text sizing patterns for Alberta Government service pages",
     "servicePageHierarchy": {
@@ -306,7 +340,7 @@
       },
       "serviceOverview": {
         "pattern": "<GoabText tag='p' size='body-l' mb='l'>Service description</GoabText>",
-        "usage": "Introductory/overview paragraphs that describe the service", 
+        "usage": "Introductory/overview paragraphs that describe the service",
         "visualCue": "Larger than regular body text, provides service summary",
         "importance": "CRITICAL - often missed, this creates proper visual hierarchy"
       },
@@ -337,7 +371,6 @@
       "support": "Section heading (heading-l) → Contact information (body-m)"
     }
   },
-
   "designGuidance": {
     "when": {
       "use": [
@@ -406,7 +439,6 @@
       "Consider the visual hierarchy when choosing spacing sizes"
     ]
   },
-
   "relatedComponents": [
     {
       "name": "GoabFormItem",
@@ -439,30 +471,47 @@
       "example": "Status indicators, categories, tags"
     }
   ],
-
   "commonPatterns": [
     {
       "name": "Content Pages",
       "description": "Information pages with proper heading hierarchy",
-      "components": ["Text (h1-h6, p)", "Card", "Button"]
+      "components": [
+        "Text (h1-h6, p)",
+        "Card",
+        "Button"
+      ]
     },
     {
       "name": "Dashboard Display",
       "description": "Data and statistics presentation",
-      "components": ["Text", "Card", "Badge", "Table"]
+      "components": [
+        "Text",
+        "Card",
+        "Badge",
+        "Table"
+      ]
     },
     {
       "name": "Form Instructions",
       "description": "Guidance and help content for forms",
-      "components": ["Text", "FormItem", "Card", "Modal"]
+      "components": [
+        "Text",
+        "FormItem",
+        "Card",
+        "Modal"
+      ]
     },
     {
       "name": "Status Messaging",
       "description": "System status and user notifications",
-      "components": ["Text", "Alert", "Modal", "Badge"]
+      "components": [
+        "Text",
+        "Alert",
+        "Modal",
+        "Badge"
+      ]
     }
   ],
-
   "troubleshooting": [
     {
       "issue": "Text not displaying with expected styling",
@@ -505,7 +554,6 @@
       "solution": "Use mt/mb props with design system tokens (none, xs, s, m, l, xl, 2xl, 3xl, 4xl) for consistent spacing"
     }
   ],
-
   "accessibility": {
     "semanticStructure": [
       "Use proper HTML elements (h1-h6, p, span, div) for document structure",
@@ -524,20 +572,26 @@
       "No interactive behavior - purely presentational content"
     ]
   },
-
   "performanceConsiderations": [
     "Text component is lightweight with minimal performance impact",
     "Automatic margin calculation adds slight runtime overhead",
     "Typography token resolution happens at render time",
     "Consider virtualization for very long text content or many text elements"
   ],
-
-  "tags": ["typography", "content", "heading", "body", "text", "semantic", "spacing"],
+  "tags": [
+    "typography",
+    "content",
+    "heading",
+    "body",
+    "text",
+    "semantic",
+    "spacing"
+  ],
   "category": "typography",
   "status": "stable",
   "lastUpdated": "2025-07-02",
   "derivedFrom": {
     "maintainerVersion": "../maintainer/text.json",
     "note": "See maintainer version for implementation details and development information"
-  }
+  },
 }

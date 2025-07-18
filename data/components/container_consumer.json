@@ -15,7 +15,6 @@
   "componentName": "Container",
   "displayName": "GoA Container",
   "summary": "Card-like container for grouping and highlighting specific related content with visual boundaries. NOT a general layout container - use only when content needs visual emphasis and grouping (like dashboard widgets, form sections, status cards).",
-
   "visualIdentification": {
     "appearanceMarkers": [
       "Card-like container with subtle accent border",
@@ -34,17 +33,16 @@
       }
     }
   },
-
   "customElement": {
     "tagName": "goa-container",
     "className": "goa-container"
   },
-
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
-    "dependencies": ["Design token system"]
+    "dependencies": [
+      "Design token system"
+    ]
   },
-
   "playgroundExamples": {
     "overview": "Interactive examples demonstrating Container component configurations and common usage patterns",
     "examples": [
@@ -69,7 +67,10 @@
           {
             "name": "padding",
             "type": "select",
-            "options": ["relaxed", "compact"],
+            "options": [
+              "relaxed",
+              "compact"
+            ],
             "default": "relaxed"
           }
         ],
@@ -116,7 +117,11 @@
           {
             "name": "accent",
             "type": "select",
-            "options": ["filled", "thick", "thin"],
+            "options": [
+              "filled",
+              "thick",
+              "thin"
+            ],
             "default": "filled"
           },
           {
@@ -150,7 +155,11 @@
           {
             "name": "sectionType",
             "type": "select",
-            "options": ["interactive", "info", "success"],
+            "options": [
+              "interactive",
+              "info",
+              "success"
+            ],
             "default": "interactive"
           },
           {
@@ -196,13 +205,20 @@
           {
             "name": "widgetType",
             "type": "select",
-            "options": ["stats", "activity", "notifications"],
+            "options": [
+              "stats",
+              "activity",
+              "notifications"
+            ],
             "default": "stats"
           },
           {
             "name": "padding",
             "type": "select",
-            "options": ["relaxed", "compact"],
+            "options": [
+              "relaxed",
+              "compact"
+            ],
             "default": "relaxed"
           },
           {
@@ -222,19 +238,29 @@
           {
             "name": "cardPadding",
             "type": "select",
-            "options": ["relaxed", "compact"],
+            "options": [
+              "relaxed",
+              "compact"
+            ],
             "default": "compact"
           },
           {
             "name": "cardAccent",
             "type": "select",
-            "options": ["filled", "thin"],
+            "options": [
+              "filled",
+              "thin"
+            ],
             "default": "thin"
           },
           {
             "name": "cardCount",
             "type": "select",
-            "options": ["2", "3", "4"],
+            "options": [
+              "2",
+              "3",
+              "4"
+            ],
             "default": "3"
           }
         ],
@@ -249,7 +275,11 @@
           {
             "name": "currentStep",
             "type": "select",
-            "options": ["1", "2", "3"],
+            "options": [
+              "1",
+              "2",
+              "3"
+            ],
             "default": "1"
           },
           {
@@ -276,16 +306,23 @@
       {
         "title": "Container + ButtonGroup + Badge",
         "description": "Dashboard widget with status and actions",
-        "components": ["GoabContainer", "GoabButtonGroup", "GoabBadge"]
+        "components": [
+          "GoabContainer",
+          "GoabButtonGroup",
+          "GoabBadge"
+        ]
       },
       {
         "title": "Container + Callout + Details",
         "description": "Information section with progressive disclosure",
-        "components": ["GoabContainer", "GoabCallout", "GoabDetails"]
+        "components": [
+          "GoabContainer",
+          "GoabCallout",
+          "GoabDetails"
+        ]
       }
     ]
   },
-
   "installation": {
     "react": {
       "import": "import { GoabContainer } from '@abgov/react-components'",
@@ -300,7 +337,6 @@
       "quickExample": "<goa-container>\n  <p>Content grouped in a visual container</p>\n</goa-container>"
     }
   },
-
   "api": {
     "props": [
       {
@@ -469,7 +505,6 @@
       }
     ]
   },
-
   "usage": {
     "primaryPurpose": "Container is a card-like component for emphasizing and grouping specific content that needs visual boundaries. It should NOT be used as a general layout wrapper.",
     "basicExamples": {
@@ -580,17 +615,24 @@
       }
     ]
   },
-
   "designGuidance": {
     "typeGuidance": {
       "interactive": {
         "when": "Default containers for general content grouping",
-        "examples": ["User profiles", "Dashboard widgets", "Content sections"],
+        "examples": [
+          "User profiles",
+          "Dashboard widgets",
+          "Content sections"
+        ],
         "appearance": "Neutral background with interactive accent color"
       },
       "info": {
         "when": "Informational content that provides context or guidance",
-        "examples": ["Help sections", "Process explanations", "Status updates"],
+        "examples": [
+          "Help sections",
+          "Process explanations",
+          "Status updates"
+        ],
         "appearance": "Blue accent indicates informational nature"
       },
       "success": {
@@ -604,7 +646,11 @@
       },
       "error": {
         "when": "Error states, rejected items, issues requiring attention",
-        "examples": ["Rejected applications", "Form errors", "System issues"],
+        "examples": [
+          "Rejected applications",
+          "Form errors",
+          "System issues"
+        ],
         "appearance": "Red accent indicates problems or errors"
       },
       "important": {
@@ -677,7 +723,6 @@
       "Plan container hierarchy to avoid excessive nesting"
     ]
   },
-
   "accessibility": {
     "screenReader": [
       "Container structure is transparent to screen readers",
@@ -697,7 +742,6 @@
       "Maintain logical content structure within containers"
     ]
   },
-
   "troubleshooting": {
     "commonIssues": [
       {
@@ -727,7 +771,6 @@
       }
     ]
   },
-
   "relatedComponents": [
     {
       "name": "GoabCallout",
@@ -762,7 +805,6 @@
       "usage": "Use Details for simple show/hide content, Container for visual grouping and structure"
     }
   ],
-
   "commonMistakes": [
     {
       "mistake": "Using div or Container as the root page wrapper",
@@ -801,7 +843,6 @@
       "example": "// ❌ Wrong - type doesn't match content\n<GoabContainer type=\"error\">Welcome message and getting started guide</GoabContainer>\n\n// ✅ Correct - type matches content meaning\n<GoabContainer type=\"success\">Application approved - next steps below</GoabContainer>\n<GoabContainer type=\"interactive\">Welcome message and getting started guide</GoabContainer>"
     }
   ],
-
   "frameworkNotes": {
     "propCasing": {
       "react": "Use camelCase: maxWidth, testId",
@@ -827,13 +868,104 @@
       "maxWidth": "Honors maxWidth prop across all screen sizes for content readability"
     }
   },
-
-  "tags": ["card", "grouping", "content-sections", "semantic", "interactive"],
+  "tags": [
+    "card",
+    "grouping",
+    "content-sections",
+    "semantic",
+    "interactive"
+  ],
   "category": "component",
   "status": "stable",
   "lastUpdated": "2025-06-26",
   "derivedFrom": {
     "maintainerVersion": "../maintainer/container.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "show-full-date-in-a-tooltip",
+        "title": "Show full date in a tooltip",
+        "description": "Display human-readable relative time (e.g., '4 hours ago') with the complete date and time information available on hover through a tooltip.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "tooltip",
+          "dates",
+          "time-display"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "show-status-on-a-card",
+        "title": "Show status on a card",
+        "description": "Display status information using badges in the actions area of cards, providing prominent visual indicators for card content state or priority.",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "cards",
+          "status-badges",
+          "containers"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "card-view-of-case-files",
+        "title": "Card view of case files",
+        "description": "Display case files in a card-based layout with status indicators, priority information, and action buttons for efficient case management.",
+        "useCase": "layout-patterns pattern for worker workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "case-management",
+          "cards",
+          "file-organization"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "review-and-action",
+        "title": "Review and action",
+        "description": "Present information for review with clear action options, allowing users to make informed decisions before proceeding.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "review",
+          "decision-making",
+          "action-cards"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "card-grid",
+        "title": "Card grid",
+        "description": "Organize content into a responsive grid of cards for services, options, or information display with consistent spacing and alignment.",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "grid",
+          "cards",
+          "layout"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "worker-dashboard-overview",
+        "title": "Worker dashboard overview",
+        "description": "Create comprehensive operational dashboards for government workers with case management, statistics overview, priority queues, and bulk action capabilities for efficient workflow management.",
+        "useCase": "layout-patterns pattern for worker workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "dashboard",
+          "case-management",
+          "worker-productivity"
+        ],
+        "category": "layout-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for container in realistic scenarios"
+    }
   }
 }

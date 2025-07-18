@@ -158,16 +158,6 @@
             "title": "Beta Service with Feedback",
             "description": "Beta service with external feedback collection",
             "code": "function BetaServicePage() {\n  return (\n    <>\n      <GoabMicrositeHeader \n        type=\"beta\" \n        feedbackUrl=\"https://forms.alberta.ca/beta-feedback\"\n      />\n      <main>\n        <h1>My Beta Service</h1>\n        <p>This service is in public beta testing.</p>\n      </main>\n    </>\n  );\n}"
-          },
-          {
-            "title": "Service with Custom Feedback Handler",
-            "description": "Service with programmatic feedback collection",
-            "code": "function ServiceWithFeedback() {\n  const [showFeedbackModal, setShowFeedbackModal] = React.useState(false);\n  \n  const handleFeedback = () => {\n    setShowFeedbackModal(true);\n    // Track feedback interaction\n    analytics.track('feedback_clicked', { service: 'my-service' });\n  };\n  \n  return (\n    <>\n      <GoabMicrositeHeader \n        type=\"beta\" \n        hasFeedbackHandler={true}\n        onFeedbackClick={handleFeedback}\n      />\n      <main>\n        <h1>My Service</h1>\n        {/* Service content */}\n      </main>\n      {showFeedbackModal && (\n        <FeedbackModal onClose={() => setShowFeedbackModal(false)} />\n      )}\n    </>\n  );\n}"
-          },
-          {
-            "title": "Service with Version Information",
-            "description": "Header with version details in slot",
-            "code": "function ServiceWithVersion() {\n  return (\n    <>\n      <GoabMicrositeHeader \n        type=\"live\"\n        version={\n          <>\n            <span>Version <strong>2.1.4</strong></span>\n            <span>Released: March 2025</span>\n          </>\n        }\n      />\n      <main>\n        <h1>My Production Service</h1>\n        <p>This service is live and available to the public.</p>\n      </main>\n    </>\n  );\n}"
           }
         ],
         "angular": [
@@ -180,11 +170,6 @@
             "title": "Beta Service with Feedback",
             "description": "Beta service with external feedback collection",
             "code": "<goab-microsite-header \n  type=\"beta\" \n  feedbackUrl=\"https://forms.alberta.ca/beta-feedback\">\n</goab-microsite-header>\n<main>\n  <h1>My Beta Service</h1>\n  <p>This service is in public beta testing.</p>\n</main>"
-          },
-          {
-            "title": "Service with Custom Feedback Handler",
-            "description": "Service with programmatic feedback collection",
-            "code": "@Component({\n  template: `\n    <goab-microsite-header \n      type=\"beta\" \n      [hasFeedbackHandler]=\"true\"\n      (onFeedbackClick)=\"handleFeedback()\">\n    </goab-microsite-header>\n    <main>\n      <h1>My Service</h1>\n      <!-- Service content -->\n    </main>\n    <app-feedback-modal \n      *ngIf=\"showFeedbackModal\" \n      (close)=\"showFeedbackModal = false\">\n    </app-feedback-modal>\n  `\n})\nexport class ServiceComponent {\n  showFeedbackModal = false;\n  \n  handleFeedback() {\n    this.showFeedbackModal = true;\n    // Track feedback interaction\n    this.analytics.track('feedback_clicked', { service: 'my-service' });\n  }\n}"
           }
         ],
         "webComponent": [
@@ -192,11 +177,6 @@
             "title": "Alpha Service Header",
             "description": "Header for service in early development/testing",
             "code": "<goa-microsite-header type=\"alpha\"></goa-microsite-header>\n<main>\n  <h1>My Alpha Service</h1>\n  <p>This service is in early development and testing.</p>\n</main>"
-          },
-          {
-            "title": "Service with Custom Feedback Handler",
-            "description": "Service with programmatic feedback collection",
-            "code": "<goa-microsite-header \n  type=\"beta\" \n  hasfeedbackhandler=\"true\"\n  id=\"service-header\">\n</goa-microsite-header>\n<main>\n  <h1>My Service</h1>\n  <!-- Service content -->\n</main>\n\n<script>\n  const header = document.getElementById('service-header');\n  header.addEventListener('_feedbackClick', (event) => {\n    console.log('Feedback clicked');\n    // Show feedback modal or form\n    showFeedbackDialog();\n    // Track analytics\n    analytics.track('feedback_clicked', { service: 'my-service' });\n  });\n  \n  function showFeedbackDialog() {\n    // Implementation for feedback collection\n  }\n</script>"
           }
         ]
       },
@@ -487,5 +467,39 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/microsite_header.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "show-version-number",
+        "title": "Show version number",
+        "description": "Display application or service version information in the microsite header, providing transparency about software versions and development stages to users and administrators.",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "versioning",
+          "microsite-header",
+          "transparency"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "link-the-user-to-give-feedback-to-the-service",
+        "title": "Link the User to Give Feedback to the Service",
+        "description": "Provide users with a direct way to give feedback about the service through integrated feedback links in the application header",
+        "useCase": "navigation-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "feedback",
+          "microsite-header",
+          "user-feedback"
+        ],
+        "category": "navigation-pattern"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for micrositeheader in realistic scenarios"
+    }
   }
 }

@@ -180,16 +180,6 @@
   "usage": {
     "react": [
       {
-        "title": "Service Maintenance Notification",
-        "description": "Important system maintenance announcement with contact link",
-        "code": "import { GoabNotification } from '@abgov/react-components';\n\nfunction MaintenanceNotification() {\n  const handleDismiss = () => {\n    // Track notification dismissal\n    analytics.track('notification_dismissed', { type: 'maintenance' });\n  };\n\n  return (\n    <GoabNotification \n      type=\"important\" \n      onDismiss={handleDismiss}\n    >\n      Our system will be under maintenance from Thursday, September 15, 2025 \n      at 10 pm to Friday, September 16, 2025 at 10 am. If you have questions \n      or concerns, contact us at{' '}\n      <a href=\"mailto:support@alberta.ca\">support@alberta.ca</a>.\n    </GoabNotification>\n  );\n}"
-      },
-      {
-        "title": "Emergency Service Alert",
-        "description": "Critical emergency notification with assertive announcement",
-        "code": "import { GoabNotification } from '@abgov/react-components';\n\nfunction EmergencyAlert() {\n  return (\n    <GoabNotification \n      type=\"emergency\" \n      ariaLive=\"assertive\"\n    >\n      Service outage affecting all users. We are working to resolve this issue. \n      Check our{' '}\n      <a href=\"/status\" target=\"_blank\" rel=\"noopener noreferrer\">\n        status page\n      </a>{' '}\n      for updates.\n    </GoabNotification>\n  );\n}"
-      },
-      {
         "title": "Application Deadline Extension",
         "description": "Information notification for deadline changes",
         "code": "import { GoabNotification } from '@abgov/react-components';\n\nfunction DeadlineNotification() {\n  return (\n    <GoabNotification type=\"information\">\n      Application deadline extended by 3 months due to high demand. \n      New deadline: March 31, 2025.\n    </GoabNotification>\n  );\n}"
@@ -404,5 +394,27 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/notification-banner.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "communicate-a-future-service-outage",
+        "title": "Communicate a future service outage",
+        "description": "Notify users of planned service disruptions and maintenance windows with clear timing and alternative options",
+        "useCase": "communication-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "service-outage",
+          "notification",
+          "maintenance"
+        ],
+        "category": "communication-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for notification-banner in realistic scenarios"
+    }
   }
 }

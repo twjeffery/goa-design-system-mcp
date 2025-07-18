@@ -7,18 +7,19 @@
     "className": "GoabTable",
     "subComponents": {
       "sortHeader": {
-        "tagName": "goa-table-sort-header", 
+        "tagName": "goa-table-sort-header",
         "className": "GoabTableSortHeader"
       }
     }
   },
   "summary": "Interactive data table component with sorting support for displaying structured information in rows and columns",
-  
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
-    "dependencies": ["Design token system", "Ionicons (for sort arrows)"]
+    "dependencies": [
+      "Design token system",
+      "Ionicons (for sort arrows)"
+    ]
   },
-
   "installation": {
     "react": {
       "import": "import { GoabTable, GoabTableSortHeader } from '@abgov/react-components'",
@@ -33,7 +34,6 @@
       "quickExample": "<goa-table>\n  <thead>\n    <tr>\n      <th>\n        <goa-table-sort-header direction=\"none\">Name</goa-table-sort-header>\n      </th>\n      <th>Department</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>John Doe</td>\n      <td>Engineering</td>\n    </tr>\n  </tbody>\n</goa-table>"
     }
   },
-
   "api": {
     "table": {
       "props": [
@@ -50,7 +50,10 @@
           "type": "string",
           "default": "default",
           "required": false,
-          "allowedValues": ["default", "relaxed"],
+          "allowedValues": [
+            "default",
+            "relaxed"
+          ],
           "description": "Visual density variant of the table",
           "usage": "Use 'relaxed' for tables with longer content or improved readability"
         },
@@ -88,7 +91,6 @@
       ]
     }
   },
-
   "playgroundExamples": {
     "basic": {
       "title": "Standard Data Table",
@@ -121,7 +123,6 @@
       ]
     }
   },
-
   "usage": {
     "basicExamples": {
       "react": [
@@ -149,7 +150,6 @@
         }
       ]
     },
-
     "advancedExamples": {
       "react": [
         {
@@ -160,7 +160,6 @@
       ]
     }
   },
-
   "designGuidance": {
     "when": {
       "use": [
@@ -211,7 +210,6 @@
       "Test with screen readers and keyboard-only navigation"
     ]
   },
-
   "relatedComponents": [
     {
       "name": "GoabPagination",
@@ -244,25 +242,38 @@
       "example": "Search input to filter table content"
     }
   ],
-
   "commonPatterns": [
     {
       "name": "Data Dashboard Tables",
       "description": "Tables displaying key metrics and data in admin interfaces",
-      "components": ["Table", "Badge", "IconButton", "Pagination"]
+      "components": [
+        "Table",
+        "Badge",
+        "IconButton",
+        "Pagination"
+      ]
     },
     {
       "name": "User Management Interface",
       "description": "Tables for managing users, roles, and permissions",
-      "components": ["Table", "TableSortHeader", "IconButton", "Modal"]
+      "components": [
+        "Table",
+        "TableSortHeader",
+        "IconButton",
+        "Modal"
+      ]
     },
     {
       "name": "Content Management Lists",
       "description": "Tables displaying content items with metadata and actions",
-      "components": ["Table", "Badge", "ButtonGroup", "FilterChip"]
+      "components": [
+        "Table",
+        "Badge",
+        "ButtonGroup",
+        "FilterChip"
+      ]
     }
   ],
-
   "troubleshooting": [
     {
       "issue": "Sort direction not updating visually",
@@ -306,7 +317,6 @@
       "solution": "Implement pagination or virtual scrolling. Limit initial render to 50-100 rows maximum"
     }
   ],
-
   "accessibility": {
     "keyboardNavigation": [
       "Tab - Navigate through sortable headers and interactive elements",
@@ -325,38 +335,49 @@
       "Focus returns to triggering element after sort actions"
     ]
   },
-
   "performanceConsiderations": [
     "Limit initial table size to 50-100 rows for optimal performance",
-    "Use pagination for datasets larger than 100 items", 
+    "Use pagination for datasets larger than 100 items",
     "Implement client-side sorting only for smaller datasets (< 1000 items)",
     "Consider virtual scrolling for very large datasets",
     "Optimize re-renders by memoizing sort functions and data transformations"
   ],
-
   "propertyValidation": {
     "enforcementRule": "ONLY use documented property values - invalid properties break component functionality",
     "validationRequired": true
   },
-  
   "strictPropertyEnforcement": {
     "variant": {
-      "validValues": ["default", "relaxed"],
-      "commonMistakes": ["normal", "compact", "dense"],
+      "validValues": [
+        "default",
+        "relaxed"
+      ],
+      "commonMistakes": [
+        "normal",
+        "compact",
+        "dense"
+      ],
       "invalidExamples": [
         "❌ variant='normal' (should be variant='default')",
         "❌ variant='compact' (not a valid table variant)"
       ]
     },
     "width": {
-      "validValues": ["auto", "100%", "specific pixel values"],
-      "examples": ["100%", "auto", "800px"],
+      "validValues": [
+        "auto",
+        "100%",
+        "specific pixel values"
+      ],
+      "examples": [
+        "100%",
+        "auto",
+        "800px"
+      ],
       "invalidExamples": [
         "❌ width='full' (should be width='100%')"
       ]
     }
   },
-
   "aiHints": {
     "commonMistakes": [
       "Not wrapping GoabTableSortHeader in <th> elements - causes column alignment issues",
@@ -371,13 +392,131 @@
       "why": "Proper table semantics ensure correct column alignment and accessibility"
     }
   },
-
-  "tags": ["data-display", "interactive", "sortable", "table", "grid", "responsive"],
+  "tags": [
+    "data-display",
+    "interactive",
+    "sortable",
+    "table",
+    "grid",
+    "responsive"
+  ],
   "category": "component",
   "status": "stable",
   "lastUpdated": "2025-07-02",
   "derivedFrom": {
     "maintainerVersion": "../maintainer/table.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "show-different-views-of-data-in-a-table",
+        "title": "Show different views of data in a table",
+        "description": "Use tabs to organize and filter table data into different views, allowing users to switch between comprehensive and filtered perspectives of the same dataset.",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "tables",
+          "tabs",
+          "data-filtering"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "show-number-of-results-per-page",
+        "title": "Show number of results per page",
+        "description": "Implement pagination controls with configurable results per page, allowing users to adjust how many items are displayed at once while maintaining their position in the dataset.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "pagination",
+          "data-display",
+          "results-per-page"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "show-status-in-a-table",
+        "title": "Show status in a table",
+        "description": "Display status information using badges within table cells to provide clear, scannable visual indicators of item states, progress, or conditions.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "tables",
+          "status-badges",
+          "data-display"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "task-list-page",
+        "title": "Task list page",
+        "description": "Organize complex multi-step services into manageable tasks with clear status indication, allowing users to complete sections in any order and track their progress.",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "task-management",
+          "progress-tracking",
+          "multi-step-forms"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "worker-dashboard-overview",
+        "title": "Worker dashboard overview",
+        "description": "Create comprehensive operational dashboards for government workers with case management, statistics overview, priority queues, and bulk action capabilities for efficient workflow management.",
+        "useCase": "layout-patterns pattern for worker workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "dashboard",
+          "case-management",
+          "worker-productivity"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "sort-data-in-a-table",
+        "title": "Sort data in a table",
+        "description": "Enable users to sort table data by different columns to find and organize information according to their needs",
+        "useCase": "data-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "table",
+          "sorting",
+          "data-organization"
+        ],
+        "category": "data-patterns"
+      },
+      {
+        "id": "display-numbers-in-a-table-so-they-can-be-scanned-easily",
+        "title": "Display numbers in a table so they can be scanned easily",
+        "description": "Format numerical data in tables for optimal readability and scanning, using proper alignment and formatting techniques",
+        "useCase": "data-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "table",
+          "numerical-data",
+          "readability"
+        ],
+        "category": "data-patterns"
+      },
+      {
+        "id": "filter-data-in-a-table",
+        "title": "Filter data in a table",
+        "description": "Allow users to filter table data to show only relevant information based on their criteria and search needs",
+        "useCase": "data-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "table",
+          "filtering",
+          "data-search"
+        ],
+        "category": "data-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for table in realistic scenarios"
+    }
   }
 }

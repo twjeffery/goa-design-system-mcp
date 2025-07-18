@@ -523,5 +523,52 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/details.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "reveal-more-information-to-help-answer-a-question",
+        "title": "Reveal More Information to Help Answer a Question",
+        "description": "Provide expandable contextual information to help users understand and answer form questions without overwhelming the main question",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "progressive-disclosure",
+          "contextual-help",
+          "form-guidance"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "show-a-list-to-help-answer-a-question",
+        "title": "Show a list to help answer a question",
+        "description": "Present structured lists of options, examples, or instructions to help users understand and complete form fields accurately",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "lists",
+          "form-guidance",
+          "examples"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "ask-a-user-for-direct-deposit-information",
+        "title": "Ask a user for direct deposit information",
+        "description": "Collect banking information for direct deposit with proper validation, security considerations, and helpful guidance for users",
+        "useCase": "form-pattern pattern for citizen workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "direct-deposit",
+          "banking-information",
+          "financial-forms"
+        ],
+        "category": "form-pattern"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for details in realistic scenarios"
+    }
   }
 }

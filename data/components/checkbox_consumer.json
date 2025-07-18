@@ -3,21 +3,31 @@
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "Checkbox",
   "summary": "Interactive checkbox component for multi-selection scenarios with support for conditional reveal content",
-
   "customElement": {
     "tagName": "goa-checkbox",
     "className": "goa-checkbox"
   },
-
   "playgroundExamples": {
     "react": [
       {
         "title": "Basic Checkbox Usage",
         "description": "Fundamental checkbox patterns including single option and basic lists",
         "interactiveProps": [
-          { "name": "checked", "type": "boolean", "default": false },
-          { "name": "disabled", "type": "boolean", "default": false },
-          { "name": "error", "type": "boolean", "default": false }
+          {
+            "name": "checked",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "error",
+            "type": "boolean",
+            "default": false
+          }
         ],
         "code": "function BasicCheckboxExample() {\n  const [singleConsent, setSingleConsent] = useState(false);\n  const [basicOptions, setBasicOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false\n  });\n\n  const handleSingleChange = (name, checked) => {\n    setSingleConsent(checked);\n  };\n\n  const handleBasicChange = (name, checked) => {\n    setBasicOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  return (\n    <GoabBlock gap=\"xl\" mb=\"none\" direction=\"column\">\n      {/* Single checkbox option */}\n      <GoabCheckbox\n        name=\"consent\"\n        text=\"Single checkbox option - I consent to...\"\n        checked={singleConsent}\n        onChange={handleSingleChange}\n      />\n\n      {/* Basic checkbox list */}\n      <GoabFormItem label=\"Basic checkbox list\">\n        <GoabCheckbox\n          name=\"option1\"\n          text=\"Option 1\"\n          checked={basicOptions.option1}\n          onChange={handleBasicChange}\n          description={\n            <span>\n              Help text with a <a href=\"#\">link</a>.\n            </span>\n          }\n        />\n        <GoabCheckbox\n          name=\"option2\"\n          text=\"Option 2\"\n          checked={basicOptions.option2}\n          onChange={handleBasicChange}\n        />\n        <GoabCheckbox\n          name=\"option3\"\n          text=\"Option 3\"\n          checked={basicOptions.option3}\n          onChange={handleBasicChange}\n          description={\n            <span>\n              Help text with a <a href=\"#\">link</a>.\n            </span>\n          }\n        />\n      </GoabFormItem>\n    </GoabBlock>\n  );\n}",
         "notes": "Demonstrates the most basic checkbox usage patterns. Note how single checkboxes work independently while grouped checkboxes benefit from FormItem wrapper."
@@ -26,8 +36,16 @@
         "title": "Helper Text and Descriptions",
         "description": "Show how to provide context and guidance for checkbox options",
         "interactiveProps": [
-          { "name": "includeHelper", "type": "boolean", "default": true },
-          { "name": "includeDescriptions", "type": "boolean", "default": true }
+          {
+            "name": "includeHelper",
+            "type": "boolean",
+            "default": true
+          },
+          {
+            "name": "includeDescriptions",
+            "type": "boolean",
+            "default": true
+          }
         ],
         "code": "function CheckboxWithHelpExample() {\n  const [helpOptions, setHelpOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false\n  });\n\n  const [descriptionOptions, setDescriptionOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false\n  });\n\n  const handleHelpChange = (name, checked) => {\n    setHelpOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  const handleDescriptionChange = (name, checked) => {\n    setDescriptionOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  return (\n    <GoabBlock gap=\"xl\" direction=\"column\">\n      {/* With helper text */}\n      <GoabFormItem\n        label=\"Basic checkbox list with helper text\"\n        helpText=\"Helper text to help answer the question\"\n      >\n        <GoabCheckbox\n          name=\"help1\"\n          text=\"Option 1\"\n          checked={helpOptions.option1}\n          onChange={handleHelpChange}\n        />\n        <GoabCheckbox\n          name=\"help2\"\n          text=\"Option 2\"\n          checked={helpOptions.option2}\n          onChange={handleHelpChange}\n        />\n        <GoabCheckbox\n          name=\"help3\"\n          text=\"Option 3\"\n          checked={helpOptions.option3}\n          onChange={handleHelpChange}\n        />\n      </GoabFormItem>\n\n      {/* With descriptions */}\n      <GoabFormItem label=\"Checkbox list with descriptions\">\n        <GoabCheckbox\n          name=\"desc1\"\n          text=\"Option 1\"\n          checked={descriptionOptions.option1}\n          onChange={handleDescriptionChange}\n          description=\"here is a description\"\n        />\n        <GoabCheckbox\n          name=\"desc2\"\n          text=\"Option 2\"\n          checked={descriptionOptions.option2}\n          onChange={handleDescriptionChange}\n          description=\"here is a description\"\n        />\n        <GoabCheckbox\n          name=\"desc3\"\n          text=\"Option 3\"\n          checked={descriptionOptions.option3}\n          onChange={handleDescriptionChange}\n          description=\"here is a description\"\n          disabled={true}\n        />\n      </GoabFormItem>\n    </GoabBlock>\n  );\n}",
         "notes": "Use helpText at the FormItem level for questions that apply to the entire group. Use description on individual checkboxes for option-specific context."
@@ -36,8 +54,16 @@
         "title": "Disabled and Mixed States",
         "description": "Demonstrate various checkbox states including disabled options",
         "interactiveProps": [
-          { "name": "toggleDisabled", "type": "boolean", "default": false },
-          { "name": "longTextWrapping", "type": "boolean", "default": true }
+          {
+            "name": "toggleDisabled",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "longTextWrapping",
+            "type": "boolean",
+            "default": true
+          }
         ],
         "code": "function CheckboxStatesExample() {\n  const [stateOptions, setStateOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false,\n    option4: true // Pre-checked disabled\n  });\n\n  const [wrapOptions, setWrapOptions] = useState({\n    longOption: false,\n    option2: false\n  });\n\n  const handleStateChange = (name, checked) => {\n    setStateOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  const handleWrapChange = (name, checked) => {\n    setWrapOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  return (\n    <GoabBlock gap=\"xl\" direction=\"column\">\n      {/* Mixed disabled states */}\n      <GoabFormItem label=\"Checkbox list with some disabled\">\n        <GoabCheckbox\n          name=\"state1\"\n          text=\"Option 1\"\n          checked={stateOptions.option1}\n          onChange={handleStateChange}\n        />\n        <GoabCheckbox\n          name=\"state2\"\n          text=\"Option 2\"\n          checked={stateOptions.option2}\n          onChange={handleStateChange}\n        />\n        <GoabCheckbox\n          name=\"state3\"\n          text=\"Option 3\"\n          checked={stateOptions.option3}\n          onChange={handleStateChange}\n          disabled={true}\n        />\n        <GoabCheckbox\n          name=\"state4\"\n          text=\"Option 4\"\n          checked={stateOptions.option4}\n          onChange={handleStateChange}\n          disabled={true}\n        />\n      </GoabFormItem>\n\n      {/* Long text wrapping */}\n      <GoabFormItem label=\"Text wrapping behavior\">\n        <GoabCheckbox\n          name=\"longText\"\n          text=\"An option that wraps a long time until it goes to the next line that wraps a long time until it goes to the next line\"\n          checked={wrapOptions.longOption}\n          onChange={handleWrapChange}\n        />\n        <GoabCheckbox\n          name=\"normalText\"\n          text=\"Option 2\"\n          checked={wrapOptions.option2}\n          onChange={handleWrapChange}\n        />\n      </GoabFormItem>\n    </GoabBlock>\n  );\n}",
         "notes": "Disabled checkboxes can be either checked or unchecked. The component handles text wrapping automatically while maintaining proper alignment."
@@ -46,8 +72,16 @@
         "title": "Error States and Validation",
         "description": "Show error styling and validation patterns for checkbox groups",
         "interactiveProps": [
-          { "name": "showErrors", "type": "boolean", "default": true },
-          { "name": "includeHelper", "type": "boolean", "default": false }
+          {
+            "name": "showErrors",
+            "type": "boolean",
+            "default": true
+          },
+          {
+            "name": "includeHelper",
+            "type": "boolean",
+            "default": false
+          }
         ],
         "code": "function CheckboxErrorExample() {\n  const [errorOptions, setErrorOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false,\n    option4: true\n  });\n\n  const [validationOptions, setValidationOptions] = useState({\n    option1: false,\n    option2: false,\n    option3: false\n  });\n\n  const [showValidationError, setShowValidationError] = useState(false);\n\n  const handleErrorChange = (name, checked) => {\n    setErrorOptions(prev => ({ ...prev, [name]: checked }));\n  };\n\n  const handleValidationChange = (name, checked) => {\n    setValidationOptions(prev => ({ ...prev, [name]: checked }));\n    // Clear error when any option is selected\n    if (checked) {\n      setShowValidationError(false);\n    }\n  };\n\n  const validateSelection = () => {\n    const hasSelection = Object.values(validationOptions).some(Boolean);\n    if (!hasSelection) {\n      setShowValidationError(true);\n    }\n  };\n\n  return (\n    <GoabBlock gap=\"xl\" direction=\"column\">\n      {/* Error state display */}\n      <GoabFormItem\n        label=\"Checkbox list with error\"\n        error=\"Error message.\"\n      >\n        <GoabCheckbox\n          name=\"error1\"\n          text=\"Option 1\"\n          checked={errorOptions.option1}\n          onChange={handleErrorChange}\n          error={true}\n        />\n        <GoabCheckbox\n          name=\"error2\"\n          text=\"Option 2\"\n          checked={errorOptions.option2}\n          onChange={handleErrorChange}\n          error={true}\n        />\n        <GoabCheckbox\n          name=\"error3\"\n          text=\"Option 3\"\n          checked={errorOptions.option3}\n          onChange={handleErrorChange}\n          error={true}\n          disabled={true}\n        />\n        <GoabCheckbox\n          name=\"error4\"\n          text=\"Option 4\"\n          checked={errorOptions.option4}\n          onChange={handleErrorChange}\n          error={true}\n          disabled={true}\n        />\n      </GoabFormItem>\n\n      {/* Validation example */}\n      <GoabFormItem\n        label=\"Required selection\"\n        error={showValidationError ? \"Please select at least one option.\" : \"\"}\n        helpText=\"You must select at least one option to continue\"\n      >\n        <GoabCheckbox\n          name=\"validation1\"\n          text=\"Option 1\"\n          checked={validationOptions.option1}\n          onChange={handleValidationChange}\n          error={showValidationError}\n        />\n        <GoabCheckbox\n          name=\"validation2\"\n          text=\"Option 2\"\n          checked={validationOptions.option2}\n          onChange={handleValidationChange}\n          error={showValidationError}\n        />\n        <GoabCheckbox\n          name=\"validation3\"\n          text=\"Option 3\"\n          checked={validationOptions.option3}\n          onChange={handleValidationChange}\n          error={showValidationError}\n          mb=\"none\"\n        />\n      </GoabFormItem>\n\n      <GoabButton onClick={validateSelection} type=\"primary\">\n        Validate Selection\n      </GoabButton>\n    </GoabBlock>\n  );\n}",
         "notes": "Error states can be shown at both the group level (FormItem error) and individual checkbox level. Use mb='none' on the last checkbox to control spacing before error messages."
@@ -72,12 +106,13 @@
       }
     ]
   },
-
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
-    "dependencies": ["FormItem component (recommended)", "Design token system"]
+    "dependencies": [
+      "FormItem component (recommended)",
+      "Design token system"
+    ]
   },
-
   "installation": {
     "react": {
       "import": "import { GoabCheckbox, GoabFormItem } from '@abgov/react-components'",
@@ -92,7 +127,6 @@
       "quickExample": "<goa-form-item label=\"Contact preferences\">\n  <goa-checkbox name=\"email\" text=\"Email notifications\"></goa-checkbox>\n  <goa-checkbox name=\"sms\" text=\"SMS updates\"></goa-checkbox>\n</goa-form-item>"
     }
   },
-
   "api": {
     "props": [
       {
@@ -184,7 +218,6 @@
       }
     ]
   },
-
   "usage": {
     "basicExamples": {
       "react": [
@@ -228,7 +261,6 @@
       }
     ]
   },
-
   "designGuidance": {
     "whenToUse": [
       "Users can select multiple options from a list",
@@ -263,7 +295,6 @@
       "Announce state changes to assistive technology"
     ]
   },
-
   "troubleshooting": {
     "commonIssues": [
       {
@@ -298,7 +329,6 @@
       }
     ]
   },
-
   "relatedComponents": [
     {
       "name": "GoabFormItem",
@@ -331,7 +361,6 @@
       "example": "Terms acceptance required before form submission"
     }
   ],
-
   "commonMistakes": [
     {
       "mistake": "Using checkbox for single-selection scenarios",
@@ -352,14 +381,12 @@
       "example": "// ❌ Wrong - nested reveals\n<GoabCheckbox name=\"subscribe\" text=\"Subscribe\">\n  {subscribed && (\n    <GoabCheckbox name=\"frequency\" text=\"Daily digest\">\n      {daily && (\n        <GoabInput name=\"time\" placeholder=\"Preferred time\" />\n      )}\n    </GoabCheckbox>\n  )}\n</GoabCheckbox>\n\n// ✅ Correct\n<GoabCheckbox name=\"subscribe\" text=\"Subscribe to newsletter\">\n  {subscribed && (\n    <GoabInput name=\"email\" placeholder=\"Email address\" />\n  )}\n</GoabCheckbox>"
     }
   ],
-
   "frameworkNotes": {
     "propCasing": "React uses camelCase (checked, testId, ariaLabel) while web components use lowercase (checked, testid, aria-label)",
     "slotHandling": "React uses children for reveal content, Angular uses ng-template with #reveal reference, web components use default slot",
     "constraints": "name prop is required for form integration; checked state must be controlled in React",
     "responsiveBehavior": "Checkboxes maintain 46px touch targets on mobile devices automatically"
   },
-
   "accessibility": {
     "keyboardNavigation": [
       "Tab - Navigate to checkbox",
@@ -381,7 +408,6 @@
       "Focus moves appropriately to reveal content when shown"
     ]
   },
-
   "performanceConsiderations": [
     "Checkboxes are lightweight components with minimal overhead",
     "Event handling is optimized for frequent state changes",
@@ -389,13 +415,78 @@
     "Large lists of checkboxes should use virtualization if needed",
     "Form validation should be debounced for better user experience"
   ],
-
-  "tags": ["form", "input", "interactive", "multi-select", "accessible"],
+  "tags": [
+    "form",
+    "input",
+    "interactive",
+    "multi-select",
+    "accessible"
+  ],
   "category": "component",
   "status": "stable",
   "lastUpdated": "2025-06-26",
   "derivedFrom": {
     "maintainerVersion": "../maintainer/checkbox.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "worker-dashboard-overview",
+        "title": "Worker dashboard overview",
+        "description": "Create comprehensive operational dashboards for government workers with case management, statistics overview, priority queues, and bulk action capabilities for efficient workflow management.",
+        "useCase": "layout-patterns pattern for worker workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "dashboard",
+          "case-management",
+          "worker-productivity"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "include-descriptions-for-items-in-a-checkbox-list",
+        "title": "Include Descriptions for Items in a Checkbox List",
+        "description": "Add descriptive text to checkbox options to help users understand the implications and details of each choice",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "checkbox-descriptions",
+          "form-guidance",
+          "option-clarity"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "select-one-or-more-from-a-list-of-options",
+        "title": "Select One or More from a List of Options",
+        "description": "Allow users to select multiple options from a predefined list using checkboxes for scenarios requiring multiple selections",
+        "useCase": "form-control pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "multiple-selection",
+          "checkbox-lists",
+          "form-controls"
+        ],
+        "category": "form-control"
+      },
+      {
+        "id": "reveal-more-information-to-help-answer-a-question",
+        "title": "Reveal More Information to Help Answer a Question",
+        "description": "Provide expandable contextual information to help users understand and answer form questions without overwhelming the main question",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "progressive-disclosure",
+          "contextual-help",
+          "form-guidance"
+        ],
+        "category": "form-pattern"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for checkbox in realistic scenarios"
+    }
   }
 }

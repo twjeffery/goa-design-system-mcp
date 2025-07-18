@@ -434,5 +434,54 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/date-picker.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "slotted-helper-text-in-a-form-item",
+        "title": "Slotted helper text in a form item",
+        "description": "Provide rich, formatted helper content for form fields using form item slots, enabling complex guidance with emphasis, links, or structured information to assist users.",
+        "useCase": "form-controls pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "forms",
+          "helper-text",
+          "guidance",
+          "slots"
+        ],
+        "category": "form-controls"
+      },
+      {
+        "id": "reset-date-picker-field",
+        "title": "Reset Date Picker Field",
+        "description": "Programmatically set or clear date picker values with control buttons for flexible date field management",
+        "useCase": "form-control pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "date-picker",
+          "form-control",
+          "reset-functionality"
+        ],
+        "category": "form-control"
+      },
+      {
+        "id": "slotted-error-text-in-a-form-item",
+        "title": "Slotted error text in a form item",
+        "description": "Use rich, formatted content for form validation error messages by leveraging form item slots, enabling complex error messaging with emphasis, links, or structured information.",
+        "useCase": "form-controls pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "forms",
+          "validation",
+          "error-handling",
+          "slots"
+        ],
+        "category": "form-controls"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for date-picker in realistic scenarios"
+    }
   }
 }

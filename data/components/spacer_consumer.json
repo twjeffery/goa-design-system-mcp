@@ -6,7 +6,7 @@
       "examples": [
         "❌ <GoabFormItem> + <GoabSpacer vSpacing='2xl'>",
         "✅ <GoabFormItem mb='2xl'>",
-        "❌ <GoabButton> + <GoabSpacer vSpacing='3xl'>", 
+        "❌ <GoabButton> + <GoabSpacer vSpacing='3xl'>",
         "✅ <GoabButton mb='3xl'>"
       ]
     },
@@ -27,23 +27,27 @@
   "audience": "ai-systems-helping-consumer-developers",
   "summary": "Layout utility for creating consistent negative space between elements using design system spacing tokens",
   "category": "layout",
-  "tags": ["spacing", "layout", "utility", "negative-space"],
+  "tags": [
+    "spacing",
+    "layout",
+    "utility",
+    "negative-space"
+  ],
   "status": "stable",
-
   "customElement": {
     "tagName": "goa-spacer",
     "className": "GoabSpacer"
   },
-
   "playgroundExamples": {
     "note": "Playground configurations will be added in future versions"
   },
-
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
-    "dependencies": ["@abgov/web-components", "@abgov/design-tokens"]
+    "dependencies": [
+      "@abgov/web-components",
+      "@abgov/design-tokens"
+    ]
   },
-
   "installation": {
     "react": {
       "import": "import { GoabSpacer } from '@abgov/react-components'",
@@ -58,7 +62,6 @@
       "quickExample": "<goa-spacer hspacing=\"m\" vspacing=\"l\"></goa-spacer>"
     }
   },
-
   "api": {
     "props": [
       {
@@ -115,7 +118,6 @@
       }
     ]
   },
-
   "designGuidance": {
     "when": [
       "When you need precise spacing control beyond component gap/margin props",
@@ -153,7 +155,6 @@
       ]
     }
   },
-
   "commonMistakes": [
     {
       "mistake": "Using incorrect prop names",
@@ -192,7 +193,6 @@
       "explanation": "Component margin properties create cleaner, more maintainable spacing relationships"
     }
   ],
-
   "usage": {
     "react": [
       {
@@ -206,5 +206,5 @@
         "code": "import { GoabSpacer, GoabBlock, GoabFormItem, GoabInput, GoabButton } from '@abgov/react-components';\n\nfunction ApplicationForm() {\n  return (\n    <form className=\"application-form\">\n      <GoabBlock direction=\"column\" gap=\"none\">\n        <h2>Personal Information</h2>\n        \n        <GoabSpacer vSpacing=\"m\" />\n        \n        <GoabBlock direction=\"row\" gap=\"none\">\n          <GoabFormItem label=\"First Name\">\n            <GoabInput name=\"firstName\" />\n          </GoabFormItem>\n          \n          <GoabSpacer hSpacing=\"m\" />\n          \n          <GoabFormItem label=\"Last Name\">\n            <GoabInput name=\"lastName\" />\n          </GoabFormItem>\n        </GoabBlock>\n        \n        <GoabSpacer vSpacing=\"l\" />\n        \n        <GoabFormItem label=\"Email Address\">\n          <GoabInput name=\"email\" type=\"email\" />\n        </GoabFormItem>\n        \n        <GoabSpacer vSpacing=\"l\" />\n        \n        <GoabFormItem label=\"Phone Number\">\n          <GoabInput name=\"phone\" type=\"tel\" />\n        </GoabFormItem>\n        \n        <GoabSpacer vSpacing=\"2xl\" />\n        \n        <h2>Address Information</h2>\n        \n        <GoabSpacer vSpacing=\"m\" />\n        \n        <GoabFormItem label=\"Street Address\">\n          <GoabInput name=\"address\" />\n        </GoabFormItem>\n        \n        <GoabSpacer vSpacing=\"l\" />\n        \n        <GoabBlock direction=\"row\" gap=\"none\">\n          <GoabFormItem label=\"City\">\n            <GoabInput name=\"city\" />\n          </GoabFormItem>\n          \n          <GoabSpacer hSpacing=\"m\" />\n          \n          <GoabFormItem label=\"Province\">\n            <GoabInput name=\"province\" />\n          </GoabFormItem>\n          \n          <GoabSpacer hSpacing=\"m\" />\n          \n          <GoabFormItem label=\"Postal Code\">\n            <GoabInput name=\"postalCode\" />\n          </GoabFormItem>\n        </GoabBlock>\n"
       }
     ]
-  }
+  },
 }

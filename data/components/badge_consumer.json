@@ -8,12 +8,13 @@
   },
   "summary": "Small status labels that provide contextual feedback and system states",
   "purpose": "Display small amounts of information, system feedback, or states with clear visual hierarchy",
-
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
-    "dependencies": ["Design token system", "Icon system"]
+    "dependencies": [
+      "Design token system",
+      "Icon system"
+    ]
   },
-
   "installation": {
     "react": {
       "import": "import { GoabBadge } from '@abgov/react-components'",
@@ -28,14 +29,21 @@
       "quickExample": "<goa-badge type=\"success\" content=\"Complete\"></goa-badge>"
     }
   },
-
   "api": {
     "props": [
       {
         "name": "type",
         "type": "string",
         "required": true,
-        "allowedValues": ["success", "important", "information", "emergency", "dark", "midtone", "light"],
+        "allowedValues": [
+          "success",
+          "important",
+          "information",
+          "emergency",
+          "dark",
+          "midtone",
+          "light"
+        ],
         "description": "Define the context and visual style of the badge",
         "examples": {
           "success": "Completed tasks, approved status",
@@ -68,7 +76,7 @@
       },
       {
         "name": "testId",
-        "type": "string", 
+        "type": "string",
         "required": false,
         "description": "Data attribute for testing automation"
       },
@@ -76,33 +84,80 @@
         "name": "mt",
         "type": "string",
         "required": false,
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
         "description": "Apply margin to the top of the component"
       },
       {
         "name": "mr",
         "type": "string",
         "required": false,
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
         "description": "Apply margin to the right of the component"
       },
       {
         "name": "mb",
         "type": "string",
         "required": false,
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
         "description": "Apply margin to the bottom of the component"
       },
       {
         "name": "ml",
         "type": "string",
         "required": false,
-        "allowedValues": ["none", "3xs", "2xs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"],
+        "allowedValues": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
         "description": "Apply margin to the left of the component"
       }
     ]
   },
-
   "usageExamples": {
     "react": [
       {
@@ -137,13 +192,12 @@
     ],
     "webComponent": [
       {
-        "title": "Simple Status Display", 
+        "title": "Simple Status Display",
         "description": "Basic badge usage for status indication",
         "code": "<div class=\"status-section\">\n  <span>Application Status:</span>\n  <goa-badge type=\"success\" content=\"Approved\" testid=\"app-status\"></goa-badge>\n</div>\n\n<div class=\"priority-section\">\n  <span>Priority Level:</span>\n  <goa-badge type=\"important\" content=\"High\" testid=\"priority-level\"></goa-badge>\n</div>"
       }
     ]
   },
-
   "designGuidance": {
     "whenToUse": [
       "Display status information in tables, lists, or cards",
@@ -171,7 +225,6 @@
       "Badge content should be concise and descriptive"
     ]
   },
-
   "troubleshooting": {
     "commonIssues": [
       {
@@ -201,7 +254,6 @@
       }
     ]
   },
-
   "relatedComponents": [
     {
       "name": "Block",
@@ -209,7 +261,7 @@
       "example": "Use Block component with gap prop to control spacing between badge groups"
     },
     {
-      "name": "Table", 
+      "name": "Table",
       "usage": "Status columns in data tables",
       "example": "Badge components work well in table cells for status indication"
     },
@@ -224,28 +276,36 @@
       "example": "Use badges for status display, buttons for actions"
     }
   ],
-
   "integrationPatterns": [
     {
       "name": "Status Table Pattern",
       "description": "Use badges in table cells to show status information",
-      "components": ["Badge", "Table"],
+      "components": [
+        "Badge",
+        "Table"
+      ],
       "example": "Status column in application lists or task management"
     },
     {
-      "name": "Card Labeling Pattern", 
+      "name": "Card Labeling Pattern",
       "description": "Add status and category badges to card components",
-      "components": ["Badge", "Card", "Block"],
+      "components": [
+        "Badge",
+        "Card",
+        "Block"
+      ],
       "example": "Project cards with status, priority, and category badges"
     },
     {
       "name": "Multi-Badge Display Pattern",
       "description": "Group related badges with proper spacing",
-      "components": ["Badge", "Block"],
+      "components": [
+        "Badge",
+        "Block"
+      ],
       "example": "Multiple status indicators or category tags"
     }
   ],
-
   "commonMistakes": [
     {
       "mistake": "Using badges for interactive elements",
@@ -272,14 +332,12 @@
       "example": "// ❌ Wrong - mixing types for same status\n<GoabBadge type=\"success\" content=\"Complete\" />\n<GoabBadge type=\"information\" content=\"Complete\" />\n// ✅ Correct - consistent mapping\n<GoabBadge type=\"success\" content=\"Complete\" />\n<GoabBadge type=\"success\" content=\"Finished\" />"
     }
   ],
-
   "frameworkNotes": {
     "propCasing": "React uses camelCase (ariaLabel, testId) while web components use lowercase (arialabel, testid)",
     "slotHandling": "Badge uses content prop in React/Angular, slot content in web components",
     "constraints": "Icon prop accepts boolean in React/Angular but string 'true'/'false' in web components",
     "responsiveBehavior": "Badges maintain fixed height (22px) and scale text appropriately across screen sizes"
   },
-
   "playgroundExamples": [
     {
       "title": "Badge Types Overview",
@@ -288,7 +346,15 @@
         {
           "name": "type",
           "control": "select",
-          "options": ["information", "important", "emergency", "success", "dark", "midtone", "light"],
+          "options": [
+            "information",
+            "important",
+            "emergency",
+            "success",
+            "dark",
+            "midtone",
+            "light"
+          ],
           "default": "information"
         },
         {
@@ -311,8 +377,13 @@
       "interactiveProps": [
         {
           "name": "type",
-          "control": "select", 
-          "options": ["information", "important", "emergency", "success"],
+          "control": "select",
+          "options": [
+            "information",
+            "important",
+            "emergency",
+            "success"
+          ],
           "default": "success"
         },
         {
@@ -325,7 +396,7 @@
       "notes": "Icon-only badges are perfect for compact layouts. Always include descriptive ariaLabel attributes for accessibility. The empty content prop combined with icon={true} creates icon-only badges."
     },
     {
-      "title": "Table Status Indicators", 
+      "title": "Table Status Indicators",
       "description": "Badge integration in data tables for status display with realistic data",
       "interactiveProps": [
         {
@@ -336,7 +407,13 @@
         {
           "name": "statusFilter",
           "control": "select",
-          "options": ["all", "success", "important", "emergency", "information"],
+          "options": [
+            "all",
+            "success",
+            "important",
+            "emergency",
+            "information"
+          ],
           "default": "all"
         }
       ],
@@ -350,12 +427,18 @@
         {
           "name": "spacing",
           "control": "select",
-          "options": ["3xs", "2xs", "xs", "s", "m"],
+          "options": [
+            "3xs",
+            "2xs",
+            "xs",
+            "s",
+            "m"
+          ],
           "default": "xs"
         },
         {
           "name": "showCategories",
-          "control": "boolean", 
+          "control": "boolean",
           "default": true
         }
       ],
@@ -369,7 +452,11 @@
         {
           "name": "layout",
           "control": "select",
-          "options": ["grid", "rows", "compact"],
+          "options": [
+            "grid",
+            "rows",
+            "compact"
+          ],
           "default": "rows"
         },
         {
@@ -388,7 +475,15 @@
         {
           "name": "type",
           "control": "select",
-          "options": ["information", "important", "emergency", "success", "dark", "midtone", "light"],
+          "options": [
+            "information",
+            "important",
+            "emergency",
+            "success",
+            "dark",
+            "midtone",
+            "light"
+          ],
           "default": "information"
         },
         {
@@ -419,13 +514,92 @@
       "notes": "This interactive example demonstrates proper badge validation. Badges must always have either content (text), an icon, or both. Empty badges are invalid and will not render. Pay attention to the validation messages that guide proper usage."
     }
   ],
-
-  "tags": ["status", "label", "indicator", "feedback", "information", "visual"],
-  "category": "component", 
+  "tags": [
+    "status",
+    "label",
+    "indicator",
+    "feedback",
+    "information",
+    "visual"
+  ],
+  "category": "component",
   "status": "stable",
   "lastUpdated": "2025-06-26",
   "derivedFrom": {
     "maintainerVersion": "../maintainer/badge.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "show-different-views-of-data-in-a-table",
+        "title": "Show different views of data in a table",
+        "description": "Use tabs to organize and filter table data into different views, allowing users to switch between comprehensive and filtered perspectives of the same dataset.",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "tables",
+          "tabs",
+          "data-filtering"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "show-status-in-a-table",
+        "title": "Show status in a table",
+        "description": "Display status information using badges within table cells to provide clear, scannable visual indicators of item states, progress, or conditions.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "tables",
+          "status-badges",
+          "data-display"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "show-status-on-a-card",
+        "title": "Show status on a card",
+        "description": "Display status information using badges in the actions area of cards, providing prominent visual indicators for card content state or priority.",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "cards",
+          "status-badges",
+          "containers"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "task-list-page",
+        "title": "Task list page",
+        "description": "Organize complex multi-step services into manageable tasks with clear status indication, allowing users to complete sections in any order and track their progress.",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "task-management",
+          "progress-tracking",
+          "multi-step-forms"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "worker-dashboard-overview",
+        "title": "Worker dashboard overview",
+        "description": "Create comprehensive operational dashboards for government workers with case management, statistics overview, priority queues, and bulk action capabilities for efficient workflow management.",
+        "useCase": "layout-patterns pattern for worker workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "dashboard",
+          "case-management",
+          "worker-productivity"
+        ],
+        "category": "layout-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for badge in realistic scenarios"
+    }
   }
 }

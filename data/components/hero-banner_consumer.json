@@ -94,11 +94,6 @@
     "basicExamples": {
       "react": [
         {
-          "title": "Service Landing Page",
-          "description": "Full hero banner for a government service landing page",
-          "code": "function ServiceLanding() {\n  return (\n    <GoabOneColumnLayout>\n      <section slot=\"header\">\n        <GoabMicrositeHeader type=\"live\" />\n        <GoabAppHeader heading=\"Online Services\" />\n      </section>\n      \n      <GoabHeroBanner\n        heading=\"Apply for Benefits Online\"\n        content=\"Get the support you need with our streamlined online application process. Complete your application in minutes and track your status.\"\n        backgroundImage=\"/images/benefits-hero.jpg\"\n        ctaText=\"Start Application\"\n        ctaUrl=\"/apply\"\n        size=\"large\"\n        alignment=\"left\"\n      />\n      \n      <GoabPageBlock width=\"960px\">\n        {/* Additional page content */}\n      </GoabPageBlock>\n      \n      <section slot=\"footer\">\n        <GoabAppFooter />\n      </section>\n    </GoabOneColumnLayout>\n  );\n}"
-        },
-        {
           "title": "Section Header",
           "description": "Medium-sized hero banner for page sections",
           "code": "function ProgramSection() {\n  return (\n    <GoabPageBlock width=\"960px\">\n      <GoabHeroBanner\n        heading=\"Housing Assistance Programs\"\n        content=\"Find programs to help with rent, utilities, and home ownership.\"\n        size=\"medium\"\n        alignment=\"center\"\n      />\n      \n      <GoabGrid minChildWidth=\"300px\" gap=\"l\" mt=\"xl\">\n        {/* Program cards */}\n      </GoabGrid>\n    </GoabPageBlock>\n  );\n}"
@@ -204,5 +199,27 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/hero-banner.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "hero-banner-with-actions",
+        "title": "Hero Banner with actions",
+        "description": "Create prominent page headers with call-to-action buttons and interactive elements for government service landing pages",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "hero-banner",
+          "actions",
+          "cta"
+        ],
+        "category": "layout-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for hero-banner in realistic scenarios"
+    }
   }
 }

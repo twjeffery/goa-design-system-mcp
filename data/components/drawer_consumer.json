@@ -276,5 +276,39 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/drawer.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "add-and-edit-lots-of-filters",
+        "title": "Add and edit lots of filters",
+        "description": "Use drawer panels to manage complex filtering interfaces with multiple criteria, categories, and options without overwhelming the main content area",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "filters",
+          "drawer",
+          "multi-criteria"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "add-a-record-using-a-drawer",
+        "title": "Add a record using a drawer",
+        "description": "Create new records or items using drawer forms that provide focused input experiences without navigating away from the current context",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "drawer",
+          "form",
+          "add-item"
+        ],
+        "category": "form-pattern"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for drawer in realistic scenarios"
+    }
   }
 }

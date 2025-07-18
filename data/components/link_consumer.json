@@ -153,11 +153,6 @@
           "code": "function BackNavigation() {\n  return (\n    <GoabLink leadingIcon=\"chevron-back\" mb=\"l\">\n      <a href=\"#\">Back</a>\n    </GoabLink>\n  );\n}"
         },
         {
-          "title": "External Link with Icon",
-          "description": "Link to external resource with visual indicator",
-          "code": "function ExternalLinkExample() {\n  return (\n    <div className=\"content\">\n      <p>\n        For more information, visit our \n        <GoabLink trailingIcon=\"open\">\n          <a href=\"https://alberta.ca\" target=\"_blank\" rel=\"noopener\">\n            official website\n          </a>\n        </GoabLink>\n        .\n      </p>\n    </div>\n  );\n}"
-        },
-        {
           "title": "Download Link",
           "description": "Link for file downloads with appropriate icon",
           "code": "function DocumentDownload({ documentUrl, documentName }) {\n  return (\n    <div className=\"document-list\">\n      <GoabLink leadingIcon=\"download\" mb=\"xs\">\n        <a href={documentUrl} download>\n          {documentName}\n        </a>\n      </GoabLink>\n    </div>\n  );\n}"
@@ -173,11 +168,6 @@
           "title": "Back Navigation",
           "description": "Standard back navigation with chevron icon",
           "code": "<goab-link leadingIcon=\"chevron-back\" mb=\"l\">\n  <a href=\"#\">Back</a>\n</goab-link>"
-        },
-        {
-          "title": "External Link with Icon",
-          "description": "Link to external resource with visual indicator",
-          "code": "<div class=\"content\">\n  <p>\n    For more information, visit our \n    <goab-link trailingIcon=\"open\">\n      <a href=\"https://alberta.ca\" target=\"_blank\" rel=\"noopener\">\n        official website\n      </a>\n    </goab-link>\n    .\n  </p>\n</div>"
         },
         {
           "title": "Download Link",
@@ -209,11 +199,6 @@
         "description": "Standard back navigation using chevron-back icon - never create custom SVG icons",
         "code": "// React\n<GoabLink leadingIcon=\"chevron-back\" mb=\"l\">\n  <a href=\"#\">Back</a>\n</GoabLink>\n\n// Angular\n<goab-link leadingIcon=\"chevron-back\" mb=\"l\">\n  <a href=\"#\">Back</a>\n</goab-link>\n\n// Web Component\n<goa-link leadingicon=\"chevron-back\" mb=\"l\">\n  <a href=\"#\">Back</a>\n</goa-link>",
         "dontImplementCustom": "Never create custom SVG icons - always use leadingIcon prop with system icons"
-      },
-      {
-        "name": "External Link Pattern",
-        "description": "Standard pattern for external links with proper accessibility",
-        "code": "// React\n<GoabLink trailingIcon=\"open\">\n  <a \n    href=\"https://external-site.com\" \n    target=\"_blank\" \n    rel=\"noopener noreferrer\"\n    aria-label=\"Visit external site (opens in new tab)\"\n  >\n    External Site\n  </a>\n</GoabLink>\n\n// Angular\n<goab-link trailingIcon=\"open\">\n  <a \n    href=\"https://external-site.com\" \n    target=\"_blank\" \n    rel=\"noopener noreferrer\"\n    aria-label=\"Visit external site (opens in new tab)\"\n  >\n    External Site\n  </a>\n</goab-link>"
       },
       {
         "name": "File Download Pattern",
@@ -475,5 +460,27 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/link.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "link-to-an-external-page",
+        "title": "Link to an external page",
+        "description": "Create links to external websites and resources with proper indicators and accessibility considerations for government applications",
+        "useCase": "navigation-patterns pattern for both workflows",
+        "difficulty": "basic",
+        "tags": [
+          "external-link",
+          "navigation",
+          "accessibility"
+        ],
+        "category": "navigation-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for link in realistic scenarios"
+    }
   }
 }

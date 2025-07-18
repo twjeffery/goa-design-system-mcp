@@ -2,16 +2,13 @@
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "lastUpdated": "2025-06-26",
-
   "customElement": {
     "tagName": "goa-grid",
     "className": "GoaGrid"
   },
-
   "playgroundExamples": {
     "// TODO": "Add playground configurations for interactive examples"
   },
-
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
     "dependencies": [
@@ -20,14 +17,12 @@
       "CSS Grid support"
     ]
   },
-
   "componentInfo": {
     "name": "Grid",
     "purpose": "Create responsive layouts that automatically adjust column count based on content width and screen size",
     "category": "layout",
     "bestFor": "Card layouts, dashboards, content galleries, and multi-column responsive designs"
   },
-
   "installation": {
     "react": {
       "import": "import { GoabGrid } from '@abgov/react-components'",
@@ -42,7 +37,6 @@
       "quickExample": "<!-- Basic content grid -->\n<goa-grid minchildwidth=\"280px\" gap=\"l\">\n  <div class=\"content-item\">\n    <h3>News Article 1</h3>\n    <p>Latest updates from the government</p>\n  </div>\n  <div class=\"content-item\">\n    <h3>News Article 2</h3>\n    <p>New services available to residents</p>\n  </div>\n  <div class=\"content-item\">\n    <h3>News Article 3</h3>\n    <p>Important policy changes</p>\n  </div>\n</goa-grid>\n\n<!-- Grid with margins -->\n<goa-grid \n  minchildwidth=\"320px\" \n  gap=\"m\" \n  mt=\"xl\" \n  mb=\"l\">\n  <goa-card>Card 1</goa-card>\n  <goa-card>Card 2</goa-card>\n  <goa-card>Card 3</goa-card>\n</goa-grid>"
     }
   },
-
   "api": {
     "props": [
       {
@@ -98,7 +92,6 @@
     ],
     "children": "Any content - commonly Cards, content blocks, or custom components"
   },
-
   "usage": {
     "basicExamples": {
       "react": [
@@ -135,7 +128,6 @@
       }
     ]
   },
-
   "designGuidance": {
     "whenToUse": [
       "Displaying cards or content blocks in a responsive layout",
@@ -173,7 +165,6 @@
       "Ensure adequate spacing for mobile interaction"
     ]
   },
-
   "accessibility": {
     "keyboardNavigation": [
       "Navigation handled by child components",
@@ -191,7 +182,6 @@
       "No specific focus management needed for grid container"
     ]
   },
-
   "troubleshooting": {
     "common": [
       {
@@ -233,7 +223,6 @@
       }
     ]
   },
-
   "relatedComponents": [
     {
       "name": "GoabContainer",
@@ -251,7 +240,6 @@
       "example": "Use Block for simple stacked layouts, Grid for responsive multi-column layouts"
     }
   ],
-
   "commonMistakes": [
     {
       "mistake": "Missing minChildWidth prop",
@@ -278,7 +266,6 @@
       "example": "// ❌ Wrong - inconsistent card heights\n<GoabGrid minChildWidth=\"300px\">\n  <GoabCard><h3>Short</h3></GoabCard>\n  <GoabCard>\n    <h3>Much Longer Title</h3>\n    <p>With description</p>\n    <button>Action</button>\n  </GoabCard>\n</GoabGrid>\n\n// ✅ Correct - consistent card structure\n<GoabGrid minChildWidth=\"300px\">\n  <GoabCard>\n    <h3>Short</h3>\n    <p>{description || 'Brief overview'}</p>\n    <GoabButton>Action</GoabButton>\n  </GoabCard>\n</GoabGrid>"
     }
   ],
-
   "frameworkNotes": {
     "propCasing": {
       "react": "Use camelCase: minChildWidth, testId",
@@ -301,12 +288,37 @@
       "columnCalculation": "CSS Grid auto-fit calculates columns based on available space and minChildWidth"
     }
   },
-
-  "tags": ["layout", "grid", "responsive", "container"],
+  "tags": [
+    "layout",
+    "grid",
+    "responsive",
+    "container"
+  ],
   "category": "layout",
   "status": "stable",
   "derivedFrom": {
     "maintainerVersion": "../maintainer/grid.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "worker-dashboard-overview",
+        "title": "Worker dashboard overview",
+        "description": "Create comprehensive operational dashboards for government workers with case management, statistics overview, priority queues, and bulk action capabilities for efficient workflow management.",
+        "useCase": "layout-patterns pattern for worker workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "dashboard",
+          "case-management",
+          "worker-productivity"
+        ],
+        "category": "layout-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for grid in realistic scenarios"
+    }
   }
 }

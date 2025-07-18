@@ -454,5 +454,40 @@
     "lastUpdated": "2025-07-07",
     "updatedBy": "design-system-team",
     "componentVersion": "2.1.0"
+  },
+
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "header-with-navigation",
+        "title": "Header with navigation",
+        "description": "Implement application headers with structured navigation links and menu systems for government services",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "header",
+          "navigation",
+          "layout"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "header-with-menu-click-event",
+        "title": "Header with menu click event",
+        "description": "Handle user interactions with header menu items, including dropdown menus and navigation actions",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "header",
+          "menu",
+          "click-event"
+        ],
+        "category": "interaction-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for header in realistic scenarios"
+    }
   }
 }

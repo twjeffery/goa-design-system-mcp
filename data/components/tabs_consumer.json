@@ -13,12 +13,12 @@
     }
   },
   "summary": "Navigation component that organizes related content into separate sections, allowing users to switch between different views while maintaining context",
-  
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
-    "dependencies": ["Design token system"]
+    "dependencies": [
+      "Design token system"
+    ]
   },
-
   "installation": {
     "react": {
       "import": "import { GoabTabs, GoabTab } from '@abgov/react-components'",
@@ -33,7 +33,6 @@
       "quickExample": "<goa-tabs initial-tab=\"1\">\n  <goa-tab heading=\"Overview\" open=\"true\">\n    Content for overview tab\n  </goa-tab>\n  <goa-tab heading=\"Details\" open=\"false\">\n    Content for details tab\n  </goa-tab>\n</goa-tabs>"
     }
   },
-
   "api": {
     "tabs": {
       "props": [
@@ -86,7 +85,6 @@
       ]
     }
   },
-
   "playgroundExamples": {
     "basic": [
       {
@@ -130,7 +128,6 @@
       "Tooltips and icons work seamlessly within tab content for enhanced functionality"
     ]
   },
-
   "usage": {
     "basicExamples": {
       "react": [
@@ -153,7 +150,6 @@
         }
       ]
     },
-
     "advancedExamples": {
       "react": [
         {
@@ -164,7 +160,6 @@
       ]
     }
   },
-
   "designGuidance": {
     "when": {
       "use": [
@@ -207,7 +202,6 @@
       "Consider users who may need to navigate all content sequentially"
     ]
   },
-
   "relatedComponents": [
     {
       "name": "GoabAccordion",
@@ -258,35 +252,61 @@
       "example": "Use for proper spacing between multiple tab instances"
     }
   ],
-
   "commonPatterns": [
     {
       "name": "Dashboard Views",
       "description": "Different views of the same data (summary, detailed, charts)",
-      "components": ["Tabs", "Table", "Card", "Badge"]
+      "components": [
+        "Tabs",
+        "Table",
+        "Card",
+        "Badge"
+      ]
     },
     {
       "name": "Settings Interface",
       "description": "Organize different categories of settings and preferences",
-      "components": ["Tabs", "FormItem", "Input", "Checkbox", "Button"]
+      "components": [
+        "Tabs",
+        "FormItem",
+        "Input",
+        "Checkbox",
+        "Button"
+      ]
     },
     {
       "name": "Product Information",
       "description": "Overview, features, specifications, and pricing information",
-      "components": ["Tabs", "Text", "Table", "Button", "Card"]
+      "components": [
+        "Tabs",
+        "Text",
+        "Table",
+        "Button",
+        "Card"
+      ]
     },
     {
       "name": "Multi-step Content",
       "description": "Related information organized by topic or complexity",
-      "components": ["Tabs", "Text", "Button", "Accordion"]
+      "components": [
+        "Tabs",
+        "Text",
+        "Button",
+        "Accordion"
+      ]
     },
     {
       "name": "Interactive Content Sections",
       "description": "Content areas with tooltips, icons, and other interactive elements",
-      "components": ["Tabs", "Tooltip", "Icon", "Text", "Block"]
+      "components": [
+        "Tabs",
+        "Tooltip",
+        "Icon",
+        "Text",
+        "Block"
+      ]
     }
   ],
-
   "troubleshooting": [
     {
       "issue": "Tab content not displaying when switched",
@@ -334,7 +354,6 @@
       "solution": "Ensure proper event handling and that interactive elements like tooltips and icons have correct z-index and positioning"
     }
   ],
-
   "accessibility": {
     "keyboardNavigation": [
       "Tab - Navigate to tab list from page content",
@@ -355,20 +374,58 @@
       "Tab content receives focus when activated"
     ]
   },
-
   "performanceConsiderations": [
     "All tab content is rendered in the DOM regardless of visibility",
     "Consider lazy loading for tabs with heavy content or data fetching",
     "Limit the number of tabs to avoid horizontal scrolling and cognitive overload",
     "Optimize tab content for fast rendering, especially the initially active tab"
   ],
-
-  "tags": ["navigation", "content-organization", "interactive", "responsive", "accessibility"],
+  "tags": [
+    "navigation",
+    "content-organization",
+    "interactive",
+    "responsive",
+    "accessibility"
+  ],
   "category": "component",
   "status": "production",
   "lastUpdated": "2025-06-27",
   "derivedFrom": {
     "maintainerVersion": "../maintainer/tabs.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "show-different-views-of-data-in-a-table",
+        "title": "Show different views of data in a table",
+        "description": "Use tabs to organize and filter table data into different views, allowing users to switch between comprehensive and filtered perspectives of the same dataset.",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "tables",
+          "tabs",
+          "data-filtering"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "set-a-specific-tab-to-be-active",
+        "title": "Set a specific tab to be active",
+        "description": "Control which tab is initially active or programmatically switch between tabs based on user actions or application state",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "tabs",
+          "active-state",
+          "navigation"
+        ],
+        "category": "interaction-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for tabs in realistic scenarios"
+    }
   }
 }

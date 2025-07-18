@@ -17,14 +17,16 @@
     "className": "GoabButton"
   },
   "summary": "Interactive button component for user actions with multiple visual styles and states",
-  
   "systemRequirements": {
     "setupReference": "See system-setup.json for installation instructions",
     "ionicons": "required",
     "webComponentStyles": "required",
-    "packages": ["@abgov/react-components", "@abgov/angular-components", "@abgov/web-components"]
+    "packages": [
+      "@abgov/react-components",
+      "@abgov/angular-components",
+      "@abgov/web-components"
+    ]
   },
-  
   "installation": {
     "react": {
       "import": "import { GoabButton } from '@abgov/react-components'",
@@ -43,7 +45,6 @@
       "dependencies": "Requires @abgov/web-components package"
     }
   },
-
   "buttonVsLink": {
     "useButton": [
       "Actions that trigger functionality (submit, save, cancel)",
@@ -62,7 +63,6 @@
       "incorrect": "<GoabLink><a>Back to task list</a></GoabLink>"
     }
   },
-
   "buttonGrouping": {
     "useButtonGroup": "For related action buttons with semantic relationship",
     "useBlock": "For general layout and spacing of mixed components",
@@ -71,37 +71,59 @@
       "incorrect": "<GoabBlock direction='row' gap='m'><GoabButton>Button 1</GoabButton><GoabButton>Button 2</GoabButton></GoabBlock>"
     }
   },
-
   "propertyValidation": {
     "enforcementRule": "ONLY use documented property values - invalid properties break component functionality",
     "validationRequired": true
   },
   "strictPropertyEnforcement": {
     "type": {
-      "validValues": ["primary", "secondary", "tertiary", "start", "submit"],
-      "commonMistakes": ["default", "normal", "standard"],
+      "validValues": [
+        "primary",
+        "secondary",
+        "tertiary",
+        "start",
+        "submit"
+      ],
+      "commonMistakes": [
+        "default",
+        "normal",
+        "standard"
+      ],
       "invalidExamples": [
         "❌ type='default' (should be type='primary')",
         "❌ type='normal' (should be type='primary')"
       ]
     },
     "size": {
-      "validValues": ["normal", "compact"],
-      "commonMistakes": ["regular", "small", "large"],
+      "validValues": [
+        "normal",
+        "compact"
+      ],
+      "commonMistakes": [
+        "regular",
+        "small",
+        "large"
+      ],
       "invalidExamples": [
         "❌ size='regular' (should be size='normal')",
         "❌ size='small' (should be size='compact')"
       ]
     },
     "variant": {
-      "validValues": ["normal", "destructive"],
-      "commonMistakes": ["default", "danger", "warning"],
+      "validValues": [
+        "normal",
+        "destructive"
+      ],
+      "commonMistakes": [
+        "default",
+        "danger",
+        "warning"
+      ],
       "invalidExamples": [
         "❌ variant='danger' (should be variant='destructive')"
       ]
     }
   },
-
   "playgroundExamples": {
     "basicUsage": {
       "title": "Basic Button Types",
@@ -110,7 +132,11 @@
         {
           "name": "type",
           "type": "select",
-          "options": ["primary", "secondary", "tertiary"],
+          "options": [
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
           "default": "primary"
         },
         {
@@ -129,7 +155,6 @@
         "Tertiary buttons are for less important actions or when visual weight needs to be minimal"
       ]
     },
-
     "withIcons": {
       "title": "Buttons with Icons",
       "description": "Shows buttons with leading and trailing icons to provide visual context and improve usability",
@@ -137,19 +162,33 @@
         {
           "name": "iconPosition",
           "type": "select",
-          "options": ["leading", "trailing"],
+          "options": [
+            "leading",
+            "trailing"
+          ],
           "default": "leading"
         },
         {
           "name": "iconType",
           "type": "select",
-          "options": ["add", "edit", "delete", "download", "upload", "search"],
+          "options": [
+            "add",
+            "edit",
+            "delete",
+            "download",
+            "upload",
+            "search"
+          ],
           "default": "add"
         },
         {
           "name": "buttonType",
           "type": "select",
-          "options": ["primary", "secondary", "tertiary"],
+          "options": [
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
           "default": "primary"
         }
       ],
@@ -163,7 +202,6 @@
         "Icons should reinforce the button's purpose, not replace clear text labels"
       ]
     },
-
     "sizes": {
       "title": "Button Sizes",
       "description": "Demonstrates regular and compact button sizes for different layout requirements",
@@ -171,7 +209,10 @@
         {
           "name": "size",
           "type": "select",
-          "options": ["regular", "compact"],
+          "options": [
+            "regular",
+            "compact"
+          ],
           "default": "regular"
         },
         {
@@ -190,7 +231,6 @@
         "When using compact buttons, ensure the ButtonGroup has gap=\"compact\" for proper spacing"
       ]
     },
-
     "destructiveActions": {
       "title": "Destructive Actions",
       "description": "Shows the destructive variant for dangerous actions like delete, remove, or cancel operations",
@@ -198,13 +238,20 @@
         {
           "name": "buttonType",
           "type": "select",
-          "options": ["primary", "secondary", "tertiary"],
+          "options": [
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
           "default": "primary"
         },
         {
           "name": "size",
           "type": "select",
-          "options": ["regular", "compact"],
+          "options": [
+            "regular",
+            "compact"
+          ],
           "default": "regular"
         },
         {
@@ -223,7 +270,6 @@
         "Consider using secondary or tertiary destructive for less critical removals"
       ]
     },
-
     "startType": {
       "title": "Start Button",
       "description": "Special start button type with automatic arrow icon for beginning flows or processes",
@@ -244,7 +290,6 @@
         "Typically used as a single prominent call-to-action"
       ]
     },
-
     "inverseTesting": {
       "title": "Inverse Buttons (Experimental)",
       "description": "Experimental inverse variants for use on dark backgrounds or colored containers",
@@ -252,13 +297,20 @@
         {
           "name": "buttonType",
           "type": "select",
-          "options": ["primary", "secondary", "tertiary"],
+          "options": [
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
           "default": "primary"
         },
         {
           "name": "backgroundType",
           "type": "select",
-          "options": ["dark", "colored"],
+          "options": [
+            "dark",
+            "colored"
+          ],
           "default": "dark"
         }
       ],
@@ -272,7 +324,6 @@
         "Test with screen readers and in high contrast mode before production use"
       ]
     },
-
     "stateManagement": {
       "title": "Interactive State Management",
       "description": "Demonstrates button state management with loading, disabled states, and click handling",
@@ -280,7 +331,12 @@
         {
           "name": "currentState",
           "type": "select",
-          "options": ["default", "loading", "disabled", "success"],
+          "options": [
+            "default",
+            "loading",
+            "disabled",
+            "success"
+          ],
           "default": "default"
         }
       ],
@@ -295,7 +351,6 @@
         "Implement proper error handling for failed actions"
       ]
     },
-
     "formIntegration": {
       "title": "Form Integration Pattern",
       "description": "Shows common patterns for buttons within forms and modal dialogs",
@@ -303,13 +358,21 @@
         {
           "name": "formType",
           "type": "select",
-          "options": ["standard", "modal", "inline"],
+          "options": [
+            "standard",
+            "modal",
+            "inline"
+          ],
           "default": "standard"
         },
         {
           "name": "validation",
           "type": "select",
-          "options": ["valid", "invalid", "pending"],
+          "options": [
+            "valid",
+            "invalid",
+            "pending"
+          ],
           "default": "valid"
         }
       ],
@@ -325,7 +388,6 @@
       ]
     }
   },
-  
   "api": {
     "props": [
       {
@@ -402,7 +464,6 @@
       }
     ]
   },
-  
   "usage": {
     "basicExamples": {
       "react": [
@@ -506,7 +567,6 @@
       }
     ]
   },
-  
   "designGuidance": {
     "whenToUse": [
       "Triggering actions like form submissions, opening modals, or confirming decisions",
@@ -546,7 +606,6 @@
       "Test with screen readers to ensure proper announcement"
     ]
   },
-  
   "troubleshooting": {
     "commonIssues": [
       {
@@ -627,7 +686,6 @@
       ]
     }
   },
-  
   "relatedComponents": [
     {
       "name": "GoAButtonGroup",
@@ -660,7 +718,6 @@
       "example": "Save/Cancel, Delete/Cancel dialogs"
     }
   ],
-  
   "commonMistakes": [
     {
       "mistake": "Using buttons for navigation to other pages",
@@ -699,7 +756,6 @@
       "example": "// ❌ Wrong\n<div>\n  <GoabButton type=\"submit\" onClick={handleAction}>Do Action</GoabButton>\n</div>\n\n// ✅ Correct\n<form onSubmit={handleSubmit}>\n  <GoabButton type=\"submit\">Submit Form</GoabButton>\n</form>"
     }
   ],
-  
   "frameworkNotes": {
     "propCasing": {
       "react": "Use camelCase: leadingIcon, trailingIcon, testId, onClick",
@@ -726,7 +782,6 @@
       "note": "Mobile behavior is built-in and cannot be disabled"
     }
   },
-  
   "accessibility": {
     "keyboardNavigation": [
       "Tab - Navigate to button",
@@ -745,20 +800,150 @@
       "Focus returns appropriately after modal actions"
     ]
   },
-  
   "performanceConsiderations": [
     "Buttons are lightweight components with minimal overhead",
     "Icon loading depends on ionicons being properly cached",
     "Multiple buttons in groups are efficiently rendered",
     "Event handlers should be optimized for frequent clicks"
   ],
-  
-  "tags": ["interactive", "action", "form", "cta", "primary", "secondary"],
+  "tags": [
+    "interactive",
+    "action",
+    "form",
+    "cta",
+    "primary",
+    "secondary"
+  ],
   "category": "component",
   "status": "stable",
   "lastUpdated": "2025-06-26",
   "derivedFrom": {
     "maintainerVersion": "../maintainer/button.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "show-a-simple-progress-indicator-on-a-question-page",
+        "title": "Show a simple progress indicator on a question page",
+        "description": "Display question progress using a simple text-based indicator (e.g., 'Question 3 of 9') on a single question page to help users understand their position in a form flow.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "progress",
+          "navigation",
+          "forms"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "show-different-views-of-data-in-a-table",
+        "title": "Show different views of data in a table",
+        "description": "Use tabs to organize and filter table data into different views, allowing users to switch between comprehensive and filtered perspectives of the same dataset.",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "tables",
+          "tabs",
+          "data-filtering"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "show-status-in-a-table",
+        "title": "Show status in a table",
+        "description": "Display status information using badges within table cells to provide clear, scannable visual indicators of item states, progress, or conditions.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "tables",
+          "status-badges",
+          "data-display"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "start-page",
+        "title": "Start page",
+        "description": "Create a service entry point that provides citizens with essential information, requirements, and a clear call-to-action to begin using a government service online.",
+        "useCase": "layout-patterns pattern for citizen workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "service-entry",
+          "page-layout",
+          "call-to-action"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "warn-a-user-of-a-deadline",
+        "title": "Warn a user of a deadline",
+        "description": "Alert users about critical deadlines or time-sensitive requirements using accessible modal dialogs that ensure they understand important time constraints before proceeding.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "deadline-warnings",
+          "time-constraints",
+          "modal-alerts"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "worker-dashboard-overview",
+        "title": "Worker dashboard overview",
+        "description": "Create comprehensive operational dashboards for government workers with case management, statistics overview, priority queues, and bulk action capabilities for efficient workflow management.",
+        "useCase": "layout-patterns pattern for worker workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "dashboard",
+          "case-management",
+          "worker-productivity"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "ask-a-user-for-an-address",
+        "title": "Ask a User for an Address",
+        "description": "Collect comprehensive Canadian address information with proper layout, all provinces/territories, and appropriate field sizing",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "address-collection",
+          "form-inputs",
+          "canadian-addresses"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "confirm-destructive-action",
+        "title": "Confirm a Destructive Action",
+        "description": "Modal confirmation dialog for destructive actions like delete, remove, or cancel operations with proper warning and action hierarchy",
+        "useCase": "interaction-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "destructive-actions",
+          "confirmations",
+          "modal-dialogs"
+        ],
+        "category": "interaction-pattern"
+      },
+      {
+        "id": "disabled-button-with-a-required-field",
+        "title": "Disabled Button with a Required Field",
+        "description": "Conditionally disable form submission buttons until all required fields are completed to prevent invalid submissions",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "form-validation",
+          "disabled-states",
+          "required-fields"
+        ],
+        "category": "form-pattern"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for button in realistic scenarios"
+    }
   }
 }

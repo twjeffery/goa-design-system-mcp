@@ -414,5 +414,39 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/accordion.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "expand-or-collapse-part-of-a-form",
+        "title": "Expand or Collapse Part of a Form",
+        "description": "Organize form content into collapsible sections using accordions to improve scanability and reduce cognitive load",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "accordion",
+          "collapsible",
+          "form-organization"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "hide-and-show-many-sections-of-information",
+        "title": "Hide and Show Many Sections of Information",
+        "description": "Use accordion components with show/hide all functionality to organize and control visibility of multiple information sections",
+        "useCase": "interaction-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "accordion",
+          "show-hide-sections",
+          "progressive-disclosure"
+        ],
+        "category": "interaction-pattern"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for accordion in realistic scenarios"
+    }
   }
 }

@@ -7,12 +7,13 @@
     "className": "GoabModal"
   },
   "summary": "Modal dialog component for focused interactions, confirmations, and content overlays with automatic focus management",
-  
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
-    "dependencies": ["IconButton component", "Design token system"]
+    "dependencies": [
+      "IconButton component",
+      "Design token system"
+    ]
   },
-
   "installation": {
     "react": {
       "import": "import { GoabModal } from '@abgov/react-components'",
@@ -31,7 +32,6 @@
       "dependencies": "Requires @abgov/web-components package"
     }
   },
-  
   "api": {
     "props": [
       {
@@ -84,7 +84,9 @@
         "type": "string",
         "required": false,
         "description": "Visual emphasis variant for critical modals",
-        "allowedValues": ["emergency"],
+        "allowedValues": [
+          "emergency"
+        ],
         "usage": "Use 'emergency' for destructive actions to provide visual warning"
       },
       {
@@ -136,7 +138,6 @@
       }
     ]
   },
-
   "playgroundExamples": {
     "note": "Interactive examples from the GoA Design System playground demonstrating various modal configurations and usage patterns",
     "examples": [
@@ -234,7 +235,6 @@
       }
     ]
   },
-
   "commonMistakes": [
     {
       "mistake": "Using modals for simple confirmations that could use inline alerts",
@@ -279,7 +279,6 @@
       "example": "// ❌ Wrong\n<GoabModal heading=\"\" open={isOpen}>\n  Choose an option to continue.\n</GoabModal>\n\n// ✅ Correct\n<GoabModal heading=\"Confirm Your Choice\" open={isOpen}>\n  Choose an option to continue.\n</GoabModal>"
     }
   ],
-
   "frameworkNotes": {
     "propCasing": "React uses camelCase (maxWidth, onClose) while web components use lowercase (maxwidth). Angular follows web component casing in templates.",
     "slotHandling": "Actions slot expects div with slot='actions' in web components, children with slot prop in React, ng-content with slot in Angular.",
@@ -287,7 +286,6 @@
     "responsiveBehavior": "Modal automatically adapts to viewport with maxWidth and maxHeight constraints. Content scrolls when needed.",
     "actionsVsSlots": "React supports both actions prop (preferred) and slot-based action handling for backward compatibility."
   },
-
   "usage": {
     "basicExamples": {
       "react": [
@@ -340,7 +338,6 @@
       }
     ]
   },
-
   "designGuidance": {
     "when": [
       "Collect user input without losing page context",
@@ -369,7 +366,6 @@
       "validation": "Validate form content before allowing submission"
     }
   },
-
   "accessibility": {
     "keyboardNavigation": [
       "Escape - Close modal (when closable=true)",
@@ -385,12 +381,11 @@
     ],
     "focusManagement": [
       "Focus automatically moves to modal when opened",
-      "Focus trapped within modal while open", 
+      "Focus trapped within modal while open",
       "Focus returns to trigger element when closed",
       "First focusable element receives initial focus"
     ]
   },
-
   "troubleshooting": {
     "modalNotOpening": {
       "problem": "Modal doesn't appear when open prop is set to true",
@@ -447,7 +442,6 @@
       ]
     }
   },
-
   "relatedComponents": [
     {
       "name": "Button",
@@ -474,7 +468,6 @@
       "example": "Success notifications vs confirmation dialogs"
     }
   ],
-
   "performanceConsiderations": [
     "Modal only renders in DOM when open=true",
     "Backdrop and focus management add minimal performance overhead",
@@ -482,13 +475,107 @@
     "Multiple modals should be avoided - use modal stacking patterns instead",
     "Animation performance is optimized with CSS transforms"
   ],
-
-  "tags": ["modal", "dialog", "overlay", "confirmation", "form", "focus", "interaction", "accessibility"],
+  "tags": [
+    "modal",
+    "dialog",
+    "overlay",
+    "confirmation",
+    "form",
+    "focus",
+    "interaction",
+    "accessibility"
+  ],
   "category": "component",
   "status": "stable",
   "lastUpdated": "2025-07-02",
   "derivedFrom": {
     "maintainerVersion": "../maintainer/modal.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "warn-a-user-of-a-deadline",
+        "title": "Warn a user of a deadline",
+        "description": "Alert users about critical deadlines or time-sensitive requirements using accessible modal dialogs that ensure they understand important time constraints before proceeding.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "deadline-warnings",
+          "time-constraints",
+          "modal-alerts"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "confirm-before-navigating-away",
+        "title": "Confirm before navigating away",
+        "description": "Prevent users from accidentally losing unsaved changes by confirming their intent to navigate away from a page with a modal dialog.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "navigation",
+          "confirmation",
+          "unsaved-changes"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "confirm-a-destructive-action",
+        "title": "Confirm a destructive action",
+        "description": "Require explicit user confirmation before performing irreversible actions like deleting data or terminating processes.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "confirmation",
+          "destructive-actions",
+          "user-safety"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "confirm-a-change",
+        "title": "Confirm a change",
+        "description": "Verify user intent before making significant changes to system state, settings, or user data with clear confirmation dialogs.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "confirmation",
+          "change-management",
+          "user-verification"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "add-another-item-in-a-modal",
+        "title": "Add another item in a modal",
+        "description": "Allow users to add new items or records through a modal interface, providing a focused form experience without leaving the current page context.",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "modal",
+          "form",
+          "add-item"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "require-user-action-before-continuing",
+        "title": "Require user action before continuing",
+        "description": "Use modal dialogs to ensure users complete required actions or acknowledge important information before proceeding with their workflow.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "required-action",
+          "workflow-control",
+          "user-acknowledgment"
+        ],
+        "category": "interaction-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for modal in realistic scenarios"
+    }
   }
 }

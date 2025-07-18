@@ -83,16 +83,6 @@
     "basicExamples": {
       "react": [
         {
-          "title": "Process Steps",
-          "description": "Ordered list for step-by-step instructions",
-          "code": "function ApplicationProcess() {\n  return (\n    <GoabContainer title=\"Application Process\">\n      <GoabText size=\"body-l\" mb=\"m\">\n        Follow these steps to complete your application:\n      </GoabText>\n      \n      <GoabList type=\"ordered\" variant=\"spaced\">\n        <GoabListItem>\n          <GoabText>Gather required documents (ID, proof of income)</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Complete the online application form</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Upload supporting documents</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Submit application and wait for confirmation</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Check application status online or by phone</GoabText>\n        </GoabListItem>\n      </GoabList>\n    </GoabContainer>\n  );\n}"
-        },
-        {
-          "title": "Feature List with Icons",
-          "description": "Unordered list with custom icons for features",
-          "code": "function ServiceFeatures() {\n  return (\n    <GoabContainer title=\"Service Features\">\n      <GoabList type=\"unordered\" icon=\"checkmark\" variant=\"spaced\">\n        <GoabListItem>\n          <GoabText>24/7 online access to your account</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Secure document upload and storage</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Real-time application status updates</GoabText>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabText>Email and SMS notifications</GoabText>\n        </GoabListItem>\n        <GoabListItem icon=\"star\" variant=\"highlighted\">\n          <GoabText>Priority processing for urgent cases</GoabText>\n        </GoabListItem>\n      </GoabList>\n    </GoabContainer>\n  );\n}"
-        },
-        {
           "title": "Navigation Menu",
           "description": "Unstyled list for custom navigation",
           "code": "function SideNavigation() {\n  return (\n    <GoabContainer>\n      <GoabText tag=\"h3\" size=\"heading-m\" mb=\"m\">Quick Links</GoabText>\n      \n      <GoabList type=\"unstyled\" variant=\"compact\">\n        <GoabListItem>\n          <GoabLink>\n            <a href=\"/dashboard\">Dashboard</a>\n          </GoabLink>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabLink>\n            <a href=\"/applications\">My Applications</a>\n          </GoabLink>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabLink>\n            <a href=\"/documents\">Documents</a>\n          </GoabLink>\n        </GoabListItem>\n        <GoabListItem>\n          <GoabLink>\n            <a href=\"/profile\">Profile Settings</a>\n          </GoabLink>\n        </GoabListItem>\n      </GoabList>\n    </GoabContainer>\n  );\n}"
@@ -100,12 +90,6 @@
       ]
     },
     "commonPatterns": [
-      {
-        "name": "Process Steps",
-        "description": "Sequential instructions or procedures",
-        "usage": "Use ordered type with spaced variant for clarity",
-        "code": "<GoabList type=\"ordered\" variant=\"spaced\">\n  <GoabListItem>Step one description</GoabListItem>\n  <GoabListItem>Step two description</GoabListItem>\n</GoabList>"
-      },
       {
         "name": "Feature Benefits",
         "description": "Highlighting service features or benefits",
@@ -205,5 +189,40 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/list.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "ordered-list",
+        "title": "Ordered list",
+        "description": "Create numbered lists for sequential steps, procedures, and prioritized content in government applications",
+        "useCase": "content-patterns pattern for both workflows",
+        "difficulty": "basic",
+        "tags": [
+          "ordered-list",
+          "numbered",
+          "sequential"
+        ],
+        "category": "content-patterns"
+      },
+      {
+        "id": "unordered-list",
+        "title": "Unordered list",
+        "description": "Create bulleted lists for non-sequential items, feature lists, and general content organization",
+        "useCase": "content-patterns pattern for both workflows",
+        "difficulty": "basic",
+        "tags": [
+          "unordered-list",
+          "bullets",
+          "organization"
+        ],
+        "category": "content-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for list in realistic scenarios"
+    }
   }
 }

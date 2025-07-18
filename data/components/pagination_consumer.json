@@ -4,23 +4,27 @@
   "audience": "ai-systems-helping-consumer-developers",
   "summary": "Navigation component for moving between multiple pages of data with configurable page size and navigation controls",
   "category": "component",
-  "tags": ["navigation", "pagination", "table", "data"],
+  "tags": [
+    "navigation",
+    "pagination",
+    "table",
+    "data"
+  ],
   "status": "stable",
-
   "customElement": {
     "tagName": "goa-pagination",
     "className": "GoabPagination"
   },
-
   "playgroundExamples": {
     "note": "Playground configurations will be added in future versions"
   },
-
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
-    "dependencies": ["@abgov/web-components", "@abgov/design-tokens"]
+    "dependencies": [
+      "@abgov/web-components",
+      "@abgov/design-tokens"
+    ]
   },
-
   "installation": {
     "react": {
       "import": "import { GoabPagination } from '@abgov/react-components'",
@@ -35,7 +39,6 @@
       "quickExample": "<goa-pagination \n  itemcount=\"100\" \n  pagenumber=\"1\" \n  perpagecount=\"10\"\n></goa-pagination>"
     }
   },
-
   "api": {
     "props": [
       {
@@ -63,14 +66,23 @@
         "required": false,
         "default": 10,
         "description": "Number of items to show per page",
-        "recommendations": ["10", "20", "25", "50", "100"]
+        "recommendations": [
+          "10",
+          "20",
+          "25",
+          "50",
+          "100"
+        ]
       },
       {
         "name": "variant",
         "type": "string",
         "required": false,
         "default": "all",
-        "options": ["all", "links-only"],
+        "options": [
+          "all",
+          "links-only"
+        ],
         "description": "Controls which navigation elements are visible",
         "usage": {
           "all": "Shows page dropdown and navigation buttons (recommended for desktop)",
@@ -83,7 +95,10 @@
         "required": true,
         "description": "Called when user navigates to a different page",
         "signature": "(pageNumber: number) => void",
-        "frameworks": ["React", "Angular"]
+        "frameworks": [
+          "React",
+          "Angular"
+        ]
       },
       {
         "name": "testId",
@@ -132,7 +147,6 @@
         }
       ]
     },
-
     "designGuidance": {
       "whenToUse": [
         "Large datasets that would overwhelm users if shown all at once",
@@ -160,7 +174,6 @@
         "Consider adding 'items per page' controls for user flexibility"
       ]
     },
-
     "accessibility": {
       "keyboardNavigation": [
         "Tab - Navigate to page dropdown (if visible)",
@@ -181,7 +194,6 @@
         "Focus returns appropriately after page changes"
       ]
     },
-
     "integrationPatterns": [
       {
         "name": "Table Pagination",
@@ -202,7 +214,6 @@
         "considerations": "Optimize page size for grid layout and screen size"
       }
     ],
-
     "relatedComponents": [
       {
         "name": "GoabTable",
@@ -229,7 +240,6 @@
         "example": "Vertical spacing between table and pagination controls"
       }
     ],
-
     "troubleshooting": {
       "commonIssues": [
         {
@@ -270,14 +280,12 @@
         "Use server-side pagination for datasets larger than a few hundred items"
       ]
     },
-
     "performanceConsiderations": [
       "Pagination component itself is lightweight with minimal rendering overhead",
       "Performance depends on how data is fetched and rendered for each page",
       "Consider server-side pagination for large datasets to reduce client memory usage",
       "Implement loading states to improve perceived performance during page changes"
     ],
-
     "commonMistakes": [
       {
         "mistake": "Not recalculating total pages when itemCount changes",
@@ -310,21 +318,45 @@
         "example": "// ❌ Wrong - always use full variant\n<GoabPagination variant=\"all\" />\n\n// ✅ Correct - responsive variant\nconst isMobile = useMediaQuery('(max-width: 768px)');\n<GoabPagination variant={isMobile ? 'links-only' : 'all'} />"
       }
     ],
-
     "frameworkNotes": {
       "propCasing": "React uses camelCase (pageNumber, itemCount, perPageCount, onChange), web components use lowercase (pagenumber, itemcount, perpagecount, onchange), Angular uses camelCase in templates",
       "slotHandling": "No slot content - pagination is self-contained. All configuration through props",
       "constraints": "Requires itemCount, pageNumber, and onChange props. PageNumber must be 1-based. ItemCount must be non-negative. PerPageCount must be positive integer",
       "responsiveBehavior": "Component adapts layout for different screen sizes, but variant selection is manual. Use 'links-only' for mobile, 'all' for desktop"
     },
-
-    "tags": ["navigation", "pagination", "table", "data"],
+    "tags": [
+      "navigation",
+      "pagination",
+      "table",
+      "data"
+    ],
     "category": "component",
     "status": "stable",
     "lastUpdated": "2025-06-27",
     "derivedFrom": {
       "maintainerVersion": "../maintainer/pagination.json",
       "note": "See maintainer version for implementation details and development information"
+    }
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "show-number-of-results-per-page",
+        "title": "Show number of results per page",
+        "description": "Implement pagination controls with configurable results per page, allowing users to adjust how many items are displayed at once while maintaining their position in the dataset.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "pagination",
+          "data-display",
+          "results-per-page"
+        ],
+        "category": "interaction-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for pagination in realistic scenarios"
     }
   }
 }

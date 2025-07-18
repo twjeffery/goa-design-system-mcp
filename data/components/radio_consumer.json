@@ -25,24 +25,6 @@
         "usage": "Demonstrates how long labels wrap naturally and the proper use of helper text"
       },
       {
-        "title": "Radio with Reveal Content",
-        "description": "Radio items with conditional reveal content using slot mechanism",
-        "code": "<GoabFormItem label=\"Radio with reveal\" helpText=\"Helper text here\">\n  <GoabRadioGroup\n    name=\"item\"\n    value=\"1\"\n    onChange={(e) => radio2(e.name, e.value)}\n  >\n    <GoabRadioItem value=\"1\" label=\"Option 1\">\n      <div slot=\"reveal\">\n        <GoabFormItem label=\"Text input\" helpText=\"Helper text here\">\n          <GoabInput\n            name=\"name1\"\n            value=\"\"\n            width=\"40ch\"\n            onChange={noop}\n          ></GoabInput>\n        </GoabFormItem>\n      </div>\n    </GoabRadioItem>\n    <GoabRadioItem value=\"2\" label=\"Option 2\">\n      <div slot=\"reveal\">\n        <GoabFormItem label=\"Text input\" helpText=\"Helper text here\">\n          <GoabInput\n            name=\"name1\"\n            value=\"\"\n            width=\"40ch\"\n            onChange={noop}\n          ></GoabInput>\n        </GoabFormItem>\n      </div>\n    </GoabRadioItem>\n  </GoabRadioGroup>\n</GoabFormItem>",
-        "usage": "Use slot=\"reveal\" to show additional form fields when a radio option is selected"
-      },
-      {
-        "title": "Radio Items with Descriptions",
-        "description": "Radio options including descriptive text and links for additional context",
-        "code": "<GoabFormItem label=\"Radio items with descriptions\">\n  <GoabRadioGroup\n    name=\"selectOne\"\n    value=\"1\"\n    onChange={(e) => radio3(e.name, e.value)}\n  >\n    <GoabRadioItem\n      value=\"1\"\n      label=\"Option one\"\n      description={\n        <span>\n          Help text with a <a href=\"#\">link</a>.\n        </span>\n      }\n    />\n    <GoabRadioItem\n      value=\"2\"\n      label=\"Option two\"\n      description=\"description text\"\n    />\n    <GoabRadioItem\n      value=\"3\"\n      label=\"Option three\"\n      description=\"another description text\"\n    />\n  </GoabRadioGroup>\n</GoabFormItem>",
-        "usage": "Use descriptions to provide additional context or explanation for radio options"
-      },
-      {
-        "title": "Radio with Descriptions and Helper Text",
-        "description": "Combination of form-level helper text with individual option descriptions",
-        "code": "<GoabFormItem\n  label=\"Radio with descriptions and helper text\"\n  helpText=\"Helper text here\"\n>\n  <GoabRadioGroup\n    name=\"selectOne\"\n    value=\"1\"\n    onChange={(e) => radio3(e.name, e.value)}\n  >\n    <GoabRadioItem\n      value=\"1\"\n      label=\"Option one\"\n      description={\n        <span>\n          Help text with a <a href=\"#\">link</a>.\n        </span>\n      }\n    />\n    <GoabRadioItem\n      value=\"2\"\n      label=\"Option two\"\n      description=\"description text\"\n    />\n    <GoabRadioItem\n      value=\"3\"\n      label=\"Option three\"\n      description=\"another description text\"\n    />\n  </GoabRadioGroup>\n</GoabFormItem>",
-        "usage": "Shows how form-level helper text and option descriptions work together"
-      },
-      {
         "title": "Radio with Error State",
         "description": "Error state demonstration with validation styling and error message",
         "code": "<GoabFormItem\n  label=\"Radio with error\"\n  helpText=\"Helper text here\"\n  error=\"Error message.\"\n>\n  <GoabRadioGroup\n    error={true}\n    name=\"item\"\n    value=\"1\"\n    onChange={(e) => radio2(e.name, e.value)}\n  >\n    <GoabRadioItem value=\"1\" label=\"Label 1\"></GoabRadioItem>\n    <GoabRadioItem value=\"2\" label=\"Label 2\"></GoabRadioItem>\n    <GoabRadioItem value=\"3\" label=\"Label 3\"></GoabRadioItem>\n    <GoabRadioItem value=\"4\" label=\"Label 4\"></GoabRadioItem>\n  </GoabRadioGroup>\n</GoabFormItem>",
@@ -215,11 +197,6 @@
     "basicExamples": {
       "react": [
         {
-          "title": "Contact Preferences with Conditional Fields",
-          "description": "Radio group with reveal content based on selection",
-          "code": "function ContactPreferencesForm() {\n  const [contactMethod, setContactMethod] = useState('');\n  const [contactDetails, setContactDetails] = useState({\n    email: '',\n    phone: '',\n    address: ''\n  });\n  const [errors, setErrors] = useState({});\n\n  const handleContactMethodChange = (name, value) => {\n    setContactMethod(value);\n    // Clear errors when selection changes\n    setErrors(prev => ({ ...prev, contactMethod: false }));\n    \n    // Clear unrelated contact details\n    setContactDetails({\n      email: value === 'email' ? contactDetails.email : '',\n      phone: value === 'phone' ? contactDetails.phone : '',\n      address: value === 'mail' ? contactDetails.address : ''\n    });\n  };\n\n  const handleDetailsChange = (name, value) => {\n    setContactDetails(prev => ({ ...prev, [name]: value }));\n    // Clear related errors\n    if (errors[name]) {\n      setErrors(prev => ({ ...prev, [name]: false }));\n    }\n  };\n\n  const validateForm = () => {\n    const newErrors = {};\n    if (!contactMethod) {\n      newErrors.contactMethod = 'Please select a contact method';\n    } else {\n      if (contactMethod === 'email' && !contactDetails.email) {\n        newErrors.email = 'Email address is required';\n      }\n      if (contactMethod === 'phone' && !contactDetails.phone) {\n        newErrors.phone = 'Phone number is required';\n      }\n      if (contactMethod === 'mail' && !contactDetails.address) {\n        newErrors.address = 'Mailing address is required';\n      }\n    }\n    setErrors(newErrors);\n    return Object.keys(newErrors).length === 0;\n  };\n\n  return (\n    <form>\n      <GoabFormItem \n        label=\"How would you like to be contacted?\" \n        error={errors.contactMethod}\n        errorMessage={errors.contactMethod}\n        helpText=\"Choose your preferred communication method\"\n      >\n        <GoabRadioGroup\n          name=\"contactMethod\"\n          value={contactMethod}\n          onChange={handleContactMethodChange}\n          error={!!errors.contactMethod}\n        >\n          <GoabRadioItem\n            name=\"contactMethod\"\n            value=\"email\"\n            text=\"Email\"\n            description=\"We'll send updates to your email address\"\n          >\n            {contactMethod === 'email' && (\n              <GoabFormItem \n                label=\"Email Address\" \n                mt=\"s\"\n                error={errors.email}\n                errorMessage={errors.email}\n              >\n                <GoabInput\n                  name=\"email\"\n                  type=\"email\"\n                  value={contactDetails.email}\n                  onChange={handleDetailsChange}\n                  error={!!errors.email}\n                  placeholder=\"your.email@example.com\"\n                  leadingIcon=\"mail\"\n                />\n              </GoabFormItem>\n            )}\n          </GoabRadioItem>\n          \n          <GoabRadioItem\n            name=\"contactMethod\"\n            value=\"phone\"\n            text=\"Phone\"\n            description=\"We'll call you during business hours (9 AM - 5 PM)\"\n          >\n            {contactMethod === 'phone' && (\n              <GoabFormItem \n                label=\"Phone Number\" \n                mt=\"s\"\n                error={errors.phone}\n                errorMessage={errors.phone}\n              >\n                <GoabInput\n                  name=\"phone\"\n                  type=\"tel\"\n                  value={contactDetails.phone}\n                  onChange={handleDetailsChange}\n                  error={!!errors.phone}\n                  placeholder=\"(555) 123-4567\"\n                  leadingIcon=\"call\"\n                />\n              </GoabFormItem>\n            )}\n          </GoabRadioItem>\n          \n          <GoabRadioItem\n            name=\"contactMethod\"\n            value=\"mail\"\n            text=\"Mail\"\n            description=\"Physical mail to your registered address\"\n          >\n            {contactMethod === 'mail' && (\n              <GoabFormItem \n                label=\"Mailing Address\" \n                mt=\"s\"\n                error={errors.address}\n                errorMessage={errors.address}\n                helpText=\"Please provide your complete mailing address\"\n              >\n                <GoabTextArea\n                  name=\"address\"\n                  value={contactDetails.address}\n                  onChange={handleDetailsChange}\n                  error={!!errors.address}\n                  placeholder=\"123 Main Street&#10;City, Province&#10;Postal Code\"\n                  rows={4}\n                />\n              </GoabFormItem>\n            )}\n          </GoabRadioItem>\n          \n          <GoabRadioItem\n            name=\"contactMethod\"\n            value=\"none\"\n            text=\"No contact needed\"\n            description=\"We'll only contact you if absolutely necessary\"\n          />\n        </GoabRadioGroup>\n      </GoabFormItem>\n      \n      <GoabButtonGroup alignment=\"end\" mt=\"l\">\n        <GoabButton type=\"secondary\" onClick={() => {\n          setContactMethod('');\n          setContactDetails({ email: '', phone: '', address: '' });\n          setErrors({});\n        }}>\n          Reset\n        </GoabButton>\n        <GoabButton type=\"primary\" onClick={validateForm}>\n          Continue\n        </GoabButton>\n      </GoabButtonGroup>\n    </form>\n  );\n}"
-        },
-        {
           "title": "Yes/No Question with Horizontal Layout",
           "description": "Simple binary choice with horizontal orientation",
           "code": "function ConsentForm() {\n  const [hasConsent, setHasConsent] = useState('');\n  const [error, setError] = useState('');\n\n  const handleConsentChange = (name, value) => {\n    setHasConsent(value);\n    setError(''); // Clear error when user makes selection\n  };\n\n  const handleSubmit = () => {\n    if (!hasConsent) {\n      setError('Please indicate whether you consent');\n      return;\n    }\n    console.log('Consent provided:', hasConsent === 'yes');\n  };\n\n  return (\n    <div>\n      <GoabFormItem \n        label=\"Do you consent to data processing?\" \n        error={error}\n        errorMessage={error}\n        helpText=\"We need your consent to process your personal information\"\n      >\n        <GoabRadioGroup\n          name=\"consent\"\n          value={hasConsent}\n          onChange={handleConsentChange}\n          orientation=\"horizontal\"\n          error={!!error}\n        >\n          <GoabRadioItem\n            name=\"consent\"\n            value=\"yes\"\n            text=\"Yes, I consent\"\n          />\n          <GoabRadioItem\n            name=\"consent\"\n            value=\"no\"\n            text=\"No, I do not consent\"\n          />\n        </GoabRadioGroup>\n      </GoabFormItem>\n      \n      <GoabButton \n        type=\"primary\" \n        onClick={handleSubmit}\n        disabled={!hasConsent}\n      >\n        Continue\n      </GoabButton>\n    </div>\n  );\n}"
@@ -339,5 +316,53 @@
     },
     "lastUpdated": "2025-07-07",
     "updatedBy": "design-system-team"
+  },
+
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "include-a-link-in-the-helper-text-of-an-option",
+        "title": "Include a link in the helper text of an option",
+        "description": "Add contextual links within radio option descriptions to provide additional information or related resources",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "radio",
+          "helper-text",
+          "links"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "max-width-on-long-radio-items",
+        "title": "Max width on long radio items",
+        "description": "Control the layout and readability of radio options with lengthy labels using maximum width constraints",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "radio",
+          "layout",
+          "max-width"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "reveal-input-based-on-selection",
+        "title": "Reveal input based on selection",
+        "description": "Show conditional form fields when specific radio options are selected, creating dynamic form experiences",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "radio",
+          "conditional",
+          "reveal"
+        ],
+        "category": "form-pattern"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for radio in realistic scenarios"
+    }
   }
 }

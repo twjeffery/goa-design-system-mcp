@@ -426,5 +426,39 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/button-group.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "warn-a-user-of-a-deadline",
+        "title": "Warn a user of a deadline",
+        "description": "Alert users about critical deadlines or time-sensitive requirements using accessible modal dialogs that ensure they understand important time constraints before proceeding.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "deadline-warnings",
+          "time-constraints",
+          "modal-alerts"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "worker-dashboard-overview",
+        "title": "Worker dashboard overview",
+        "description": "Create comprehensive operational dashboards for government workers with case management, statistics overview, priority queues, and bulk action capabilities for efficient workflow management.",
+        "useCase": "layout-patterns pattern for worker workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "dashboard",
+          "case-management",
+          "worker-productivity"
+        ],
+        "category": "layout-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for buttongroup in realistic scenarios"
+    }
   }
 }

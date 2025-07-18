@@ -13,14 +13,11 @@
   "metadataSchemaVersion": "2.1.0-ai-context",
   "audience": "ai-systems-helping-consumer-developers",
   "componentName": "Input",
-  "customElement": "goa-input",
-  "summary": "Text input component for collecting user data across multiple input types with form integration and validation support",
-
   "customElement": {
     "tagName": "goa-input",
     "className": "goa-input"
   },
-
+  "summary": "Text input component for collecting user data across multiple input types with form integration and validation support",
   "playgroundExamples": {
     "react": [
       {
@@ -91,7 +88,6 @@
       }
     ]
   },
-
   "systemRequirements": {
     "setupReference": "See system-setup.json for complete installation instructions",
     "dependencies": [
@@ -100,7 +96,6 @@
       "Ionicons (for leading/trailing icons)"
     ]
   },
-
   "installation": {
     "react": {
       "import": "import { GoabInput, GoabFormItem } from '@abgov/react-components'",
@@ -115,7 +110,6 @@
       "quickExample": "<goa-form-item label=\"Email Address\">\n  <goa-input \n    name=\"email\" \n    type=\"email\" \n    value=\"\">\n  </goa-input>\n</goa-form-item>"
     }
   },
-
   "api": {
     "props": [
       {
@@ -283,7 +277,6 @@
       }
     ]
   },
-
   "inputWidthStrategy": {
     "widthByDataType": {
       "fixedWidths": {
@@ -315,7 +308,6 @@
       "Consider mobile experience when choosing widths"
     ]
   },
-
   "usage": {
     "playgroundNotes": {
       "handleChange": "const handleChange = (name, value) => { /* Handle input change */ };",
@@ -349,7 +341,6 @@
       ]
     }
   },
-
   "designGuidance": {
     "when": [
       "Collecting any text-based user input",
@@ -382,7 +373,6 @@
       }
     }
   },
-
   "accessibility": {
     "keyboardNavigation": [
       "Tab - Move to next input field",
@@ -406,7 +396,6 @@
       "Test with screen readers and keyboard-only navigation"
     ]
   },
-
   "relatedComponents": [
     {
       "name": "FormItem",
@@ -434,7 +423,6 @@
       "usage": "Often paired with inputs in search interfaces or form submissions"
     }
   ],
-
   "source": {
     "figmaUrl": "https://www.figma.com/design/component-library",
     "designTokens": {
@@ -444,5 +432,130 @@
     },
     "lastUpdated": "2025-07-07",
     "updatedBy": "design-system-team"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "slotted-error-text-in-a-form-item",
+        "title": "Slotted error text in a form item",
+        "description": "Use rich, formatted content for form validation error messages by leveraging form item slots, enabling complex error messaging with emphasis, links, or structured information.",
+        "useCase": "form-controls pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "forms",
+          "validation",
+          "error-handling"
+        ],
+        "category": "form-controls"
+      },
+      {
+        "id": "slotted-helper-text-in-a-form-item",
+        "title": "Slotted helper text in a form item",
+        "description": "Provide rich, formatted helper content for form fields using form item slots, enabling complex guidance with emphasis, links, or structured information to assist users.",
+        "useCase": "form-controls pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "forms",
+          "helper-text",
+          "guidance"
+        ],
+        "category": "form-controls"
+      },
+      {
+        "id": "type-to-create-a-new-filter",
+        "title": "Type to create a new filter",
+        "description": "Enable users to create custom filter chips by typing text and pressing Enter, with keyboard shortcuts for quick deletion and intuitive interaction patterns.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "dynamic-filtering",
+          "keyboard-interaction",
+          "filter-chips"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "ask-a-user-for-an-address",
+        "title": "Ask a user for an address",
+        "description": "Collect complete address information from users with proper formatting, validation, and accessibility considerations for government service applications.",
+        "useCase": "form-pattern pattern for citizen workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "address",
+          "form-validation",
+          "citizen-services"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "ask-a-user-for-their-birthday",
+        "title": "Ask a user for their birthday",
+        "description": "Collect birth date information from users with proper date validation and formatting for government applications and age verification.",
+        "useCase": "form-pattern pattern for citizen workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "birthday",
+          "date-input",
+          "age-verification"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "search",
+        "title": "Search",
+        "description": "Implement search functionality with input fields, providing users with the ability to query and filter content effectively.",
+        "useCase": "interaction-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "search",
+          "filtering",
+          "user-input"
+        ],
+        "category": "interaction-patterns"
+      },
+      {
+        "id": "ask-a-user-for-dollar-amounts",
+        "title": "Ask a user for dollar amounts",
+        "description": "Collect financial information from users with proper currency formatting, validation, and accessibility considerations for government financial applications.",
+        "useCase": "form-pattern pattern for citizen workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "currency",
+          "financial-input",
+          "validation"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "text-alignment-options",
+        "title": "Text alignment options",
+        "description": "Demonstrate different text alignment options for input fields to improve readability and visual hierarchy in forms.",
+        "useCase": "form-pattern pattern for both workflows",
+        "difficulty": "basic",
+        "tags": [
+          "text-alignment",
+          "visual-hierarchy",
+          "form-design"
+        ],
+        "category": "form-pattern"
+      },
+      {
+        "id": "ask-a-user-for-an-indian-registration-number",
+        "title": "Ask a user for an Indian registration number",
+        "description": "Collect Indian registration number information with proper formatting and validation for government applications involving Indigenous services.",
+        "useCase": "form-pattern pattern for citizen workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "registration-number",
+          "indigenous-services",
+          "validation"
+        ],
+        "category": "form-pattern"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for input in realistic scenarios"
+    }
   }
 }

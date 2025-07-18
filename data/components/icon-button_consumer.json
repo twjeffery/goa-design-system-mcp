@@ -178,11 +178,6 @@
     "basicExamples": {
       "react": [
         {
-          "title": "Table Row Actions",
-          "description": "Standard CRUD operations in data tables",
-          "code": "function UserTable({ users, onEdit, onDelete }) {\n  return (\n    <table>\n      <thead>\n        <tr>\n          <th>Name</th>\n          <th>Email</th>\n          <th>Actions</th>\n        </tr>\n      </thead>\n      <tbody>\n        {users.map(user => (\n          <tr key={user.id}>\n            <td>{user.name}</td>\n            <td>{user.email}</td>\n            <td>\n              <GoabButtonGroup gap=\"xs\">\n                <GoabIconButton\n                  icon=\"create\"\n                  variant=\"secondary\"\n                  size=\"small\"\n                  ariaLabel={`Edit ${user.name}`}\n                  onClick={() => onEdit(user.id)}\n                  testId={`edit-user-${user.id}`}\n                />\n                <GoabIconButton\n                  icon=\"trash\"\n                  variant=\"destructive\"\n                  size=\"small\"\n                  ariaLabel={`Delete ${user.name}`}\n                  onClick={() => onDelete(user.id)}\n                  testId={`delete-user-${user.id}`}\n                />\n              </GoabButtonGroup>\n            </td>\n          </tr>\n        ))}\n      </tbody>\n    </table>\n  );\n}"
-        },
-        {
           "title": "Modal with Close Button",
           "description": "Standard modal header with close action",
           "code": "function ConfirmationModal({ isOpen, onClose, onConfirm, title, message }) {\n  return (\n    <GoabModal open={isOpen}>\n      <GoabModalHeader>\n        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>\n          <h2>{title}</h2>\n          <GoabIconButton\n            icon=\"close\"\n            variant=\"tertiary\"\n            ariaLabel=\"Close dialog\"\n            onClick={onClose}\n            testId=\"modal-close\"\n          />\n        </div>\n      </GoabModalHeader>\n      <GoabModalBody>\n        <p>{message}</p>\n      </GoabModalBody>\n      <GoabButtonGroup alignment=\"end\">\n        <GoabButton type=\"secondary\" onClick={onClose}>\n          Cancel\n        </GoabButton>\n        <GoabButton type=\"primary\" onClick={onConfirm}>\n          Confirm\n        </GoabButton>\n      </GoabButtonGroup>\n    </GoabModal>\n  );\n}"
@@ -207,12 +202,6 @@
       ]
     },
     "commonPatterns": [
-      {
-        "name": "Table Row Actions",
-        "description": "Edit, delete, and view actions for data rows",
-        "usage": "Use small size and secondary/destructive variants",
-        "code": "<GoabButtonGroup gap=\"xs\">\n  <GoabIconButton icon=\"eye\" variant=\"secondary\" ariaLabel=\"View details\" />\n  <GoabIconButton icon=\"create\" variant=\"secondary\" ariaLabel=\"Edit item\" />\n  <GoabIconButton icon=\"trash\" variant=\"destructive\" ariaLabel=\"Delete item\" />\n</GoabButtonGroup>"
-      },
       {
         "name": "Modal Close Button",
         "description": "Standard close action for modals and dialogs",
@@ -399,5 +388,27 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/icon-button.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "show-multiple-actions-in-a-compact-table",
+        "title": "Show multiple actions in a compact table",
+        "description": "Display multiple action buttons efficiently in table rows using icon buttons for space-constrained data interfaces",
+        "useCase": "data-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "icon-button",
+          "table",
+          "compact-actions"
+        ],
+        "category": "data-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for icon-button in realistic scenarios"
+    }
   }
 }

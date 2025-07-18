@@ -406,5 +406,39 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/footer.json",
     "note": "See maintainer version for implementation details and development information"
+  },
+  "examples": {
+    "relatedRecipes": [
+      {
+        "id": "show-quick-links",
+        "title": "Show quick links",
+        "description": "Display commonly accessed links and shortcuts in footer areas for quick navigation to essential pages and services",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "quick-links",
+          "navigation",
+          "footer"
+        ],
+        "category": "layout-patterns"
+      },
+      {
+        "id": "show-links-to-navigation-items",
+        "title": "Show links to navigation items",
+        "description": "Organize and display navigation links in footer sections with proper categorization and hierarchy for government services",
+        "useCase": "layout-patterns pattern for both workflows",
+        "difficulty": "intermediate",
+        "tags": [
+          "navigation-links",
+          "footer-navigation",
+          "site-structure"
+        ],
+        "category": "layout-patterns"
+      }
+    ],
+    "quickReference": {
+      "basicUsage": "See playgroundExamples for component API usage",
+      "advancedPatterns": "See relatedRecipes for footer in realistic scenarios"
+    }
   }
 }
