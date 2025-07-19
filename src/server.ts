@@ -717,6 +717,9 @@ export class GoADesignSystemServer {
   async designReview(args: any) {
     const { designDescription, framework, userType = "citizen", components = [] } = args;
     
+    // Note: This function reviews existing designs with guidance and recommendations.
+    // Layout and component structure are "recommended" for reviews but "critical" for new implementations.
+    
     const reviewResults = {
       timestamp: new Date().toISOString(),
       designDescription,
@@ -745,8 +748,8 @@ export class GoADesignSystemServer {
         check: "OneColumnLayout Usage",
         passed: designDescription.toLowerCase().includes("layout") || 
                 designDescription.toLowerCase().includes("page structure"),
-        message: "All government pages must use GoabOneColumnLayout with proper header/footer structure",
-        critical: true
+        message: "Consider using GoabOneColumnLayout for consistent government page structure (critical for new implementations)",
+        critical: false // Not critical for design review, but critical for generation
       },
       {
         check: "Government Branding",
@@ -759,8 +762,8 @@ export class GoADesignSystemServer {
       {
         check: "Component-First Approach",
         passed: components.length > 0 || designDescription.toLowerCase().includes("component"),
-        message: "Use existing GoA components rather than custom implementations",
-        critical: false
+        message: "Consider using existing GoA components rather than custom implementations (critical for new implementations)",
+        critical: false // Not critical for design review, but critical for generation
       }
     ];
 
@@ -865,7 +868,7 @@ export class GoADesignSystemServer {
 
         if (pattern.id === "custom-over-goa") {
           detected = components.some((comp: string) => comp.toLowerCase().includes("custom"));
-          detectionReason = "Custom components detected in component list";
+          detectionReason = "Custom components detected - consider GoA alternatives for new implementations";
         } else if (pattern.id === "wrong-user-pattern") {
           if (userType === "citizen" && (
             designDescription.toLowerCase().includes("dashboard") ||
@@ -884,7 +887,7 @@ export class GoADesignSystemServer {
         } else if (pattern.id === "layout-inconsistency") {
           detected = !designDescription.toLowerCase().includes("onecolumnlayout") &&
                     !components.some((comp: string) => comp.toLowerCase().includes("layout"));
-          detectionReason = "Missing GoabOneColumnLayout in design description";
+          detectionReason = "Missing GoabOneColumnLayout - recommended for consistency (critical for new implementations)";
         }
 
         if (detected) {
