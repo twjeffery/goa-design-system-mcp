@@ -1,0 +1,368 @@
+{
+  "name": "anti-patterns",
+  "summary": "Common anti-patterns and pitfalls to avoid when using the GoA Design System",
+  "purpose": "Help teams identify and prevent problematic design and implementation decisions",
+  "category": "expert-guidance",
+  "detectionRules": {
+    "designAntiPatterns": [
+      {
+        "id": "custom-over-goa",
+        "name": "Custom Components Over GoA Components",
+        "description": "Building custom components when equivalent GoA components exist",
+        "severity": "high",
+        "detectionCriteria": [
+          "Component names include 'custom', 'custom-button', 'my-component'",
+          "CSS files targeting standard HTML elements instead of GoA components",
+          "Project has more custom components than GoA components"
+        ],
+        "impact": {
+          "maintenance": "High - Custom components require ongoing support",
+          "consistency": "High - Breaks design system consistency",
+          "accessibility": "High - Custom components may not meet WCAG standards",
+          "performance": "Medium - May not be optimized like GoA components"
+        },
+        "solution": {
+          "immediate": "Audit custom components against GoA library",
+          "shortTerm": "Replace custom components with GoA equivalents",
+          "longTerm": "Establish component selection review process"
+        },
+        "examples": [
+          {
+            "wrong": "Building CustomButton component for primary actions",
+            "right": "Use GoabButton with type='primary'"
+          },
+          {
+            "wrong": "Creating custom form layouts with divs and CSS",
+            "right": "Use GoabFormItem to wrap inputs properly"
+          }
+        ]
+      },
+      {
+        "id": "wrong-user-pattern",
+        "name": "Mismatched User Type Patterns",
+        "description": "Using citizen patterns for worker tools or vice versa",
+        "severity": "high",
+        "detectionCriteria": [
+          "Worker dashboards with one-question-per-page patterns",
+          "Citizen forms with high information density",
+          "Complex navigation for simple citizen tasks",
+          "Bulk operations in citizen-facing interfaces"
+        ],
+        "impact": {
+          "userExperience": "High - Inappropriate patterns frustrate users",
+          "efficiency": "High - Wrong patterns reduce task completion",
+          "adoption": "Medium - Users may abandon poorly designed services",
+          "compliance": "Medium - May not meet government service standards"
+        },
+        "solution": {
+          "immediate": "Identify target user type clearly",
+          "shortTerm": "Redesign using appropriate patterns",
+          "longTerm": "Train team on citizen vs worker pattern differences"
+        }
+      },
+      {
+        "id": "layout-inconsistency",
+        "name": "Inconsistent Layout Structure",
+        "description": "Not using GoabOneColumnLayout consistently across government pages",
+        "severity": "critical",
+        "detectionCriteria": [
+          "Pages without GoabOneColumnLayout wrapper",
+          "Custom header/footer implementations",
+          "Missing GoabMicrositeHeader or GoabAppHeader",
+          "Inconsistent page structure across project"
+        ],
+        "impact": {
+          "branding": "Critical - Breaks government service branding",
+          "consistency": "Critical - Users see different layouts across services",
+          "accessibility": "High - May break screen reader navigation",
+          "compliance": "Critical - Fails government service standards"
+        },
+        "solution": {
+          "immediate": "Implement GoabOneColumnLayout on all pages",
+          "shortTerm": "Standardize header and footer usage",
+          "longTerm": "Create page templates with proper structure"
+        }
+      },
+      {
+        "id": "accessibility-afterthought",
+        "name": "Accessibility as Afterthought",
+        "description": "Adding accessibility features after design/development completion",
+        "severity": "critical",
+        "detectionCriteria": [
+          "Form inputs without proper labels",
+          "Custom components missing ARIA attributes",
+          "Color contrast issues",
+          "Keyboard navigation problems",
+          "Missing alt text or semantic structure"
+        ],
+        "impact": {
+          "legal": "Critical - May violate accessibility laws",
+          "inclusion": "Critical - Excludes users with disabilities",
+          "compliance": "Critical - Fails WCAG 2.2 AA standards",
+          "reputation": "High - Poor accessibility reflects badly on government"
+        },
+        "solution": {
+          "immediate": "Use GoA components which provide accessibility by default",
+          "shortTerm": "Audit all custom elements for accessibility",
+          "longTerm": "Integrate accessibility into design process from start"
+        }
+      }
+    ],
+    "technicalAntiPatterns": [
+      {
+        "id": "framework-mixing",
+        "name": "Multiple Frontend Frameworks",
+        "description": "Using React, Angular, and other frameworks in same project",
+        "severity": "medium",
+        "detectionCriteria": [
+          "package.json contains both React and Angular dependencies",
+          "Mix of .tsx and .component.ts files",
+          "Different build tools for different parts of app"
+        ],
+        "impact": {
+          "maintenance": "High - Multiple frameworks to maintain",
+          "bundleSize": "High - Larger bundle with multiple frameworks",
+          "teamExpertise": "Medium - Team needs multiple skillsets",
+          "consistency": "Medium - Different patterns in same app"
+        },
+        "solution": {
+          "immediate": "Choose primary framework and migrate incrementally",
+          "shortTerm": "Consolidate to single framework",
+          "longTerm": "Establish framework selection governance"
+        }
+      },
+      {
+        "id": "custom-styling",
+        "name": "Custom CSS Over Component Props",
+        "description": "Using custom CSS to override GoA component appearance",
+        "severity": "medium",
+        "detectionCriteria": [
+          "CSS selectors targeting GoA component classes",
+          "!important declarations overriding component styles",
+          "Custom CSS files that modify component appearance",
+          "Inline styles on GoA components"
+        ],
+        "impact": {
+          "maintenance": "High - Custom styles break with component updates",
+          "consistency": "High - Visual inconsistency across application",
+          "upgrades": "High - Difficult to upgrade GoA components",
+          "performance": "Low - Additional CSS overhead"
+        },
+        "solution": {
+          "immediate": "Use component props instead of custom CSS",
+          "shortTerm": "Remove custom styling of GoA components",
+          "longTerm": "Establish styling guidelines and review process"
+        }
+      },
+      {
+        "id": "spacing-abuse",
+        "name": "Overuse of GoabSpacer",
+        "description": "Using GoabSpacer instead of component margin properties",
+        "severity": "low",
+        "detectionCriteria": [
+          "High number of GoabSpacer components",
+          "GoabSpacer used between components that support margins",
+          "Complex spacing layouts with many spacer components"
+        ],
+        "impact": {
+          "performance": "Medium - More DOM elements to render",
+          "maintainability": "Medium - Spacing relationships less clear",
+          "readability": "Low - Code is more verbose"
+        },
+        "solution": {
+          "immediate": "Use component margin props (mb, mt, ml, mr) when available",
+          "shortTerm": "Replace spacers with margin properties where possible",
+          "longTerm": "Train team on margin-first spacing approach"
+        }
+      }
+    ],
+    "processAntiPatterns": [
+      {
+        "id": "no-design-review",
+        "name": "Skipping Design System Review",
+        "description": "Implementing designs without design system expert review",
+        "severity": "medium",
+        "detectionCriteria": [
+          "Features shipped without component compliance check",
+          "Multiple similar custom components across projects",
+          "Accessibility issues discovered late in development",
+          "Inconsistent patterns across team projects"
+        ],
+        "impact": {
+          "quality": "High - Lower quality user experience",
+          "consistency": "High - Inconsistent government service experience",
+          "rework": "Medium - May require significant rework",
+          "teamLearning": "Medium - Team doesn't learn from mistakes"
+        },
+        "solution": {
+          "immediate": "Establish design review checkpoints",
+          "shortTerm": "Train team on design system principles",
+          "longTerm": "Integrate design system review into workflow"
+        }
+      },
+      {
+        "id": "component-gaps-ignored",
+        "name": "Not Reporting Component Gaps",
+        "description": "Working around design system limitations without feedback",
+        "severity": "low",
+        "detectionCriteria": [
+          "Many similar custom components across organization",
+          "Common patterns not available in GoA library",
+          "Teams building same functionality repeatedly"
+        ],
+        "impact": {
+          "efficiency": "Medium - Teams duplicate effort",
+          "evolution": "Medium - Design system doesn't improve",
+          "consistency": "Low - Different solutions to same problems"
+        },
+        "solution": {
+          "immediate": "Use feedback tools to report component gaps",
+          "shortTerm": "Collaborate with design system team",
+          "longTerm": "Participate in design system evolution"
+        }
+      }
+    ]
+  },
+  "detectionQueries": {
+    "codePatterns": [
+      {
+        "pattern": "custom-components",
+        "regex": "(Custom|My|App)[A-Z][a-zA-Z]*Component",
+        "description": "Detects custom component naming patterns"
+      },
+      {
+        "pattern": "goa-override-css",
+        "regex": "\\.goab-[a-z-]+ \\{[^}]*(!important|margin|padding|color)",
+        "description": "Detects CSS overriding GoA component styles"
+      },
+      {
+        "pattern": "multiple-frameworks",
+        "files": ["package.json"],
+        "check": "dependencies contain both react and @angular/core",
+        "description": "Detects multiple frontend frameworks"
+      }
+    ],
+    "designPatterns": [
+      {
+        "pattern": "missing-layout",
+        "check": "Pages without GoabOneColumnLayout wrapper",
+        "severity": "critical"
+      },
+      {
+        "pattern": "unlabeled-inputs",
+        "check": "Input components not wrapped in GoabFormItem",
+        "severity": "high"
+      },
+      {
+        "pattern": "excessive-spacers",
+        "check": "More than 5 GoabSpacer components per page",
+        "severity": "low"
+      }
+    ]
+  },
+  "remediation": {
+    "quickFixes": [
+      {
+        "antiPattern": "custom-over-goa",
+        "fix": "Replace CustomButton with GoabButton",
+        "effort": "Low",
+        "automation": "Possible with codemod"
+      },
+      {
+        "antiPattern": "spacing-abuse",
+        "fix": "Replace GoabSpacer with component margin props",
+        "effort": "Low",
+        "automation": "Possible with regex replacement"
+      },
+      {
+        "antiPattern": "goa-override-css",
+        "fix": "Use component props instead of CSS overrides",
+        "effort": "Medium",
+        "automation": "Requires manual review"
+      }
+    ],
+    "majorRefactoring": [
+      {
+        "antiPattern": "wrong-user-pattern",
+        "fix": "Redesign using appropriate citizen/worker patterns",
+        "effort": "High",
+        "timeline": "2-4 weeks",
+        "steps": [
+          "Audit current user flows",
+          "Identify correct patterns for user type",
+          "Redesign key interactions",
+          "Update component implementations",
+          "Test with real users"
+        ]
+      },
+      {
+        "antiPattern": "layout-inconsistency",
+        "fix": "Implement consistent GoabOneColumnLayout structure",
+        "effort": "Medium",
+        "timeline": "1-2 weeks",
+        "steps": [
+          "Create page templates with proper layout",
+          "Update all existing pages",
+          "Ensure header/footer consistency",
+          "Test responsive behavior"
+        ]
+      }
+    ]
+  },
+  "prevention": {
+    "teamTraining": [
+      {
+        "topic": "Component Selection Process",
+        "duration": "2 hours",
+        "content": "How to choose GoA components over custom solutions",
+        "frequency": "For new team members"
+      },
+      {
+        "topic": "Citizen vs Worker Patterns",
+        "duration": "1 hour", 
+        "content": "Understanding when to use which design patterns",
+        "frequency": "Quarterly refresher"
+      },
+      {
+        "topic": "Accessibility by Design",
+        "duration": "3 hours",
+        "content": "Building accessible interfaces from the start",
+        "frequency": "Annually"
+      }
+    ],
+    "processChecks": [
+      {
+        "checkpoint": "Design Review",
+        "when": "Before development starts",
+        "criteria": "GoA compliance, accessibility, user type appropriateness"
+      },
+      {
+        "checkpoint": "Code Review",
+        "when": "Before merge",
+        "criteria": "Proper component usage, no CSS overrides, accessibility"
+      },
+      {
+        "checkpoint": "Accessibility Audit",
+        "when": "Before release",
+        "criteria": "WCAG 2.2 AA compliance, government standards"
+      }
+    ],
+    "tooling": [
+      {
+        "tool": "ESLint Rules",
+        "purpose": "Detect common anti-patterns in code",
+        "rules": [
+          "No CSS targeting GoA component classes",
+          "Prefer component margins over spacers",
+          "Require GoabFormItem for inputs"
+        ]
+      },
+      {
+        "tool": "Design System Audit",
+        "purpose": "Regular compliance checking",
+        "frequency": "Monthly",
+        "automated": true
+      }
+    ]
+  }
+}

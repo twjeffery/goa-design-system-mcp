@@ -1,0 +1,385 @@
+{
+  "name": "design-principles",
+  "summary": "GoA Design System expert principles and decision frameworks for teams and designers",
+  "purpose": "Provide comprehensive guidance for design decisions, pattern selection, and system governance",
+  "category": "expert-guidance",
+  "expertiseAreas": [
+    "design-decision-making",
+    "pattern-selection",
+    "accessibility-compliance",
+    "government-standards",
+    "team-collaboration",
+    "system-governance"
+  ],
+  "designPrinciples": {
+    "core": [
+      {
+        "principle": "Government Service First",
+        "description": "All design decisions must prioritize citizen and worker needs over aesthetic preferences",
+        "application": "Choose components and patterns based on user research and government service requirements",
+        "examples": [
+          "Use one question per page for citizen forms to reduce cognitive load",
+          "Provide bulk operations for worker tools to improve efficiency",
+          "Include clear progress indicators for multi-step processes"
+        ]
+      },
+      {
+        "principle": "Accessibility by Default",
+        "description": "WCAG 2.2 AA compliance is non-negotiable, not an add-on",
+        "application": "Use GoA components which provide built-in accessibility features",
+        "examples": [
+          "Always wrap form inputs with GoabFormItem for proper labeling",
+          "Use semantic HTML structure provided by GoA components",
+          "Ensure color contrast meets government standards"
+        ]
+      },
+      {
+        "principle": "Consistency Over Creativity",
+        "description": "Consistent user experience across government services trumps unique design",
+        "application": "Use established GoA patterns rather than inventing new ones",
+        "examples": [
+          "Follow GoabOneColumnLayout for all government pages",
+          "Use standard GoA header and footer components",
+          "Apply consistent spacing and typography tokens"
+        ]
+      },
+      {
+        "principle": "Component-First Thinking",
+        "description": "Leverage existing GoA components before considering custom solutions",
+        "application": "Exhaust GoA component library options before building custom components",
+        "examples": [
+          "Use GoabTable with sorting for data display rather than custom tables",
+          "Combine existing components creatively before building new ones",
+          "Contribute back to the design system if you identify genuine gaps"
+        ]
+      }
+    ],
+    "userTypeSpecific": {
+      "citizen": [
+        {
+          "principle": "Simplicity and Clarity",
+          "description": "Citizens use government services infrequently and need maximum clarity",
+          "guidelines": [
+            "One concept per page maximum",
+            "Plain language at grade 9 reading level",
+            "Clear instructions and help text",
+            "Obvious next steps and navigation"
+          ]
+        },
+        {
+          "principle": "Mobile-First Experience",
+          "description": "Citizens often access services on mobile devices",
+          "guidelines": [
+            "Design for touch interaction",
+            "Ensure content reflows properly",
+            "Test on actual mobile devices",
+            "Consider data usage and slow connections"
+          ]
+        }
+      ],
+      "worker": [
+        {
+          "principle": "Efficiency and Productivity",
+          "description": "Workers use these tools daily and need to be productive",
+          "guidelines": [
+            "Support bulk operations where appropriate",
+            "Provide keyboard shortcuts and quick actions",
+            "Show relevant information density",
+            "Enable rapid decision-making with clear data presentation"
+          ]
+        },
+        {
+          "principle": "Context and Decision Support",
+          "description": "Workers need context to make good decisions for citizens",
+          "guidelines": [
+            "Show relevant case history and status",
+            "Provide clear action options with consequences",
+            "Include helpful tooltips and guidance",
+            "Support multiple workflow patterns"
+          ]
+        }
+      ]
+    }
+  },
+  "decisionFrameworks": {
+    "componentSelection": {
+      "process": [
+        {
+          "step": "Identify User Need",
+          "questions": [
+            "What is the user trying to accomplish?",
+            "Is this a citizen or worker task?",
+            "What is the complexity level?",
+            "Are there existing patterns for this need?"
+          ]
+        },
+        {
+          "step": "Search GoA Components",
+          "questions": [
+            "Does a GoA component directly solve this need?",
+            "Can I combine existing components?",
+            "What do similar government services use?",
+            "What does the recipe library suggest?"
+          ]
+        },
+        {
+          "step": "Evaluate Accessibility",
+          "questions": [
+            "Does this meet WCAG 2.2 AA standards?",
+            "Can users with disabilities complete this task?",
+            "Does it work with screen readers?",
+            "Is keyboard navigation possible?"
+          ]
+        },
+        {
+          "step": "Consider Maintenance",
+          "questions": [
+            "How will this component be maintained?",
+            "Does the team have expertise to support it?",
+            "Will this create technical debt?",
+            "Can this scale across multiple projects?"
+          ]
+        }
+      ],
+      "redFlags": [
+        "Building custom components without exhausting GoA options",
+        "Choosing aesthetics over accessibility",
+        "Ignoring established government service patterns",
+        "Creating one-off solutions that can't be reused"
+      ]
+    },
+    "patternSelection": {
+      "citizenServices": {
+        "forms": {
+          "simple": "Single-page form with GoabFormItem components",
+          "complex": "Multi-step with GoabFormStepper and progress indication",
+          "considerations": [
+            "Cognitive load reduction",
+            "Clear validation and error messaging",
+            "Save progress capability for long forms",
+            "Mobile-friendly input methods"
+          ]
+        },
+        "information": {
+          "simple": "GoabContainer with GoabText and GoabCallout for highlights",
+          "complex": "GoabAccordion or GoabDetails for progressive disclosure",
+          "considerations": [
+            "Scannable content structure",
+            "Clear headings hierarchy",
+            "Print-friendly layouts",
+            "Easy sharing and bookmarking"
+          ]
+        }
+      },
+      "workerTools": {
+        "dashboard": {
+          "pattern": "GoabTable with GoabBadge status indicators and bulk operations",
+          "considerations": [
+            "Information density appropriate for daily use",
+            "Sorting and filtering capabilities",
+            "Batch operation support",
+            "Quick navigation to related tasks"
+          ]
+        },
+        "caseManagement": {
+          "pattern": "GoabTabs with GoabContainer sections and action buttons",
+          "considerations": [
+            "All relevant case information accessible",
+            "Clear action options with permissions",
+            "History and audit trail visibility",
+            "Integration with other worker tools"
+          ]
+        }
+      }
+    }
+  },
+  "qualityGates": {
+    "designReview": [
+      {
+        "gate": "GoA Compliance",
+        "criteria": [
+          "Uses GoabOneColumnLayout structure",
+          "Includes proper government branding",
+          "Follows established component patterns",
+          "Maintains design system consistency"
+        ],
+        "severity": "critical"
+      },
+      {
+        "gate": "Accessibility Standards",
+        "criteria": [
+          "Meets WCAG 2.2 AA requirements",
+          "Provides proper form labeling",
+          "Supports keyboard navigation",
+          "Has appropriate color contrast"
+        ],
+        "severity": "critical"
+      },
+      {
+        "gate": "User Experience",
+        "criteria": [
+          "Appropriate for user type (citizen/worker)",
+          "Follows established UX patterns",
+          "Provides clear navigation and feedback",
+          "Supports user task completion"
+        ],
+        "severity": "high"
+      },
+      {
+        "gate": "Technical Implementation",
+        "criteria": [
+          "Uses supported frameworks (React/Angular)",
+          "Leverages GoA component library",
+          "Follows performance best practices",
+          "Includes proper error handling"
+        ],
+        "severity": "medium"
+      }
+    ]
+  },
+  "commonPitfalls": {
+    "designDecisions": [
+      {
+        "pitfall": "Custom Components Over GoA Components",
+        "description": "Building custom solutions when GoA components exist",
+        "why": "Increases maintenance burden and reduces consistency",
+        "solution": "Exhaustively search GoA library and recipes before building custom",
+        "detection": "Project has many custom-named components"
+      },
+      {
+        "pitfall": "Citizen Patterns for Worker Tools",
+        "description": "Using citizen-optimized patterns for worker interfaces",
+        "why": "Reduces worker efficiency and productivity",
+        "solution": "Use appropriate patterns for each user type",
+        "detection": "Worker tools with one-question-per-page patterns"
+      },
+      {
+        "pitfall": "Accessibility as Afterthought",
+        "description": "Considering accessibility after design completion",
+        "why": "Results in retrofitting and compliance failures",
+        "solution": "Use GoA components which provide accessibility by default",
+        "detection": "Custom components without proper ARIA attributes"
+      },
+      {
+        "pitfall": "Inconsistent Layout Structure",
+        "description": "Not using GoabOneColumnLayout consistently",
+        "why": "Breaks government service consistency and branding",
+        "solution": "Always use GoabOneColumnLayout with proper header/footer",
+        "detection": "Pages without standard government layout"
+      }
+    ],
+    "technicalImplementation": [
+      {
+        "pitfall": "Framework Mixing",
+        "description": "Using multiple frontend frameworks in one project",
+        "why": "Increases complexity and maintenance burden",
+        "solution": "Choose React or Angular and stick to it",
+        "detection": "Multiple framework dependencies in package.json"
+      },
+      {
+        "pitfall": "Custom Styling Over Component Props",
+        "description": "Using CSS to override GoA component appearance",
+        "why": "Breaks design system consistency and future updates",
+        "solution": "Use component props and GoA design tokens",
+        "detection": "Custom CSS targeting GoA component classes"
+      }
+    ]
+  },
+  "expertGuidance": {
+    "whenToUseDesignReview": [
+      "Before starting implementation of new features",
+      "When adapting existing patterns to new contexts",
+      "During design system compliance audits",
+      "When onboarding new team members",
+      "Before major release milestones"
+    ],
+    "whenToRecommendPatterns": [
+      "Team is unsure which components to use",
+      "Multiple design approaches are being considered",
+      "Need to optimize for specific user type",
+      "Want to ensure government service best practices",
+      "Exploring complex component combinations"
+    ],
+    "whenToAuditAccessibility": [
+      "Before public release of citizen-facing services",
+      "During compliance review periods",
+      "When adding new interaction patterns",
+      "After significant design changes",
+      "When custom components are introduced"
+    ],
+    "governanceCheckTriggers": [
+      "Project using many custom components",
+      "Team lacks design system expertise",
+      "Multiple teams working on related projects",
+      "Long-term maintenance concerns",
+      "Design system migration projects"
+    ]
+  },
+  "teamCollaboration": {
+    "roles": {
+      "designSystemExpert": {
+        "responsibilities": [
+          "Guide component selection decisions",
+          "Review designs for GoA compliance",
+          "Provide accessibility expertise",
+          "Facilitate design system adoption",
+          "Bridge communication between design and development"
+        ],
+        "skills": [
+          "Deep GoA component knowledge",
+          "Government service design experience",
+          "Accessibility expertise (WCAG 2.2 AA)",
+          "Frontend development understanding",
+          "User research and testing experience"
+        ]
+      },
+      "productManager": {
+        "contributions": [
+          "Define user needs and acceptance criteria",
+          "Prioritize accessibility and compliance requirements",
+          "Balance feature complexity with user experience",
+          "Coordinate with government stakeholders",
+          "Ensure alignment with service standards"
+        ]
+      },
+      "developer": {
+        "contributions": [
+          "Implement designs using GoA components",
+          "Identify technical constraints and solutions",
+          "Ensure performance and maintainability",
+          "Provide feedback on component usability",
+          "Support design system evolution"
+        ]
+      },
+      "designer": {
+        "contributions": [
+          "Create designs using GoA component library",
+          "Ensure designs meet user needs",
+          "Collaborate on accessibility requirements",
+          "Prototype and test design concepts",
+          "Document design decisions and rationale"
+        ]
+      }
+    },
+    "processIntegration": {
+      "designPhase": [
+        "Use GoA Figma library for initial designs",
+        "Review designs with design system expert",
+        "Validate accessibility before development",
+        "Document component selection rationale"
+      ],
+      "developmentPhase": [
+        "Implement using GoA component library",
+        "Review code for design system compliance",
+        "Test accessibility with real users",
+        "Document any design system limitations"
+      ],
+      "testingPhase": [
+        "Test with assistive technologies",
+        "Validate government service standards",
+        "Check cross-browser compatibility",
+        "Verify mobile responsiveness"
+      ]
+    }
+  }
+}

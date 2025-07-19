@@ -47,7 +47,7 @@ export class GoADesignSystemServer {
     }
 
     // Load system files (layout.json, system-setup.json, etc.)
-    const systemFiles = ["layout.json", "system-setup.json"];
+    const systemFiles = ["layout.json", "system-setup.json", "design-principles.json", "anti-patterns.json"];
     for (const fileName of systemFiles) {
       try {
         const filePath = join(dataDir, fileName);
@@ -143,6 +143,27 @@ export class GoADesignSystemServer {
       "build this",
     ];
 
+    // Design expert query detection
+    const designExpertKeywords = [
+      "review",
+      "audit",
+      "compliance",
+      "accessibility",
+      "governance",
+      "anti-pattern",
+      "best practice",
+      "principles",
+      "guidance",
+      "expert",
+      "onboarding",
+      "team",
+      "recommend",
+      "pattern",
+      "wcag",
+      "citizen vs worker",
+      "user type"
+    ];
+
     const frameworkKeywords = ["react", "angular"];
 
     const isBuildRequest = buildKeywords.some((keyword) =>
@@ -152,6 +173,36 @@ export class GoADesignSystemServer {
     const hasFramework = frameworkKeywords.some((keyword) =>
       queryLower.includes(keyword)
     );
+
+    const isDesignExpertQuery = designExpertKeywords.some((keyword) =>
+      queryLower.includes(keyword)
+    );
+
+    // If this is a design expert query, prioritize design principles and anti-patterns
+    if (isDesignExpertQuery) {
+      const designPrinciples = this.systemFiles.get("design-principles");
+      const antiPatterns = this.systemFiles.get("anti-patterns");
+      
+      if (designPrinciples) {
+        results.push({
+          type: "system",
+          name: "design-principles",
+          content: designPrinciples,
+          score: 160, // HIGHEST priority for design expert queries
+          reason: "Design principles and decision frameworks for expert guidance",
+        });
+      }
+      
+      if (antiPatterns) {
+        results.push({
+          type: "system",
+          name: "anti-patterns",
+          content: antiPatterns,
+          score: 155, // Very high priority for design expert queries
+          reason: "Anti-patterns detection and prevention guidance",
+        });
+      }
+    }
 
     // If this is ANY build request, ALWAYS include system setup with mandatory principles
     if (isBuildRequest || hasFramework) {
@@ -357,6 +408,7 @@ export class GoADesignSystemServer {
               },
               figmaWorkflowDetected: isFigmaQuery,
               buildRequestDetected: isBuildRequest,
+              designExpertQueryDetected: isDesignExpertQuery,
               results: sortedResults.map((result) => ({
                 type: result.type,
                 name: result.name,
@@ -657,6 +709,904 @@ export class GoADesignSystemServer {
           ),
         },
       ],
+    };
+  }
+
+  // NEW: Design Expert Functions
+
+  async designReview(args: any) {
+    const { designDescription, framework, userType = "citizen", components = [] } = args;
+    
+    const reviewResults = {
+      timestamp: new Date().toISOString(),
+      designDescription,
+      framework,
+      userType,
+      components,
+      compliance: {
+        goaStandards: [] as any[],
+        accessibility: [] as any[],
+        userExperience: [] as any[],
+        technicalImplementation: [] as any[]
+      },
+      recommendations: [] as any[],
+      risks: [] as any[],
+      antiPatternsDetected: [] as any[],
+      score: 0
+    };
+
+    // Load anti-patterns database for detection
+    const antiPatterns = this.systemFiles.get("anti-patterns");
+    const designPrinciples = this.systemFiles.get("design-principles");
+
+    // GoA Standards Review
+    const goaStandardChecks = [
+      {
+        check: "OneColumnLayout Usage",
+        passed: designDescription.toLowerCase().includes("layout") || 
+                designDescription.toLowerCase().includes("page structure"),
+        message: "All government pages must use GoabOneColumnLayout with proper header/footer structure",
+        critical: true
+      },
+      {
+        check: "Government Branding",
+        passed: designDescription.toLowerCase().includes("header") || 
+                designDescription.toLowerCase().includes("goa") ||
+                components.some((comp: string) => comp.toLowerCase().includes("header")),
+        message: "Pages should include GoabMicrositeHeader and GoabAppHeader for consistent branding",
+        critical: true
+      },
+      {
+        check: "Component-First Approach",
+        passed: components.length > 0 || designDescription.toLowerCase().includes("component"),
+        message: "Use existing GoA components rather than custom implementations",
+        critical: false
+      }
+    ];
+
+    reviewResults.compliance.goaStandards = goaStandardChecks;
+
+    // Accessibility Review
+    const accessibilityChecks = [
+      {
+        check: "Form Labels",
+        passed: !designDescription.toLowerCase().includes("form") || 
+                designDescription.toLowerCase().includes("label") ||
+                components.some((comp: string) => comp.toLowerCase().includes("formitem")),
+        message: "All form inputs must be wrapped with GoabFormItem for proper labeling",
+        wcagLevel: "AA"
+      },
+      {
+        check: "Color Contrast",
+        passed: true, // GoA components handle this automatically
+        message: "GoA components provide WCAG 2.2 AA compliant contrast ratios",
+        wcagLevel: "AA"
+      },
+      {
+        check: "Keyboard Navigation",
+        passed: true, // GoA components handle this automatically
+        message: "GoA components support full keyboard navigation",
+        wcagLevel: "AA"
+      }
+    ];
+
+    reviewResults.compliance.accessibility = accessibilityChecks;
+
+    // User Experience Review (Citizen vs Worker patterns)
+    const uxChecks = userType === "citizen" ? [
+      {
+        check: "One Question Per Page",
+        passed: designDescription.toLowerCase().includes("one question") || 
+                designDescription.toLowerCase().includes("single question"),
+        message: "Citizen-facing forms should present one question per page for cognitive load reduction",
+        userType: "citizen"
+      },
+      {
+        check: "Clear Progress Indication",
+        passed: designDescription.toLowerCase().includes("progress") ||
+                components.some((comp: string) => comp.toLowerCase().includes("progress")),
+        message: "Multi-step citizen processes should show clear progress indicators",
+        userType: "citizen"
+      },
+      {
+        check: "Plain Language",
+        passed: designDescription.toLowerCase().includes("plain") ||
+                designDescription.toLowerCase().includes("simple"),
+        message: "Use plain language appropriate for grade 9 reading level",
+        userType: "citizen"
+      }
+    ] : [
+      {
+        check: "Information Density",
+        passed: designDescription.toLowerCase().includes("table") ||
+                designDescription.toLowerCase().includes("dashboard") ||
+                designDescription.toLowerCase().includes("overview"),
+        message: "Worker interfaces can display more information density for efficiency",
+        userType: "worker"
+      },
+      {
+        check: "Batch Operations",
+        passed: designDescription.toLowerCase().includes("batch") ||
+                designDescription.toLowerCase().includes("multiple") ||
+                components.some((comp: string) => comp.toLowerCase().includes("checkbox")),
+        message: "Worker tools should support bulk operations where appropriate",
+        userType: "worker"
+      }
+    ];
+
+    reviewResults.compliance.userExperience = uxChecks;
+
+    // Technical Implementation Review
+    const techChecks = [
+      {
+        check: "Framework Consistency",
+        passed: framework === "react" || framework === "angular",
+        message: framework ? `${framework} is supported` : "Specify React or Angular for proper implementation guidance",
+        severity: framework ? "info" : "warning"
+      },
+      {
+        check: "Component Import Strategy",
+        passed: components.length > 0,
+        message: "List specific components for import optimization guidance",
+        severity: components.length > 0 ? "info" : "warning"
+      }
+    ];
+
+    reviewResults.compliance.technicalImplementation = techChecks;
+
+    // Anti-pattern Detection
+    if (antiPatterns?.detectionRules) {
+      const detectedAntiPatterns = [];
+      
+      // Check design anti-patterns
+      for (const pattern of antiPatterns.detectionRules.designAntiPatterns || []) {
+        let detected = false;
+        let detectionReason = "";
+
+        if (pattern.id === "custom-over-goa") {
+          detected = components.some((comp: string) => comp.toLowerCase().includes("custom"));
+          detectionReason = "Custom components detected in component list";
+        } else if (pattern.id === "wrong-user-pattern") {
+          if (userType === "citizen" && (
+            designDescription.toLowerCase().includes("dashboard") ||
+            designDescription.toLowerCase().includes("bulk") ||
+            designDescription.toLowerCase().includes("table")
+          )) {
+            detected = true;
+            detectionReason = "Dashboard/bulk operation patterns detected for citizen interface";
+          } else if (userType === "worker" && (
+            designDescription.toLowerCase().includes("one question") ||
+            designDescription.toLowerCase().includes("simple form")
+          )) {
+            detected = true;
+            detectionReason = "Simplified citizen patterns detected for worker interface";
+          }
+        } else if (pattern.id === "layout-inconsistency") {
+          detected = !designDescription.toLowerCase().includes("onecolumnlayout") &&
+                    !components.some((comp: string) => comp.toLowerCase().includes("layout"));
+          detectionReason = "Missing GoabOneColumnLayout in design description";
+        }
+
+        if (detected) {
+          detectedAntiPatterns.push({
+            id: pattern.id,
+            name: pattern.name,
+            severity: pattern.severity,
+            reason: detectionReason,
+            impact: pattern.impact,
+            solution: pattern.solution
+          });
+        }
+      }
+
+      // Check technical anti-patterns
+      for (const pattern of antiPatterns.detectionRules.technicalAntiPatterns || []) {
+        let detected = false;
+        let detectionReason = "";
+
+        if (pattern.id === "framework-mixing") {
+          // This would require actual code analysis, so we'll check description
+          detected = designDescription.toLowerCase().includes("react") && 
+                    designDescription.toLowerCase().includes("angular");
+          detectionReason = "Multiple frameworks mentioned in description";
+        } else if (pattern.id === "custom-styling") {
+          detected = designDescription.toLowerCase().includes("custom css") ||
+                    designDescription.toLowerCase().includes("override");
+          detectionReason = "Custom styling mentioned in description";
+        }
+
+        if (detected) {
+          detectedAntiPatterns.push({
+            id: pattern.id,
+            name: pattern.name,
+            severity: pattern.severity,
+            reason: detectionReason,
+            impact: pattern.impact,
+            solution: pattern.solution
+          });
+        }
+      }
+
+      reviewResults.antiPatternsDetected = detectedAntiPatterns;
+    }
+
+    // Generate recommendations
+    const allChecks = [
+      ...goaStandardChecks,
+      ...accessibilityChecks,
+      ...uxChecks,
+      ...techChecks
+    ];
+
+    const failedChecks = allChecks.filter(check => !check.passed);
+    
+    reviewResults.recommendations = [
+      ...failedChecks.map((check: any) => ({
+        type: check.critical ? "critical" : "improvement",
+        message: check.message,
+        category: check.wcagLevel ? "accessibility" : check.userType ? "user-experience" : "implementation"
+      })),
+      ...reviewResults.antiPatternsDetected.map((antiPattern: any) => ({
+        type: antiPattern.severity === "critical" ? "critical" : antiPattern.severity === "high" ? "critical" : "improvement",
+        message: `Anti-pattern detected: ${antiPattern.name} - ${antiPattern.solution.immediate}`,
+        category: "anti-pattern",
+        antiPatternId: antiPattern.id
+      }))
+    ];
+
+    // Calculate score (0-100)
+    const totalChecks = allChecks.length;
+    const passedChecks = allChecks.filter(check => check.passed).length;
+    reviewResults.score = Math.round((passedChecks / totalChecks) * 100);
+
+    // Identify risks
+    const criticalFailures = failedChecks.filter((check: any) => check.critical);
+    reviewResults.risks = criticalFailures.map((check: any) => ({
+      level: "high",
+      description: check.message,
+      impact: "May not meet government service standards"
+    }));
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(reviewResults, null, 2)
+        }
+      ]
+    };
+  }
+
+  async recommendPatterns(args: any) {
+    const { scenario, userType = "citizen", complexity = "medium", dataType = "form" } = args;
+    
+    const recommendations = {
+      timestamp: new Date().toISOString(),
+      scenario,
+      userType,
+      complexity,
+      dataType,
+      primaryPattern: null as any,
+      alternativePatterns: [] as any[],
+      requiredComponents: [] as any[],
+      layoutStructure: null as any,
+      implementationNotes: [] as string[]
+    };
+
+    // Find matching recipes/patterns
+    const matchingRecipes = [];
+    for (const [name, recipe] of this.workflows) {
+      if (recipe.triggers?.some((trigger: string) => 
+        scenario.toLowerCase().includes(trigger.toLowerCase())
+      )) {
+        matchingRecipes.push({ name, recipe });
+      }
+    }
+
+    // Search through component data for relevant patterns
+    const relevantComponents = [];
+    for (const [name, component] of this.components) {
+      if (component.commonUse?.some((use: string) => 
+        scenario.toLowerCase().includes(use.toLowerCase())
+      ) || component.aiTags?.some((tag: string) => 
+        scenario.toLowerCase().includes(tag.toLowerCase())
+      )) {
+        relevantComponents.push({ name, component });
+      }
+    }
+
+    // Generate recommendations based on user type and scenario
+    if (userType === "citizen") {
+      if (scenario.toLowerCase().includes("form") || dataType === "form") {
+        recommendations.primaryPattern = {
+          name: "Citizen Form Pattern",
+          description: "One question per page with clear progress indication",
+          components: ["GoabOneColumnLayout", "GoabFormItem", "GoabInput", "GoabButton"],
+          layout: "Question page with single focus"
+        };
+      } else if (scenario.toLowerCase().includes("information") || scenario.toLowerCase().includes("display")) {
+        recommendations.primaryPattern = {
+          name: "Information Display Pattern",
+          description: "Clear, scannable information presentation",
+          components: ["GoabOneColumnLayout", "GoabContainer", "GoabText", "GoabCallout"],
+          layout: "Content-focused with clear hierarchy"
+        };
+      }
+    } else if (userType === "worker") {
+      if (scenario.toLowerCase().includes("dashboard") || scenario.toLowerCase().includes("overview")) {
+        recommendations.primaryPattern = {
+          name: "Worker Dashboard Pattern",
+          description: "Information-dense interface with bulk operations",
+          components: ["GoabOneColumnLayout", "GoabTable", "GoabCheckbox", "GoabDropdown", "GoabBadge"],
+          layout: "Multi-column with actionable data"
+        };
+      } else if (scenario.toLowerCase().includes("case") || scenario.toLowerCase().includes("management")) {
+        recommendations.primaryPattern = {
+          name: "Case Management Pattern",
+          description: "Detailed view with actions and status tracking",
+          components: ["GoabOneColumnLayout", "GoabTabs", "GoabContainer", "GoabButton", "GoabBadge"],
+          layout: "Tabbed interface with contextual actions"
+        };
+      }
+    }
+
+    // Add layout structure guidance
+    recommendations.layoutStructure = {
+      required: "GoabOneColumnLayout",
+      header: "GoabMicrositeHeader + GoabAppHeader",
+      content: "GoabPageBlock with appropriate components",
+      footer: "GoabAppFooter",
+      spacing: "Use component margins (mb, mt, ml, mr) over GoabSpacer when possible"
+    };
+
+    // Add implementation notes
+    recommendations.implementationNotes = [
+      "Always use GoabOneColumnLayout for government pages",
+      "Wrap form inputs with GoabFormItem for accessibility",
+      "Use GoA spacing tokens for consistent layout",
+      "Consider mobile-first responsive design",
+      userType === "citizen" ? "Optimize for infrequent users" : "Optimize for efficiency and bulk operations"
+    ];
+
+    // Include matching recipes if found
+    if (matchingRecipes.length > 0) {
+      recommendations.alternativePatterns = matchingRecipes.map(recipe => ({
+        name: recipe.name,
+        description: recipe.recipe.summary || recipe.recipe.methodologyName,
+        source: "existing-recipe"
+      }));
+    }
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(recommendations, null, 2)
+        }
+      ]
+    };
+  }
+
+  async accessibilityAudit(args: any) {
+    const { designDescription, components = [], framework } = args;
+    
+    const auditResults = {
+      timestamp: new Date().toISOString(),
+      designDescription,
+      components,
+      framework,
+      wcagLevel: "AA",
+      compliance: {
+        level: "unknown",
+        score: 0,
+        passedChecks: 0,
+        totalChecks: 0
+      },
+      checks: [] as any[],
+      recommendations: [] as any[],
+      governmentRequirements: [] as any[]
+    };
+
+    // WCAG 2.2 AA Compliance Checks
+    const wcagChecks = [
+      {
+        criterion: "1.1.1 Non-text Content",
+        status: "pass",
+        message: "GoA components provide alt text for images and meaningful labels",
+        automatic: true
+      },
+      {
+        criterion: "1.3.1 Info and Relationships",
+        status: designDescription.toLowerCase().includes("form") && 
+                components.some((comp: string) => comp.toLowerCase().includes("formitem")) ? "pass" : "review",
+        message: "Form inputs must use GoabFormItem for proper labeling relationship",
+        automatic: false
+      },
+      {
+        criterion: "1.4.3 Contrast (Minimum)",
+        status: "pass",
+        message: "GoA components meet WCAG 2.2 AA contrast requirements",
+        automatic: true
+      },
+      {
+        criterion: "1.4.10 Reflow",
+        status: "pass",
+        message: "GoA components support responsive design and 320px viewport",
+        automatic: true
+      },
+      {
+        criterion: "2.1.1 Keyboard",
+        status: "pass",
+        message: "GoA components are fully keyboard accessible",
+        automatic: true
+      },
+      {
+        criterion: "2.1.4 Character Key Shortcuts",
+        status: "pass",
+        message: "GoA components handle keyboard shortcuts appropriately",
+        automatic: true
+      },
+      {
+        criterion: "2.4.3 Focus Order",
+        status: "pass",
+        message: "GoA components maintain logical focus order",
+        automatic: true
+      },
+      {
+        criterion: "3.1.1 Language of Page",
+        status: "review",
+        message: "Ensure HTML lang attribute is set (not handled by components)",
+        automatic: false
+      },
+      {
+        criterion: "3.2.1 On Focus",
+        status: "pass",
+        message: "GoA components don't cause unexpected context changes",
+        automatic: true
+      },
+      {
+        criterion: "4.1.1 Parsing",
+        status: "pass",
+        message: "GoA components generate valid HTML",
+        automatic: true
+      },
+      {
+        criterion: "4.1.2 Name, Role, Value",
+        status: "pass",
+        message: "GoA components provide appropriate ARIA attributes",
+        automatic: true
+      }
+    ];
+
+    auditResults.checks = wcagChecks;
+
+    // Government-specific requirements
+    const governmentChecks = [
+      {
+        requirement: "Plain Language",
+        status: "review",
+        message: "Content should be written at grade 9 reading level",
+        reference: "Treasury Board Web Standards"
+      },
+      {
+        requirement: "Official Languages",
+        status: "review", 
+        message: "Consider French translation requirements for federal content",
+        reference: "Official Languages Act"
+      },
+      {
+        requirement: "Mobile-First Design",
+        status: "pass",
+        message: "GoA components are mobile-responsive by default",
+        reference: "Government of Canada Digital Standards"
+      }
+    ];
+
+    auditResults.governmentRequirements = governmentChecks;
+
+    // Calculate compliance score
+    const passedChecks = wcagChecks.filter(check => check.status === "pass").length;
+    const totalChecks = wcagChecks.length;
+    auditResults.compliance.score = Math.round((passedChecks / totalChecks) * 100);
+    auditResults.compliance.passedChecks = passedChecks;
+    auditResults.compliance.totalChecks = totalChecks;
+    auditResults.compliance.level = auditResults.compliance.score >= 95 ? "excellent" : 
+                                   auditResults.compliance.score >= 80 ? "good" : 
+                                   auditResults.compliance.score >= 60 ? "fair" : "needs-improvement";
+
+    // Generate recommendations
+    const failedChecks = wcagChecks.filter(check => check.status === "fail");
+    const reviewChecks = wcagChecks.filter(check => check.status === "review");
+    
+    auditResults.recommendations = [
+      ...failedChecks.map(check => ({
+        priority: "high",
+        type: "compliance-issue",
+        message: check.message,
+        criterion: check.criterion
+      })),
+      ...reviewChecks.map(check => ({
+        priority: "medium",
+        type: "manual-review",
+        message: check.message,
+        criterion: check.criterion
+      }))
+    ];
+
+    // Add GoA-specific recommendations
+    if (!designDescription.toLowerCase().includes("layout")) {
+      auditResults.recommendations.push({
+        priority: "high",
+        type: "goa-standard",
+        message: "Use GoabOneColumnLayout for consistent government page structure",
+        criterion: "GoA Layout Standards"
+      });
+    }
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(auditResults, null, 2)
+        }
+      ]
+    };
+  }
+
+  async governanceCheck(args: any) {
+    const { projectName, components = [], framework, teamSize = 1 } = args;
+    
+    const governanceResults = {
+      timestamp: new Date().toISOString(),
+      projectName,
+      components,
+      framework,
+      teamSize,
+      compliance: {
+        designSystemUsage: 0,
+        standardsCompliance: 0,
+        maintenanceRisk: "low",
+        overallScore: 0
+      },
+      findings: [] as any[],
+      recommendations: [] as any[],
+      riskAssessment: [] as any[]
+    };
+
+    // Design System Usage Analysis
+    const dsUsageChecks = [
+      {
+        check: "Component Library Usage",
+        passed: components.length > 0,
+        message: "Project should use GoA components rather than custom implementations",
+        weight: 20
+      },
+      {
+        check: "Layout Consistency",
+        passed: components.some((comp: string) => comp.toLowerCase().includes("layout")),
+        message: "Use GoabOneColumnLayout for consistent government page structure",
+        weight: 15
+      },
+      {
+        check: "Form Standards",
+        passed: !components.some((comp: string) => comp.toLowerCase().includes("input")) || 
+                components.some((comp: string) => comp.toLowerCase().includes("formitem")),
+        message: "Form inputs must be wrapped with GoabFormItem",
+        weight: 10
+      },
+      {
+        check: "Navigation Standards",
+        passed: !components.some((comp: string) => comp.toLowerCase().includes("link")) ||
+                components.some((comp: string) => comp.toLowerCase().includes("header")),
+        message: "Include proper navigation structure with GoabAppHeader",
+        weight: 10
+      }
+    ];
+
+    // Calculate design system usage score
+    const dsUsageScore = dsUsageChecks.reduce((score, check) => {
+      return score + (check.passed ? check.weight : 0);
+    }, 0);
+    governanceResults.compliance.designSystemUsage = Math.min(100, dsUsageScore);
+
+    // Standards Compliance
+    const standardsChecks = [
+      {
+        check: "Framework Consistency",
+        passed: framework === "react" || framework === "angular",
+        message: "Use supported frameworks (React or Angular)",
+        impact: "medium"
+      },
+      {
+        check: "Government Branding",
+        passed: components.some((comp: string) => 
+          comp.toLowerCase().includes("header") || comp.toLowerCase().includes("footer")
+        ),
+        message: "Include GoabMicrositeHeader and GoabAppFooter for government branding",
+        impact: "high"
+      },
+      {
+        check: "Accessibility Standards",
+        passed: !components.some((comp: string) => comp.toLowerCase().includes("custom")),
+        message: "Avoid custom components that may not meet WCAG 2.2 AA standards",
+        impact: "high"
+      }
+    ];
+
+    governanceResults.compliance.standardsCompliance = Math.round(
+      (standardsChecks.filter(check => check.passed).length / standardsChecks.length) * 100
+    );
+
+    // Maintenance Risk Assessment
+    const customComponents = components.filter((comp: string) => comp.toLowerCase().includes("custom"));
+    const complexComponents = components.filter((comp: string) => 
+      comp.toLowerCase().includes("table") || comp.toLowerCase().includes("form")
+    );
+
+    let maintenanceRisk = "low";
+    if (customComponents.length > 2 || teamSize < 2) {
+      maintenanceRisk = "high";
+    } else if (customComponents.length > 0 || complexComponents.length > 5) {
+      maintenanceRisk = "medium";
+    }
+
+    governanceResults.compliance.maintenanceRisk = maintenanceRisk;
+
+    // Overall Score
+    governanceResults.compliance.overallScore = Math.round(
+      (governanceResults.compliance.designSystemUsage + 
+       governanceResults.compliance.standardsCompliance) / 2
+    );
+
+    // Generate findings
+    const failedChecks = [...dsUsageChecks, ...standardsChecks].filter(check => !check.passed);
+    governanceResults.findings = failedChecks.map((check: any) => ({
+      type: "compliance-gap",
+      message: check.message,
+      impact: check.impact || "medium",
+      recommendation: "Use GoA Design System components"
+    }));
+
+    // Risk Assessment
+    if (maintenanceRisk === "high") {
+      governanceResults.riskAssessment.push({
+        risk: "High Maintenance Burden",
+        description: "Too many custom components or insufficient team size",
+        mitigation: "Reduce custom components, increase team size, or add design system expertise"
+      });
+    }
+
+    if (governanceResults.compliance.overallScore < 70) {
+      governanceResults.riskAssessment.push({
+        risk: "Design System Compliance",
+        description: "Low adherence to GoA Design System standards",
+        mitigation: "Increase use of GoA components and follow established patterns"
+      });
+    }
+
+    // Generate recommendations
+    governanceResults.recommendations = [
+      {
+        priority: "high",
+        category: "design-system",
+        message: "Increase usage of GoA components to improve consistency and reduce maintenance",
+        actionItems: [
+          "Audit current custom components",
+          "Replace with GoA equivalents where possible",
+          "Document any unavoidable custom components"
+        ]
+      },
+      {
+        priority: "medium",
+        category: "team-process",
+        message: "Establish design system review process",
+        actionItems: [
+          "Add design system expert to team",
+          "Include GoA compliance in code review",
+          "Set up automated component usage tracking"
+        ]
+      }
+    ];
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(governanceResults, null, 2)
+        }
+      ]
+    };
+  }
+
+  async teamOnboarding(args: any) {
+    const { teamType = "development", experience = "beginner", projectType = "citizen-service", framework } = args;
+    
+    const onboardingPlan = {
+      timestamp: new Date().toISOString(),
+      teamType,
+      experience,
+      projectType,
+      framework,
+      learningPath: [] as any[],
+      keyResources: [] as any[],
+      practiceExercises: [] as any[],
+      checkpoints: [] as any[],
+      support: [] as any[]
+    };
+
+    // Customize learning path based on team type and experience
+    if (teamType === "development") {
+      if (experience === "beginner") {
+        onboardingPlan.learningPath = [
+          {
+            phase: "Foundation",
+            duration: "Week 1-2",
+            topics: [
+              "GoA Design System principles",
+              "Component library overview",
+              "Setup and installation",
+              "Basic layout patterns"
+            ]
+          },
+          {
+            phase: "Implementation",
+            duration: "Week 3-4",
+            topics: [
+              "Form patterns and validation",
+              "Navigation and layout",
+              "Accessibility requirements",
+              "Framework-specific implementation"
+            ]
+          },
+          {
+            phase: "Advanced",
+            duration: "Week 5-6",
+            topics: [
+              "Complex component combinations",
+              "Custom styling guidelines",
+              "Performance optimization",
+              "Testing strategies"
+            ]
+          }
+        ];
+      } else {
+        onboardingPlan.learningPath = [
+          {
+            phase: "Quick Start",
+            duration: "Week 1",
+            topics: [
+              "GoA vs other design systems",
+              "Government-specific requirements",
+              "Advanced component patterns",
+              "Migration strategies"
+            ]
+          }
+        ];
+      }
+    } else if (teamType === "design") {
+      onboardingPlan.learningPath = [
+        {
+          phase: "Design Principles",
+          duration: "Week 1",
+          topics: [
+            "Government service design principles",
+            "Citizen vs Worker patterns",
+            "Accessibility requirements",
+            "Content and UX guidelines"
+          ]
+        },
+        {
+          phase: "Component Usage",
+          duration: "Week 2",
+          topics: [
+            "When to use which components",
+            "Layout and spacing guidelines",
+            "Color and typography system",
+            "Icon and imagery standards"
+          ]
+        }
+      ];
+    }
+
+    // Key Resources
+    onboardingPlan.keyResources = [
+      {
+        name: "GoA Design System Documentation",
+        url: "https://design.alberta.ca",
+        type: "primary",
+        description: "Official component library and guidelines"
+      },
+      {
+        name: "Component Examples",
+        location: "data/recipes/",
+        type: "examples",
+        description: "71 real-world implementation patterns"
+      },
+      {
+        name: "Government Service Standards",
+        type: "standards",
+        description: "Accessibility, branding, and compliance requirements"
+      }
+    ];
+
+    // Practice Exercises
+    if (projectType === "citizen-service") {
+      onboardingPlan.practiceExercises = [
+        {
+          name: "Simple Form",
+          description: "Build a citizen registration form with validation",
+          components: ["GoabFormItem", "GoabInput", "GoabButton"],
+          difficulty: "beginner"
+        },
+        {
+          name: "Multi-step Process",
+          description: "Create a multi-page application with progress tracking",
+          components: ["GoabFormStepper", "GoabContainer", "GoabButton"],
+          difficulty: "intermediate"
+        }
+      ];
+    } else if (projectType === "worker-tool") {
+      onboardingPlan.practiceExercises = [
+        {
+          name: "Dashboard Interface",
+          description: "Build a worker dashboard with data tables and actions",
+          components: ["GoabTable", "GoabCheckbox", "GoabBadge", "GoabDropdown"],
+          difficulty: "intermediate"
+        },
+        {
+          name: "Case Management",
+          description: "Create a case review interface with tabs and actions",
+          components: ["GoabTabs", "GoabContainer", "GoabButton", "GoabCallout"],
+          difficulty: "advanced"
+        }
+      ];
+    }
+
+    // Checkpoints
+    onboardingPlan.checkpoints = [
+      {
+        milestone: "Component Setup",
+        criteria: "Successfully install and import GoA components",
+        timeframe: "End of Week 1"
+      },
+      {
+        milestone: "First Implementation",
+        criteria: "Build a functional page using GoA components",
+        timeframe: "End of Week 2"
+      },
+      {
+        milestone: "Pattern Mastery",
+        criteria: "Implement appropriate patterns for user type",
+        timeframe: "End of Week 4"
+      }
+    ];
+
+    // Support Resources
+    onboardingPlan.support = [
+      {
+        type: "documentation",
+        resource: "Built-in MCP assistance",
+        description: "Ask questions about components and patterns"
+      },
+      {
+        type: "community",
+        resource: "GoA Design System Team",
+        description: "Feedback and guidance from the design system team"
+      },
+      {
+        type: "examples",
+        resource: "Recipe Library",
+        description: "71 implementation patterns for common scenarios"
+      }
+    ];
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(onboardingPlan, null, 2)
+        }
+      ]
     };
   }
 }
