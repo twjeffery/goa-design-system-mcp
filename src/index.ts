@@ -139,9 +139,9 @@ async function main() {
           },
         },
         {
-          name: "collect_feedback",
+          name: "give_feedback",
           description:
-            "Collect feedback about component usage or missing information",
+            "Give feedback about component usage or missing information",
           inputSchema: {
             type: "object",
             properties: {
@@ -328,6 +328,47 @@ async function main() {
             required: [],
           },
         },
+        {
+          name: "get_feedback",
+          description:
+            "MAINTAINER: Review and filter submitted feedback from MCP users",
+          inputSchema: {
+            type: "object",
+            properties: {
+              limit: {
+                type: "number",
+                description: "Maximum number of feedback entries to return",
+                default: 10,
+              },
+              componentName: {
+                type: "string",
+                description: "Filter feedback for a specific component",
+              },
+              feedbackType: {
+                type: "string",
+                description: "Filter by feedback type",
+                enum: [
+                  "missing_example",
+                  "unclear_documentation", 
+                  "bug_report",
+                  "feature_request",
+                  "usage_question",
+                ],
+              },
+            },
+            required: [],
+          },
+        },
+        {
+          name: "get_feedback_summary",
+          description:
+            "MAINTAINER: Get analytics and summary of all collected feedback",
+          inputSchema: {
+            type: "object",
+            properties: {},
+            required: [],
+          },
+        },
       ],
     };
   });
@@ -350,8 +391,8 @@ async function main() {
         case "get_usage_patterns":
           return await goaServer.getUsagePatterns(args);
 
-        case "collect_feedback":
-          return await goaServer.collectFeedback(args);
+        case "give_feedback":
+          return await goaServer.giveFeedback(args);
 
         case "design_review":
           return await designExpertServer.designReview(args);
@@ -367,6 +408,12 @@ async function main() {
 
         case "team_onboarding":
           return await designExpertServer.teamOnboarding(args);
+
+        case "get_feedback":
+          return await designExpertServer.getFeedback(args);
+
+        case "get_feedback_summary":
+          return await designExpertServer.getFeedbackSummary(args);
 
         default:
           throw new Error(`Unknown tool: ${name}`);

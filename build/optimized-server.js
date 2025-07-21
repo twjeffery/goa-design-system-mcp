@@ -325,7 +325,7 @@ export class OptimizedGoADesignSystemServer {
         }
     }
     // Preserved original feedback collection (no optimization needed)
-    async collectFeedback(args) {
+    async giveFeedback(args) {
         const { componentName, feedbackType, description, userTeam } = args;
         // Generate feedback record
         const feedback = {

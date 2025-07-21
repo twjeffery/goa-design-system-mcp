@@ -30,7 +30,50 @@ export declare class GoADesignSystemServer {
             text: string;
         }[];
     }>;
-    collectFeedback(args: any): Promise<{
+    giveFeedback(args: any): Promise<{
+        content: {
+            type: string;
+            text: string;
+        }[];
+    }>;
+    private storeFeedback;
+    getFeedback(args: any): Promise<{
+        content: {
+            type: string;
+            text: string;
+        }[];
+    }>;
+    getFeedbackSummary(args: any): Promise<{
+        content: {
+            type: string;
+            text: string;
+        }[];
+    }>;
+    designReview(args: any): Promise<{
+        content: {
+            type: string;
+            text: string;
+        }[];
+    }>;
+    recommendPatterns(args: any): Promise<{
+        content: {
+            type: string;
+            text: string;
+        }[];
+    }>;
+    accessibilityAudit(args: any): Promise<{
+        content: {
+            type: string;
+            text: string;
+        }[];
+    }>;
+    governanceCheck(args: any): Promise<{
+        content: {
+            type: string;
+            text: string;
+        }[];
+    }>;
+    teamOnboarding(args: any): Promise<{
         content: {
             type: string;
             text: string;

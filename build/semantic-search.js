@@ -126,7 +126,7 @@ export class SemanticSearchEngine {
             'component_search': ['search_components', 'get_component_details'],
             'implementation_guidance': ['project_knowledge_search', 'get_usage_patterns'],
             'workflow_request': ['project_knowledge_search'],
-            'troubleshooting': ['project_knowledge_search', 'collect_feedback']
+            'troubleshooting': ['project_knowledge_search', 'give_feedback']
         };
         return toolMap[intentType] || ['project_knowledge_search'];
     }

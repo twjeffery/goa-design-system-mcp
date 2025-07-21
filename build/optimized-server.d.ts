@@ -26,7 +26,7 @@ export declare class OptimizedGoADesignSystemServer {
             text: string;
         }[];
     }>;
-    collectFeedback(args: any): Promise<{
+    giveFeedback(args: any): Promise<{
         content: {
             type: string;
             text: string;

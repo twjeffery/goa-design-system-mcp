@@ -1,4 +1,4 @@
-import { readFile, readdir } from "fs/promises";
+import { readFile, readdir, writeFile, access } from "fs/promises";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -668,7 +668,7 @@ export class GoADesignSystemServer {
     };
   }
 
-  async collectFeedback(args: any) {
+  async giveFeedback(args: any) {
     const { componentName, feedbackType, description, userTeam } = args;
 
     // Generate feedback record
@@ -685,8 +685,13 @@ export class GoADesignSystemServer {
       },
     };
 
-    // Log feedback (in production, this would go to a database/file)
-    process.stderr.write(`Feedback collected: ${JSON.stringify(feedback, null, 2)}\n`);
+    // Store feedback persistently
+    try {
+      await this.storeFeedback(feedback);
+      process.stderr.write(`Feedback collected and stored: ${feedback.id}\n`);
+    } catch (error) {
+      process.stderr.write(`Error storing feedback: ${getErrorMessage(error)}\n`);
+    }
 
     return {
       content: [
@@ -710,6 +715,185 @@ export class GoADesignSystemServer {
         },
       ],
     };
+  }
+
+  private async storeFeedback(feedback: any) {
+    const feedbackFile = join(__dirname, "../feedback-log.json");
+    
+    try {
+      // Check if file exists
+      await access(feedbackFile);
+      
+      // File exists, read current content
+      const existingData = await readFile(feedbackFile, "utf8");
+      const feedbackLog = JSON.parse(existingData);
+      
+      // Add new feedback
+      feedbackLog.feedback.push(feedback);
+      feedbackLog.totalFeedback = feedbackLog.feedback.length;
+      feedbackLog.lastUpdated = new Date().toISOString();
+      
+      // Write back to file
+      await writeFile(feedbackFile, JSON.stringify(feedbackLog, null, 2));
+      
+    } catch (error) {
+      // File doesn't exist, create new one
+      const newFeedbackLog = {
+        version: "1.0",
+        created: new Date().toISOString(),
+        lastUpdated: new Date().toISOString(),
+        totalFeedback: 1,
+        feedback: [feedback]
+      };
+      
+      await writeFile(feedbackFile, JSON.stringify(newFeedbackLog, null, 2));
+    }
+  }
+
+  async getFeedback(args: any) {
+    const { limit = 10, componentName, feedbackType, unread = false } = args;
+    const feedbackFile = join(__dirname, "../feedback-log.json");
+    
+    try {
+      await access(feedbackFile);
+      const data = await readFile(feedbackFile, "utf8");
+      const feedbackLog = JSON.parse(data);
+      
+      let filteredFeedback = feedbackLog.feedback || [];
+      
+      // Filter by component if specified
+      if (componentName) {
+        filteredFeedback = filteredFeedback.filter((f: any) => 
+          f.componentName?.toLowerCase().includes(componentName.toLowerCase())
+        );
+      }
+      
+      // Filter by type if specified
+      if (feedbackType) {
+        filteredFeedback = filteredFeedback.filter((f: any) => 
+          f.feedbackType === feedbackType
+        );
+      }
+      
+      // Sort by timestamp (newest first) and limit
+      const sortedFeedback = filteredFeedback
+        .sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+        .slice(0, limit);
+      
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              {
+                totalFeedback: feedbackLog.totalFeedback || 0,
+                filteredCount: filteredFeedback.length,
+                showing: sortedFeedback.length,
+                filters: { componentName, feedbackType, limit },
+                lastUpdated: feedbackLog.lastUpdated,
+                feedback: sortedFeedback,
+              },
+              null,
+              2
+            ),
+          },
+        ],
+      };
+      
+    } catch (error) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              {
+                status: "error",
+                message: "No feedback file found. Submit some feedback first using give_feedback.",
+                error: getErrorMessage(error)
+              },
+              null,
+              2
+            ),
+          },
+        ],
+      };
+    }
+  }
+
+  async getFeedbackSummary(args: any) {
+    const feedbackFile = join(__dirname, "../feedback-log.json");
+    
+    try {
+      await access(feedbackFile);
+      const data = await readFile(feedbackFile, "utf8");
+      const feedbackLog = JSON.parse(data);
+      const feedback = feedbackLog.feedback || [];
+      
+      // Analyze feedback patterns
+      const componentCounts: { [key: string]: number } = {};
+      const typeCounts: { [key: string]: number } = {};
+      const teamCounts: { [key: string]: number } = {};
+      const recentFeedback = feedback.filter((f: any) => {
+        const feedbackDate = new Date(f.timestamp);
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+        return feedbackDate > sevenDaysAgo;
+      });
+      
+      feedback.forEach((f: any) => {
+        componentCounts[f.componentName] = (componentCounts[f.componentName] || 0) + 1;
+        typeCounts[f.feedbackType] = (typeCounts[f.feedbackType] || 0) + 1;
+        teamCounts[f.userTeam] = (teamCounts[f.userTeam] || 0) + 1;
+      });
+      
+      // Sort by count
+      const topComponents = Object.entries(componentCounts)
+        .sort(([,a], [,b]) => b - a)
+        .slice(0, 5);
+      
+      const topTypes = Object.entries(typeCounts)
+        .sort(([,a], [,b]) => b - a);
+      
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              {
+                totalFeedback: feedback.length,
+                recentFeedback: recentFeedback.length,
+                created: feedbackLog.created,
+                lastUpdated: feedbackLog.lastUpdated,
+                topComponents: topComponents.map(([name, count]) => ({ component: name, count })),
+                feedbackTypes: topTypes.map(([type, count]) => ({ type, count })),
+                activeTeams: Object.keys(teamCounts).length,
+                teamBreakdown: teamCounts
+              },
+              null,
+              2
+            ),
+          },
+        ],
+      };
+      
+    } catch (error) {
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              {
+                status: "error",
+                message: "No feedback file found. Submit some feedback first using give_feedback.",
+                error: getErrorMessage(error)
+              },
+              null,
+              2
+            ),
+          },
+        ],
+      };
+    }
   }
 
   // NEW: Design Expert Functions

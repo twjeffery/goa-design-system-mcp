@@ -3,6 +3,7 @@ import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { CallToolRequestSchema, ListToolsRequestSchema, } from "@modelcontextprotocol/sdk/types.js";
 import { OptimizedGoADesignSystemServer } from "./optimized-server.js";
+import { GoADesignSystemServer } from "./server.js";
 async function main() {
     const server = new Server({
         name: "goa-design-system-mcp",
@@ -13,7 +14,9 @@ async function main() {
         },
     });
     const goaServer = new OptimizedGoADesignSystemServer();
+    const designExpertServer = new GoADesignSystemServer();
     await goaServer.initialize();
+    await designExpertServer.initialize();
     // Handle tool listing
     server.setRequestHandler(ListToolsRequestSchema, async () => {
         return {
@@ -118,8 +121,8 @@ async function main() {
                     },
                 },
                 {
-                    name: "collect_feedback",
-                    description: "Collect feedback about component usage or missing information",
+                    name: "give_feedback",
+                    description: "Give feedback about component usage or missing information",
                     inputSchema: {
                         type: "object",
                         properties: {
@@ -150,6 +153,196 @@ async function main() {
                         required: ["componentName", "feedbackType", "description"],
                     },
                 },
+                {
+                    name: "design_review",
+                    description: "DESIGN EXPERT: Comprehensive design review for GoA compliance, accessibility, and user experience standards",
+                    inputSchema: {
+                        type: "object",
+                        properties: {
+                            designDescription: {
+                                type: "string",
+                                description: "Description of the design or interface being reviewed",
+                            },
+                            framework: {
+                                type: "string",
+                                description: "Implementation framework",
+                                enum: ["react", "angular"],
+                            },
+                            userType: {
+                                type: "string",
+                                description: "Target user type for the design",
+                                enum: ["citizen", "worker"],
+                                default: "citizen",
+                            },
+                            components: {
+                                type: "array",
+                                items: { type: "string" },
+                                description: "List of GoA components being used",
+                                default: [],
+                            },
+                        },
+                        required: ["designDescription"],
+                    },
+                },
+                {
+                    name: "recommend_patterns",
+                    description: "DESIGN EXPERT: Get recommended component patterns and layouts for specific scenarios",
+                    inputSchema: {
+                        type: "object",
+                        properties: {
+                            scenario: {
+                                type: "string",
+                                description: "Specific use case or scenario description",
+                            },
+                            userType: {
+                                type: "string",
+                                description: "Target user type",
+                                enum: ["citizen", "worker"],
+                                default: "citizen",
+                            },
+                            complexity: {
+                                type: "string",
+                                description: "Interface complexity level",
+                                enum: ["simple", "medium", "complex"],
+                                default: "medium",
+                            },
+                            dataType: {
+                                type: "string",
+                                description: "Primary data interaction type",
+                                enum: ["form", "display", "navigation", "dashboard"],
+                                default: "form",
+                            },
+                        },
+                        required: ["scenario"],
+                    },
+                },
+                {
+                    name: "accessibility_audit",
+                    description: "DESIGN EXPERT: Comprehensive WCAG 2.2 AA accessibility audit with government compliance checking",
+                    inputSchema: {
+                        type: "object",
+                        properties: {
+                            designDescription: {
+                                type: "string",
+                                description: "Description of the interface to audit",
+                            },
+                            components: {
+                                type: "array",
+                                items: { type: "string" },
+                                description: "List of components being used",
+                                default: [],
+                            },
+                            framework: {
+                                type: "string",
+                                description: "Implementation framework",
+                                enum: ["react", "angular"],
+                            },
+                        },
+                        required: ["designDescription"],
+                    },
+                },
+                {
+                    name: "governance_check",
+                    description: "DESIGN EXPERT: Project governance review for design system compliance and maintenance risk assessment",
+                    inputSchema: {
+                        type: "object",
+                        properties: {
+                            projectName: {
+                                type: "string",
+                                description: "Name of the project being reviewed",
+                            },
+                            components: {
+                                type: "array",
+                                items: { type: "string" },
+                                description: "List of components used in the project",
+                                default: [],
+                            },
+                            framework: {
+                                type: "string",
+                                description: "Primary framework being used",
+                                enum: ["react", "angular"],
+                            },
+                            teamSize: {
+                                type: "number",
+                                description: "Size of the development team",
+                                default: 1,
+                            },
+                        },
+                        required: ["projectName"],
+                    },
+                },
+                {
+                    name: "team_onboarding",
+                    description: "DESIGN EXPERT: Generate customized onboarding plan for teams adopting the GoA Design System",
+                    inputSchema: {
+                        type: "object",
+                        properties: {
+                            teamType: {
+                                type: "string",
+                                description: "Type of team being onboarded",
+                                enum: ["development", "design", "product", "qa"],
+                                default: "development",
+                            },
+                            experience: {
+                                type: "string",
+                                description: "Team's experience level with design systems",
+                                enum: ["beginner", "intermediate", "advanced"],
+                                default: "beginner",
+                            },
+                            projectType: {
+                                type: "string",
+                                description: "Type of project they're working on",
+                                enum: ["citizen-service", "worker-tool", "both"],
+                                default: "citizen-service",
+                            },
+                            framework: {
+                                type: "string",
+                                description: "Primary framework being used",
+                                enum: ["react", "angular"],
+                            },
+                        },
+                        required: [],
+                    },
+                },
+                {
+                    name: "get_feedback",
+                    description: "MAINTAINER: Review and filter submitted feedback from MCP users",
+                    inputSchema: {
+                        type: "object",
+                        properties: {
+                            limit: {
+                                type: "number",
+                                description: "Maximum number of feedback entries to return",
+                                default: 10,
+                            },
+                            componentName: {
+                                type: "string",
+                                description: "Filter feedback for a specific component",
+                            },
+                            feedbackType: {
+                                type: "string",
+                                description: "Filter by feedback type",
+                                enum: [
+                                    "missing_example",
+                                    "unclear_documentation",
+                                    "bug_report",
+                                    "feature_request",
+                                    "usage_question",
+                                ],
+                            },
+                        },
+                        required: [],
+                    },
+                },
+                {
+                    name: "get_feedback_summary",
+                    description: "MAINTAINER: Get analytics and summary of all collected feedback",
+                    inputSchema: {
+                        type: "object",
+                        properties: {},
+                        required: [],
+                    },
+                },
             ],
         };
     });
@@ -166,8 +359,22 @@ async function main() {
                     return await goaServer.getComponentDetails(args);
                 case "get_usage_patterns":
                     return await goaServer.getUsagePatterns(args);
-                case "collect_feedback":
-                    return await goaServer.collectFeedback(args);
+                case "give_feedback":
+                    return await goaServer.giveFeedback(args);
+                case "design_review":
+                    return await designExpertServer.designReview(args);
+                case "recommend_patterns":
+                    return await designExpertServer.recommendPatterns(args);
+                case "accessibility_audit":
+                    return await designExpertServer.accessibilityAudit(args);
+                case "governance_check":
+                    return await designExpertServer.governanceCheck(args);
+                case "team_onboarding":
+                    return await designExpertServer.teamOnboarding(args);
+                case "get_feedback":
+                    return await designExpertServer.getFeedback(args);
+                case "get_feedback_summary":
+                    return await designExpertServer.getFeedbackSummary(args);
                 default:
                     throw new Error(`Unknown tool: ${name}`);
             }
