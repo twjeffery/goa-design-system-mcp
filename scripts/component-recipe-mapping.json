@@ -1,0 +1,1465 @@
+{
+  "componentToRecipes": {
+    "button": [
+      "show-a-simple-progress-indicator-on-a-question-page",
+      "show-different-views-of-data-in-a-table",
+      "show-status-in-a-table",
+      "start-page",
+      "warn-a-user-of-a-deadline",
+      "worker-dashboard-overview"
+    ],
+    "formitem": [
+      "show-a-simple-progress-indicator-on-a-question-page",
+      "slotted-error-text-in-a-form-item",
+      "slotted-helper-text-in-a-form-item",
+      "type-to-create-a-new-filter",
+      "worker-dashboard-overview"
+    ],
+    "radiogroup": [
+      "show-a-simple-progress-indicator-on-a-question-page"
+    ],
+    "radioitem": [
+      "show-a-simple-progress-indicator-on-a-question-page"
+    ],
+    "badge": [
+      "show-different-views-of-data-in-a-table",
+      "show-status-in-a-table",
+      "show-status-on-a-card",
+      "task-list-page",
+      "worker-dashboard-overview"
+    ],
+    "tab": [
+      "show-different-views-of-data-in-a-table"
+    ],
+    "table": [
+      "show-different-views-of-data-in-a-table",
+      "show-number-of-results-per-page",
+      "show-status-in-a-table",
+      "task-list-page",
+      "worker-dashboard-overview"
+    ],
+    "tabs": [
+      "show-different-views-of-data-in-a-table"
+    ],
+    "container": [
+      "show-full-date-in-a-tooltip",
+      "show-status-on-a-card",
+      "type-to-create-a-new-filter",
+      "worker-dashboard-overview"
+    ],
+    "tooltip": [
+      "show-full-date-in-a-tooltip"
+    ],
+    "appfooter": [
+      "show-links-to-navigation-items",
+      "show-quick-links"
+    ],
+    "appfooternavsection": [
+      "show-links-to-navigation-items"
+    ],
+    "appfootermetasection": [
+      "show-links-to-navigation-items",
+      "show-quick-links"
+    ],
+    "block": [
+      "show-number-of-results-per-page",
+      "worker-dashboard-overview"
+    ],
+    "dropdown": [
+      "show-number-of-results-per-page",
+      "slotted-error-text-in-a-form-item",
+      "slotted-helper-text-in-a-form-item",
+      "worker-dashboard-overview"
+    ],
+    "dropdownitem": [
+      "show-number-of-results-per-page",
+      "slotted-error-text-in-a-form-item",
+      "slotted-helper-text-in-a-form-item",
+      "worker-dashboard-overview"
+    ],
+    "pagination": [
+      "show-number-of-results-per-page"
+    ],
+    "spacer": [
+      "show-number-of-results-per-page"
+    ],
+    "dropdownonchangedetail": [
+      "show-number-of-results-per-page",
+      "worker-dashboard-overview"
+    ],
+    "badgetype": [
+      "show-status-in-a-table",
+      "show-status-on-a-card",
+      "task-list-page"
+    ],
+    "micrositeheader": [
+      "show-version-number"
+    ],
+    "input": [
+      "slotted-error-text-in-a-form-item",
+      "slotted-helper-text-in-a-form-item",
+      "type-to-create-a-new-filter"
+    ],
+    "textarea": [
+      "slotted-error-text-in-a-form-item",
+      "slotted-error-text-in-a-form-item",
+      "slotted-helper-text-in-a-form-item",
+      "slotted-helper-text-in-a-form-item"
+    ],
+    "inputonchangedetail": [
+      "slotted-error-text-in-a-form-item",
+      "slotted-helper-text-in-a-form-item",
+      "type-to-create-a-new-filter"
+    ],
+    "formitemslot": [
+      "slotted-error-text-in-a-form-item",
+      "slotted-helper-text-in-a-form-item"
+    ],
+    "datepicker": [
+      "slotted-helper-text-in-a-form-item"
+    ],
+    "callout": [
+      "task-list-page",
+      "worker-dashboard-overview"
+    ],
+    "filterchip": [
+      "type-to-create-a-new-filter"
+    ],
+    "inputonkeypressdetail": [
+      "type-to-create-a-new-filter"
+    ],
+    "buttongroup": [
+      "warn-a-user-of-a-deadline",
+      "worker-dashboard-overview"
+    ],
+    "modal": [
+      "warn-a-user-of-a-deadline"
+    ],
+    "grid": [
+      "worker-dashboard-overview"
+    ],
+    "text": [
+      "worker-dashboard-overview"
+    ],
+    "checkbox": [
+      "worker-dashboard-overview"
+    ],
+    "checkboxonchangedetail": [
+      "worker-dashboard-overview"
+    ]
+  },
+  "recipeDetails": {
+    "add-a-filter-chip": {
+      "id": "add-a-filter-chip",
+      "title": "add-a-filter-chip",
+      "description": "",
+      "category": "interaction-pattern",
+      "tags": [
+        "filter",
+        "chip",
+        "interactive",
+        "dynamic",
+        "state-management",
+        "array-manipulation"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "add-a-record-using-a-drawer": {
+      "id": "add-a-record-using-a-drawer",
+      "title": "add-a-record-using-a-drawer",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "drawer",
+        "form",
+        "records",
+        "education",
+        "complex-form",
+        "date-picker",
+        "radio-group",
+        "dropdown",
+        "checkbox",
+        "administrative"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "add-and-edit-lots-of-filters": {
+      "id": "add-and-edit-lots-of-filters",
+      "title": "add-and-edit-lots-of-filters",
+      "description": "",
+      "category": "interaction-pattern",
+      "tags": [
+        "filters",
+        "drawer",
+        "checkbox",
+        "radio-group",
+        "dropdown",
+        "multi-criteria",
+        "administrative",
+        "case-management",
+        "data-filtering"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "add-another-item-in-a-modal": {
+      "id": "add-another-item-in-a-modal",
+      "title": "add-another-item-in-a-modal",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "modal",
+        "form",
+        "add-item",
+        "create",
+        "dropdown",
+        "input",
+        "textarea",
+        "dynamic-content",
+        "user-interaction"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "ask-a-long-answer-question-with-a-maximum-word-count": {
+      "id": "ask-a-long-answer-question-with-a-maximum-word-count",
+      "title": "ask-a-long-answer-question-with-a-maximum-word-count",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "textarea",
+        "word-count",
+        "long-form",
+        "constraints",
+        "guidance",
+        "detailed-response",
+        "citizen-facing",
+        "form-validation"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "ask-a-user-for-a-birthday": {
+      "id": "ask-a-user-for-a-birthday",
+      "title": "ask-a-user-for-a-birthday",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "form",
+        "personal-info",
+        "date-input",
+        "citizen-facing",
+        "accessibility",
+        "validation"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "ask-a-user-for-an-address": {
+      "id": "ask-a-user-for-an-address",
+      "title": "ask-a-user-for-an-address",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "address",
+        "form",
+        "canadian",
+        "provinces",
+        "postal-code",
+        "layout",
+        "geographic-data",
+        "government-forms"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "ask-a-user-for-an-indian-registration-number": {
+      "id": "ask-a-user-for-an-indian-registration-number",
+      "title": "ask-a-user-for-an-indian-registration-number",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "registration-number",
+        "first-nations",
+        "structured-input",
+        "segmented-fields",
+        "government-id",
+        "validation",
+        "indigenous-services",
+        "status-verification"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "ask-a-user-for-direct-deposit-information": {
+      "id": "ask-a-user-for-direct-deposit-information",
+      "title": "ask-a-user-for-direct-deposit-information",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "direct-deposit",
+        "banking",
+        "financial-information",
+        "payments",
+        "validation",
+        "contextual-help",
+        "government-payments",
+        "citizen-benefits"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "ask-a-user-for-dollar-amounts": {
+      "id": "ask-a-user-for-dollar-amounts",
+      "title": "ask-a-user-for-dollar-amounts",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "monetary",
+        "currency",
+        "dollar-amounts",
+        "financial-input",
+        "leading-content",
+        "costs",
+        "expenses",
+        "funding-applications"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "ask-a-user-one-question-at-a-time": {
+      "id": "ask-a-user-one-question-at-a-time",
+      "title": "ask-a-user-one-question-at-a-time",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "single-question",
+        "step-by-step",
+        "radio-group",
+        "navigation",
+        "progressive-disclosure",
+        "form-flow",
+        "cognitive-load",
+        "eligibility",
+        "back-link"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "basic-page-layout": {
+      "id": "basic-page-layout",
+      "title": "basic-page-layout",
+      "description": "",
+      "category": "layout-pattern",
+      "tags": [
+        "layout",
+        "page-structure",
+        "government",
+        "responsive",
+        "mandatory",
+        "foundation"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "card-grid": {
+      "id": "card-grid",
+      "title": "card-grid",
+      "description": "",
+      "category": "layout-pattern",
+      "tags": [
+        "grid",
+        "cards",
+        "layout",
+        "services",
+        "navigation",
+        "responsive",
+        "dashboard",
+        "programs",
+        "portal"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "card-view-of-case-files": {
+      "id": "card-view-of-case-files",
+      "title": "card-view-of-case-files",
+      "description": "",
+      "category": "layout-pattern",
+      "tags": [
+        "case-files",
+        "records",
+        "status-tracking",
+        "administrative",
+        "worker-interface",
+        "badges",
+        "actions",
+        "responsive",
+        "cards"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "communicate-a-future-service-outage": {
+      "id": "communicate-a-future-service-outage",
+      "title": "communicate-a-future-service-outage",
+      "description": "",
+      "category": "communication-and-feedback",
+      "tags": [
+        "notification",
+        "service-outage",
+        "maintenance",
+        "communication",
+        "proactive",
+        "important",
+        "contact-information",
+        "expectations",
+        "system-status"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "confirm-a-change": {
+      "id": "confirm-a-change",
+      "title": "confirm-a-change",
+      "description": "",
+      "category": "interaction-pattern",
+      "tags": [
+        "confirmation",
+        "modal",
+        "change-management",
+        "before-after",
+        "effective-date",
+        "user-verification",
+        "dialog",
+        "comparison",
+        "address-change",
+        "validation"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "confirm-a-destructive-action": {
+      "id": "confirm-a-destructive-action",
+      "title": "confirm-a-destructive-action",
+      "description": "",
+      "category": "interaction-pattern",
+      "tags": [
+        "modal",
+        "confirmation",
+        "destructive",
+        "worker-facing",
+        "interaction",
+        "delete",
+        "safety"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "confirm-before-navigating-away": {
+      "id": "confirm-before-navigating-away",
+      "title": "confirm-before-navigating-away",
+      "description": "",
+      "category": "interaction-pattern",
+      "tags": [
+        "navigation",
+        "confirmation",
+        "unsaved-changes",
+        "modal",
+        "alertdialog",
+        "route-guard",
+        "form-protection",
+        "user-experience",
+        "data-loss-prevention",
+        "router"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "confirm-that-an-application-was-submitted": {
+      "id": "confirm-that-an-application-was-submitted",
+      "title": "confirm-that-an-application-was-submitted",
+      "description": "",
+      "category": "communication-and-feedback",
+      "tags": [
+        "confirmation",
+        "application-submission",
+        "success-message",
+        "reference-number",
+        "next-steps",
+        "contact-information",
+        "callout",
+        "user-feedback",
+        "completion",
+        "email-confirmation"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "copy-to-clipboard": {
+      "id": "copy-to-clipboard",
+      "title": "copy-to-clipboard",
+      "description": "",
+      "category": "interaction-pattern",
+      "tags": [
+        "clipboard",
+        "copy",
+        "interaction",
+        "tooltip",
+        "feedback",
+        "accessibility",
+        "icon-button",
+        "reference-number",
+        "code-snippet",
+        "user-experience"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "disabled-button-with-a-required-field": {
+      "id": "disabled-button-with-a-required-field",
+      "title": "disabled-button-with-a-required-field",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "form-validation",
+        "required-fields",
+        "disabled-state",
+        "button-control",
+        "form-submission",
+        "input-validation",
+        "conditional-enabling",
+        "user-experience",
+        "error-prevention",
+        "accessibility"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "display-user-information": {
+      "id": "display-user-information",
+      "title": "display-user-information",
+      "description": "",
+      "category": "layout-pattern",
+      "tags": [
+        "user-information",
+        "contact-details",
+        "layout",
+        "table",
+        "profile",
+        "advisor",
+        "dates",
+        "calendar",
+        "structured-data",
+        "dashboard"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "dynamically-add-an-item-to-a-dropdown-list": {
+      "id": "dynamically-add-an-item-to-a-dropdown-list",
+      "title": "dynamically-add-an-item-to-a-dropdown-list",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "dropdown",
+        "dynamic-content",
+        "form-interaction",
+        "user-input",
+        "list-management",
+        "validation",
+        "mount-type",
+        "position-control",
+        "reset-functionality",
+        "expandable-options"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "dynamically-change-items-in-a-dropdown-list": {
+      "id": "dynamically-change-items-in-a-dropdown-list",
+      "title": "dynamically-change-items-in-a-dropdown-list",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "dependent-dropdown",
+        "cascading-selection",
+        "dynamic-options",
+        "form-interaction",
+        "hierarchical-data",
+        "conditional-display",
+        "state-management",
+        "option-filtering",
+        "parent-child-relationship",
+        "responsive-forms"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "expand-or-collapse-part-of-a-form": {
+      "id": "expand-or-collapse-part-of-a-form",
+      "title": "expand-or-collapse-part-of-a-form",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "accordion",
+        "collapsible",
+        "form-organization",
+        "progressive-disclosure",
+        "review-page",
+        "sections",
+        "badge",
+        "definition-list",
+        "expandable",
+        "form-structure"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "filter-data-in-a-table": {
+      "id": "filter-data-in-a-table",
+      "title": "filter-data-in-a-table",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "table-filter",
+        "search",
+        "filter-chips",
+        "data-filtering",
+        "real-time-search",
+        "nested-search",
+        "validation",
+        "keyboard-support",
+        "table-interaction",
+        "user-input"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "form-stepper-with-controlled-navigation": {
+      "id": "form-stepper-with-controlled-navigation",
+      "title": "form-stepper-with-controlled-navigation",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "form-stepper",
+        "multi-step-form",
+        "controlled-navigation",
+        "step-validation",
+        "progressive-disclosure",
+        "navigation-controls",
+        "form-workflow",
+        "pages",
+        "step-progression",
+        "form-organization"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "give-background-information-before-asking-a-question": {
+      "id": "give-background-information-before-asking-a-question",
+      "title": "give-background-information-before-asking-a-question",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "context",
+        "background-information",
+        "question-page",
+        "explanation",
+        "user-guidance",
+        "form-context",
+        "radio-group",
+        "progressive-disclosure",
+        "user-education",
+        "question-clarity"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "give-context-before-asking-a-long-answer-question": {
+      "id": "give-context-before-asking-a-long-answer-question",
+      "title": "give-context-before-asking-a-long-answer-question",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "context",
+        "long-answer",
+        "textarea",
+        "question-page",
+        "guidance",
+        "form-help",
+        "character-limit",
+        "expandable-details",
+        "user-guidance",
+        "benefits-application",
+        "detailed-response"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "group-related-questions-together-on-a-question-page": {
+      "id": "group-related-questions-together-on-a-question-page",
+      "title": "group-related-questions-together-on-a-question-page",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "form-grouping",
+        "question-page",
+        "address-form",
+        "related-questions",
+        "form-layout",
+        "heading-hierarchy",
+        "form-validation",
+        "canadian-provinces",
+        "input-sizing",
+        "form-organization"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "header-with-menu-click-event": {
+      "id": "header-with-menu-click-event",
+      "title": "header-with-menu-click-event",
+      "description": "",
+      "category": "navigation-pattern",
+      "tags": [
+        "app-header",
+        "menu-click-event",
+        "responsive-navigation",
+        "custom-menu-handling",
+        "mobile-navigation",
+        "header-menu",
+        "navigation-pattern",
+        "event-handling",
+        "responsive-design",
+        "application-header"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "header-with-navigation": {
+      "id": "header-with-navigation",
+      "title": "header-with-navigation",
+      "description": "",
+      "category": "navigation-pattern",
+      "tags": [
+        "app-header",
+        "navigation",
+        "header-menu",
+        "government-branding",
+        "microsite-header",
+        "authentication",
+        "grouped-navigation",
+        "navigation-pattern",
+        "application-header",
+        "support-link"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "hide-and-show-many-sections-of-information": {
+      "id": "hide-and-show-many-sections-of-information",
+      "title": "hide-and-show-many-sections-of-information",
+      "description": "",
+      "category": "interaction-pattern",
+      "tags": [
+        "accordion",
+        "show-hide-sections",
+        "progressive-disclosure",
+        "content-organization",
+        "FAQ",
+        "information-architecture",
+        "expand-collapse",
+        "global-controls",
+        "state-management",
+        "section-management"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "include-a-link-in-the-helper-text-of-an-option": {
+      "id": "include-a-link-in-the-helper-text-of-an-option",
+      "title": "include-a-link-in-the-helper-text-of-an-option",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "checkbox",
+        "helper-text",
+        "embedded-links",
+        "form-options",
+        "contextual-help",
+        "option-descriptions",
+        "contact-preferences",
+        "form-pattern",
+        "inline-links",
+        "additional-resources"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "include-descriptions-for-items-in-a-checkbox-list": {
+      "id": "include-descriptions-for-items-in-a-checkbox-list",
+      "title": "include-descriptions-for-items-in-a-checkbox-list",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "radio-buttons",
+        "option-descriptions",
+        "form-pattern",
+        "user-guidance",
+        "sign-in-options",
+        "contextual-help",
+        "enhanced-options",
+        "decision-support",
+        "form-clarity",
+        "option-details"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "link-the-user-to-give-feedback-to-the-service": {
+      "id": "link-the-user-to-give-feedback-to-the-service",
+      "title": "link-the-user-to-give-feedback-to-the-service",
+      "description": "",
+      "category": "navigation-pattern",
+      "tags": [
+        "feedback",
+        "microsite-header",
+        "user-feedback",
+        "service-improvement",
+        "government-service",
+        "alpha-service",
+        "beta-service",
+        "user-experience",
+        "service-development",
+        "feedback-collection"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "link-to-an-external-page": {
+      "id": "link-to-an-external-page",
+      "title": "link-to-an-external-page",
+      "description": "",
+      "category": "navigation-pattern",
+      "tags": [
+        "external-link",
+        "navigation",
+        "link-component",
+        "external-indicator",
+        "security",
+        "accessibility",
+        "government-links",
+        "new-tab",
+        "link-tracking",
+        "user-guidance"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "public-form": {
+      "id": "public-form",
+      "title": "public-form",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "public-form",
+        "form-pattern",
+        "accessibility",
+        "one-idea-per-page",
+        "progressive-disclosure",
+        "citizen-facing",
+        "government-service",
+        "mobile-first",
+        "cognitive-load",
+        "form-structure"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "question-page": {
+      "id": "question-page",
+      "title": "question-page",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "question-page",
+        "form-pattern",
+        "one-idea-per-page",
+        "cognitive-load",
+        "accessibility",
+        "mobile-first",
+        "progressive-disclosure",
+        "adaptive-questioning",
+        "user-experience",
+        "form-design"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "remove-a-filter": {
+      "id": "remove-a-filter",
+      "title": "remove-a-filter",
+      "description": "",
+      "category": "interaction-pattern",
+      "tags": [
+        "filter-chip",
+        "remove-filter",
+        "filter-management",
+        "chip-interaction",
+        "state-management",
+        "filter-removal",
+        "undo-functionality",
+        "search-refinement",
+        "filter-controls",
+        "interactive-chips"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "require-user-action-before-continuing": {
+      "id": "require-user-action-before-continuing",
+      "title": "require-user-action-before-continuing",
+      "description": "",
+      "category": "interaction-pattern",
+      "tags": [
+        "confirmation-modal",
+        "user-action",
+        "irreversible-action",
+        "modal-dialog",
+        "action-confirmation",
+        "user-consent",
+        "destructive-action",
+        "confirmation-pattern",
+        "user-safety",
+        "action-validation"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "reset-date-picker-field": {
+      "id": "reset-date-picker-field",
+      "title": "reset-date-picker-field",
+      "description": "",
+      "category": "form-control",
+      "tags": [
+        "date-picker",
+        "form-control",
+        "reset-functionality",
+        "date-management",
+        "programmatic-control",
+        "form-field",
+        "date-input",
+        "value-manipulation",
+        "form-utility",
+        "date-selection"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "result-page": {
+      "id": "result-page",
+      "title": "result-page",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "result-page",
+        "form-pattern",
+        "confirmation",
+        "next-steps",
+        "reference-number",
+        "submission-confirmation",
+        "process-completion",
+        "user-guidance",
+        "government-forms",
+        "application-results"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "reveal-more-information-to-help-answer-a-question": {
+      "id": "reveal-more-information-to-help-answer-a-question",
+      "title": "reveal-more-information-to-help-answer-a-question",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "progressive-disclosure",
+        "contextual-help",
+        "question-page",
+        "form-pattern",
+        "additional-information",
+        "expandable-content",
+        "user-guidance",
+        "help-text",
+        "form-assistance",
+        "information-architecture"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "review-and-action": {
+      "id": "review-and-action",
+      "title": "review-and-action",
+      "description": "",
+      "category": "layout-pattern",
+      "tags": [
+        "review-and-action",
+        "layout-pattern",
+        "administrative-workflow",
+        "case-management",
+        "decision-making",
+        "form-processing",
+        "information-display",
+        "worker-interface",
+        "government-workflow",
+        "contextual-action"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "review-page": {
+      "id": "review-page",
+      "title": "review-page",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "review-page",
+        "form-pattern",
+        "form-verification",
+        "change-answers",
+        "form-submission",
+        "information-review",
+        "form-completion",
+        "user-verification",
+        "form-validation",
+        "submission-confirmation"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "search": {
+      "id": "search",
+      "title": "search",
+      "description": "",
+      "category": "form-control",
+      "tags": [
+        "search",
+        "form-control",
+        "search-input",
+        "search-functionality",
+        "data-discovery",
+        "content-search",
+        "search-interface",
+        "information-finding",
+        "search-results",
+        "query-input"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "select-one-or-more-from-a-list-of-options": {
+      "id": "select-one-or-more-from-a-list-of-options",
+      "title": "select-one-or-more-from-a-list-of-options",
+      "description": "",
+      "category": "form-control",
+      "tags": [
+        "multi-select",
+        "checkbox-group",
+        "form-control",
+        "multiple-selection",
+        "option-selection",
+        "user-preferences",
+        "contact-methods",
+        "form-validation",
+        "selection-interface",
+        "choice-management"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "set-a-max-width-on-a-long-radio-item": {
+      "id": "set-a-max-width-on-a-long-radio-item",
+      "title": "set-a-max-width-on-a-long-radio-item",
+      "description": "",
+      "category": "form-control",
+      "tags": [
+        "radio-item",
+        "max-width",
+        "form-control",
+        "layout-control",
+        "text-wrapping",
+        "radio-group",
+        "responsive-design",
+        "form-layout",
+        "option-display",
+        "width-constraint"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "set-a-specific-tab-to-be-active": {
+      "id": "set-a-specific-tab-to-be-active",
+      "title": "set-a-specific-tab-to-be-active",
+      "description": "",
+      "category": "interaction-pattern",
+      "tags": [
+        "tabs",
+        "initial-tab",
+        "tab-control",
+        "active-tab",
+        "tab-navigation",
+        "interaction-pattern",
+        "tab-state",
+        "default-tab",
+        "tab-initialization",
+        "controlled-navigation"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "set-the-status-of-step-on-a-form-stepper": {
+      "id": "set-the-status-of-step-on-a-form-stepper",
+      "title": "set-the-status-of-step-on-a-form-stepper",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "form-stepper",
+        "step-status",
+        "multi-step-form",
+        "form-validation",
+        "progress-tracking",
+        "step-completion",
+        "form-pattern",
+        "workflow-management",
+        "status-control",
+        "form-progression"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-a-label-on-an-icon-only-button": {
+      "id": "show-a-label-on-an-icon-only-button",
+      "title": "show-a-label-on-an-icon-only-button",
+      "description": "",
+      "category": "interaction-pattern",
+      "tags": [
+        "icon-button",
+        "tooltip",
+        "accessibility",
+        "button-group",
+        "button-labeling",
+        "interaction-pattern",
+        "icon-interface",
+        "user-guidance",
+        "contextual-help",
+        "ui-clarity"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-a-list-to-help-answer-a-question": {
+      "id": "show-a-list-to-help-answer-a-question",
+      "title": "show-a-list-to-help-answer-a-question",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "form-help",
+        "expandable-details",
+        "contextual-guidance",
+        "question-support",
+        "example-lists",
+        "progressive-disclosure",
+        "form-pattern",
+        "user-assistance",
+        "information-design",
+        "decision-support"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-a-section-title-on-a-question-page": {
+      "id": "show-a-section-title-on-a-question-page",
+      "title": "show-a-section-title-on-a-question-page",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "section-title",
+        "question-page",
+        "form-navigation",
+        "back-link",
+        "form-pattern",
+        "page-structure",
+        "section-organization",
+        "user-guidance",
+        "navigation-context",
+        "form-progression"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-a-simple-progress-indicator-on-a-question-page-with-multiple-questions": {
+      "id": "show-a-simple-progress-indicator-on-a-question-page-with-multiple-questions",
+      "title": "show-a-simple-progress-indicator-on-a-question-page-with-multiple-questions",
+      "description": "",
+      "category": "form-pattern",
+      "tags": [
+        "progress-indicator",
+        "multi-question-page",
+        "step-progress",
+        "form-pattern",
+        "question-grouping",
+        "step-navigation",
+        "form-progression",
+        "user-guidance",
+        "progress-tracking",
+        "multi-step-form"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-a-simple-progress-indicator-on-a-question-page": {
+      "id": "show-a-simple-progress-indicator-on-a-question-page",
+      "title": "Show a simple progress indicator on a question page",
+      "description": "Display question progress using a simple text-based indicator (e.g., 'Question 3 of 9') on a single question page to help users understand their position in a form flow.",
+      "category": "interaction-patterns",
+      "tags": [
+        "progress",
+        "navigation",
+        "forms",
+        "question-page",
+        "user-guidance"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-different-views-of-data-in-a-table": {
+      "id": "show-different-views-of-data-in-a-table",
+      "title": "Show different views of data in a table",
+      "description": "Use tabs to organize and filter table data into different views, allowing users to switch between comprehensive and filtered perspectives of the same dataset.",
+      "category": "layout-patterns",
+      "tags": [
+        "tables",
+        "tabs",
+        "data-filtering",
+        "data-views",
+        "status-display",
+        "badges"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-full-date-in-a-tooltip": {
+      "id": "show-full-date-in-a-tooltip",
+      "title": "Show full date in a tooltip",
+      "description": "Display human-readable relative time (e.g., '4 hours ago') with the complete date and time information available on hover through a tooltip.",
+      "category": "interaction-patterns",
+      "tags": [
+        "tooltip",
+        "dates",
+        "time-display",
+        "hover-interaction",
+        "progressive-disclosure"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-links-to-navigation-items": {
+      "id": "show-links-to-navigation-items",
+      "title": "Show links to navigation items",
+      "description": "Create a comprehensive footer navigation structure with organized links to major service categories and meta information, supporting Government of Alberta's site-wide navigation requirements.",
+      "category": "layout-patterns",
+      "tags": [
+        "footer",
+        "navigation",
+        "links",
+        "site-structure",
+        "accessibility"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-number-of-results-per-page": {
+      "id": "show-number-of-results-per-page",
+      "title": "Show number of results per page",
+      "description": "Implement pagination controls with configurable results per page, allowing users to adjust how many items are displayed at once while maintaining their position in the dataset.",
+      "category": "interaction-patterns",
+      "tags": [
+        "pagination",
+        "data-display",
+        "results-per-page",
+        "dropdown",
+        "table-controls"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-quick-links": {
+      "id": "show-quick-links",
+      "title": "Show quick links",
+      "description": "Display essential quick access links in the footer meta section, providing users with immediate access to common support and administrative functions.",
+      "category": "layout-patterns",
+      "tags": [
+        "footer",
+        "quick-links",
+        "meta-section",
+        "navigation",
+        "accessibility"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-status-in-a-table": {
+      "id": "show-status-in-a-table",
+      "title": "Show status in a table",
+      "description": "Display status information using badges within table cells to provide clear, scannable visual indicators of item states, progress, or conditions.",
+      "category": "interaction-patterns",
+      "tags": [
+        "tables",
+        "status-badges",
+        "data-display",
+        "visual-indicators",
+        "status-tracking"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-status-on-a-card": {
+      "id": "show-status-on-a-card",
+      "title": "Show status on a card",
+      "description": "Display status information using badges in the actions area of cards, providing prominent visual indicators for card content state or priority.",
+      "category": "layout-patterns",
+      "tags": [
+        "cards",
+        "status-badges",
+        "containers",
+        "visual-indicators",
+        "content-organization"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "show-version-number": {
+      "id": "show-version-number",
+      "title": "Show version number",
+      "description": "Display application or service version information in the microsite header, providing transparency about software versions and development stages to users and administrators.",
+      "category": "layout-patterns",
+      "tags": [
+        "versioning",
+        "microsite-header",
+        "transparency",
+        "development-stage",
+        "information-display"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "slotted-error-text-in-a-form-item": {
+      "id": "slotted-error-text-in-a-form-item",
+      "title": "Slotted error text in a form item",
+      "description": "Use rich, formatted content for form validation error messages by leveraging form item slots, enabling complex error messaging with emphasis, links, or structured information.",
+      "category": "form-controls",
+      "tags": [
+        "forms",
+        "validation",
+        "error-handling",
+        "slots",
+        "rich-content"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "slotted-helper-text-in-a-form-item": {
+      "id": "slotted-helper-text-in-a-form-item",
+      "title": "Slotted helper text in a form item",
+      "description": "Provide rich, formatted helper content for form fields using form item slots, enabling complex guidance with emphasis, links, or structured information to assist users.",
+      "category": "form-controls",
+      "tags": [
+        "forms",
+        "helper-text",
+        "guidance",
+        "slots",
+        "rich-content"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "start-page": {
+      "id": "start-page",
+      "title": "Start page",
+      "description": "Create a service entry point that provides citizens with essential information, requirements, and a clear call-to-action to begin using a government service online.",
+      "category": "layout-patterns",
+      "tags": [
+        "service-entry",
+        "page-layout",
+        "call-to-action",
+        "service-overview",
+        "user-guidance"
+      ],
+      "difficulty": "intermediate",
+      "userType": "citizen"
+    },
+    "task-list-page": {
+      "id": "task-list-page",
+      "title": "Task list page",
+      "description": "Organize complex multi-step services into manageable tasks with clear status indication, allowing users to complete sections in any order and track their progress.",
+      "category": "layout-patterns",
+      "tags": [
+        "task-management",
+        "progress-tracking",
+        "multi-step-forms",
+        "status-indication",
+        "service-organization"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "type-to-create-a-new-filter": {
+      "id": "type-to-create-a-new-filter",
+      "title": "Type to create a new filter",
+      "description": "Enable users to create custom filter chips by typing text and pressing Enter, with keyboard shortcuts for quick deletion and intuitive interaction patterns.",
+      "category": "interaction-patterns",
+      "tags": [
+        "dynamic-filtering",
+        "keyboard-interaction",
+        "filter-chips",
+        "user-input",
+        "tag-creation"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "warn-a-user-of-a-deadline": {
+      "id": "warn-a-user-of-a-deadline",
+      "title": "Warn a user of a deadline",
+      "description": "Alert users about critical deadlines or time-sensitive requirements using accessible modal dialogs that ensure they understand important time constraints before proceeding.",
+      "category": "interaction-patterns",
+      "tags": [
+        "deadline-warnings",
+        "time-constraints",
+        "modal-alerts",
+        "user-notifications",
+        "critical-information"
+      ],
+      "difficulty": "intermediate",
+      "userType": "both"
+    },
+    "worker-dashboard-overview": {
+      "id": "worker-dashboard-overview",
+      "title": "Worker dashboard overview",
+      "description": "Create comprehensive operational dashboards for government workers with case management, statistics overview, priority queues, and bulk action capabilities for efficient workflow management.",
+      "category": "layout-patterns",
+      "tags": [
+        "dashboard",
+        "case-management",
+        "worker-productivity",
+        "bulk-actions",
+        "workload-overview"
+      ],
+      "difficulty": "intermediate",
+      "userType": "worker"
+    }
+  },
+  "generatedAt": "2025-07-22T21:35:01.646Z"
+}

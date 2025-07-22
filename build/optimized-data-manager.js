@@ -68,6 +68,28 @@ export class OptimizedDataManager {
                         recipe.serviceContext?.userType === 'both';
                 });
             }
+            // Phase 1: Best practice filtering
+            if (options.sizeTag && options.type === 'recipe') {
+                filteredCandidates = filteredCandidates.filter(c => {
+                    const recipe = c.item.data;
+                    return recipe.bestPracticeStandards?.sizeTag === options.sizeTag;
+                });
+            }
+            if (options.bestPracticeCategory && options.type === 'recipe') {
+                filteredCandidates = filteredCandidates.filter(c => {
+                    const recipe = c.item.data;
+                    return recipe.bestPracticeStandards?.categoryTags?.includes(options.bestPracticeCategory);
+                });
+            }
+            if (options.requiresCompliance && options.type === 'recipe') {
+                filteredCandidates = filteredCandidates.filter(c => {
+                    const recipe = c.item.data;
+                    const compliance = recipe.bestPracticeStandards?.componentCompliance;
+                    return compliance?.validPropertiesOnly === true &&
+                        compliance?.noCustomStyling === true &&
+                        compliance?.authenticComponentUsage === true;
+                });
+            }
             // Convert to SearchResult format with enhanced scoring
             const results = filteredCandidates.map(candidate => this.candidateToSearchResult(candidate, query));
             const searchTime = performance.now() - startTime;

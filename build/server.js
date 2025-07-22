@@ -12,6 +12,114 @@ export class GoADesignSystemServer {
     workflows = new Map(); // NEW: Add workflows storage
     masterIndex = null;
     initialized = false;
+    // Helper function to extract GoA components from code or design descriptions
+    extractGoAComponents(text) {
+        const componentPatterns = [
+            /Goa[A-Z][a-zA-Z]*/g, // GoaFormItem, GoaInput, etc.
+            /goa-[a-z-]+/g, // goa-form-item, goa-input, etc.
+            /@abgov\/.*components/g // @abgov/react-components imports
+        ];
+        const foundComponents = new Set();
+        for (const pattern of componentPatterns) {
+            const matches = text.match(pattern);
+            if (matches) {
+                matches.forEach(match => {
+                    // Normalize component names
+                    if (match.startsWith('Goa')) {
+                        foundComponents.add(match);
+                    }
+                    else if (match.startsWith('goa-')) {
+                        // Convert kebab-case to PascalCase
+                        const pascalCase = 'Goa' + match.slice(4).split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
+                        foundComponents.add(pascalCase);
+                    }
+                });
+            }
+        }
+        return Array.from(foundComponents);
+    }
+    // Helper function to get component description and usage info
+    getComponentDescription(componentName) {
+        // Try to find component data
+        const componentKey = componentName.toLowerCase().replace('goa', '');
+        let componentData = this.components.get(componentKey);
+        // Try alternative lookups
+        if (!componentData) {
+            const variations = [
+                componentName.toLowerCase(),
+                componentName.replace(/([A-Z])/g, "-$1").toLowerCase().slice(1),
+                componentName.replace('Goa', '').toLowerCase()
+            ];
+            for (const variation of variations) {
+                componentData = this.components.get(variation);
+                if (componentData)
+                    break;
+            }
+        }
+        if (!componentData) {
+            // Return basic info for unknown components
+            return {
+                name: componentName,
+                description: "GoA Design System component",
+                importPath: `import { ${componentName} } from '@abgov/react-components'`,
+                keyProps: [],
+                usage: "Refer to GoA Design System documentation for usage details"
+            };
+        }
+        // Extract key information from component data
+        const keyProps = [];
+        if (componentData.playgroundExamples?.basic?.interactiveProps) {
+            keyProps.push(...componentData.playgroundExamples.basic.interactiveProps
+                .slice(0, 4) // Limit to top 4 props
+                .map((prop) => prop.name));
+        }
+        const usage = componentData.summary ||
+            componentData.commonUse?.[0] ||
+            componentData.criticalImplementationNotes?.quickDecisionMatrix ||
+            "Standard GoA component usage";
+        return {
+            name: componentName,
+            description: componentData.summary || `${componentName} component from GoA Design System`,
+            importPath: `import { ${componentName} } from '@abgov/react-components'`,
+            keyProps,
+            usage: typeof usage === 'string' ? usage : JSON.stringify(usage, null, 2)
+        };
+    }
+    // Helper function to extract and describe all components in text
+    extractAndDescribeComponents(text, designContent) {
+        const allText = `${text} ${designContent || ''}`;
+        const componentNames = this.extractGoAComponents(allText);
+        const components = componentNames
+            .map(name => this.getComponentDescription(name))
+            .filter(comp => comp !== null);
+        if (components.length === 0) {
+            return {
+                components: [],
+                formattedSummary: ""
+            };
+        }
+        const formattedSummary = `\n\n## GoA Components Used\n\n` +
+            components.map(comp => {
+                const propsText = comp.keyProps.length > 0
+                    ? `\n  - **Key props**: \`${comp.keyProps.join('`, `')}\``
+                    : '';
+                return `- **${comp.name}**: ${comp.description}\n` +
+                    `  - **Import**: \`${comp.importPath}\`${propsText}\n` +
+                    `  - **Usage**: ${comp.usage}`;
+            }).join('\n\n');
+        return {
+            components,
+            formattedSummary
+        };
+    }
+    // Helper function to enhance response with component information
+    enhanceResponseWithComponents(response, code, design) {
+        const componentInfo = this.extractAndDescribeComponents(code || '', design);
+        if (componentInfo.components.length > 0) {
+            return response + componentInfo.formattedSummary;
+        }
+        return response;
+    }
     async initialize() {
         if (this.initialized)
             return;
@@ -933,11 +1041,14 @@ export class GoADesignSystemServer {
             description: check.message,
             impact: "May not meet government service standards"
         }));
+        // Enhance response with component information
+        const baseResponse = JSON.stringify(reviewResults, null, 2);
+        const enhancedResponse = this.enhanceResponseWithComponents(baseResponse, JSON.stringify(components), designDescription);
         return {
             content: [
                 {
                     type: "text",
-                    text: JSON.stringify(reviewResults, null, 2)
+                    text: enhancedResponse
                 }
             ]
         };
@@ -1031,11 +1142,15 @@ export class GoADesignSystemServer {
                 source: "existing-recipe"
             }));
         }
+        // Enhance response with component information
+        const baseResponse = JSON.stringify(recommendations, null, 2);
+        const componentsText = recommendations.primaryPattern?.components?.join(' ') || '';
+        const enhancedResponse = this.enhanceResponseWithComponents(baseResponse, componentsText, scenario);
         return {
             content: [
                 {
                     type: "text",
-                    text: JSON.stringify(recommendations, null, 2)
+                    text: enhancedResponse
                 }
             ]
         };
@@ -1186,11 +1301,14 @@ export class GoADesignSystemServer {
                 criterion: "GoA Layout Standards"
             });
         }
+        // Enhance response with component information
+        const baseResponse = JSON.stringify(auditResults, null, 2);
+        const enhancedResponse = this.enhanceResponseWithComponents(baseResponse, components.join(' '), designDescription);
         return {
             content: [
                 {
                     type: "text",
-                    text: JSON.stringify(auditResults, null, 2)
+                    text: enhancedResponse
                 }
             ]
         };
@@ -1329,11 +1447,14 @@ export class GoADesignSystemServer {
                 ]
             }
         ];
+        // Enhance response with component information
+        const baseResponse = JSON.stringify(governanceResults, null, 2);
+        const enhancedResponse = this.enhanceResponseWithComponents(baseResponse, components.join(' '));
         return {
             content: [
                 {
                     type: "text",
-                    text: JSON.stringify(governanceResults, null, 2)
+                    text: enhancedResponse
                 }
             ]
         };

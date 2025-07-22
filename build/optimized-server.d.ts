@@ -1,6 +1,10 @@
 export declare class OptimizedGoADesignSystemServer {
     private dataManager;
     private initialized;
+    private extractGoAComponents;
+    private getComponentDescription;
+    private extractAndDescribeComponents;
+    private enhanceResponseWithComponents;
     initialize(): Promise<void>;
     projectKnowledgeSearch(args: any): Promise<{
         content: {

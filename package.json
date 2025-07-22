@@ -9,7 +9,12 @@
     "start": "node build/index.js",
     "dev": "tsx src/index.ts",
     "watch": "tsc --watch",
-    "test": "node build/index.js --test"
+    "test": "node build/index.js --test",
+    "sync": "node scripts/sync-recipes.js",
+    "map-components": "node scripts/map-recipes-to-components.js",
+    "update-components": "node scripts/update-component-files.js",
+    "test-recipes": "node scripts/test-recipe-queries.js",
+    "full-sync": "./scripts/full-sync.sh"
   },
   "keywords": [
     "mcp",

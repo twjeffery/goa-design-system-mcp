@@ -4,6 +4,10 @@ export declare class GoADesignSystemServer {
     private workflows;
     private masterIndex;
     private initialized;
+    private extractGoAComponents;
+    private getComponentDescription;
+    private extractAndDescribeComponents;
+    private enhanceResponseWithComponents;
     initialize(): Promise<void>;
     private loadAllData;
     projectKnowledgeSearch(args: any): Promise<{

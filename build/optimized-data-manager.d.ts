@@ -12,6 +12,9 @@ export interface SearchOptions {
     tags?: string[];
     type?: 'component' | 'system' | 'workflow' | 'recipe';
     userType?: 'citizen' | 'worker' | 'both';
+    sizeTag?: "interaction" | "task" | "page" | "service";
+    bestPracticeCategory?: "content-layout" | "feedback-and-alerts" | "inputs-and-actions" | "public-form" | "structure-and-navigation" | "technical";
+    requiresCompliance?: boolean;
 }
 export declare class OptimizedDataManager {
     private index;

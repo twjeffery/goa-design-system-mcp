@@ -422,6 +422,92 @@
         "exampleFile": {"type": "string"},
         "note": {"type": "string"}
       }
+    },
+    
+    "bestPracticeStandards": {
+      "type": "object",
+      "description": "Phase 1: Best practice compliance markers",
+      "properties": {
+        "componentCompliance": {
+          "type": "object",
+          "description": "Ensures all components use valid properties only",
+          "properties": {
+            "validPropertiesOnly": {
+              "type": "boolean",
+              "default": true,
+              "description": "All components use only documented, valid properties"
+            },
+            "noCustomStyling": {
+              "type": "boolean", 
+              "default": true,
+              "description": "No custom styling beyond built-in component properties"
+            },
+            "authenticComponentUsage": {
+              "type": "boolean",
+              "default": true,
+              "description": "Components used according to their designed purpose"
+            },
+            "usesStandardValidators": {
+              "type": "boolean",
+              "default": true,
+              "description": "Forms use validators from @abgov/ui-components-common instead of custom validation"
+            }
+          },
+          "required": ["validPropertiesOnly", "noCustomStyling", "authenticComponentUsage", "usesStandardValidators"]
+        },
+        "qualityStandards": {
+          "type": "object",
+          "description": "Best practice areas this recipe demonstrates",
+          "properties": {
+            "layoutPatterns": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Layout best practices demonstrated (spacing, alignment, hierarchy)"
+            },
+            "contentDesign": {
+              "type": "array", 
+              "items": {"type": "string"},
+              "description": "Content design standards (clear copy, information architecture)"
+            },
+            "accessibilityImplementation": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "WCAG compliance and inclusive design practices shown"
+            },
+            "designPatternUsage": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Proper UI pattern applications demonstrated"
+            },
+            "userExperienceGuidelines": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "UX best practices (task flows, progressive disclosure, guidance)"
+            }
+          }
+        },
+        "sizeTag": {
+          "type": "string",
+          "enum": ["interaction", "task", "page", "service"],
+          "description": "Size classification from spec"
+        },
+        "userGoalTags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(Ask a user for|Help a user to).*"
+          },
+          "description": "User goal patterns this recipe addresses"
+        },
+        "categoryTags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["content-layout", "feedback-and-alerts", "inputs-and-actions", "public-form", "structure-and-navigation", "technical"]
+          },
+          "description": "Category classification from spec"
+        }
+      }
     }
   },
   "additionalProperties": false

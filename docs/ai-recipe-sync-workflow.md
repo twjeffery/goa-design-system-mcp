@@ -1,4 +1,6 @@
-# Recipe Sync Tool for Claude
+# AI Recipe Sync Workflow
+
+> **For AI Assistant Use**: Instructions for handling recipe synchronization requests
 
 ## When User Says: "sync examples with code" or similar
 

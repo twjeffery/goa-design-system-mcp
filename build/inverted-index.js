@@ -267,6 +267,35 @@ export function createSearchableText(data) {
                 parts.push(prop.usage);
         });
     }
+    // Phase 1: Best practice standards content for search
+    if (data.bestPracticeStandards) {
+        const standards = data.bestPracticeStandards;
+        // Size tag
+        if (standards.sizeTag)
+            parts.push(standards.sizeTag);
+        // User goal tags
+        if (standards.userGoalTags) {
+            standards.userGoalTags.forEach((tag) => parts.push(tag));
+        }
+        // Category tags
+        if (standards.categoryTags) {
+            standards.categoryTags.forEach((tag) => parts.push(tag));
+        }
+        // Quality standards descriptions
+        if (standards.qualityStandards) {
+            const quality = standards.qualityStandards;
+            if (quality.layoutPatterns)
+                parts.push(quality.layoutPatterns.join(' '));
+            if (quality.contentDesign)
+                parts.push(quality.contentDesign.join(' '));
+            if (quality.accessibilityImplementation)
+                parts.push(quality.accessibilityImplementation.join(' '));
+            if (quality.designPatternUsage)
+                parts.push(quality.designPatternUsage.join(' '));
+            if (quality.userExperienceGuidelines)
+                parts.push(quality.userExperienceGuidelines.join(' '));
+        }
+    }
     return parts.join(' ');
 }
 /**
@@ -288,6 +317,23 @@ export function extractTags(data) {
     // Custom element info
     if (data.customElement?.tagName) {
         tags.push(data.customElement.tagName.replace('goa-', ''));
+    }
+    // Phase 1: Best practice standards tags
+    if (data.bestPracticeStandards) {
+        const standards = data.bestPracticeStandards;
+        if (standards.sizeTag)
+            tags.push(standards.sizeTag);
+        if (standards.userGoalTags)
+            tags.push(...standards.userGoalTags);
+        if (standards.categoryTags)
+            tags.push(...standards.categoryTags);
+        // Add compliance marker if validated
+        const compliance = standards.componentCompliance;
+        if (compliance?.validPropertiesOnly &&
+            compliance?.noCustomStyling &&
+            compliance?.authenticComponentUsage) {
+            tags.push('best-practice-compliant');
+        }
     }
     return tags.filter(tag => tag && tag.length > 0);
 }

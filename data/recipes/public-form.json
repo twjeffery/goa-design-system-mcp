@@ -90,5 +90,47 @@
     "mobile-first",
     "cognitive-load",
     "form-structure"
-  ]
+  ],
+
+  "bestPracticeStandards": {
+    "componentCompliance": {
+      "validPropertiesOnly": true,
+      "noCustomStyling": true,
+      "authenticComponentUsage": true
+    },
+    "qualityStandards": {
+      "layoutPatterns": [
+        "Responsive grid layout using GoabGrid with proper gap and minChildWidth",
+        "Consistent spacing using design tokens (mt, mb properties on GoabText)",
+        "Progressive visual hierarchy with heading sizes"
+      ],
+      "contentDesign": [
+        "Clear, citizen-focused language in form descriptions",
+        "Structured information architecture with logical flow",
+        "Context-appropriate content for government services"
+      ],
+      "accessibilityImplementation": [
+        "WCAG 2.2 AA compliant reduced cognitive load patterns",
+        "Screen reader optimized navigation with proper ARIA labels",
+        "Progressive disclosure to prevent information overload",
+        "Mobile-first responsive design for diverse device access"
+      ],
+      "designPatternUsage": [
+        "One idea per page principle for form simplification",
+        "Multi-step form workflow with clear progression",
+        "Government service form standards compliance"
+      ],
+      "userExperienceGuidelines": [
+        "Progressive form structure (start → questions → review → result)",
+        "Task flow guidance with visual progress indicators",
+        "Error handling and recovery at appropriate granularity"
+      ]
+    },
+    "sizeTag": "service",
+    "userGoalTags": [
+      "Help a user to complete government service applications",
+      "Help a user to navigate complex form processes"
+    ],
+    "categoryTags": ["public-form", "structure-and-navigation", "inputs-and-actions"]
+  }
 }

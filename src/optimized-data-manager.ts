@@ -25,6 +25,10 @@ export interface SearchOptions {
   tags?: string[];
   type?: 'component' | 'system' | 'workflow' | 'recipe';
   userType?: 'citizen' | 'worker' | 'both';
+  // Phase 1: Best practice filtering
+  sizeTag?: "interaction" | "task" | "page" | "service";
+  bestPracticeCategory?: "content-layout" | "feedback-and-alerts" | "inputs-and-actions" | "public-form" | "structure-and-navigation" | "technical";
+  requiresCompliance?: boolean; // Filter for componentCompliance validated recipes
 }
 
 export class OptimizedDataManager {
@@ -106,6 +110,31 @@ export class OptimizedDataManager {
           const recipe = c.item.data;
           return recipe.serviceContext?.userType === options.userType || 
                  recipe.serviceContext?.userType === 'both';
+        });
+      }
+
+      // Phase 1: Best practice filtering
+      if (options.sizeTag && options.type === 'recipe') {
+        filteredCandidates = filteredCandidates.filter(c => {
+          const recipe = c.item.data;
+          return recipe.bestPracticeStandards?.sizeTag === options.sizeTag;
+        });
+      }
+
+      if (options.bestPracticeCategory && options.type === 'recipe') {
+        filteredCandidates = filteredCandidates.filter(c => {
+          const recipe = c.item.data;
+          return recipe.bestPracticeStandards?.categoryTags?.includes(options.bestPracticeCategory);
+        });
+      }
+
+      if (options.requiresCompliance && options.type === 'recipe') {
+        filteredCandidates = filteredCandidates.filter(c => {
+          const recipe = c.item.data;
+          const compliance = recipe.bestPracticeStandards?.componentCompliance;
+          return compliance?.validPropertiesOnly === true &&
+                 compliance?.noCustomStyling === true &&
+                 compliance?.authenticComponentUsage === true;
         });
       }
       
