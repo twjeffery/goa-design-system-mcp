@@ -114,6 +114,15 @@ Located in `server.ts` (experimental features):
 - Use GoA spacing tokens instead of custom margins/padding
 - Import from `@abgov/react-components` or equivalent framework package
 
+## Session Documentation
+
+**Development Log Maintenance**: After completing any significant changes to the MCP server (new features, file reorganization, architecture changes, bug fixes), update `DEVELOPMENT_LOG.md` with:
+- Session date and overview of changes
+- What was built/modified
+- Impact on the system
+- Files affected
+- Any new capabilities or workflows added
+
 ## Development Notes
 
 - **Development history**: See `DEVELOPMENT_LOG.md`
