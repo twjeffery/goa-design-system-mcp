@@ -1,0 +1,290 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "GoA Design System AI Principles",
+  "summary": "CRITICAL development principles that apply to ALL GoA component usage and code generation, regardless of how the request is made",
+  "purpose": "Ensure AI assistants always generate compliant, accessible, government-standard code using real GoA components",
+
+  "mandatoryDevelopmentPrinciples": {
+    "description": "CRITICAL: These principles apply to ALL GoA component usage and code generation, regardless of how the request is made",
+    "priority": "HIGHEST - Must be included in every build/code request",
+    "triggerWords": [
+      "build",
+      "create",
+      "make",
+      "generate",
+      "code",
+      "implement",
+      "develop",
+      "convert",
+      "design",
+      "page",
+      "component"
+    ],
+
+    "realComponentsOnly": {
+      "rule": "NEVER create mock components or placeholders - ALWAYS use real imports",
+      "priority": "CRITICAL - This is the #1 rule",
+      "always": "Use actual imports: import { GoabButton, GoabText, GoabContainer } from '@abgov/react-components'",
+      "never": [
+        "const GoabButton = ({ ... }) => (",
+        "Mock imports for GoA Design System",
+        "Custom component definitions",
+        "// Mock imports for GoA Design System components",
+        "Inline styles instead of component props",
+        "Creating custom styled components"
+      ],
+      "reasoning": "All styling and behavior comes from the official design system",
+      "examples": {
+        "correct": "import { GoabButton, GoabText, GoabOneColumnLayout, GoabPageBlock } from '@abgov/react-components';\nimport '@abgov/web-components';",
+        "incorrect": "const GoabButton = ({ children, ...props }) => <button style={{...}}>{children}</button>",
+        "alsoIncorrect": "// Mock imports for GoA Design System components"
+      }
+    },
+
+    "mandatoryPageStructure": {
+      "rule": "ALWAYS use GoabOneColumnLayout as root component for government pages",
+      "priority": "CRITICAL - Required for government compliance",
+      "requiredPattern": "GoabOneColumnLayout > section[slot=header] + GoabPageBlock + section[slot=footer]",
+      "never": [
+        "div as page root",
+        "Container as page wrapper",
+        "custom layout structures",
+        "direct header/footer without slots"
+      ],
+      "reasoning": "Required for government compliance, accessibility, and design system consistency",
+      "codeExample": {
+        "react": "import { GoabOneColumnLayout, GoabPageBlock, GoabMicrositeHeader, GoabAppHeader, GoabAppFooter } from '@abgov/react-components';\n\nfunction Page() {\n  return (\n    <GoabOneColumnLayout>\n      <section slot=\"header\">\n        <GoabMicrositeHeader type=\"live\" />\n        <GoabAppHeader heading=\"Service Name\" />\n      </section>\n      <GoabPageBlock width=\"704px\">\n        {/* All content goes here */}\n      </GoabPageBlock>\n      <section slot=\"footer\">\n        <GoabAppFooter />\n      </section>\n    </GoabOneColumnLayout>\n  );\n}",
+        "angular": "<goab-one-column-layout>\n  <section slot=\"header\">\n    <goab-microsite-header type=\"live\"></goab-microsite-header>\n    <goab-app-header heading=\"Service Name\"></goab-app-header>\n  </section>\n  <goab-page-block width=\"704px\">\n    <!-- All content goes here -->\n  </goab-page-block>\n  <section slot=\"footer\">\n    <goab-app-footer></goab-app-footer>\n  </section>\n</goab-one-column-layout>"
+      }
+    },
+
+    "componentFirstApproach": {
+      "rule": "ALWAYS assume a GoA component exists first - search before creating custom code",
+      "priority": "HIGH - Prevents unnecessary custom implementations",
+      "process": [
+        "Use project_knowledge_search to find GoA components before coding",
+        "Search with multiple terms (e.g., 'button', 'action', 'submit')",
+        "If no exact match found: Search for related/similar components",
+        "Only if no component found: Explicitly tell user: 'I cannot find a GoA component for [describe element]. How should I implement this?'",
+        "Never default to custom implementation without explicit user guidance"
+      ],
+      "searchStrategy": [
+        "Check component categories and tags",
+        "Look for similar patterns in usage examples",
+        "Consider alternative component combinations"
+      ]
+    },
+
+    "properImports": {
+      "react": {
+        "webComponentsImport": "import '@abgov/web-components';",
+        "componentImports": "import { GoabButton, GoabText, GoabContainer, GoabOneColumnLayout, GoabPageBlock } from '@abgov/react-components';",
+        "naming": "PascalCase with Goab prefix (GoabButton, GoabInput, GoabFormItem)",
+        "never": [
+          "Mock component definitions",
+          "Placeholder components",
+          "Custom styled components",
+          "Components without real imports"
+        ]
+      },
+      "angular": {
+        "webComponentsImport": "import '@abgov/web-components';",
+        "componentUsage": "<goab-button>, <goab-text>, <goab-container>, <goab-one-column-layout>",
+        "naming": "kebab-case with goab- prefix",
+        "never": [
+          "Custom component definitions",
+          "Components without proper imports"
+        ]
+      }
+    },
+
+    "visualPatternMappings": {
+      "governmentElements": {
+        "governmentNoticeBanner": {
+          "component": "GoabMicrositeHeader",
+          "usage": "For 'This is an official website of the Alberta Government' messaging"
+        },
+        "serviceHeaders": {
+          "component": "GoabAppHeader",
+          "usage": "Main service/page title and navigation"
+        },
+        "footerAreas": {
+          "component": "GoabAppFooter",
+          "usage": "Government footer with navigation and utility links"
+        }
+      },
+      "formElements": {
+        "textInputs": {
+          "components": ["GoabInput", "GoabFormItem"],
+          "pattern": "Always wrap inputs in FormItem for proper labels"
+        },
+        "dropdowns": {
+          "component": "GoabDropdown",
+          "usage": "For selection lists and option menus"
+        },
+        "buttons": {
+          "components": ["GoabButton", "GoabIconButton"],
+          "types": ["primary", "secondary", "tertiary"]
+        },
+        "checkboxRadio": {
+          "components": ["GoabCheckbox", "GoabRadio"],
+          "usage": "For boolean selections and option groups"
+        }
+      },
+      "contentElements": {
+        "dataDisplay": {
+          "components": ["GoabTable", "GoabContainer", "GoabBlock"],
+          "usage": "For organized data presentation"
+        },
+        "statusMessages": {
+          "components": ["GoabCallout", "GoabNotificationBanner"],
+          "types": ["success", "error", "warning", "information"]
+        },
+        "navigation": {
+          "components": ["GoabLink", "GoabSideMenu"],
+          "usage": "For internal and external navigation"
+        },
+        "successMessages": {
+          "component": "GoabCallout",
+          "type": "success",
+          "usage": "For 'Application submitted', confirmation messages, success states"
+        },
+        "buttons": {
+          "components": ["GoabButton", "GoabIconButton"],
+          "types": ["primary", "secondary", "tertiary"]
+        },
+        "textContent": {
+          "component": "GoabText",
+          "usage": "ALL text content should use GoabText with appropriate size prop",
+          "sizes": ["heading-l", "heading-m", "body-l", "body-m"]
+        },
+        "contentGrouping": {
+          "component": "GoabContainer",
+          "usage": "For organizing related content sections"
+        }
+      }
+    },
+
+    "codeQualityStandards": {
+      "description": "Standards that apply to all generated GoA component code",
+      "requirements": [
+        "Working event handlers and state management",
+        "Proper component hierarchy and layout structure",
+        "Framework-specific best practices (React hooks, Angular reactive forms)",
+        "Accessibility features built into GoA components",
+        "Responsive behavior using GoA component props"
+      ],
+      "never": [
+        "Custom CSS styling - use component props instead",
+        "Wrapper divs with custom classes",
+        "Inline styles except for specific positioning",
+        "Non-GoA components for standard UI elements",
+        "Mock or placeholder component definitions"
+      ]
+    },
+
+    "designPrinciples": {
+      "noCustomCSS": {
+        "rule": "Never add custom className styling - use component props only",
+        "rationale": "Design system components provide all necessary styling through props",
+        "examples": {
+          "incorrect": "<div className=\"mb-8\"><GoabButton>Click me</GoabButton></div>",
+          "correct": "<GoabButton mb=\"l\">Click me</GoabButton>"
+        }
+      },
+      "spacingOwnership": {
+        "rule": "Components manage spacing to subsequent elements (mb, mr) not from previous (mt, ml)",
+        "rationale": "Each component controls space it creates, preventing spacing conflicts",
+        "examples": {
+          "incorrect": "<div><GoabButton mt=\"l\">Second Button</GoabButton></div>",
+          "correct": "<GoabButton mb=\"l\">First Button</GoabButton>\n<GoabButton>Second Button</GoabButton>"
+        },
+        "alternative": "Use GoabSpacer component for explicit spacing between elements"
+      },
+      "useGoabText": {
+        "rule": "All text content uses GoabText component with size, maxWidth, and spacing props",
+        "rationale": "Ensures consistent typography and spacing throughout the application",
+        "examples": {
+          "incorrect": "<p className=\"text-lg mb-4\">Some content</p>",
+          "correct": "<GoabText size=\"m\" mb=\"m\">Some content</GoabText>"
+        }
+      },
+      "noWrapperDivs": {
+        "rule": "Avoid wrapper divs - use component properties for layout and spacing",
+        "rationale": "Reduces DOM complexity and relies on design system patterns",
+        "examples": {
+          "incorrect": "<div className=\"flex gap-4\"><GoabButton>A</GoabButton><GoabButton>B</GoabButton></div>",
+          "correct": "<GoabButtonGroup gap=\"m\"><GoabButton>A</GoabButton><GoabButton>B</GoabButton></GoabButtonGroup>"
+        }
+      },
+      "iconProperties": {
+        "rule": "Use component icon props (leadingIcon, trailingIcon) not custom SVG",
+        "rationale": "Ensures consistent icon sizing, theming, and accessibility",
+        "examples": {
+          "incorrect": "<GoabButton><svg>...</svg> Click me</GoabButton>",
+          "correct": "<GoabButton leadingIcon=\"checkmark\">Click me</GoabButton>"
+        }
+      },
+      "spacingTokens": {
+        "rule": "Use design system spacing tokens for all margin and padding props",
+        "rationale": "Maintains consistent spacing scale across the application",
+        "availableTokens": [
+          "none",
+          "3xs",
+          "2xs",
+          "xs",
+          "s",
+          "m",
+          "l",
+          "xl",
+          "2xl",
+          "3xl",
+          "4xl"
+        ],
+        "examples": {
+          "incorrect": "<GoabContainer style={{marginBottom: '32px'}}>Content</GoabContainer>",
+          "correct": "<GoabContainer mb=\"l\">Content</GoabContainer>"
+        }
+      }
+    }
+  },
+
+  "imageDetectionRules": {
+    "description": "When user provides images with build requests, automatically apply Figma workflow",
+    "triggers": [
+      "User provides image + 'build' or 'create'",
+      "User provides image + framework mention (React/Angular)",
+      "Any visual design conversion request"
+    ],
+    "autoActions": [
+      "Apply figma-to-code-workflow methodology",
+      "Require framework specification",
+      "Use real GoA components only",
+      "Apply mandatory page structure"
+    ]
+  },
+
+  "systemRequirements": {
+    "nodeVersion": ">=16.0.0",
+    "frameworkVersions": {
+      "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+      "angular": "^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
+    },
+    "dependencies": {
+      "ionicons": "Required for icon display in components",
+      "designTokens": "Included automatically with @abgov/web-components"
+    }
+  },
+
+  "tags": [
+    "mandatory",
+    "ai-principles",
+    "development-rules",
+    "critical",
+    "government-compliance"
+  ],
+  "category": "ai-principles",
+  "status": "stable",
+  "lastUpdated": "2025-07-22"
+}

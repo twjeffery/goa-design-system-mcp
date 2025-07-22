@@ -188,8 +188,8 @@ export class GoADesignSystemServer {
       process.stderr.write(`Master index not found or invalid\n`);
     }
 
-    // Load system files (layout.json, system-setup.json, etc.)
-    const systemFiles = ["layout.json", "system-setup.json", "design-principles.json", "anti-patterns.json"];
+    // Load system files (layout.json, mandatory-ai-principles.json, etc.)
+    const systemFiles = ["layout.json", "mandatory-ai-principles.json", "installation-guide.json", "design-principles.json", "anti-patterns.json"];
     for (const fileName of systemFiles) {
       try {
         const filePath = join(dataDir, fileName);
@@ -348,7 +348,7 @@ export class GoADesignSystemServer {
 
     // If this is ANY build request, ALWAYS include system setup with mandatory principles
     if (isBuildRequest || hasFramework) {
-      const systemSetup = this.systemFiles.get("system-setup");
+      const systemSetup = this.systemFiles.get("mandatory-ai-principles");
       if (systemSetup) {
         results.push({
           type: "system",
@@ -780,7 +780,7 @@ export class GoADesignSystemServer {
 
     // Also include layout guidance if available
     const layoutGuidance = this.systemFiles.get("layout");
-    const setupGuidance = this.systemFiles.get("system-setup");
+    const setupGuidance = this.systemFiles.get("installation-guide");
 
     return {
       content: [
@@ -796,7 +796,7 @@ export class GoADesignSystemServer {
                 "See layout.json for page structure guidance",
               setupGuidance:
                 setupGuidance?.summary ||
-                "See system-setup.json for installation instructions",
+                "See installation-guide.json for installation instructions",
               relatedSystemFiles: {
                 layout: layoutGuidance ? "Available" : "Not loaded",
                 setup: setupGuidance ? "Available" : "Not loaded",

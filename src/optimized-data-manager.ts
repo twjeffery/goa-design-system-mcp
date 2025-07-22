@@ -233,7 +233,7 @@ export class OptimizedDataManager {
     }
 
     // Load and index system files
-    const systemFiles = ["layout.json", "system-setup.json"];
+    const systemFiles = ["layout.json", "mandatory-ai-principles.json", "installation-guide.json"];
     for (const fileName of systemFiles) {
       try {
         const filePath = join(dataDir, fileName);

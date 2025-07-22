@@ -16,7 +16,7 @@
   "purpose": "Provide consistent page structure and responsive behavior for government applications and microsites",
 
   "systemRequirements": {
-    "setupReference": "See system-setup.json for complete installation instructions",
+    "setupReference": "See installation-guide.json for complete installation instructions",
     "dependencies": ["Design token system", "@abgov/web-components"]
   },
 
