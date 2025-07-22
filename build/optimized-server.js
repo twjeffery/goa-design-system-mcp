@@ -159,7 +159,7 @@ export class OptimizedGoADesignSystemServer {
             const prioritizedResults = [];
             // If this is ANY build request, ALWAYS include system setup with mandatory principles
             if (isBuildRequest || hasFramework) {
-                const systemSetup = this.dataManager.getItem("system-setup");
+                const systemSetup = this.dataManager.getItem("mandatory-ai-principles");
                 if (systemSetup) {
                     prioritizedResults.push({
                         type: "system",
@@ -403,7 +403,7 @@ export class OptimizedGoADesignSystemServer {
             }
             // Get layout and setup guidance
             const layoutGuidance = this.dataManager.getItem("layout");
-            const setupGuidance = this.dataManager.getItem("system-setup");
+            const setupGuidance = this.dataManager.getItem("installation-guide");
             return {
                 content: [
                     {
@@ -423,7 +423,7 @@ export class OptimizedGoADesignSystemServer {
                                 commonUse: result.content.commonUse
                             })),
                             layoutGuidance: layoutGuidance?.summary || "See layout.json for page structure guidance",
-                            setupGuidance: setupGuidance?.summary || "See system-setup.json for installation instructions",
+                            setupGuidance: setupGuidance?.summary || "See installation-guide.json for installation instructions",
                             relatedSystemFiles: {
                                 layout: layoutGuidance ? "Available" : "Not loaded",
                                 setup: setupGuidance ? "Available" : "Not loaded",

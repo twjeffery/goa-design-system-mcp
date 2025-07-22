@@ -170,7 +170,7 @@ export class OptimizedDataManager {
             process.stderr.write(`Master index not found or invalid\n`);
         }
         // Load and index system files
-        const systemFiles = ["layout.json", "system-setup.json"];
+        const systemFiles = ["layout.json", "mandatory-ai-principles.json", "installation-guide.json"];
         for (const fileName of systemFiles) {
             try {
                 const filePath = join(dataDir, fileName);
