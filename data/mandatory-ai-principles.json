@@ -247,6 +247,94 @@
           "correct": "<GoabContainer mb=\"l\">Content</GoabContainer>"
         }
       }
+    },
+
+    "spacingStrategy": {
+      "rule": "ALWAYS use component margin props (mb, mr, mt, ml) instead of GoabSpacer when possible",
+      "principle": "Components control spacing to subsequent elements",
+      "enforcement": "Only use GoabSpacer when component margin props are unavailable",
+      "commonMistake": "Using GoabSpacer between components instead of margin props",
+      "order": "1. Try component mb/mr/mt/ml props first, 2. Only use GoabSpacer if unavailable",
+      "examples": [
+        "✅ <GoabFormItem mb='2xl'>",
+        "✅ <GoabButton mb='3xl'>", 
+        "❌ <GoabFormItem> + <GoabSpacer vSpacing='2xl'>"
+      ],
+      "preferredPattern": "Try component margin props first, use GoabSpacer when margin props don't meet layout needs"
+    },
+
+    "validationChecklist": {
+      "beforeGeneratingCode": [
+        "1. Verify ALL component properties against documented valid values",
+        "2. Check provided design specifications (JSON/Figma data) for exact sizing",
+        "3. Ensure no custom styling - only use component props",
+        "4. Validate spacing tokens match design system",
+        "5. Confirm color properties use only documented values"
+      ],
+      "mandatoryValidation": "AI MUST validate every property before code generation",
+      "errorHandling": "Stop generation and request clarification for invalid properties"
+    },
+
+    "designSpecificationRules": {
+      "priority": "CRITICAL - Design specifications override AI assumptions",
+      "rule": "ALWAYS analyze provided Figma JSON data for exact component sizing, spacing, and hierarchy",
+      "enforcement": "Match visual hierarchy from design files, not generic best practices",
+      "examples": {
+        "correct": "If design shows heading-l, use size='heading-l' even if it seems like a main title",
+        "incorrect": "Assuming main titles should always be heading-xl"
+      },
+      "dataAnalysis": {
+        "rule": "When user provides Figma JSON or design specifications, ALWAYS analyze for exact component configurations",
+        "required": [
+          "Extract exact size values from design hierarchy",
+          "Identify spacing patterns from layout data",
+          "Match component configurations to design specs",
+          "Never override design specifications with generic assumptions"
+        ],
+        "designDataPriority": "Design specifications ALWAYS override default component assumptions"
+      }
+    },
+
+    "universalConstraints": {
+      "appliesTo": "ALL GoA components across the entire design system",
+      "severity": "CRITICAL - These rules must NEVER be violated",
+      
+      "noCustomStyling": {
+        "rule": "NEVER add custom styling to any GoA component or child elements",
+        "violations": [
+          "❌ style={{ padding: '16px', color: '#0070f3' }}",
+          "❌ className with custom CSS classes",
+          "❌ inline styles on child elements like <a> inside <GoabLink>"
+        ],
+        "correct": [
+          "✅ Use only documented component props: gap, direction, alignment, mb, mt",
+          "✅ Trust GoA components - they handle ALL styling automatically"
+        ],
+        "enforcement": "Components provide complete styling through documented properties only"
+      },
+
+      "validPropertiesOnly": {
+        "rule": "ONLY use properties explicitly documented in each component's API",
+        "process": "Always verify property exists in component documentation before using",
+        "commonViolations": [
+          "❌ <GoabText weight='medium'> - weight property doesn't exist",
+          "❌ <GoabButton variant='custom'> - only use documented variants"
+        ],
+        "correct": "✅ Check component_consumer.json files for valid properties"
+      },
+
+      "designSystemIcons": {
+        "rule": "NEVER use emojis as icons - ALWAYS use component icon properties",
+        "violations": [
+          "❌ ✏️ Change",
+          "❌ 📝 Edit", 
+          "❌ ⚠️ Warning"
+        ],
+        "correct": [
+          "✅ <GoabLink leadingIcon='pencil'><a>Change</a></GoabLink>",
+          "✅ <GoabButton leadingIcon='warning'>Alert</GoabButton>"
+        ]
+      }
     }
   },
 
