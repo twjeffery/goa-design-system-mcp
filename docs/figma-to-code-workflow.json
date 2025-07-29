@@ -37,8 +37,99 @@
     "reasoning": "Framework choice determines import statements, component syntax, and event handling patterns"
   },
 
-  "enhancedAnalysisWithJSON": {
-    "description": "Integration with Figma Component Export JSON for precision mapping",
+  "enhancedDualMCPWorkflow": {
+    "description": "Enhanced workflow combining Figma MCP technical analysis with GoA MCP design system intelligence",
+    "mcpServers": {
+      "figma-dev-mode-mcp-server": "Provides design specifications, measurements, and visual context",
+      "goa-design-system": "Provides GoA component knowledge, patterns, and government compliance"
+    },
+    "workflowPhases": {
+      "phase1_figmaAnalysis": {
+        "description": "Extract design specifications (avoiding bloated code generation)",
+        "recommendedTools": [
+          "mcp__figma-dev-mode-mcp-server__get_image",
+          "mcp__figma-dev-mode-mcp-server__get_variable_defs",
+          "mcp__figma-dev-mode-mcp-server__get_code_connect_map"
+        ],
+        "avoidedTool": {
+          "name": "mcp__figma-dev-mode-mcp-server__get_code",
+          "reason": "Generates 45,993+ tokens of bloated HTML/CSS instead of clean GoA components",
+          "problems": [
+            "Generic HTML/CSS instead of design system components",
+            "Custom styling that violates GoA standards",
+            "No government compliance or accessibility patterns",
+            "Unmaintainable bloated output",
+            "Token limit exceeded for complex designs"
+          ]
+        },
+        "outputs": [
+          "Visual design representation",
+          "Design tokens and color values",
+          "Component relationships (if Code Connect available)",
+          "Layout context and hierarchy"
+        ]
+      },
+      "phase2_goaTranslation": {
+        "description": "Generate intelligent GoA implementation using visual analysis",
+        "tools": [
+          "mcp__goa-design-system__project_knowledge_search",
+          "mcp__goa-design-system__get_component_details",
+          "mcp__goa-design-system__recommend_patterns",
+          "mcp__goa-design-system__design_review"
+        ],
+        "approach": [
+          "Analyze design image visually",
+          "Map visual patterns to 71+ implementation recipes",
+          "Apply government compliance standards",
+          "Generate clean GoA component code",
+          "Include proper accessibility patterns"
+        ],
+        "outputs": [
+          "Production-ready GoA component code",
+          "Government compliance built-in",
+          "Proper design system token usage",
+          "Working event handlers and state management",
+          "Accessibility standards applied"
+        ]
+      }
+    },
+    "advantagesOverFigmaCodeGeneration": [
+      "Clean GoA components vs bloated HTML/CSS",
+      "Government compliance automatically applied",
+      "71+ working implementation recipes",
+      "Visual design pattern recognition",
+      "Contextual intelligence (citizen vs worker patterns)",
+      "No token limit issues",
+      "Maintainable, production-ready code"
+    ],
+    "exampleComparison": {
+      "figmaGetCode": {
+        "output": "45,993+ tokens of generic HTML/CSS",
+        "problems": [
+          "<div style='padding: 16px; border: 1px solid #ccc;'>",
+          "Custom CSS classes and inline styles",
+          "No accessibility attributes",
+          "No government compliance",
+          "Unmaintainable structure"
+        ]
+      },
+      "goaMcpOutput": {
+        "tokens": "~500-1000 tokens of clean code",
+        "result": [
+          "<GoaOneColumnLayout>",
+          "  <GoaMicrositeHeader>Official Alberta Government</GoaMicrositeHeader>",
+          "  <GoaFormItem label='Input label' mb='l'>",
+          "    <GoaInput name='userInput' width='100%' onChange={handleChange} />",
+          "  </GoaFormItem>",
+          "  <GoaButton type='primary'>Save and continue</GoaButton>",
+          "</GoaOneColumnLayout>"
+        ]
+      }
+    }
+  },
+
+  "legacyJSONWorkflow": {
+    "description": "Legacy integration with Figma Component Export JSON for precision mapping",
     "benefits": [
       "Instantly identify which GoA components are used",
       "Extract exact configurations (size, type, state, etc.)",
@@ -305,7 +396,21 @@
   },
 
   "workflowSteps": {
-    "enhancedAnalysis": [
+    "dualMCPWorkflow": [
+      "1. User specifies framework: 'I want this built in [React/Angular]'",
+      "2. Phase 1 - Figma Analysis: Extract design specifications using Figma MCP",
+      "   - Use get_image to capture visual design",
+      "   - Use get_variable_defs to extract design tokens",
+      "   - Optionally use get_code_connect_map for component relationships",
+      "   - AVOID get_code (generates 45,993+ bloated tokens)",
+      "3. Phase 2 - GoA Translation: Generate implementation using GoA MCP",
+      "   - Analyze design image with GoA design system knowledge",
+      "   - Map visual patterns to 71+ implementation recipes",
+      "   - Apply government compliance and accessibility standards",
+      "   - Generate clean, production-ready GoA component code",
+      "4. Provide complete setup instructions and component explanations"
+    ],
+    "legacyJSONWorkflow": [
       "1. User specifies framework: 'I want this built in [React/Angular]'",
       "2. User uploads Figma design image",
       "3. User uploads Figma component export JSON (optional but recommended)",
@@ -314,7 +419,7 @@
       "6. Generate complete, functional code using real GoA components",
       "7. Provide setup instructions and component explanations"
     ],
-    "standardAnalysis": [
+    "imageOnlyWorkflow": [
       "1. User specifies framework: 'I want this built in [React/Angular]'",
       "2. User uploads Figma design image",
       "3. Identify visual patterns and search for corresponding GoA components",
