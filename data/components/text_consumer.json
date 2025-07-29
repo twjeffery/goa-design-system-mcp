@@ -593,5 +593,5 @@
   "derivedFrom": {
     "maintainerVersion": "../maintainer/text.json",
     "note": "See maintainer version for implementation details and development information"
-  },
+  }
 }
