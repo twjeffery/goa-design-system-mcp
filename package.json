@@ -10,10 +10,10 @@
     "dev": "tsx src/index.ts",
     "watch": "tsc --watch",
     "test": "node build/index.js --test",
-    "sync": "node scripts/sync-recipes.js",
-    "map-components": "node scripts/map-recipes-to-components.js",
+    "sync": "node scripts/sync-examples.js",
+    "map-components": "node scripts/map-examples-to-components.js",
     "update-components": "node scripts/update-component-files.js",
-    "test-recipes": "node scripts/test-recipe-queries.js",
+    "test-examples": "node scripts/test-example-queries.js",
     "full-sync": "./scripts/full-sync.sh"
   },
   "keywords": [

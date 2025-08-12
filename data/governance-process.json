@@ -1,0 +1,226 @@
+{
+  "metadataSchemaVersion": "2.1.0",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "GoA Design System Governance Process",
+  "summary": "Complete governance workflow for teams using and contributing to the GoA Design System, including decision criteria and communication channels",
+  "purpose": "Guide teams through proper design system usage, problem-solving hierarchy, and contribution process",
+
+  "corePhilosophy": {
+    "designSystemFirst": "Start with existing components and patterns - covers ~80% of service needs",
+    "userDriven": "Changes driven by usability testing and real user needs, not preferences",
+    "collaborative": "Work with design system team for decisions and knowledge sharing",
+    "evidenceBased": "Research and testing inform decisions, common sense applies for obvious issues"
+  },
+
+  "communicationChannels": {
+    "primary": [
+      "Design System Support channel on Slack",
+      "Report a Bug system", 
+      "Drop-in Hours sessions"
+    ],
+    "usage": "Use any of these channels for questions, support, reporting issues, or discussing new needs"
+  },
+
+  "governanceWorkflow": {
+    "description": "Step-by-step process for teams working with the design system",
+    
+    "step1": {
+      "name": "Use the Design System as Default",
+      "description": "Start with existing components and patterns to save time and build on current standards",
+      "expectation": "This should cover approximately 80% of your service needs",
+      "guidance": [
+        "Use documented components and patterns first",
+        "Follow implementation examples and best practices",
+        "Don't create custom solutions before checking existing options"
+      ],
+      "riskIndicators": [
+        "Team building custom components that exist in design system",
+        "Spending significant time recreating existing functionality",
+        "Deviating from established patterns without user research"
+      ]
+    },
+
+    "step2": {
+      "name": "Identify User Need Not Handled by Design System", 
+      "description": "Through usability testing, discover when existing solutions don't meet user needs",
+      "triggers": [
+        "Usability testing shows poor user experience",
+        "User research reveals unmet needs",
+        "Accessibility issues discovered",
+        "Obvious bugs or problems identified"
+      ],
+      "beforeProceeding": "Test current content and layout solutions before proposing component changes"
+    },
+
+    "step3": {
+      "name": "Talk to Design System Team",
+      "description": "Collaborate with design system team to understand options and make informed decisions",
+      "channels": ["Slack support channel", "Bug reports", "Drop-in hours"],
+      "discussion_includes": [
+        "What other teams have done for similar problems",
+        "What can be shared and reused across teams", 
+        "When to use 3rd party libraries",
+        "When to create custom solutions",
+        "Understanding contribution criteria"
+      ],
+      "decision_authority": "Product teams can do whatever they want, but design system team decides what becomes part of the shared system"
+    },
+
+    "step4": {
+      "name": "Apply Problem-Solving Hierarchy",
+      "description": "Recommended approach for addressing user experience issues",
+      "hierarchy": [
+        {
+          "order": 1,
+          "approach": "Change Content",
+          "rationale": "Often most impactful for user experience and easiest for developers to implement",
+          "examples": ["Clearer labels", "Better instructions", "Simplified language", "More helpful error messages"]
+        },
+        {
+          "order": 2, 
+          "approach": "Change Layout",
+          "rationale": "Modify spacing, association, and relationships between elements",
+          "examples": ["Rearrange elements", "Adjust spacing", "Change visual hierarchy", "Improve content grouping"]
+        },
+        {
+          "order": 3,
+          "approach": "Design New Components or Enhancements",
+          "rationale": "Create or modify interface components only after content and layout solutions have been explored",
+          "examples": ["New component patterns", "Enhanced existing components", "Custom interface solutions"]
+        }
+      ],
+      "philosophy": "Start simple with content and information before applying UI solutions to design problems"
+    },
+
+    "step5": {
+      "name": "Test New Solution with Users",
+      "description": "Validate solutions through user feedback and testing",
+      "approach": "Testing and feedback from real users is always preferred",
+      "exceptions": ["Obvious bugs", "Clear accessibility issues", "Evident user needs"],
+      "timing": "Ideally happening throughout the process - more user feedback is almost always better"
+    },
+
+    "step6": {
+      "name": "Share Learnings with Design System",
+      "description": "Communicate insights from design and development so other teams can benefit",
+      "outcomes": [
+        {
+          "type": "Added to System",
+          "description": "Solution meets contribution criteria and becomes part of shared design system",
+          "benefits": ["Available to all teams", "Maintained by design system team", "Consistent implementation"]
+        },
+        {
+          "type": "Tracked as Snowflake", 
+          "description": "Solution stays unique to service but is tracked in design system backlog",
+          "benefits": ["Monitored for potential patterns", "Considered for future system additions", "Learning captured"]
+        }
+      ],
+      "tracking": "All solutions are tracked in the design system backlog regardless of outcome"
+    }
+  },
+
+  "contributionCriteria": {
+    "description": "Criteria used by design system team to determine if something becomes part of the shared system",
+    
+    "proposingComponentOrPattern": {
+      "useful": {
+        "requirement": "Evidence that component or pattern would be useful for many teams or services",
+        "evidence_types": ["Screenshots or links to usage in different services", "Documentation of multiple team needs", "User research showing broad applicability"]
+      },
+      "unique": {
+        "requirement": "Does not replicate something already in the design system, OR provides evidence that it's better than existing version",
+        "considerations": ["No duplication of existing components", "Clear improvement over current solutions", "Fills genuine gap in system"]
+      }
+    },
+
+    "anyGivenSolution": {
+      "better": {
+        "requirement": "Creates better experience for end user, informed by research showing UX improvement and response to user need",
+        "validation": ["User research demonstrates improvement", "Measurable UX benefits", "Addresses real user problems"]
+      },
+      "universal": {
+        "requirement": "Inclusive and accessible, meets or exceeds WCAG 2.1 accessibility standards", 
+        "standards": ["WCAG 2.1 compliance minimum", "Inclusive design principles", "Accessible by default"]
+      }
+    }
+  },
+
+  "riskAssessment": {
+    "highRiskBehaviors": [
+      {
+        "risk": "Building Custom Components That Already Exist",
+        "description": "Team spending significant design and development time recreating existing design system components",
+        "indicators": ["Custom button, input, or layout components", "Reimplementation of existing patterns", "Significant time investment in solved problems"],
+        "mitigation": "Check design system first, use existing components, consult with design system team"
+      },
+      {
+        "risk": "Skipping User Research",
+        "description": "Making component or design changes without user validation",
+        "indicators": ["Preference-driven changes", "No usability testing", "Assumption-based decisions"],
+        "mitigation": "Conduct user research, test with real users, apply problem-solving hierarchy"
+      },
+      {
+        "risk": "Working in Isolation", 
+        "description": "Not engaging with design system team for guidance or knowledge sharing",
+        "indicators": ["No communication with design system team", "Building solutions without consultation", "Not sharing learnings"],
+        "mitigation": "Use communication channels, participate in drop-in hours, share findings"
+      },
+      {
+        "risk": "Accessibility Oversights",
+        "description": "Creating solutions that don't meet accessibility standards",
+        "indicators": ["No accessibility testing", "WCAG non-compliance", "Exclusion of users with disabilities"],
+        "mitigation": "Follow WCAG 2.1+ standards, test with assistive technologies, consult accessibility experts"
+      }
+    ]
+  },
+
+  "guidanceForAI": {
+    "when_to_suggest_governance_process": [
+      "Team asking about creating custom components",
+      "Questions about design system usage or gaps",
+      "Requests for component modifications or new patterns",
+      "User experience problems that might need design system solutions",
+      "Accessibility or usability concerns"
+    ],
+    "process_guidance_approach": [
+      "Guide teams through the 6-step workflow",
+      "Emphasize design system first approach", 
+      "Recommend problem-solving hierarchy (content → layout → components)",
+      "Encourage communication with design system team",
+      "Stress importance of user research and testing",
+      "Explain contribution criteria for shared solutions"
+    ],
+    "risk_identification": [
+      "Flag when teams might be recreating existing components",
+      "Identify missed opportunities for design system usage",
+      "Highlight when user research might be needed",
+      "Point out accessibility considerations"
+    ]
+  },
+
+  "successIndicators": [
+    "Teams start with design system components as default",
+    "User research drives design decisions",
+    "Regular communication with design system team",
+    "Problem-solving hierarchy followed (content first)",
+    "Solutions tested with real users",
+    "Learnings shared back to design system",
+    "Reduced duplicate work across teams",
+    "Consistent user experiences across government services",
+    "High-quality, accessible solutions"
+  ],
+
+  "tags": [
+    "governance",
+    "process", 
+    "workflow",
+    "collaboration",
+    "user-research",
+    "accessibility",
+    "contribution",
+    "design-system-usage"
+  ],
+  "category": "governance",
+  "status": "stable",
+  "lastUpdated": "2025-08-12"
+}

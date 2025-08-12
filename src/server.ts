@@ -189,7 +189,7 @@ export class GoADesignSystemServer {
     }
 
     // Load system files (layout.json, mandatory-ai-principles.json, etc.)
-    const systemFiles = ["layout.json", "mandatory-ai-principles.json", "installation-guide.json", "design-principles.json", "anti-patterns.json"];
+    const systemFiles = ["layout.json", "mandatory-ai-principles.json", "installation-guide.json", "design-principles.json", "anti-patterns.json", "governance-process.json"];
     for (const fileName of systemFiles) {
       try {
         const filePath = join(dataDir, fileName);
@@ -1330,13 +1330,13 @@ export class GoADesignSystemServer {
       implementationNotes: [] as string[]
     };
 
-    // Find matching recipes/patterns
-    const matchingRecipes = [];
-    for (const [name, recipe] of this.workflows) {
-      if (recipe.triggers?.some((trigger: string) => 
+    // Find matching examples/patterns
+    const matchingExamples = [];
+    for (const [name, example] of this.workflows) {
+      if (example.triggers?.some((trigger: string) => 
         scenario.toLowerCase().includes(trigger.toLowerCase())
       )) {
-        matchingRecipes.push({ name, recipe });
+        matchingExamples.push({ name, example });
       }
     }
 
@@ -1405,12 +1405,12 @@ export class GoADesignSystemServer {
       userType === "citizen" ? "Optimize for infrequent users" : "Optimize for efficiency and bulk operations"
     ];
 
-    // Include matching recipes if found
-    if (matchingRecipes.length > 0) {
-      recommendations.alternativePatterns = matchingRecipes.map(recipe => ({
-        name: recipe.name,
-        description: recipe.recipe.summary || recipe.recipe.methodologyName,
-        source: "existing-recipe"
+    // Include matching examples if found
+    if (matchingExamples.length > 0) {
+      recommendations.alternativePatterns = matchingExamples.map(example => ({
+        name: example.name,
+        description: example.example.summary || example.example.methodologyName,
+        source: "existing-example"
       }));
     }
 
@@ -1607,173 +1607,154 @@ export class GoADesignSystemServer {
     };
   }
 
-  async governanceCheck(args: any) {
+  async governanceProcess(args: any) {
     const { projectName, components = [], framework, teamSize = 1 } = args;
     
-    const governanceResults = {
+    // Load governance process knowledge
+    const governanceData = this.systemFiles.get("governance-process");
+    if (!governanceData) {
+      return {
+        content: [{
+          type: "text",
+          text: "Governance process data not available. Please ensure governance-process.json is loaded."
+        }]
+      };
+    }
+    
+    // Assess project state and provide governance guidance
+    const guidance = {
       timestamp: new Date().toISOString(),
       projectName,
-      components,
       framework,
       teamSize,
-      compliance: {
-        designSystemUsage: 0,
-        standardsCompliance: 0,
-        maintenanceRisk: "low",
-        overallScore: 0
-      },
-      findings: [] as any[],
+      currentStep: "assessment",
+      riskFlags: [] as any[],
       recommendations: [] as any[],
-      riskAssessment: [] as any[]
+      nextSteps: [] as any[]
     };
 
-    // Design System Usage Analysis
-    const dsUsageChecks = [
-      {
-        check: "Component Library Usage",
-        passed: components.length > 0,
-        message: "Project should use GoA components rather than custom implementations",
-        weight: 20
-      },
-      {
-        check: "Layout Consistency",
-        passed: components.some((comp: string) => comp.toLowerCase().includes("layout")),
-        message: "Use GoabOneColumnLayout for consistent government page structure",
-        weight: 15
-      },
-      {
-        check: "Form Standards",
-        passed: !components.some((comp: string) => comp.toLowerCase().includes("input")) || 
-                components.some((comp: string) => comp.toLowerCase().includes("formitem")),
-        message: "Form inputs must be wrapped with GoabFormItem",
-        weight: 10
-      },
-      {
-        check: "Navigation Standards",
-        passed: !components.some((comp: string) => comp.toLowerCase().includes("link")) ||
-                components.some((comp: string) => comp.toLowerCase().includes("header")),
-        message: "Include proper navigation structure with GoabAppHeader",
-        weight: 10
-      }
-    ];
-
-    // Calculate design system usage score
-    const dsUsageScore = dsUsageChecks.reduce((score, check) => {
-      return score + (check.passed ? check.weight : 0);
-    }, 0);
-    governanceResults.compliance.designSystemUsage = Math.min(100, dsUsageScore);
-
-    // Standards Compliance
-    const standardsChecks = [
-      {
-        check: "Framework Consistency",
-        passed: framework === "react" || framework === "angular",
-        message: "Use supported frameworks (React or Angular)",
-        impact: "medium"
-      },
-      {
-        check: "Government Branding",
-        passed: components.some((comp: string) => 
-          comp.toLowerCase().includes("header") || comp.toLowerCase().includes("footer")
-        ),
-        message: "Include GoabMicrositeHeader and GoabAppFooter for government branding",
-        impact: "high"
-      },
-      {
-        check: "Accessibility Standards",
-        passed: !components.some((comp: string) => comp.toLowerCase().includes("custom")),
-        message: "Avoid custom components that may not meet WCAG 2.2 AA standards",
-        impact: "high"
-      }
-    ];
-
-    governanceResults.compliance.standardsCompliance = Math.round(
-      (standardsChecks.filter(check => check.passed).length / standardsChecks.length) * 100
+    // Check for high-risk behaviors based on governance process
+    const customComponents = components.filter((comp: string) => 
+      comp.toLowerCase().includes("custom") || 
+      comp.toLowerCase().includes("proprietary") ||
+      comp.toLowerCase().includes("internal")
     );
 
-    // Maintenance Risk Assessment
-    const customComponents = components.filter((comp: string) => comp.toLowerCase().includes("custom"));
-    const complexComponents = components.filter((comp: string) => 
-      comp.toLowerCase().includes("table") || comp.toLowerCase().includes("form")
-    );
-
-    let maintenanceRisk = "low";
-    if (customComponents.length > 2 || teamSize < 2) {
-      maintenanceRisk = "high";
-    } else if (customComponents.length > 0 || complexComponents.length > 5) {
-      maintenanceRisk = "medium";
+    if (customComponents.length > 0) {
+      guidance.riskFlags.push({
+        risk: "Building Custom Components That May Already Exist",
+        severity: "high",
+        description: `Found ${customComponents.length} custom component(s): ${customComponents.join(', ')}`,
+        guidance: "Check if GoA Design System already provides these components before building custom solutions"
+      });
+      guidance.currentStep = "talk-to-design-system";
     }
 
-    governanceResults.compliance.maintenanceRisk = maintenanceRisk;
+    // Note: GoaOneColumnLayout is important for design-to-code examples but teams can use appropriate layouts for their needs
 
-    // Overall Score
-    governanceResults.compliance.overallScore = Math.round(
-      (governanceResults.compliance.designSystemUsage + 
-       governanceResults.compliance.standardsCompliance) / 2
-    );
+    // Generate recommendations based on governance process
+    if (guidance.riskFlags.length > 0) {
+      guidance.currentStep = "talk-to-design-system";
+      guidance.recommendations = [
+        {
+          action: "Contact Design System Team",
+          urgency: "immediate",
+          channels: governanceData.communicationChannels.primary,
+          description: "Discuss your component needs and explore existing solutions"
+        },
+        {
+          action: "Apply Problem-Solving Hierarchy", 
+          description: "Before building custom components, try these approaches in order:",
+          steps: [
+            "1. Change Content - Often most impactful and easiest to implement",
+            "2. Change Layout - Adjust spacing, association, and relationships", 
+            "3. Design Components - Only after content and layout solutions explored"
+          ]
+        }
+      ];
+    } else {
+      guidance.currentStep = "using-design-system";
+      guidance.recommendations = [
+        {
+          action: "Continue Using Design System",
+          description: "You're following good practices by using existing GoA components",
+          note: "Design system covers ~80% of service needs"
+        }
+      ];
+    }
 
-    // Generate findings
-    const failedChecks = [...dsUsageChecks, ...standardsChecks].filter(check => !check.passed);
-    governanceResults.findings = failedChecks.map((check: any) => ({
-      type: "compliance-gap",
-      message: check.message,
-      impact: check.impact || "medium",
-      recommendation: "Use GoA Design System components"
-    }));
-
-    // Risk Assessment
-    if (maintenanceRisk === "high") {
-      governanceResults.riskAssessment.push({
-        risk: "High Maintenance Burden",
-        description: "Too many custom components or insufficient team size",
-        mitigation: "Reduce custom components, increase team size, or add design system expertise"
+    // Framework and team size considerations
+    if (framework && !["react", "angular"].includes(framework)) {
+      guidance.riskFlags.push({
+        risk: "Unsupported Framework",
+        severity: "medium",
+        description: `${framework} is not officially supported by GoA Design System`,
+        guidance: "Consider React or Angular for full design system support"
       });
     }
 
-    if (governanceResults.compliance.overallScore < 70) {
-      governanceResults.riskAssessment.push({
-        risk: "Design System Compliance",
-        description: "Low adherence to GoA Design System standards",
-        mitigation: "Increase use of GoA components and follow established patterns"
+    if (teamSize < 2 && customComponents.length > 0) {
+      guidance.riskFlags.push({
+        risk: "Maintenance Burden with Small Team",
+        severity: "medium", 
+        description: `Team of ${teamSize} with custom components may struggle with maintenance`,
+        guidance: "Consider using more design system components or increasing team capacity"
       });
     }
 
-    // Generate recommendations
-    governanceResults.recommendations = [
-      {
-        priority: "high",
-        category: "design-system",
-        message: "Increase usage of GoA components to improve consistency and reduce maintenance",
-        actionItems: [
-          "Audit current custom components",
-          "Replace with GoA equivalents where possible",
-          "Document any unavoidable custom components"
-        ]
-      },
-      {
-        priority: "medium",
-        category: "team-process",
-        message: "Establish design system review process",
-        actionItems: [
-          "Add design system expert to team",
-          "Include GoA compliance in code review",
-          "Set up automated component usage tracking"
-        ]
-      }
-    ];
+    // Format comprehensive governance response
+    const response = `# GoA Design System Governance Guidance
 
-    // Enhance response with component information
-    const baseResponse = JSON.stringify(governanceResults, null, 2);
-    const enhancedResponse = this.enhanceResponseWithComponents(
-      baseResponse, 
-      components.join(' ')
-    );
+## Project Assessment: ${projectName}
+**Framework:** ${framework || 'Not specified'}  
+**Team Size:** ${teamSize}  
+**Components Detected:** ${components.length}
+
+## Current Process Step: ${guidance.currentStep.replace('-', ' ').toUpperCase()}
+
+${guidance.recommendations.map(rec => `
+### ${rec.action}
+${rec.description}
+
+${rec.channels ? `**Communication Channels:**
+${rec.channels.map((ch: string) => `- ${ch}`).join('\n')}` : ''}
+
+${rec.steps ? `**Process:**
+${rec.steps.map((step: string) => `- ${step}`).join('\n')}` : ''}
+
+${rec.note ? `✅ **${rec.note}**` : ''}
+`).join('')}
+
+${guidance.riskFlags.length > 0 ? `## ⚠️ Risk Assessment
+
+${guidance.riskFlags.map(risk => `
+### ${risk.risk} (${risk.severity.toUpperCase()})
+**Issue:** ${risk.description}  
+**Guidance:** ${risk.guidance}
+`).join('')}` : '## ✅ No Major Risks Detected'}
+
+## GoA Design System Governance Process
+
+### 6-Step Workflow:
+1. **Use Design System as Default** - Start with existing components (~80% coverage)
+2. **Identify User Need** - Through usability testing, discover gaps
+3. **Talk to Design System Team** - Use Slack, bug reports, or drop-in hours
+4. **Apply Problem-Solving Hierarchy** - Content → Layout → Components
+5. **Test New Solution** - Validate with real users
+6. **Share Learnings** - Solution becomes shared or tracked as "snowflake"
+
+### Communication Channels:
+${Object.values(governanceData.communicationChannels.primary).map((channel: any) => `- ${channel}`).join('\n')}
+
+---
+
+*Following this governance process ensures consistent, accessible government services while reducing duplicate work across teams.*`;
 
     return {
       content: [
         {
           type: "text",
-          text: enhancedResponse
+          text: response
         }
       ]
     };
@@ -1879,7 +1860,7 @@ export class GoADesignSystemServer {
       },
       {
         name: "Component Examples",
-        location: "data/recipes/",
+        location: "data/examples/",
         type: "examples",
         description: "71 real-world implementation patterns"
       },

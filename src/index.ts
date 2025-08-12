@@ -264,9 +264,9 @@ async function main() {
           },
         },
         {
-          name: "governance_check",
+          name: "governance_process",
           description:
-            "DESIGN EXPERT: Project governance review for design system compliance and maintenance risk assessment",
+            "DESIGN EXPERT: Guide teams through GoA Design System governance process and identify compliance risks",
           inputSchema: {
             type: "object",
             properties: {
@@ -403,8 +403,8 @@ async function main() {
         case "accessibility_audit":
           return await designExpertServer.accessibilityAudit(args);
 
-        case "governance_check":
-          return await designExpertServer.governanceCheck(args);
+        case "governance_process":
+          return await designExpertServer.governanceProcess(args);
 
         case "team_onboarding":
           return await designExpertServer.teamOnboarding(args);

@@ -43,8 +43,8 @@
     },
 
     "mandatoryPageStructure": {
-      "rule": "ALWAYS use GoabOneColumnLayout as root component for government pages",
-      "priority": "CRITICAL - Required for government compliance",
+      "rule": "ALWAYS use GoabOneColumnLayout as root component when generating code examples from designs",
+      "priority": "CRITICAL - Required for design-to-code workflows and examples",
       "requiredPattern": "GoabOneColumnLayout > section[slot=header] + GoabPageBlock + section[slot=footer]",
       "never": [
         "div as page root",
@@ -52,7 +52,7 @@
         "custom layout structures",
         "direct header/footer without slots"
       ],
-      "reasoning": "Required for government compliance, accessibility, and design system consistency",
+      "reasoning": "Required for consistent design system examples and design-to-code workflows. Teams can use appropriate layouts for their specific implementations.",
       "codeExample": {
         "react": "import { GoabOneColumnLayout, GoabPageBlock, GoabMicrositeHeader, GoabAppHeader, GoabAppFooter } from '@abgov/react-components';\n\nfunction Page() {\n  return (\n    <GoabOneColumnLayout>\n      <section slot=\"header\">\n        <GoabMicrositeHeader type=\"live\" />\n        <GoabAppHeader heading=\"Service Name\" />\n      </section>\n      <GoabPageBlock width=\"704px\">\n        {/* All content goes here */}\n      </GoabPageBlock>\n      <section slot=\"footer\">\n        <GoabAppFooter />\n      </section>\n    </GoabOneColumnLayout>\n  );\n}",
         "angular": "<goab-one-column-layout>\n  <section slot=\"header\">\n    <goab-microsite-header type=\"live\"></goab-microsite-header>\n    <goab-app-header heading=\"Service Name\"></goab-app-header>\n  </section>\n  <goab-page-block width=\"704px\">\n    <!-- All content goes here -->\n  </goab-page-block>\n  <section slot=\"footer\">\n    <goab-app-footer></goab-app-footer>\n  </section>\n</goab-one-column-layout>"

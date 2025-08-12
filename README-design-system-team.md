@@ -134,6 +134,10 @@ The GoA Design System MCP serves as the team's **external brain** - capturing an
   - *Example:* _"Audit this component implementation for accessibility compliance"_
   - *Example:* _"Check this pattern design for WCAG 2.2 AA requirements"_
 
+- **`governance_process`** - Guide teams through GoA Design System governance process and identify compliance risks
+  - *Example:* _"Review this team's approach for design system compliance"_
+  - *Example:* _"Assess governance risks for this project implementation"_
+
 ### **Feedback & Community Management**
 - **`give_feedback`** - Submit feedback about component usage or missing information
   - *Example:* _"Report inconsistency in Button component documentation"_

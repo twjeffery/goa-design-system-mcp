@@ -1,9 +1,9 @@
-# AI Recipe Sync Workflow
+# AI Example Sync Workflow
 
-> **For AI Assistant Use**: Instructions for handling recipe synchronization requests
+> **For AI Assistant Use**: Instructions for handling example synchronization requests
 
 ## What This Does
-When new examples are made in code, this syncs them all to create any new JSON files needed for these examples/recipes. It keeps the MCP's recipe database up-to-date with the actual TSX example files.
+When new examples are made in code, this syncs them all to create any new JSON files needed for these examples. It keeps the MCP's example database up-to-date with the actual TSX example files.
 
 ## When User Says: "sync examples with code" or similar
 
@@ -12,10 +12,10 @@ Execute this process step-by-step:
 ### Step 1: Run Sync Script
 ```bash
 cd /Users/tom/Projects/Design-system/goa-design-system-mcp
-node scripts/sync-recipes.js
+node scripts/sync-examples.js
 ```
 
-**What it does:** Compares TSX example files with recipe JSON files, updates timestamps, syncs code examples
+**What it does:** Compares TSX example files with example JSON files, updates timestamps, syncs code examples
 
 ### Step 2: Rebuild MCP Server
 ```bash

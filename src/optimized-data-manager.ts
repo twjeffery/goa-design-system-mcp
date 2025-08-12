@@ -11,7 +11,7 @@ const getErrorMessage = (error: unknown): string => {
 };
 
 export interface SearchResult {
-  type: 'component' | 'system' | 'workflow' | 'recipe';
+  type: 'component' | 'system' | 'workflow' | 'example';
   name: string;
   content: any;
   score: number;
@@ -23,12 +23,12 @@ export interface SearchOptions {
   maxResults?: number;
   category?: string;
   tags?: string[];
-  type?: 'component' | 'system' | 'workflow' | 'recipe';
+  type?: 'component' | 'system' | 'workflow' | 'example';
   userType?: 'citizen' | 'worker' | 'both';
   // Phase 1: Best practice filtering
   sizeTag?: "interaction" | "task" | "page" | "service";
   bestPracticeCategory?: "content-layout" | "feedback-and-alerts" | "inputs-and-actions" | "public-form" | "structure-and-navigation" | "technical";
-  requiresCompliance?: boolean; // Filter for componentCompliance validated recipes
+  requiresCompliance?: boolean; // Filter for componentCompliance validated examples
 }
 
 export class OptimizedDataManager {
@@ -105,33 +105,33 @@ export class OptimizedDataManager {
         );
       }
 
-      if (options.userType && options.type === 'recipe') {
+      if (options.userType && options.type === 'example') {
         filteredCandidates = filteredCandidates.filter(c => {
-          const recipe = c.item.data;
-          return recipe.serviceContext?.userType === options.userType || 
-                 recipe.serviceContext?.userType === 'both';
+          const example = c.item.data;
+          return example.serviceContext?.userType === options.userType || 
+                 example.serviceContext?.userType === 'both';
         });
       }
 
       // Phase 1: Best practice filtering
-      if (options.sizeTag && options.type === 'recipe') {
+      if (options.sizeTag && options.type === 'example') {
         filteredCandidates = filteredCandidates.filter(c => {
-          const recipe = c.item.data;
-          return recipe.bestPracticeStandards?.sizeTag === options.sizeTag;
+          const example = c.item.data;
+          return example.bestPracticeStandards?.sizeTag === options.sizeTag;
         });
       }
 
-      if (options.bestPracticeCategory && options.type === 'recipe') {
+      if (options.bestPracticeCategory && options.type === 'example') {
         filteredCandidates = filteredCandidates.filter(c => {
-          const recipe = c.item.data;
-          return recipe.bestPracticeStandards?.categoryTags?.includes(options.bestPracticeCategory);
+          const example = c.item.data;
+          return example.bestPracticeStandards?.categoryTags?.includes(options.bestPracticeCategory);
         });
       }
 
-      if (options.requiresCompliance && options.type === 'recipe') {
+      if (options.requiresCompliance && options.type === 'example') {
         filteredCandidates = filteredCandidates.filter(c => {
-          const recipe = c.item.data;
-          const compliance = recipe.bestPracticeStandards?.componentCompliance;
+          const example = c.item.data;
+          const compliance = example.bestPracticeStandards?.componentCompliance;
           return compliance?.validPropertiesOnly === true &&
                  compliance?.noCustomStyling === true &&
                  compliance?.authenticComponentUsage === true;
@@ -167,40 +167,40 @@ export class OptimizedDataManager {
   /**
    * Get all items of a specific type
    */
-  getItemsByType(type: 'component' | 'system' | 'workflow' | 'recipe'): any[] {
+  getItemsByType(type: 'component' | 'system' | 'workflow' | 'example'): any[] {
     return this.index.getItemsByType(type).map(item => item.data);
   }
 
   /**
-   * Get recipes by user type
+   * Get examples by user type
    */
-  getRecipesByUserType(userType: 'citizen' | 'worker' | 'both'): any[] {
-    return this.index.getItemsByType('recipe')
+  getExamplesByUserType(userType: 'citizen' | 'worker' | 'both'): any[] {
+    return this.index.getItemsByType('example')
       .filter(item => {
-        const recipe = item.data;
-        return recipe.serviceContext?.userType === userType || 
-               recipe.serviceContext?.userType === 'both';
+        const example = item.data;
+        return example.serviceContext?.userType === userType || 
+               example.serviceContext?.userType === 'both';
       })
       .map(item => item.data);
   }
 
   /**
-   * Get recipes by category
+   * Get examples by category
    */
-  getRecipesByCategory(category: string): any[] {
-    return this.index.getItemsByType('recipe')
+  getExamplesByCategory(category: string): any[] {
+    return this.index.getItemsByType('example')
       .filter(item => item.data.category === category)
       .map(item => item.data);
   }
 
   /**
-   * Get recipes that use a specific component
+   * Get examples that use a specific component
    */
-  getRecipesUsingComponent(componentName: string): any[] {
-    return this.index.getItemsByType('recipe')
+  getExamplesUsingComponent(componentName: string): any[] {
+    return this.index.getItemsByType('example')
       .filter(item => {
-        const recipe = item.data;
-        return recipe.components?.some((comp: any) => 
+        const example = item.data;
+        return example.components?.some((comp: any) => 
           comp.name === componentName || comp.name === `Goab${componentName}`
         );
       })
@@ -325,40 +325,40 @@ export class OptimizedDataManager {
       process.stderr.write(`Could not read components directory: ${getErrorMessage(error)}\n`);
     }
 
-    // Load and index all recipe files
+    // Load and index all example files
     try {
-      const recipesDir = join(dataDir, "recipes");
-      const files = await readdir(recipesDir);
+      const examplesDir = join(dataDir, "examples");
+      const files = await readdir(examplesDir);
 
       for (const file of files) {
         if (file.endsWith(".json")) {
           try {
-            const filePath = join(recipesDir, file);
+            const filePath = join(examplesDir, file);
             const data = await readFile(filePath, "utf8");
-            const recipeData = JSON.parse(data);
+            const exampleData = JSON.parse(data);
 
-            // Use the recipeId from the JSON, or derive from filename
-            const recipeId = recipeData.recipeId || file.replace(".json", "");
+            // Use the exampleId from the JSON, or derive from filename
+            const exampleId = exampleData.exampleId || file.replace(".json", "");
 
             const indexedItem: IndexedItem = {
-              id: recipeId,
-              type: 'recipe',
-              data: recipeData,
-              searchableText: createSearchableText(recipeData),
-              tags: extractTags(recipeData),
-              category: recipeData.category
+              id: exampleId,
+              type: 'example',
+              data: exampleData,
+              searchableText: createSearchableText(exampleData),
+              tags: extractTags(exampleData),
+              category: exampleData.category
             };
 
             this.index.addItem(indexedItem);
           } catch (error) {
-            process.stderr.write(`Could not load recipe file ${file}: ${getErrorMessage(error)}\n`);
+            process.stderr.write(`Could not load example file ${file}: ${getErrorMessage(error)}\n`);
           }
         }
       }
       
-      process.stderr.write(`Indexed ${files.filter(f => f.endsWith('.json')).length} recipe files\n`);
+      process.stderr.write(`Indexed ${files.filter(f => f.endsWith('.json')).length} example files\n`);
     } catch (error) {
-      process.stderr.write(`Could not read recipes directory: ${getErrorMessage(error)}\n`);
+      process.stderr.write(`Could not read examples directory: ${getErrorMessage(error)}\n`);
     }
   }
 

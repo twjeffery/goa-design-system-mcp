@@ -27,7 +27,7 @@
 - `design_review` - Comprehensive design review for GoA compliance and accessibility
 - `recommend_patterns` - Component patterns and layouts for specific scenarios
 - `accessibility_audit` - WCAG 2.2 AA accessibility audit with government compliance
-- `governance_check` - Project governance review and maintenance risk assessment
+- `governance_process` - Guide teams through GoA governance process and identify compliance risks
 - `team_onboarding` - Customized onboarding plans for teams adopting GoA Design System
 
 ### **Feedback & Community Management (3 tools)**
@@ -58,13 +58,13 @@
 
 - **README.md** - Main documentation focused on service teams using GoA components
 - **Use cases:** Quick code generation, form design, contextual support, design feedback, troubleshooting
-- **Tools available:** 9 tools (excludes maintainer feedback tools)
+- **Tools available:** 10 tools (excludes maintainer feedback tools)
 
 ### **Design System Teams (Design System Maintainers)**
 
 - **README-design-system-team.md** - Internal team documentation for maintaining consistency
 - **Use cases:** Knowledge management, cross-functional expertise, community support, pattern consistency
-- **Tools available:** 10 tools (excludes governance_check and team_onboarding)
+- **Tools available:** 11 tools (excludes team_onboarding, as it's for product teams)
 
 ## Core Philosophy
 
@@ -161,11 +161,11 @@
 ### **Specialized Documentation**
 
 - **docs/mcp-usage-examples.md** - Comprehensive usage examples by team type
-- **docs/ai-recipe-sync-workflow.md** - AI workflow for syncing examples with code
+- **docs/ai-example-sync-workflow.md** - AI workflow for syncing examples with code
 - **docs/design-expert-guide.md** - Experimental design expert features guide
 - **docs/examples-patterns.md** - Implementation guide for building GoA examples
 - **docs/figma-to-code-instructions.md** - AI instructions for design-to-code conversion
-- **docs/recipes-library-specification.md** - Technical specification for examples library
+- **docs/examples-library-specification.md** - Technical specification for examples library
 
 ## MCP Server Integration
 

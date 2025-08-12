@@ -1,17 +1,17 @@
-# GoA Design System Recipes
+# GoA Design System Examples
 
-This directory contains recipe JSON files that describe reusable service patterns for Government of Alberta applications.
+This directory contains example JSON files that describe reusable service patterns for Government of Alberta applications.
 
 ## Structure
 
-- All recipe files are stored in this flat directory
-- Files are named using the pattern: `{recipe-id}.json`
-- Recipe IDs match the corresponding example filename (without .tsx extension)
+- All example files are stored in this flat directory
+- Files are named using the pattern: `{example-id}.json`
+- Example IDs match the corresponding example filename (without .tsx extension)
 - Organization is handled through JSON metadata, not directory structure
 
-## Recipe Types
+## Example Types
 
-Recipes are categorized by:
+Examples are categorized by:
 - **userType**: `citizen`, `worker`, or `both` 
 - **category**: `citizen-facing`, `worker-facing`, `layout-pattern`, `form-pattern`, `interaction-pattern`
 
@@ -23,7 +23,7 @@ Recipes are categorized by:
 
 ## Schema
 
-All recipes follow the schema defined in `../recipe-schema.json`
+All examples follow the schema defined in `../example-schema.json`
 
 ## Sync
 

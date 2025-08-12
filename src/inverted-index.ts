@@ -7,7 +7,7 @@
 
 export interface IndexedItem {
   id: string;
-  type: 'component' | 'system' | 'workflow' | 'recipe';
+  type: 'component' | 'system' | 'workflow' | 'example';
   data: any;
   searchableText: string;
   tags: string[];
@@ -175,7 +175,7 @@ export class InvertedIndex {
   /**
    * Get all items of a specific type
    */
-  getItemsByType(type: 'component' | 'system' | 'workflow' | 'recipe'): IndexedItem[] {
+  getItemsByType(type: 'component' | 'system' | 'workflow' | 'example'): IndexedItem[] {
     return Array.from(this.items.values()).filter(item => item.type === type);
   }
 

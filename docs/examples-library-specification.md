@@ -1,8 +1,8 @@
-# GoA Design System Code Examples & Recipes Library Specification
+# GoA Design System Code Examples Library Specification
 
 ## Overview
 
-A comprehensive library of reusable code examples and recipes that demonstrate **best practice implementations** of the Government of Alberta Design System. These examples serve as the authoritative reference for proper component usage, layout patterns, content design, accessibility standards, and user experience guidelines across both citizen-facing public services and worker-facing internal applications.
+A comprehensive library of reusable code examples that demonstrate **best practice implementations** of the Government of Alberta Design System. These examples serve as the authoritative reference for proper component usage, layout patterns, content design, accessibility standards, and user experience guidelines across both citizen-facing public services and worker-facing internal applications.
 
 ## Goals
 

@@ -10,7 +10,7 @@
     "purpose": "Master catalog of all GoA Design System documentation for AI-driven development assistance",
     "totalComponents": 35,
     "totalSystemFiles": 6,
-    "totalRecipes": 72,
+    "totalExamples": 72,
     "coverage": "Complete component library with system setup, layout guidance, usage examples, API documentation, integration patterns, and reusable service patterns",
     "aiOptimization": "Structured for AI code generation, component discovery, implementation guidance, system understanding, and government service pattern reuse"
   },
@@ -22,7 +22,7 @@
       "3. Use layout.json to understand page structure and responsive behavior",
       "4. Choose components from categories below based on your use case",
       "5. Reference individual component JSON files for detailed implementation",
-      "6. Check recipes/ directory for complete service patterns and government workflows"
+      "6. Check examples/ directory for complete service patterns and government workflows"
     ],
     "recommendedComponents": ["Button", "Input", "FormItem", "Container", "Block"],
     "commonPatterns": [
@@ -120,10 +120,10 @@
     }
   },
 
-  "recipes": {
+  "examples": {
     "description": "Reusable service patterns combining multiple components for common government workflows",
     "count": 72,
-    "location": "recipes/ directory",
+    "location": "examples/ directory",
     "namingPattern": "descriptive-action-name.json",
     "categories": {
       "citizen-facing": {
@@ -154,14 +154,14 @@
   "usage": {
     "aiWorkflow": [
       "1. Load mandatory-ai-principles.json for critical development rules",
-      "2. Search components/ and recipes/ for relevant patterns",
+      "2. Search components/ and examples/ for relevant patterns",
       "3. Use installation-guide.json for setup questions",
       "4. Reference layout.json for page structure requirements",
       "5. Apply design-principles.json for design decisions",
       "6. Check anti-patterns.json to avoid common mistakes"
     ],
     "systemSetup": "mandatory-ai-principles.json + installation-guide.json - Essential for all implementations",
-    "patternDiscovery": "Use recipes/ for complete workflows, components/ for individual elements",
+    "patternDiscovery": "Use examples/ for complete workflows, components/ for individual elements",
     "qualityAssurance": "design-principles.json + anti-patterns.json for design review and governance"
   },
 

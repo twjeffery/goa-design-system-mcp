@@ -103,6 +103,14 @@ A comprehensive AI knowledge base that helps service teams design, develop, and 
   - *Example:* _"Audit this form interface for WCAG compliance"_
   - *Example:* _"Check this data table for accessibility issues"_
 
+- **`governance_process`** - Guide teams through GoA Design System governance process and identify compliance risks
+  - *Example:* _"Review our project approach for design system compliance"_
+  - *Example:* _"What's the proper process for requesting new components?"_
+
+- **`team_onboarding`** - Get personalized onboarding guidance for teams new to the GoA Design System
+  - *Example:* _"I just joined as a new designer, help me get started using the design system"_
+  - *Example:* _"Our development team is new to GoA components, what should we learn first?"_
+
 ### **Feedback & Community**
 - **`give_feedback`** - Submit feedback about component usage or missing information
   - *Example:* _"Report that the Dropdown component documentation is unclear"_
