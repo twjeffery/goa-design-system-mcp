@@ -1,0 +1,668 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GoA Design System Component Schema",
+  "description": "Schema for GoA Design System component definition files",
+  "type": "object",
+  "required": [
+    "metadataSchemaVersion",
+    "audience", 
+    "componentName",
+    "customElement",
+    "summary"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Reference to this component schema file",
+      "const": "../component-schema.json"
+    },
+    "criticalImplementationNotes": {
+      "type": "object",
+      "description": "Critical implementation guidance and common mistakes",
+      "properties": {
+        "spacing": {
+          "type": "string",
+          "description": "Spacing implementation guidance"
+        },
+        "widthRequired": {
+          "type": "string", 
+          "description": "Width requirements for components"
+        },
+        "formItemWrapper": {
+          "type": "string",
+          "description": "FormItem wrapper requirements"
+        },
+        "commonMistakes": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of common implementation mistakes"
+        },
+        "correctPattern": {
+          "type": "string",
+          "description": "Correct usage pattern"
+        },
+        "quickDecisionMatrix": {
+          "type": "object",
+          "description": "Quick decision guidance for different scenarios",
+          "additionalProperties": {"type": "string"}
+        },
+        "contextualSpacing": {
+          "type": "object", 
+          "description": "Context-specific spacing guidance",
+          "additionalProperties": {"type": "string"}
+        },
+        "universalUsage": {
+          "type": "string",
+          "description": "Universal usage principles"
+        },
+        "semanticStructure": {
+          "type": "string",
+          "description": "Semantic HTML structure requirements"
+        },
+        "headerSpacing": {
+          "type": "string",
+          "description": "Header spacing requirements"
+        }
+      }
+    },
+    "metadataSchemaVersion": {
+      "type": "string",
+      "description": "Version of the metadata schema used",
+      "pattern": "^\\d+\\.\\d+\\.\\d+.*$"
+    },
+    "audience": {
+      "type": "string",
+      "description": "Target audience for this component documentation",
+      "enum": ["ai-systems-helping-consumer-developers"]
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date",
+      "description": "Last update date in YYYY-MM-DD format"
+    },
+    "componentName": {
+      "type": "string",
+      "description": "Name of the component"
+    },
+    "customElement": {
+      "type": "object",
+      "required": ["tagName"],
+      "description": "Web component and React class name information",
+      "properties": {
+        "tagName": {
+          "type": "string",
+          "description": "HTML tag name for web component (kebab-case)"
+        },
+        "className": {
+          "type": "string", 
+          "description": "React component class name (PascalCase)"
+        },
+        "childElement": {
+          "type": "string",
+          "description": "Child element tag name for compound components"
+        },
+        "subComponents": {
+          "type": "object",
+          "description": "Sub-components for compound components",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "tagName": {"type": "string"},
+              "className": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief summary of component purpose and functionality"
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Detailed purpose description"
+    },
+    "universalTextPrinciple": {
+      "type": "object",
+      "description": "Universal text usage principles (specific to Text component)",
+      "properties": {
+        "criticalRule": {"type": "string"},
+        "replaces": {
+          "type": "object",
+          "properties": {
+            "htmlElements": {"type": "array", "items": {"type": "string"}},
+            "customStyling": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "benefits": {"type": "array", "items": {"type": "string"}},
+        "examples": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    },
+    "systemRequirements": {
+      "type": "object",
+      "description": "System setup and dependency requirements",
+      "properties": {
+        "setupReference": {
+          "type": "string",
+          "description": "Reference to setup documentation"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of required dependencies"
+        }
+      }
+    },
+    "componentInfo": {
+      "type": "object",
+      "description": "Component classification information",
+      "properties": {
+        "name": {"type": "string"},
+        "purpose": {"type": "string"},
+        "category": {
+          "type": "string",
+          "enum": ["form", "layout", "component", "navigation", "feedback", "data-display", "overlay", "specialized"]
+        },
+        "essentialFor": {"type": "string"},
+        "bestFor": {"type": "string"}
+      }
+    },
+    "installation": {
+      "type": "object",
+      "description": "Installation and import instructions for different frameworks",
+      "properties": {
+        "react": {
+          "type": "object",
+          "properties": {
+            "import": {"type": "string"},
+            "quickExample": {"type": "string"},
+            "dependencies": {"type": "string"}
+          }
+        },
+        "angular": {
+          "type": "object", 
+          "properties": {
+            "import": {"type": "string"},
+            "quickExample": {"type": "string"},
+            "module": {"type": "string"},
+            "dependencies": {"type": "string"}
+          }
+        },
+        "webComponent": {
+          "type": "object",
+          "properties": {
+            "import": {"type": "string"},
+            "quickExample": {"type": "string"},
+            "dependencies": {"type": "string"}
+          }
+        }
+      }
+    },
+    "api": {
+      "type": "object",
+      "description": "Component API specification including props, events, and slots",
+      "properties": {
+        "validProperties": {
+          "type": "object",
+          "properties": {
+            "supported": {"type": "array", "items": {"type": "string"}},
+            "notSupported": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "semanticVsVisual": {
+          "type": "object",
+          "properties": {
+            "principle": {"type": "string"},
+            "examples": {"type": "object", "additionalProperties": {"type": "string"}}
+          }
+        },
+        "props": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "type", "description"],
+            "properties": {
+              "name": {"type": "string"},
+              "type": {"type": "string"},
+              "required": {"type": "boolean"},
+              "default": {"type": ["string", "number", "boolean"]},
+              "description": {"type": "string"},
+              "usage": {"type": "string"},
+              "allowedValues": {
+                "type": "array",
+                "items": {"type": "string"}
+              },
+              "examples": {
+                "type": ["object", "array"],
+                "additionalProperties": {"type": "string"}
+              }
+            }
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "description"],
+            "properties": {
+              "name": {"type": "string"},
+              "framework": {"type": "string"},
+              "description": {"type": "string"},
+              "signature": {"type": "string"},
+              "payload": {"type": "string"}
+            }
+          }
+        },
+        "slots": {
+          "type": "array",
+          "items": {
+            "type": "object", 
+            "required": ["name", "description"],
+            "properties": {
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "usage": {"type": "string"}
+            }
+          }
+        },
+        "children": {
+          "type": "string",
+          "description": "Description of allowed children components"
+        },
+        "table": {
+          "type": "object",
+          "description": "Table-specific API properties"
+        },
+        "tableSortHeader": {
+          "type": "object", 
+          "description": "Table sort header API properties"
+        }
+      }
+    },
+    "playgroundExamples": {
+      "type": ["object", "array"],
+      "description": "Interactive examples from the design system playground",
+      "properties": {
+        "note": {"type": "string"},
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {"type": "string"},
+              "description": {"type": "string"},
+              "category": {"type": "string"},
+              "code": {"type": "string"},
+              "usageNotes": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        },
+        "bestPractices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "practice": {"type": "string"},
+              "rationale": {"type": "string"}
+            }
+          }
+        },
+        "comparisonNotes": {
+          "type": "object",
+          "additionalProperties": {"type": "array", "items": {"type": "string"}}
+        },
+        "basic": {"type": "object"},
+        "relaxed": {"type": "object"},
+        "react": {"type": "array"},
+        "// TODO": {"type": "string"}
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "description": {"type": "string"},
+          "code": {"type": "string"},
+          "usage": {"type": "string"},
+          "usageNotes": {"type": "array", "items": {"type": "string"}},
+          "interactiveProps": {"type": "array"}
+        }
+      }
+    },
+    "usage": {
+      "type": "object",
+      "description": "Detailed usage examples and patterns",
+      "properties": {
+        "basicExamples": {
+          "type": "object",
+          "properties": {
+            "react": {"type": "array", "items": {"$ref": "#/definitions/codeExample"}},
+            "angular": {"type": "array", "items": {"$ref": "#/definitions/codeExample"}},
+            "webComponent": {"type": "array", "items": {"$ref": "#/definitions/codeExample"}}
+          }
+        },
+        "advancedExamples": {
+          "type": "object", 
+          "properties": {
+            "react": {"type": "array", "items": {"$ref": "#/definitions/codeExample"}},
+            "angular": {"type": "array", "items": {"$ref": "#/definitions/codeExample"}},
+            "webComponent": {"type": "array", "items": {"$ref": "#/definitions/codeExample"}}
+          }
+        },
+        "commonPatterns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "code": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "designGuidance": {
+      "type": "object",
+      "description": "Design guidance and best practices",
+      "properties": {
+        "when": {
+          "type": "object",
+          "properties": {
+            "use": {"type": "array", "items": {"type": "string"}},
+            "dontUse": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "whenToUse": {"type": "array", "items": {"type": "string"}},
+        "whenNotToUse": {"type": "array", "items": {"type": "string"}},
+        "bestPractices": {"type": "array", "items": {"type": "string"}},
+        "contentGuidelines": {"type": "array", "items": {"type": "string"}},
+        "validationGuidelines": {"type": "array", "items": {"type": "string"}},
+        "contentLayout": {
+          "type": "object",
+          "additionalProperties": {"type": "array", "items": {"type": "string"}}
+        },
+        "sortingBestPractices": {"type": "array", "items": {"type": "string"}},
+        "accessibility": {"type": "array", "items": {"type": "string"}},
+        "sizing": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        },
+        "content": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        },
+        "interactions": {
+          "type": "object", 
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "description": "Accessibility implementation details",
+      "properties": {
+        "keyboardNavigation": {"type": "array", "items": {"type": "string"}},
+        "screenReader": {"type": "array", "items": {"type": "string"}},
+        "focusManagement": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "troubleshooting": {
+      "type": ["object", "array"],
+      "description": "Common issues and solutions",
+      "properties": {
+        "common": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "issue": {"type": "string"},
+              "cause": {"type": "string"},
+              "solution": {"type": "string"},
+              "example": {"type": "string"}
+            }
+          }
+        },
+        "integration": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "issue": {"type": "string"}, 
+              "cause": {"type": "string"},
+              "solution": {"type": "string"}
+            }
+          }
+        }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "problem": {"type": "string"},
+          "solutions": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "relatedComponents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "usage": {"type": "string"},
+          "example": {"type": "string"},
+          "relationship": {"type": "string"}
+        }
+      }
+    },
+    "commonPatterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "components": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "commonMistakes": {
+      "type": "array",
+      "items": {
+        "type": "object", 
+        "required": ["mistake", "why", "instead"],
+        "properties": {
+          "mistake": {"type": "string"},
+          "why": {"type": "string"},
+          "instead": {"type": "string"},
+          "example": {"type": "string"}
+        }
+      }
+    },
+    "frameworkNotes": {
+      "type": "object",
+      "description": "Framework-specific implementation notes",
+      "properties": {
+        "propCasing": {
+          "type": ["string", "object"],
+          "properties": {
+            "react": {"type": "string"},
+            "webComponent": {"type": "string"},
+            "angular": {"type": "string"}
+          }
+        },
+        "slotHandling": {
+          "type": ["string", "object"],
+          "properties": {
+            "react": {"type": "string"},
+            "webComponent": {"type": "string"}, 
+            "angular": {"type": "string"}
+          }
+        },
+        "constraints": {
+          "type": ["string", "object"],
+          "properties": {
+            "childComponent": {"type": "string"},
+            "labelAssociation": {"type": "string"},
+            "errorHierarchy": {"type": "string"}
+          }
+        },
+        "responsiveBehavior": {
+          "type": ["string", "object"],
+          "properties": {
+            "layout": {"type": "string"},
+            "labels": {"type": "string"},
+            "helpText": {"type": "string"}
+          }
+        },
+        "actionsVsSlots": {"type": "string"}
+      }
+    },
+    "labelSizeDetection": {
+      "type": "object",
+      "description": "Guidelines for detecting label sizes from designs",
+      "properties": {
+        "figmaIndicators": {"type": "array", "items": {"type": "string"}},
+        "aiImplementationRule": {"type": "string"}
+      }
+    },
+    "formSpacingPatterns": {
+      "type": "object",
+      "description": "Form spacing patterns and guidelines",
+      "properties": {
+        "verticalSpacing": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "value": {"type": "string"},
+              "rule": {"type": "string"},
+              "example": {"type": "string"},
+              "implementation": {"type": "string"}
+            }
+          }
+        },
+        "horizontalSpacing": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "value": {"type": "string"},
+              "rule": {"type": "string"},
+              "implementation": {"type": "string"}
+            }
+          }
+        },
+        "requirementFieldGuidance": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    },
+    "performanceConsiderations": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Performance optimization guidelines"
+    },
+    "propertyValidation": {
+      "type": "object",
+      "properties": {
+        "enforcementRule": {"type": "string"},
+        "validationRequired": {"type": "boolean"}
+      }
+    },
+    "strictPropertyEnforcement": {
+      "type": "object",
+      "description": "Strict property validation rules",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "validValues": {"type": "array", "items": {"type": "string"}},
+          "commonMistakes": {"type": "array", "items": {"type": "string"}},
+          "invalidExamples": {"type": "array", "items": {"type": "string"}},
+          "examples": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "aiHints": {
+      "type": "object",
+      "description": "Hints for AI systems implementing components",
+      "properties": {
+        "commonMistakes": {"type": "array", "items": {"type": "string"}},
+        "criticalStructure": {
+          "type": "object",
+          "properties": {
+            "rule": {"type": "string"},
+            "correct": {"type": "string"},
+            "incorrect": {"type": "string"},
+            "why": {"type": "string"}
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Component classification tags"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["form", "layout", "component", "navigation", "feedback", "data-display", "overlay", "specialized"],
+      "description": "Primary component category"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["stable", "beta", "alpha", "deprecated"],
+      "description": "Component stability status"
+    },
+    "derivedFrom": {
+      "type": "object",
+      "description": "Source information for derived components",
+      "properties": {
+        "maintainerVersion": {"type": "string"},
+        "note": {"type": "string"}
+      }
+    },
+    "examples": {
+      "type": "object",
+      "description": "Related examples and quick reference",
+      "properties": {
+        "relatedRecipes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "string"},
+              "title": {"type": "string"},
+              "description": {"type": "string"},
+              "useCase": {"type": "string"},
+              "difficulty": {"type": "string"},
+              "tags": {"type": "array", "items": {"type": "string"}},
+              "category": {"type": "string"}
+            }
+          }
+        },
+        "quickReference": {
+          "type": "object",
+          "properties": {
+            "basicUsage": {"type": "string"},
+            "advancedPatterns": {"type": "string"}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "codeExample": {
+      "type": "object",
+      "properties": {
+        "title": {"type": "string"},
+        "description": {"type": "string"},
+        "code": {"type": "string"}
+      }
+    }
+  }
+}

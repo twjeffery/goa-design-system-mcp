@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document captures high-level patterns, organizational insights, and design approach distinctions for building examples in the Government of Alberta Design System. It complements the component usage rules in `data/system-setup.json` with examples-specific knowledge about when and how to use different patterns.
+This document captures high-level patterns, organizational insights, and design approach distinctions for building examples in the Government of Alberta Design System. It complements the component usage rules in `data/mandatory-ai-principles.json` with examples-specific knowledge about when and how to use different patterns.
 
 ## Examples Structure & Organization
 

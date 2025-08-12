@@ -1,19 +1,161 @@
 # GoA Design System AI Assistant
 
-> **Experimental AI-powered prototyping tool** for rapidly building Alberta Government service prototypes with the GoA Design System
+> **v1 AI assistant** for building Alberta Government digital services with the GoA Design System
 
-⚠️ **This is an experimental project** — expect rough edges and evolving features as we explore AI-assisted government service prototyping.
+A comprehensive AI knowledge base that helps service teams design, develop, and implement government digital services using GoA Design System components effectively.
 
-Accelerate your prototyping and user testing workflow. Get instant help building interactive, coded prototypes using GoA Design System components — perfect for testing concepts with real users quickly.
+## What Can You Ask?
 
-## 🚀 Quick Start
+### **Quick Code Generation**
 
-**Get up and running in 3 steps:**
+- _"Generate a user registration form using GoA form patterns"_
+- _"Create code for testing this layout concept"_
+- _"Build a working prototype of this service flow"_
+- _"Convert this design into testable GoA components"_
 
-1. **Launch in GitHub Codespaces**
+### **Form Design & Development**
 
-   ```
-   Click "Code" → "Codespaces" → "Create codespace"
+- _"Help me design a business application form using GoA patterns"_
+- _"Show me proper validation patterns for government forms"_
+- _"How should I structure a multi-section form?"_
+- _"What's the GoA pattern for collecting sensitive information?"_
+
+### **Contextual Design System Support**
+
+- _"I need to collect permit applications - what patterns exist?"_
+- _"Show me relevant examples for building a citizen dashboard"_
+- _"What GoA components work best for case management interfaces?"_
+- _"Help me understand which layout patterns fit my service context"_
+
+### **Design Feedback & Guidance**
+
+- _"Review this Figma design - what GoA components should I use?"_
+- _"I need to solve [specific service problem] - what patterns exist?"_
+- _"Suggest design system approaches for this user workflow"_
+- _"What accessibility considerations apply to this interface?"_
+
+### **Designer-to-Developer Handoff**
+
+- _"Generate a complete component spec for this design"_
+- _"Give my developer starting code and implementation guidance"_
+- _"Map this design to specific GoA components and examples"_
+- _"Create a technical brief for implementing this service flow"_
+
+### **Learning & Onboarding**
+
+- _"I'm new to GoA - show me the essential patterns for [role]"_
+- _"How do GoA components work together in government services?"_
+- _"What are the key differences between React and Angular implementation?"_
+- _"Help me understand government service design patterns"_
+
+### **Quality Assurance & Standards**
+
+- _"Review my implementation - am I using components correctly?"_
+- _"Check this design for accessibility compliance"_
+- _"Identify any anti-patterns in my component usage"_
+- _"Validate this against GoA standards and best practices"_
+
+### **Troubleshooting & Problem Solving**
+
+- _"Why isn't this component integration working?"_
+- _"Debug this layout issue with GoA components"_
+- _"Help me fix this accessibility problem"_
+- _"Suggest alternatives when standard patterns don't fit"_
+
+### **Team Collaboration**
+
+- _"Generate examples to explain this technical concept to stakeholders"_
+- _"Create a component usage guide for our service team"_
+- _"Help translate design decisions into developer language"_
+- _"Show working examples for user testing sessions"_
+
+---
+
+## Available MCP Tools
+
+### **Core Knowledge & Search**
+- **`project_knowledge_search`** - Primary search across all GoA Design System knowledge (components, workflows, patterns, setup guides)
+  - *Example:* _"Find all information about form validation patterns"_
+  - *Example:* _"Search for citizen dashboard layout examples"_
+
+- **`search_components`** - Search components by name or functionality with category filtering
+  - *Example:* _"Show me all form-related components"_
+  - *Example:* _"Find components for data display"_
+
+- **`get_component_details`** - Get complete details for a specific component by exact name
+  - *Example:* _"Get complete details for the Button component"_
+  - *Example:* _"Show me everything about the Input component"_
+
+- **`get_usage_patterns`** - Get usage patterns for specific implementation scenarios
+  - *Example:* _"Show me patterns for building data tables"_
+  - *Example:* _"Get usage patterns for multi-step forms"_
+
+### **Design Expert Assistance**
+- **`design_review`** - Comprehensive design review for GoA compliance, accessibility, and UX standards
+  - *Example:* _"Review this registration form design for accessibility compliance"_
+  - *Example:* _"Evaluate this dashboard layout against GoA standards"_
+
+- **`recommend_patterns`** - Get recommended component patterns and layouts for specific scenarios
+  - *Example:* _"Recommend components for a permit application workflow"_
+  - *Example:* _"Suggest patterns for a citizen notification center"_
+
+- **`accessibility_audit`** - WCAG 2.2 AA accessibility audit with government compliance checking
+  - *Example:* _"Audit this form interface for WCAG compliance"_
+  - *Example:* _"Check this data table for accessibility issues"_
+
+### **Feedback & Community**
+- **`give_feedback`** - Submit feedback about component usage or missing information
+  - *Example:* _"Report that the Dropdown component documentation is unclear"_
+  - *Example:* _"Suggest adding a file upload example for government forms"_
+
+*Your AI tool will automatically choose the right tool based on your questions - just ask naturally and the MCP will handle the technical details.*
+
+---
+
+## Real-World Examples
+
+### **Service Team Designer**
+
+**Context:** _"I need to design a permit renewal flow that works for both first-time and returning users"_
+
+**Get:** Relevant examples from similar Alberta services, component recommendations, accessibility guidance, and implementation patterns specific to permit workflows.
+
+### **Frontend Developer**
+
+**Context:** _"Convert this dashboard design to React"_ + Figma design + service context
+
+**Get:** Working React code using proper GoA components, implementation guidance, and patterns that match your specific service needs.
+
+### **Product Manager**
+
+**Context:** _"Prototype a citizen notification center for stakeholder review"_
+
+**Get:** Quick working prototype with real components for testing user flows and gathering authentic feedback from stakeholders.
+
+### **QA Specialist**
+
+**Context:** _"Review this form implementation for government compliance"_
+
+**Get:** Detailed analysis of accessibility, component usage, validation patterns, and alignment with government service standards.
+
+---
+
+## Setup Guide
+
+### Prerequisites
+
+- **Node.js 16+**
+- **MCP-compatible AI tool** (Claude, Cursor, ChatGPT, GitHub Copilot, etc.)
+
+### MCP Server Setup
+
+1. **Clone and Install**
+
+   ```bash
+   git clone [repository-url]
+   cd goa-design-system-mcp
+   npm install
+   npm run build
    ```
 
 2. **Start the MCP Server**
@@ -22,206 +164,87 @@ Accelerate your prototyping and user testing workflow. Get instant help building
    npm run start
    ```
 
-3. **Configure Claude Desktop** (see [setup guide](#claude-desktop-setup)) (or other tools that can integrate into an MCP)
+3. **Configure Your AI Tool**
 
-That's it! Start asking Claude questions like _"Build me a user registration form"_ or _"How do I create a dashboard layout?"_
-
----
-
-## 🎯 What Can You Ask?
-
-### **🏗️ Complete Application Building**
-
-- _"Build this design for me in React"_ (paste Figma screenshot + optional JSON export)
-- _"Prototype a business registration application with all the forms"_
-- _"Build a citizen portal dashboard prototype with user profile, services, and notifications"_
-- _"Generate a multi-step application prototype with progress tracking"_
-
-### **📋 Forms & Data Collection**
-
-- _"Build a user registration form prototype with validation"_
-- _"Prototype a complex application form with multiple sections"_
-- _"Design a survey form prototype with conditional logic"_
-- _"Build an address collection form prototype with postal code validation"_
-- _"Generate a file upload form prototype with document requirements"_
-
-### **📊 Data Display & Management**
-
-- _"Show me how to prototype a data table with pagination and search"_
-- _"Build a user management interface prototype with edit/delete actions"_
-- _"Prototype a dashboard with statistics cards and recent activity"_
-- _"Design a document library prototype with filtering and sorting"_
-- _"Build a notification center prototype with read/unread states"_
-
-### **🎨 Layout & Navigation**
-
-- _"Help me prototype a dashboard layout with sidebar navigation"_
-- _"Prototype a service landing page with call-to-action sections"_
-- _"Design a multi-tab interface prototype for application status"_
-- _"Build a responsive layout prototype that works on mobile and desktop"_
-- _"Generate a progress workflow prototype with step indicators"_
-
-### **🔧 Component Integration**
-
-- _"What GoA components should I use for user authentication?"_
-- _"How do I combine containers and blocks for a complex layout?"_
-- _"Show me patterns for progressive disclosure in forms"_
-- _"What's the best way to handle form validation and error states?"_
-- _"How do I build accessible dropdown menus with search?"_
-
-### **🎨 Figma-to-Code Conversion**
-
-- _"Convert this Figma design to React prototype using GoA components"_ (attach design image)
-- _"Turn this wireframe into coded prototype with Angular"_
-- _"Build this dashboard mockup as an interactive prototype"_
-- _"Generate accessible prototype code that matches this design system comp"_
-
----
-
-## 💡 Real-World Examples
-
-### **Scenario: Product Manager needs a user registration flow**
-
-**Ask:** _"Build a complete user registration prototype with email verification and profile setup"_
-
-**Get:** Rapid coded prototype with React/Angular components — perfect for user testing sessions and stakeholder demos.
-
-### **Scenario: Developer converting Figma designs**
-
-**Ask:** _"Convert this dashboard design to prototype code"_ + attach Figma screenshot + JSON export
-
-**Get:** Interactive prototype that matches your design using GoA components. Great for testing user flows and gathering feedback.
-
-### **Scenario: Designer exploring component patterns**
-
-**Ask:** _"What are the best GoA component combinations for an admin interface prototype?"_
-
-**Get:** Comprehensive guidance on layout patterns and component hierarchies to quickly build admin interface prototypes for user testing.
-
----
-
-## ⚙️ Setup Guide
-
-### Prerequisites
-
-- **Node.js 16+**
-- **Claude Desktop App** ([download here](https://claude.ai/download))
-- **GitHub account**
-
-### Claude Desktop Setup
-
-1. **Open Claude Desktop Configuration**
-
-   - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
-   - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
-
-2. **Add the MCP Server Configuration**
+   Add MCP server configuration to your AI tool's settings:
 
    ```json
    {
      "mcpServers": {
        "goa-design-system": {
          "command": "node",
-         "args": ["path/to/your/goa-design-system-mcp/dist/index.js"],
-         "env": {}
+         "args": ["path/to/goa-design-system-mcp/dist/index.js"]
        }
      }
    }
    ```
 
-3. **Replace `path/to/your/`** with your actual codespace or local directory path
-
-4. **Restart Claude Desktop**
-
-### Verifying Setup
-
-Ask Claude: _"What GoA components are available for building forms?"_
-
-If you get detailed component information, you're all set! 🎉
+4. **Verify Setup**
+   Ask your AI: _"What GoA components are available for building forms?"_
 
 ---
 
-## 🎯 Who This Helps
+## Who This Helps
 
-### **👩‍💻 Developers**
+### **Service Team Developers**
 
-- Rapidly prototype complex component combinations for user testing
-- Learn GoA Design System implementation patterns through examples
-- Convert designs to testable prototypes quickly
-- Understand accessibility requirements for government services
+- Learn GoA component implementation patterns through working examples
+- Get contextual guidance for your specific service requirements
+- Convert designs to proper GoA component usage quickly
+- Understand accessibility and government compliance requirements
 
-### **👨‍🎨 Designers**
+### **Service Team Designers**
 
 - Explore what's possible with existing GoA components
-- Get component recommendations for prototype scenarios
-- Validate design decisions with interactive prototypes
-- Test user flows with real coded interfaces
+- Get component recommendations for your service scenarios
+- Validate design decisions against government service patterns
+- Create designs that translate smoothly to development
 
-### **📋 Product Managers**
+### **Product Managers**
 
-- Rapidly prototype ideas for user testing and stakeholder demos
-- Understand what's technically feasible with current components
-- Test user flows with interactive, clickable prototypes
+- Generate working prototypes for user testing and stakeholder demos
+- Understand technical feasibility within GoA Design System constraints
 - Communicate feature concepts using real component examples
+- Test service flows with interactive, accessible interfaces
 
-### **🧪 QA Teams**
+### **QA Teams**
 
 - Understand expected component behaviors for testing scenarios
-- Prototype edge cases and error states
-- Test accessibility features in realistic user scenarios
-- Explore component interactions before full development
+- Validate accessibility compliance in realistic contexts
+- Review implementations against government service standards
+- Test component interactions and edge cases
 
 ---
 
-## 🛠️ Technical Details
+## What's Included
 
 ### **Component Coverage**
 
-- **34 Components:** Forms, navigation, data display, layout, feedback
-- **71 Pattern Examples:** Comprehensive implementation patterns for government services
-- **2 System Docs:** Setup guides, layout patterns
-- **Complete API:** Props, states, accessibility, examples
+- **35 Components:** Complete GoA component library with implementation guidance
+- **72 Service Examples:** Comprehensive patterns for government service scenarios
+- **Framework Support:** React, Angular, and Web Components
+- **Complete API Documentation:** Props, states, accessibility, implementation examples
 
-### **Framework Support**
+### **Service Context**
 
-- **React:** Full component library with TypeScript support
-- **Angular:** Complete wrapper components with proper integration
-- **Web Components:** Core implementation for any framework
-
-### **AI Optimizations**
-
-- Structured metadata for accurate component recommendations
-- 71 comprehensive usage patterns for government service scenarios
-- Implementation examples optimized for rapid iteration
-- Government service context analysis for citizen/worker workflows
-- Accessibility guidance built into prototype suggestions
+- **Government Service Patterns:** Citizen-facing and worker-facing examples
+- **Accessibility Guidance:** WCAG compliance built into all recommendations
+- **Implementation Best Practices:** Anti-patterns, common mistakes, proper usage
+- **Cross-Framework Support:** Consistent guidance across React, Angular, Web Components
 
 ---
 
-## 🔄 Development Status
-
-**⚠️ Experimental Status:** This is an early-stage experiment in AI-assisted government service prototyping. Features and capabilities are actively evolving.
-
-**Current:** Local MCP server setup (you run it on your machine)  
-**Coming Soon:** Hosted version for easier team access and collaboration
-
-**Feedback Welcome:** We're learning what works best for government service teams — share your experience!
-
----
-
-## 📚 Additional Resources
+## Additional Resources
 
 - **[GoA Design System Documentation](https://design.alberta.ca)**
 - **[GitHub Repository](https://github.com/GovAlta/ui-components)**
-- **[React Stackblitz Template](https://stackblitz.com/~/github.com/GovAlta/ui-components-react-sandbox)**
-- **[Angular Stackblitz Template](https://stackblitz.com/~/github.com/GovAlta/ui-components-angular-sandbox)**
+- **[React Sandbox](https://stackblitz.com/~/github.com/GovAlta/ui-components-react-sandbox)**
+- **[Angular Sandbox](https://stackblitz.com/~/github.com/GovAlta/ui-components-angular-sandbox)**
 
 ---
 
----
-
-**Ready to accelerate your government service prototyping?** Start with the [Quick Start](#-quick-start) guide above! 🚀
+**Ready to build better government digital services?** Set up the MCP server and start asking questions!
 
 ---
 
-_This is an experimental tool for rapid prototyping and user testing. Generated code is intended for prototype and concept validation purposes._
+_This AI assistant provides guidance and code generation for building with the GoA Design System. Generated code is intended for development, prototyping, and production use in Alberta Government digital services._
