@@ -156,7 +156,6 @@
 - **README.md** - Product teams documentation with use cases and tool examples
 - **README-design-system-team.md** - Design system team internal documentation
 - **CLAUDE.md** - AI instructions (this file)
-- **DEVELOPMENT_LOG.md** - Session history and architectural changes
 
 ### **Specialized Documentation**
 
@@ -202,13 +201,6 @@
 - Apply proper semantic structure with `GoabText` component for all text content
 
 ## Development & Maintenance
-
-**Session Documentation**: Update `DEVELOPMENT_LOG.md` after significant changes including:
-
-- Architecture modifications or new tool implementations
-- Documentation reorganization or terminology updates
-- New capabilities, workflows, or audience-specific features
-- File structure changes or schema updates
 
 **Quality Assurance:**
 
