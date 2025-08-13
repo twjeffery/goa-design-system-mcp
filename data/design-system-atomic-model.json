@@ -1,0 +1,190 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers", 
+  "componentName": "Design System Atomic Model",
+  "summary": "6-layer hierarchy organizing everything from largest service-level types down to design tokens, ensuring traceability from broad service goals to specific reusable assets",
+  "purpose": "Provide systematic structure for mapping government service patterns and guide AI in recommending appropriate hierarchy levels for user requests",
+  "category": "framework",
+
+  "hierarchyStructure": {
+    "description": "6-layer model organizing design system elements from service types to design tokens",
+    "purpose": "Ensure traceability from broad service goals to specific reusable assets",
+    
+    "layer1ServiceTypes": {
+      "description": "Emergent patterns discovered from clustering common tasks + user modes",
+      "emergence": "Should arise from data analysis rather than predetermined categories",
+      "examples": [
+        "Case Management Services",
+        "Application Processing Services", 
+        "Information Services",
+        "Transaction Services",
+        "Registration Services"
+      ],
+      "aiGuidance": "Look for cross-service patterns when users describe similar workflows"
+    },
+
+    "layer2Pages": {
+      "description": "Full-page contexts within a service",
+      "scope": "Complete user interface views that accomplish specific purposes",
+      "examples": [
+        "Dashboard",
+        "Application Form",
+        "Case Management Page",
+        "Search Results Page",
+        "Status Overview Page"
+      ],
+      "aiGuidance": "Recommend page-level patterns when users describe complete interfaces"
+    },
+
+    "layer3Tasks": {
+      "description": "Specific user actions or workflows that occur within pages",
+      "importance": "Core focus for our current research project",
+      "scope": "Discrete user goals that can be completed in a single workflow",
+      "examples": [
+        "Search for a record",
+        "Upload a document", 
+        "Make a payment",
+        "Process an application",
+        "Review a case",
+        "Generate a report"
+      ],
+      "aiGuidance": "This is the sweet spot - most user requests should be classified and addressed at the task level",
+      "userModeClassification": "Tasks are classified using the User Modes Framework for service role and usage pattern"
+    },
+
+    "layer4Interactions": {
+      "description": "Smaller UI patterns within a page or task",
+      "scope": "Specific interface behaviors and micro-interactions",
+      "examples": [
+        "Search filters",
+        "Confirmation modals",
+        "Inline validation",
+        "Status indicators",
+        "Hover states",
+        "Loading patterns"
+      ],
+      "aiGuidance": "Focus here when users ask about specific interface behaviors or micro-interactions"
+    },
+
+    "layer5Components": {
+      "description": "Individual UI building blocks",
+      "scope": "Reusable interface elements with specific APIs and properties",
+      "examples": [
+        "Button",
+        "Input field", 
+        "Tab navigation",
+        "Data table",
+        "Form item",
+        "Container"
+      ],
+      "aiGuidance": "Component-level responses when users ask about specific UI elements or building blocks"
+    },
+
+    "layer6DesignTokens": {
+      "description": "Foundational design values for color, typography, spacing, etc.",
+      "scope": "Atomic design values that enable consistent theming across components",
+      "examples": [
+        "--goa-color-primary",
+        "--goa-spacing-m", 
+        "--goa-typography-heading-l",
+        "--goa-border-radius-s",
+        "--goa-shadow-m"
+      ],
+      "aiGuidance": "Token-level guidance when users ask about styling, theming, or design consistency"
+    }
+  },
+
+  "userModeIntegration": {
+    "description": "How the hierarchy connects to user classification",
+    "taskClassification": "Each Task (Layer 3) is classified using the User Modes Framework",
+    "classificationCriteria": [
+      "Service Role: Receiving vs Giving the service",
+      "Usage Pattern: Guided/Infrequent vs Expert/Frequent"
+    ],
+    "designDetermination": "This classification determines the appropriate design approach and component selection for each task"
+  },
+
+  "aiApplicationGuidance": {
+    "requestClassification": {
+      "layer1ServiceTypes": {
+        "triggerWords": ["service", "system", "platform", "overall", "entire", "complete solution"],
+        "userQuestions": ["How do we approach this type of service?", "What's the overall pattern?"],
+        "aiResponse": "Provide service-level patterns and cross-service insights"
+      },
+      "layer2Pages": {
+        "triggerWords": ["page", "screen", "view", "interface", "layout", "dashboard"],
+        "userQuestions": ["How should this page be structured?", "What's the layout for this?"],
+        "aiResponse": "Recommend page templates and layout patterns"
+      },
+      "layer3Tasks": {
+        "triggerWords": ["task", "workflow", "process", "action", "do", "complete", "accomplish"],
+        "userQuestions": ["How do users complete this?", "What's the workflow for?", "How do I build this feature?"],
+        "aiResponse": "Provide task-focused examples with user mode consideration",
+        "primaryFocus": "Most requests should be addressed at this level"
+      },
+      "layer4Interactions": {
+        "triggerWords": ["interaction", "behavior", "animation", "hover", "click", "validation"],
+        "userQuestions": ["How should this behave?", "What happens when?"],
+        "aiResponse": "Describe specific interaction patterns and micro-interactions"
+      },
+      "layer5Components": {
+        "triggerWords": ["component", "button", "input", "table", "specific element"],
+        "userQuestions": ["Which component should I use?", "How does the Button work?"],
+        "aiResponse": "Provide component-specific documentation and usage examples"
+      },
+      "layer6DesignTokens": {
+        "triggerWords": ["token", "color", "spacing", "typography", "theme", "style"],
+        "userQuestions": ["What colors should I use?", "How much spacing?"],
+        "aiResponse": "Reference design tokens and theming guidance"
+      }
+    },
+
+    "hierarchyNavigation": {
+      "moveUp": "When user requests are too specific, suggest broader patterns",
+      "moveDown": "When user requests are too broad, focus on specific implementation details",
+      "stayLevel": "Most effective responses happen when you match the user's hierarchy level"
+    },
+
+    "exampleRecommendations": {
+      "taskLevel": "Primary recommendation level - provide working examples that demonstrate complete user workflows",
+      "componentLevel": "Secondary level - show how to use specific building blocks",
+      "pageLevel": "Context level - demonstrate how tasks fit into larger page structures"
+    }
+  },
+
+  "hierarchyBenefits": {
+    "clearStructure": "Systematic approach to mapping government service patterns",
+    "consistentTagging": "Tasks tagged by both hierarchy level and user mode",
+    "designSystemScalability": "Connects high-level service goals to specific reusable components", 
+    "traceability": "Clear path from service type down to design tokens",
+    "researchFocus": "Layer 3 (Tasks) provides the sweet spot for practical design system examples",
+    "aiGuidance": "Enables AI to provide appropriately-scoped responses based on user intent"
+  },
+
+  "implementationStrategy": {
+    "currentFocus": "Layer 3 (Tasks) - Core focus for current research project",
+    "reasoning": "Tasks provide the right level of granularity for practical, reusable examples",
+    "aiApplication": "AI should primarily classify user requests as task-level and provide task-focused examples with appropriate user mode considerations",
+    "scalingUp": "Use service types and pages for broader architectural guidance",
+    "scalingDown": "Use interactions and components for specific implementation details"
+  },
+
+  "qualityStandards": {
+    "hierarchyAlignment": "Every recommendation should clearly indicate which hierarchy level it addresses",
+    "userModeConsideration": "Task-level responses must consider user modes framework",
+    "crossLevelConsistency": "Ensure examples work across multiple hierarchy levels",
+    "traceabilityMaintenance": "Maintain clear connections between hierarchy levels in examples"
+  },
+
+  "tags": [
+    "framework",
+    "hierarchy",
+    "structure", 
+    "organization",
+    "government-services",
+    "design-system-architecture",
+    "task-classification"
+  ],
+  "status": "stable", 
+  "lastUpdated": "2025-08-13"
+}

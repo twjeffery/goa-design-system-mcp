@@ -1,0 +1,211 @@
+{
+  "metadataSchemaVersion": "2.1.0-ai-context",
+  "audience": "ai-systems-helping-consumer-developers",
+  "componentName": "User Modes Framework",
+  "summary": "Binary classification system for government service tasks by user role and usage pattern, determining appropriate design approach",
+  "purpose": "Enable AI to classify user requests and recommend context-appropriate patterns and components",
+  "category": "framework",
+
+  "binaryClassificationSystem": {
+    "description": "Classify government service tasks by who is using them and how they're used",
+    "purpose": "Determine appropriate design approach for different user contexts",
+    
+    "binary1ServiceRole": {
+      "description": "Who is interacting with the service?",
+      "receivingService": {
+        "description": "People accessing or benefiting from government services",
+        "includes": [
+          "Citizens accessing government services",
+          "Businesses interacting with government processes", 
+          "Professional intermediaries (lawyers, contractors, consultants) acting on behalf of others"
+        ]
+      },
+      "givingService": {
+        "description": "People administering or managing government services",
+        "includes": [
+          "Government workers administering services",
+          "Service providers managing government programs",
+          "Staff processing applications, requests, and cases"
+        ]
+      }
+    },
+
+    "binary2UsagePattern": {
+      "description": "How frequently and expertly is this task performed? PRIMARY design determinant",
+      "importance": "More critical for design decisions than service role",
+      
+      "guidedInfrequent": {
+        "frequency": "Once in a lifetime, annually, or rare occurrences",
+        "mentalModel": "Help me through this process",
+        "userNeed": "Step-by-step guidance, clear explanations, error prevention",
+        "examples": [
+          "Buying property",
+          "Getting divorced", 
+          "Applying for major permits",
+          "Complex license applications"
+        ]
+      },
+      "expertFrequent": {
+        "frequency": "Daily, weekly, or routine operations",
+        "mentalModel": "I know what I'm doing, make me efficient",
+        "userNeed": "Shortcuts, bulk actions, advanced tools, speed optimization",
+        "examples": [
+          "Contractors filing routine permits",
+          "Accountants submitting regular tax filings",
+          "Case workers processing applications"
+        ]
+      }
+    }
+  },
+
+  "designImplications": {
+    "forGuidedUsers": [
+      "Progressive disclosure: Break complex processes into manageable steps",
+      "Plain language: Avoid jargon, provide clear explanations",
+      "Error prevention: Validation, confirmations, helpful error messages",
+      "Context help: Inline guidance, tooltips, examples",
+      "Save functionality: Allow users to complete over multiple sessions"
+    ],
+    "forExpertUsers": [
+      "Dense information: Show more data efficiently",
+      "Keyboard shortcuts: Rapid navigation and actions",
+      "Bulk operations: Process multiple items simultaneously", 
+      "Advanced filtering: Sophisticated search and sorting capabilities",
+      "Customization: Saved preferences, configurable interfaces"
+    ]
+  },
+
+  "userModeNuances": {
+    "description": "Both service receivers and service givers can operate in both modes depending on the specific task",
+    
+    "governmentWorkers": {
+      "expertMode": [
+        "Routine processing",
+        "Daily application reviews", 
+        "Familiar reporting workflows",
+        "Standard approvals",
+        "Case management",
+        "Data entry"
+      ],
+      "guidedMode": [
+        "Complex procedures",
+        "New system features",
+        "Exception handling",
+        "Compliance workflows",
+        "Infrequent regulatory processes",
+        "Multi-step regulatory requirements"
+      ]
+    },
+    
+    "serviceRecipients": {
+      "expertMode": [
+        "Routine business operations (contractors filing regular permits)",
+        "Accountants doing monthly filings", 
+        "Lawyers handling standard procedures",
+        "Regular license renewals",
+        "Familiar processes done frequently"
+      ],
+      "guidedMode": [
+        "Rare life events (buying first home, getting divorced)",
+        "Unfamiliar processes",
+        "Complex applications", 
+        "Major license applications",
+        "Once-in-lifetime procedures"
+      ]
+    }
+  },
+
+  "criticalDesignPrinciple": {
+    "rule": "Usage pattern (guided vs expert) is more important than service role for determining design approach",
+    "examples": [
+      "A citizen filing their annual tax return (expert/frequent) needs different design patterns than a citizen applying for a rare permit (guided/infrequent), even though both are 'receiving the service'",
+      "A government worker processing routine applications (expert/frequent) needs different tools than a government worker handling a complex regulatory procedure (guided/infrequent)"
+    ]
+  },
+
+  "aiApplicationGuidance": {
+    "taskClassification": {
+      "process": "When analyzing user requests, classify each task using both binaries",
+      "serviceRole": "Receiving or Giving the service",
+      "usagePattern": "Guided/Infrequent or Expert/Frequent"
+    },
+    "patternRecognition": {
+      "questions": [
+        "What design elements work well for guided citizens?",
+        "How do expert government workers prefer to navigate complex data?", 
+        "Where do current designs mismatch user modes?"
+      ]
+    },
+    "exampleValidation": {
+      "purpose": "Use this framework to validate whether design system examples match their intended user context and usage patterns"
+    },
+    "autoClassification": {
+      "triggerWords": {
+        "guided": ["help", "guide", "first time", "new to", "unfamiliar", "step by step", "beginner"],
+        "expert": ["efficient", "quick", "bulk", "advanced", "routine", "daily", "experienced", "shortcuts"],
+        "receiving": ["citizen", "apply for", "get", "obtain", "access", "use service"],
+        "giving": ["process", "review", "manage", "administer", "handle", "staff", "worker"]
+      },
+      "recommendations": {
+        "guidedReceiving": "Use progressive disclosure, plain language, extensive help text",
+        "expertReceiving": "Provide shortcuts, dense information, customization options",
+        "guidedGiving": "Include procedural guidance, step-by-step workflows, validation",
+        "expertGiving": "Focus on efficiency, bulk operations, advanced tools"
+      }
+    }
+  },
+
+  "componentRecommendations": {
+    "guidedUsers": {
+      "priorityComponents": [
+        "GoabFormItem with extensive help text",
+        "GoabCallout for important guidance",
+        "GoabDetails for progressive disclosure",
+        "GoabButton with clear action labels",
+        "GoabNotificationBanner for status updates"
+      ],
+      "layoutPatterns": [
+        "Single question per page",
+        "Clear progress indicators", 
+        "Prominent help and guidance",
+        "Large, obvious action buttons"
+      ]
+    },
+    "expertUsers": {
+      "priorityComponents": [
+        "GoabTable with sorting and filtering",
+        "GoabButtonGroup for bulk actions",
+        "GoabTabs for information density",
+        "GoabInput with keyboard shortcuts",
+        "GoabPagination for large datasets"
+      ],
+      "layoutPatterns": [
+        "Dense information layouts",
+        "Multiple actions per screen",
+        "Advanced filtering options",
+        "Customizable interfaces"
+      ]
+    }
+  },
+
+  "supportingResearch": {
+    "evidence": "Framework builds on analysis of real government services showing that usage frequency and expertise level are stronger predictors of design needs than traditional role-based assumptions about citizens vs government workers",
+    "validation": "Cross-service pattern analysis shows consistent user behavior across different government service contexts",
+    "references": [
+      "master_service_task_matrix.md",
+      "task-processing-workflow.md", 
+      "design-system-atomic-model.md"
+    ]
+  },
+
+  "tags": [
+    "framework",
+    "user-classification", 
+    "design-decision-making",
+    "government-services",
+    "user-research",
+    "task-analysis"
+  ],
+  "status": "stable",
+  "lastUpdated": "2025-08-13"
+}
